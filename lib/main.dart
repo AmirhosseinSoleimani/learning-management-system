@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/introScreen.dart';
+import 'package:learning_management_system/store/screens/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const IntroScreen(),
+      routes: {
+        HomePage.routeName: (context) => const HomePage()
+      },
     );
   }
 }
