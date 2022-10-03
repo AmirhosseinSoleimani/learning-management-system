@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: _getAppBar(),
-        drawer: AppDrawer(),
+        drawer: const AppDrawer(),
         resizeToAvoidBottomInset: false,
         backgroundColor: appBarColor,
         body: SingleChildScrollView(

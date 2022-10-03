@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/introScreen.dart';
 import 'package:learning_management_system/store/screens/home_page.dart';
+import './authentication/home_page_authentication.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
       ),
       home: const IntroScreen(),
       routes: {
-        HomePage.routeName: (context) => const HomePage()
+        HomePage.routeName: (context) => const HomePage(),
+        HomePageAuthentication.routeName: (context) => const HomePageAuthentication(),
       },
     );
   }

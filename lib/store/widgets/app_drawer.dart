@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_management_system/authentication/home_page_authentication.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -14,9 +15,11 @@ class AppDrawer extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Sign in/Sign up'),
-            onTap: (){},
+            leading: const Icon(Icons.person),
+            title: const Text('Sign in/Sign up'),
+            onTap: (){
+              Navigator.pushNamed(context, HomePageAuthentication.routeName);
+            },
           )
         ],
       ),
