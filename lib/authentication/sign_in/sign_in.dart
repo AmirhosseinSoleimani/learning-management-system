@@ -1,57 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:learning_management_system/provider/provider.dart';
 
-enum AuthMode{Signup,Signin}
 
-class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
-  @override
-  State<SignIn> createState() => _SignInState();
-}
-class _SignInState extends State<SignIn> {
 
-  final GlobalKey<FormState> _formKey = GlobalKey();
 
-  AuthMode _authMode = AuthMode.Signin;
+enum AuthMode{signup,signIn}
+TextEditingController _emailController = TextEditingController();
+TextEditingController _passwordController = TextEditingController();
+bool remember = false;
+
+class SignIn extends StatelessWidget {
+  final BlocState state;
+  SignIn({Key? key,required this.state}) : super(key: key);
+
+
+  AuthMode _authMode = AuthMode.signIn;
   final Map<String, String> _authData = {
     'email': '',
     'password': ''
   };
-  var _iaLoading = false;
-  final _passwordController = TextEditingController();
-  void _submit(){
-    if(!_formKey.currentState!.validate()){
-      return;
-    }
-    _formKey.currentState!.save();
-    setState((){
-      _iaLoading = true;
-    });
-    if(_authMode == AuthMode.Signin){
-
-    }else{
-
-    }
-    setState((){
-      _iaLoading = false;
-    });
-  }
-
-  void _switchAuthMode(){
-    if(_authMode == AuthMode.Signin){
-      setState((){
-        _authMode = AuthMode.Signup;
-      });
-    }else{
-      setState((){
-        _authMode = AuthMode.Signin;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    final deviceSize = MediaQuery.of(context).size;
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
           backgroundColor: Colors.white,
           leading: IconButton(
@@ -72,9 +45,9 @@ class _SignInState extends State<SignIn> {
           ),
           elevation: 8.0,
           child: Container(
-            height: _authMode == AuthMode.Signup ? 320:260,
-            constraints: BoxConstraints(maxHeight: _authMode == AuthMode.Signup ? 320:260),
-            width: deviceSize.width * 0.75,
+            height: _authMode == AuthMode.signup ? 320:260,
+            constraints: BoxConstraints(maxHeight: _authMode == AuthMode.signup ? 320:260),
+            width: MediaQuery.of(context).size.width * 0.3 < 400 ? 400 : MediaQuery.of(context).size.width,
             padding: const EdgeInsets.all(16.0),
             child: Form(
               key: _formKey,
@@ -83,9 +56,13 @@ class _SignInState extends State<SignIn> {
                   children: [
                     TextFormField(
                       decoration: const InputDecoration(labelText: 'E-Mail'),
+                      controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value){
-                        if(value!.isEmpty || !value.contains('@')){
+                        if((value ?? '').isEmpty){
+                          return 'cannot be empty';
+                        }
+                          else if(!value!.contains('@')){
                           return 'Invalid email!';
                         }
                         return null;
@@ -102,53 +79,25 @@ class _SignInState extends State<SignIn> {
                         if(value!.isEmpty || value.length < 5){
                           return 'Password is too short!';
                         }
+                        return null;
                       },
                       onSaved: (value){
                         _authData['password'] = value!;
                       },
                     ),
-                    if(_authMode == AuthMode.Signup)
-                      TextFormField(
-                        enabled: _authMode == AuthMode.Signup,
-                        decoration: const InputDecoration(labelText: 'Confirm Password',
-                        ),
-                        obscureText: true,
-                        validator: _authMode == AuthMode.Signup ? (value){
-                          if(value != _passwordController.text){
-                            return 'Password do not match!';
-                          }
-                        }: null,
+                    AbsorbPointer(
+                      absorbing: state is Loading,
+                      child: Column(
+                        children: [
+                          Row(
+
+                          )
+                        ],
                       ),
+                    ),
                     const SizedBox(
                       height: 20.0,
                     ),
-                    if(_iaLoading)
-                      const CircularProgressIndicator()
-                    else
-                      ElevatedButton(
-                        onPressed: _submit,
-                        child: Text(_authMode == AuthMode.Signin ? 'SignIn' : 'SignUp'),
-                        style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0,vertical: 8.0),
-                        ),
-                      ),
-                    TextButton(
-                      onPressed: _switchAuthMode,
-                      child: Text(
-                          '${_authMode == AuthMode.Signin ? 'SignUp' : 'SignIn'} INSTEAD'
-                      ),
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30.0,
-                            vertical: 4.0
-                        ),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                    )
-
                   ],
                 ),
               ),

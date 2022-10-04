@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/sign_in/sign_in.dart';
 import 'package:learning_management_system/authentication/sign_up/sign_up.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePageAuthentication extends StatelessWidget {
   static const routeName = '/authentication';
@@ -38,7 +39,8 @@ class HomePageAuthentication extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const SignIn()
+                          builder: (context) => BlocBuilder<UesrBloc,BlocState>
+                            (builder: builder)
                         ),
                       );
                     },
