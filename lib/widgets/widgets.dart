@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../extension/extension.dart';
-import 'package:rxdart/rxdart.dart';
-
 
 enum ButtonType { save, newButton, delete, cancel }
 
-class MBloc<t>{
-  final BehaviorSubject<t> _bloc = BehaviorSubject<t>();
-  Stream<t> get stream => _bloc.stream;
-  t get value => _bloc.value;
-  void setValue(t value) => _bloc.add(value);
-}
 
 class MLabel extends StatelessWidget {
   final String title;
@@ -174,41 +166,6 @@ class MTextButton extends StatelessWidget {
   }
 }
 
-class MSwitch extends StatelessWidget {
-  final bool value;
-  final Function(bool) onChange;
-  final String? hint;
-  const MSwitch({Key? key,this.hint,required this.onChange,required this.value}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    MBloc<bool> _value = MBloc<bool>()..setValue(value);
-    return StreamBuilder<bool>(
-        stream: _value.stream,
-        builder:  (context,snap){
-          if(snap.hasData) {
-            return hint != null ? Tooltip(
-              message: hint,
-              child: Switch(
-                value: snap.data!,
-                onChanged: (value){
-                  onChange(value);
-                  _value.setValue(value);
-                },
-              ),
-            ):
-            Switch(
-                value: snap.data!,
-                onChanged: (value){
-                  onChange(value);
-                  _value.setValue(value);
-                });
-          }
-          return Container();
-        }
-    );
-  }
-}
 
 class MError extends StatelessWidget {
   final Exception exception;
@@ -259,38 +216,3 @@ class MSideBarItem extends StatelessWidget {
   }
 }
 
-class MCheckBox extends StatelessWidget {
-  final bool value;
-  final Function(bool) onChange;
-  final String? hint;
-  const MCheckBox({Key? key,this.hint,required this.onChange,required this.value}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    MBloc<bool> _value = MBloc<bool>()..setValue(value);
-    return StreamBuilder<bool>(
-        stream: _value.stream,
-        builder:  (context,snap){
-          if(snap.hasData) {
-            return hint != null ? Tooltip(
-              message: hint,
-              child: Checkbox(
-                value: snap.data!,
-                onChanged: (value){
-                  onChange(value!);
-                  _value.setValue(value);
-                },
-              ),
-            ):
-            Checkbox(
-                value: snap.data!,
-                onChanged: (value){
-                  onChange(value!);
-                  _value.setValue(value);
-                });
-          }
-          return Container();
-        }
-    );
-  }
-}

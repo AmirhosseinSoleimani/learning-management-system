@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/widgets.dart';
-import '../bloc/userBloc.dart';
-import '../models/user.dart';
 
 extension ContextExtension on BuildContext {
   double get width => MediaQuery.of(this).size.width;
   double widthResponse(double percentage,double min,double max) => MediaQuery.of(this).size.width * percentage < min ? min : MediaQuery.of(this).size.width > max ? max : MediaQuery.of(this).size.width;
   double get height => MediaQuery.of(this).size.height;
   void routePage(Widget child) => Navigator.of(this).push(MaterialPageRoute(builder: (context) => child));
-  UserBloc get userBloc => read<UserBloc>();
-  User? get user => read<UserBloc>().user;
 }
 
 extension StringExtension on String {
