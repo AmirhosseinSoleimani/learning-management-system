@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/provider/provider.dart';
+import '../../bloc/blocState.dart';
 
 
 
