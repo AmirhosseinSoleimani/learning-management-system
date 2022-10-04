@@ -1,36 +1,26 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../bloc/blocState.dart';
+import 'package:lms/module/widgets.dart';
+import 'package:lms/sign_up/sign_up.dart';
+import 'package:lms/teacher/bloc/blocState.dart';
+import 'module/extension.dart';
 
-
-
-
-enum AuthMode{signup,signIn}
-TextEditingController _emailController = TextEditingController();
-TextEditingController _passwordController = TextEditingController();
+TextEditingController _mobile = TextEditingController();
+TextEditingController _pass = TextEditingController();
 bool remember = false;
 
-class SignIn extends StatelessWidget {
+class Login extends StatelessWidget {
   final BlocState state;
-  SignIn({Key? key,required this.state}) : super(key: key);
-
-
-  AuthMode _authMode = AuthMode.signIn;
-  final Map<String, String> _authData = {
-    'email': '',
-    'password': ''
-  };
+  const Login({Key? key, required this.state}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final _formkey = GlobalKey<FormState>();
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
           backgroundColor: Colors.white,
           leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
+            icon: const Icon(Icons.arrow_back_ios,
               size: 18.0,
             ),
             onPressed: (){
@@ -38,73 +28,92 @@ class SignIn extends StatelessWidget {
             },
           )
       ),
-      body: Center(
-        child: Card(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0)
-          ),
-          elevation: 8.0,
-          child: Container(
-            height: _authMode == AuthMode.signup ? 320:260,
-            constraints: BoxConstraints(maxHeight: _authMode == AuthMode.signup ? 320:260),
-            width: MediaQuery.of(context).size.width * 0.3 < 400 ? 400 : MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-              key: _formKey,
-              child: SingleChildScrollView(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        width: context.width * 0.3 < 400 ? 400 : context.width * 0.3,
+        child: Form(
+          key: _formkey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Expanded(
+                flex: 3,
+                child: Image(
+                  image: AssetImage('assets/images/login.png'),
+                ),
+              ),
+              Expanded(
+                flex: 4,
                 child: Column(
                   children: [
-                    TextFormField(
-                      decoration: const InputDecoration(labelText: 'E-Mail'),
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value){
-                        if((value ?? '').isEmpty){
-                          return 'cannot be empty';
-                        }
-                          else if(!value!.contains('@')){
-                          return 'Invalid email!';
-                        }
-                        return null;
-                      },
-                      onSaved: (value){
-                        _authData['email'] = value!;
-                      },
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(labelText: 'password'),
-                      obscureText: true,
-                      controller: _passwordController,
-                      validator: (value){
-                        if(value!.isEmpty || value.length < 5){
-                          return 'Password is too short!';
-                        }
-                        return null;
-                      },
-                      onSaved: (value){
-                        _authData['password'] = value!;
-                      },
-                    ),
+                    MEdit(
+                      hint: 'userName',
+                      notEmpty: true,
+                      controller: _mobile,
+                    ).margin9,
+                    MEdit(
+                      hint: 'password',
+                      notEmpty: true,
+                      password: true,
+                      controller: _pass,
+                    ).margin9,
                     AbsorbPointer(
                       absorbing: state is Loading,
                       child: Column(
                         children: [
                           Row(
-
-                          )
+                            children: [
+                              MCheckBox(
+                                hint: 'Remember me',
+                                value: remember,
+                                onChange: (value) {
+                                  remember = value;
+                                },
+                              ),
+                              'Remember me!'.toLabel(),
+                              const Spacer(),
+                              MTextButton(
+                                onPressed: () {
+                                },
+                                title: 'Register',
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              MButton(
+                                title: 'Login',
+                                onTap: () => {
+                                  if (_formkey.currentState!.validate())
+                                    context.userBloc.authenticate(
+                                        _mobile.text, _pass.text, remember)
+                                },
+                                padding: const EdgeInsets.all(22.0),
+                                icon: const Icon(Icons.vpn_key),
+                                color: Colors.blue,
+                              ).margin9,
+                              state is Loading ? const MWaiting() : Container(),
+                              const Spacer(),
+                              MTextButton(
+                                title: 'Forgot my password',
+                                onPressed: () {},
+                              )
+                            ],
+                          ),
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
+                    state is Failed
+                        ? MError(exception: (state as Failed).exception)
+                        : Container()
                   ],
                 ),
               ),
-            ),
+            ],
           ),
         ),
-      ),
+      ).padding9.card.center,
     );
   }
 }
