@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:learning_management_system/models/general_account.dart';
+import 'package:provider/provider.dart';
 import './student.dart';
 import './teacher.dart';
 import './seller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../models/general_account.dart';
+import '../../provider/student_provider.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -17,6 +21,7 @@ class _SignUpState extends State<SignUp> {
   final _lastNameFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
+  bool isSelected = false;
 
   final _passwordController = TextEditingController();
 
@@ -31,24 +36,19 @@ class _SignUpState extends State<SignUp> {
 
   bool _passwordVisible = false;
 
+  var _signupGeneral = GeneralAccount(
+      id: '',
+      firstName: '',
+      lastName: '',
+      password: '',
+      email: '',
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-              size: 18.0,
-            ),
-            onPressed: (){
-              Navigator.of(context).pop();
-            },
-          )
-      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -58,6 +58,23 @@ class _SignUpState extends State<SignUp> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: Row(
+                    children: [
+                      IconButton(
+                          onPressed: (){
+                            Navigator.of(context).pop();
+                          },
+                          icon: const Icon(Icons.arrow_back_ios,
+                          size: 18.0,
+                          color: Colors.black,
+                          ),
+                      )
+                    ],
+                  ),
+                ),
                 const Text(
                   'Create Free Account',
                   textAlign: TextAlign.center,
@@ -218,6 +235,14 @@ class _SignUpState extends State<SignUp> {
                               }
                               return null;
                             },
+                              onSaved: (value){
+                                _signupGeneral = GeneralAccount(
+                                    id: _signupGeneral.id,
+                                    firstName: value!,
+                                    lastName: _signupGeneral.lastName,
+                                    password: _signupGeneral.password,
+                                    email: _signupGeneral.email);
+                              }
                           ),
                           const SizedBox(
                             height: 10.0,
@@ -244,6 +269,14 @@ class _SignUpState extends State<SignUp> {
                               }
                               return null;
                             },
+                              onSaved: (value){
+                                _signupGeneral = GeneralAccount(
+                                    id: _signupGeneral.id,
+                                    firstName: _signupGeneral.firstName,
+                                    lastName: value!,
+                                    password: _signupGeneral.password,
+                                    email: _signupGeneral.email);
+                              }
                           ),
                           const SizedBox(
                             height: 10.0,
@@ -272,6 +305,14 @@ class _SignUpState extends State<SignUp> {
                                 return 'Invalid email!';
                               }
                               return null;
+                            },
+                            onSaved: (value){
+                              _signupGeneral = GeneralAccount(
+                                  id: _signupGeneral.id,
+                                  firstName: _signupGeneral.firstName,
+                                  lastName: _signupGeneral.lastName,
+                                  password: _signupGeneral.password,
+                                  email: value!);
                             },
                           ),
                           const SizedBox(
@@ -313,26 +354,60 @@ class _SignUpState extends State<SignUp> {
                               }
                               return null;
                             },
+                              onSaved: (value){
+                                _signupGeneral = GeneralAccount(
+                                    id: _signupGeneral.id,
+                                    firstName: _signupGeneral.firstName,
+                                    lastName: _signupGeneral.lastName,
+                                    password: value!,
+                                    email: _signupGeneral.email);
+                              }
                           )
                         ],
                       ),
                     ),
                   ),
                 ),
+                ListTile(
+                  title: const Text('I have read the Term & Conditions'),
+                  leading: Checkbox(
+                    value: isSelected,
+                    onChanged: (value){
+                      setState((){
+                        isSelected = value!;
+                      });
+                    },
+                  ),
+                )
+                ,
                 TextButton(
                     onPressed: (){
-                      if(dropDownValue == 'Student'){
-                        Navigator.pushNamed(context, StudentSignUp.routeName);
-                      }
-                      else if(dropDownValue == 'Teacher'){
-                        Navigator.pushNamed(context, TeacherSignUp.routeName);
-                      }
-                      else{
-                        Navigator.pushNamed(context, SellerSignUp.routeName);
+                      if(isSelected){
+                        if(dropDownValue == 'Student'){
+                          Provider.of<StudentProvider>(context).addGeneralStudent(_signupGeneral);
+                          Navigator.pushNamed(context, StudentSignUp.routeName);
+                        }
+                        else if(dropDownValue == 'Teacher'){
+                          Navigator.pushNamed(context, TeacherSignUp.routeName);
+                        }
+                        else{
+                          Navigator.pushNamed(context, SellerSignUp.routeName);
+                        }
                       }
                     },
-                    child: Text(
-                      'Next'
+                  style: isSelected ? TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: Colors.blue
+                  ): TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: Colors.grey
+                  ),
+                    child: const Text(
+                      'Next',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w400
+                      ),
                     ),
                 )
               ],
