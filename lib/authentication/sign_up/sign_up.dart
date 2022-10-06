@@ -22,8 +22,14 @@ class _SignUpState extends State<SignUp> {
   final _passwordFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
   bool isSelected = false;
+  var _initValues = {
+    'firstName': '',
+    'lastName': '',
+    'email': '',
+    'password': '',
+  };
 
-  final _passwordController = TextEditingController();
+  // final _passwordController = TextEditingController();
 
   final _form = GlobalKey<FormState>();
   String dropDownValue = 'Student';
@@ -37,12 +43,59 @@ class _SignUpState extends State<SignUp> {
   bool _passwordVisible = false;
 
   var _signupGeneral = GeneralAccount(
+      typeAccount: '',
       id: '',
       firstName: '',
       lastName: '',
       password: '',
       email: '',
   );
+  var _isLoading = false;
+
+
+  Future<void> _saveForm() async{
+    final isValid = _form.currentState!.validate();
+    if(!isValid){
+      return ;
+    }
+    _form.currentState!.save();
+    setState((){
+      _isLoading = true;
+    });
+    try{
+      await Provider.of<StudentProvider>(context,listen: false)
+          .addGeneralStudent(_signupGeneral);
+      Navigator.pushNamed(context, StudentSignUp.routeName);
+    }catch(error){
+      await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('an error occurred!'),
+          content: const Text('Something went wrong'),
+          actions: [
+            TextButton(
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Okay'))
+          ],
+        ),
+      );
+    }
+
+  }
+
+  @override
+  void dispose() {
+   _firstNameFocusNode.dispose();
+   _lastNameFocusNode.dispose();
+   _emailFocusNode.dispose();
+   _passwordFocusNode.dispose();
+   // _passwordController.dispose();
+    super.dispose();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -214,6 +267,7 @@ class _SignUpState extends State<SignUp> {
                         shrinkWrap: true,
                         children: [
                           TextFormField(
+                            initialValue: _initValues['firstName'],
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.grey.shade300,
@@ -241,14 +295,17 @@ class _SignUpState extends State<SignUp> {
                                     firstName: value!,
                                     lastName: _signupGeneral.lastName,
                                     password: _signupGeneral.password,
-                                    email: _signupGeneral.email);
+                                    email: _signupGeneral.email,
+                                    typeAccount: _signupGeneral.typeAccount,
+                                );
                               }
                           ),
                           const SizedBox(
                             height: 10.0,
                           ),
                           TextFormField(
-                            decoration: InputDecoration(
+                              initialValue: _initValues['lastName'],
+                              decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.grey.shade300,
                                 border: OutlineInputBorder(
@@ -275,13 +332,16 @@ class _SignUpState extends State<SignUp> {
                                     firstName: _signupGeneral.firstName,
                                     lastName: value!,
                                     password: _signupGeneral.password,
-                                    email: _signupGeneral.email);
+                                    email: _signupGeneral.email,
+                                    typeAccount: _signupGeneral.typeAccount
+                                );
                               }
                           ),
                           const SizedBox(
                             height: 10.0,
                           ),
                           TextFormField(
+                            initialValue: _initValues['email'],
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.grey.shade300,
@@ -312,13 +372,16 @@ class _SignUpState extends State<SignUp> {
                                   firstName: _signupGeneral.firstName,
                                   lastName: _signupGeneral.lastName,
                                   password: _signupGeneral.password,
-                                  email: value!);
+                                  email: value!,
+                                  typeAccount: _signupGeneral.typeAccount,
+                              );
                             },
                           ),
                           const SizedBox(
                             height: 10.0,
                           ),
                           TextFormField(
+                           initialValue: _initValues['password'],
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.grey.shade300,
@@ -342,7 +405,7 @@ class _SignUpState extends State<SignUp> {
                                 hintText: 'Password'
                             ),
                             obscureText: !_passwordVisible,
-                            controller: _passwordController,
+                            // controller: _passwordController,
                             focusNode: _passwordFocusNode,
                             textInputAction: TextInputAction.next,
                             validator: (String? value){
@@ -360,7 +423,9 @@ class _SignUpState extends State<SignUp> {
                                     firstName: _signupGeneral.firstName,
                                     lastName: _signupGeneral.lastName,
                                     password: value!,
-                                    email: _signupGeneral.email);
+                                    email: _signupGeneral.email,
+                                    typeAccount: _signupGeneral.typeAccount
+                                );
                               }
                           )
                         ],
@@ -384,14 +449,37 @@ class _SignUpState extends State<SignUp> {
                     onPressed: (){
                       if(isSelected){
                         if(dropDownValue == 'Student'){
-                          Provider.of<StudentProvider>(context).addGeneralStudent(_signupGeneral);
-                          Navigator.pushNamed(context, StudentSignUp.routeName);
+                          _signupGeneral = GeneralAccount(
+                              id: _signupGeneral.id,
+                              firstName: _signupGeneral.firstName,
+                              lastName: _signupGeneral.lastName,
+                              password: _signupGeneral.password,
+                              email: _signupGeneral.email,
+                              typeAccount: 'Student',
+                          );
+                          _saveForm();
                         }
                         else if(dropDownValue == 'Teacher'){
                           Navigator.pushNamed(context, TeacherSignUp.routeName);
+                          _signupGeneral = GeneralAccount(
+                            id: _signupGeneral.id,
+                            firstName: _signupGeneral.firstName,
+                            lastName: _signupGeneral.lastName,
+                            password: _signupGeneral.password,
+                            email: _signupGeneral.email,
+                            typeAccount: 'Teacher',
+                          );
                         }
                         else{
                           Navigator.pushNamed(context, SellerSignUp.routeName);
+                          _signupGeneral = GeneralAccount(
+                            id: _signupGeneral.id,
+                            firstName: _signupGeneral.firstName,
+                            lastName: _signupGeneral.lastName,
+                            password: _signupGeneral.password,
+                            email: _signupGeneral.email,
+                            typeAccount: 'Seller',
+                          );
                         }
                       }
                     },

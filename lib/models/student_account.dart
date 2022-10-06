@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StudentAccount {
+  final String typeAccount;
   final String id;
   final String firstName;
   final String lastName;
@@ -14,6 +15,7 @@ class StudentAccount {
 
   StudentAccount(
       {
+        required this.typeAccount,
         required this.id,
         required this.firstName,
         required this.lastName,
