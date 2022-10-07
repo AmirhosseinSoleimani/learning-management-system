@@ -22,7 +22,7 @@ class _SignUpState extends State<SignUp> {
   final _passwordFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
   bool isSelected = false;
-  var _initValues = {
+  final _initValues = {
     'firstName': '',
     'lastName': '',
     'email': '',
@@ -82,6 +82,9 @@ class _SignUpState extends State<SignUp> {
         ),
       );
     }
+    setState((){
+      _isLoading = false;
+    });
 
   }
 
@@ -102,7 +105,10 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Center(
+      body: _isLoading ? const Center(
+        child: CircularProgressIndicator(),
+      ) :
+      Center(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: SingleChildScrollView(
@@ -111,7 +117,7 @@ class _SignUpState extends State<SignUp> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: Row(
@@ -256,7 +262,7 @@ class _SignUpState extends State<SignUp> {
                 const SizedBox(
                   height: 10.0,
                 ),
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 0.4,
                   width: double.infinity,
                   child: Form(
