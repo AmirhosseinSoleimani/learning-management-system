@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/sign_up/seller.dart';
 import 'package:learning_management_system/authentication/sign_up/student.dart';
+import 'package:learning_management_system/authentication/sign_up/student_address.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher.dart';
 import 'package:learning_management_system/introScreen.dart';
 import 'package:learning_management_system/store/screens/home_page.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
           TeacherSignUp.routeName: (context) => const TeacherSignUp(),
           SellerSignUp.routeName: (context) => const SellerSignUp(),
           QuizMarker.routeName: (context) => const QuizMarker(),
+          StudentAddress.routeName: (context) => const StudentAddress(),
         },
       ),
     );
