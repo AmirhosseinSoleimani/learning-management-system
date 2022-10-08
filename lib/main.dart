@@ -9,6 +9,7 @@ import './teacher/quiz_marker.dart';
 import 'package:learning_management_system/teacher/quiz_marker.dart';
 import 'package:provider/provider.dart';
 import './authentication/home_page_authentication.dart';
+import './store/course_details/screens/lesson_item_page.dart';
 import './provider/student_provider.dart';
 import './provider/teacher_provider.dart';
 import './provider/seller_provider.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
           SellerSignUp.routeName: (context) => const SellerSignUp(),
           QuizMarker.routeName: (context) => const QuizMarker(),
           StudentAddress.routeName: (context) => const StudentAddress(),
+          LessonItemPage.routeName: (context) => const LessonItemPage(),
         },
       ),
     );

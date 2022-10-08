@@ -5,6 +5,7 @@ import '../widgets/app_drawer.dart';
 import '../../data.dart';
 import '../widgets/feature_item.dart';
 import '../course_details/screens/course_details.dart';
+import './recommend_item.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/store';
@@ -59,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              // getRecommend(),
+              getRecommend(),
               const SizedBox(
                 height: 15.0,
               ),
@@ -99,23 +100,23 @@ Widget getFeatures({BuildContext? context}) {
   );
 }
 
-// Widget getRecommend(){
-//   return SingleChildScrollView(
-//     scrollDirection: Axis.horizontal,
-//     child: Row(
-//       children:
-//       List.generate(
-//           recommends.length, (index) => Container(
-//         padding: const EdgeInsets.only(left: 15.0),
-//         margin: const EdgeInsets.only(right: 15.0,bottom: 5.0),
-//         child: RecommendItem(
-//           data: recommends[index],
-//           onTap: (){
-//             print(index);
-//           },
-//         ),
-//       )
-//       ),
-//     ),
-//   );
-// }
+Widget getRecommend(){
+  return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Row(
+      children:
+      List.generate(
+          recommends.length, (index) => Container(
+        padding: const EdgeInsets.only(left: 15.0),
+        margin: const EdgeInsets.only(right: 15.0,bottom: 5.0),
+        child: RecommendItem(
+          data: recommends[index],
+          onTap: (){
+            print(index);
+          },
+        ),
+      )
+      ),
+    ),
+  );
+}
