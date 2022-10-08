@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../../constant/colors.dart';
 import '../widgets/app_drawer.dart';
+import '../../data.dart';
+import '../widgets/feature_item.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/store';
@@ -33,7 +35,7 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 22.0),
                 ),
               ),
-              // getFeatures(context: context),
+              getFeatures(context: context),
               Padding(
                 padding: EdgeInsets.fromLTRB(15, 25, 15, 10),
                 child: Row(
@@ -78,23 +80,23 @@ AppBar _getAppBar() {
     );
 }
 
-// Widget getFeatures({BuildContext? context}) {
-//   return CarouselSlider(
-//     items: List.generate(
-//       features.length,
-//           (index) => FeatureItem(
-//         data: features[index],
-//         onTap: () {
-//           Navigator.of(context!).push(MaterialPageRoute(builder: (context) => CourseDetailPage(data: {"courses": features[index]},),
-//           ),
-//           );
-//         },
-//       ),
-//     ),
-//     options: CarouselOptions(
-//         height: 290.0, enlargeCenterPage: true, disableCenter: true),
-//   );
-// }
+Widget getFeatures({BuildContext? context}) {
+  return CarouselSlider(
+    items: List.generate(
+      features.length,
+          (index) => FeatureItem(
+        data: features[index],
+        onTap: () {
+          Navigator.of(context!).push(MaterialPageRoute(builder: (context) => CourseDetailPage(data: {"courses": features[index]},),
+          ),
+          );
+        },
+      ),
+    ),
+    options: CarouselOptions(
+        height: 290.0, enlargeCenterPage: true, disableCenter: true),
+  );
+}
 
 // Widget getRecommend(){
 //   return SingleChildScrollView(
