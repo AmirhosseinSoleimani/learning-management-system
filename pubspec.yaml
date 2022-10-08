@@ -44,6 +44,7 @@ dependencies:
   country_pickers: ^2.0.0
   im_stepper: ^1.0.1+1
   flutter_svg: ^1.1.5
+  readmore: ^2.2.0
 
 dev_dependencies:
   flutter_test:

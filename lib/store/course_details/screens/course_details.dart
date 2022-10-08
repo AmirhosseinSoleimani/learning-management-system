@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lms/user/features/course_detail/presentation/widgets/custom_bottom_bar.dart';
 import 'package:lms/user/features/course_detail/presentation/widgets/lesson_item.dart';
 import 'package:lms/user/features/explore/presentation/widgets/bookmark_box.dart';
-import 'package:lms/user/features/home/data/data.dart';
-import '../../../../../theme/color.dart';
+import '../../../data.dart';
+import '../../../constant/colors.dart';
 import 'package:readmore/readmore.dart';
 
 
