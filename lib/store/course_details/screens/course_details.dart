@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../widgets/custom_bottom_bar.dart';
-import 'package:lms/user/features/course_detail/presentation/widgets/lesson_item.dart';
-import 'package:lms/user/features/explore/presentation/widgets/bookmark_box.dart';
+import '../widgets/lesson_item.dart';
+import '../widgets/bookmark_box.dart';
 import '../../../data.dart';
 import '../../../constant/colors.dart';
 import 'package:readmore/readmore.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lms/user/features/lesson_item/presentation/widgets/video_player.dart';
 import '../widgets/lesson_item.dart';
 import '../../../data.dart';
+import '../widgets/video_player.dart';
 
 
 class LessonItemPage extends StatefulWidget {

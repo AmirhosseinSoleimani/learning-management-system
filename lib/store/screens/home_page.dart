@@ -4,6 +4,7 @@ import '../../constant/colors.dart';
 import '../widgets/app_drawer.dart';
 import '../../data.dart';
 import '../widgets/feature_item.dart';
+import '../course_details/screens/course_details.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/store';

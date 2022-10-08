@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lms/user/features/lesson_item/presentation/pages/lesson_item_page.dart';
 import '../../../constant/colors.dart';
+import '../screens/lesson_item_page.dart';
 import '../../../data.dart';
 
 class LessonItem extends StatelessWidget {
