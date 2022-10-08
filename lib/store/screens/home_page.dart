@@ -6,6 +6,7 @@ import '../../data.dart';
 import '../widgets/feature_item.dart';
 import '../course_details/screens/course_details.dart';
 import './recommend_item.dart';
+import './get_categories.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/store';
@@ -27,6 +28,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const GetCategories(),
               const Padding(
                 padding: EdgeInsets.fromLTRB(15, 5, 15, 20),
                 child: Text(
