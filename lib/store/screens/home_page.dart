@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../constant/colors.dart';
 import '../widgets/app_drawer.dart';
 import '../../data.dart';
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               ),
               getFeatures(context: context),
               Padding(
-                padding: EdgeInsets.fromLTRB(15, 25, 15, 10),
+                padding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
@@ -66,6 +67,111 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 15.0,
               ),
+              const SizedBox(
+                height: 15.0,
+              ),
+              Container(
+                color: Colors.grey.shade500,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.4,
+                child: Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Column(
+                              children: [
+                                getButton(
+                                  'About us',
+                                  context
+                                ),
+                                getButton(
+                                  'Contact us',
+                                  context
+                                ),
+                                getButton(
+                                  'Blog',
+                                  context
+                                ),
+                                getButton(
+                                  'Get the app',
+                                  context
+                                ),
+                                getButton(
+                                  'Terms',
+                                  context
+                                ),
+                                getButton(
+                                  'Privacy Policy',
+                                  context
+                                ),
+
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: ElevatedButton(
+                              onPressed: (){},
+                              style: ElevatedButton.styleFrom(
+                                  side: const BorderSide(
+                                    width: 3.0,
+                                    color: Colors.white,
+                                  ),
+                                  primary: Colors.grey.shade500
+                              ),
+                              child: Row(
+                                children: const [
+                                  Icon(
+                                    Icons.language_outlined,
+                                    color: Colors.white,
+                                    size: 22,
+                                  ),
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Text(
+                                    'English',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18.0
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      child: Row(
+                        children: [
+                          getIconButton(
+                            'assets/images/telegram.svg'
+                          ),
+                          getIconButton(
+                              'assets/images/facebook.svg'
+                          ),
+                          getIconButton(
+                              'assets/images/instagram.svg'
+                          ),
+                          getIconButton(
+                              'assets/images/twitter.svg'
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              )
             ],
           ),
         ),
@@ -120,5 +226,38 @@ Widget getRecommend(){
       )
       ),
     ),
+  );
+}
+
+Widget getButton(String text,BuildContext context){
+  return SizedBox(
+    height: MediaQuery.of(context).size.height * 0.3 / 6,
+    child: TextButton(
+        onPressed: (){},
+        style: TextButton.styleFrom(
+        primary: Colors.grey.shade500
+      ),
+        child: Row(
+          children: [
+            Text(
+              text,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white
+              ),
+            ),
+          ],
+        ),
+    ),
+  );
+}
+
+Widget getIconButton(String svg){
+  return IconButton(
+      onPressed: (){},
+      icon: SvgPicture.asset(svg,
+      width: 25.0,
+        height: 25.0,
+      ),
   );
 }

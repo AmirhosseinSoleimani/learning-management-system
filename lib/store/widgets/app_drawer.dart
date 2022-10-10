@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/home_page_authentication.dart';
+import 'package:learning_management_system/student/screens/home_page.dart';
 import 'package:learning_management_system/teacher/quiz_marker.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -27,6 +28,13 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Quiz Marker'),
             onTap: (){
               Navigator.pushNamed(context, QuizMarker.routeName);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.dashboard),
+            title: const Text('Dashboard'),
+            onTap: (){
+              Navigator.pushNamed(context, HomePageStudent.routeName);
             },
           )
         ],

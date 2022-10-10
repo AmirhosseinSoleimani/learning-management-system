@@ -453,6 +453,7 @@ class _SignUpState extends State<SignUp> {
                 ,
                 TextButton(
                     onPressed: (){
+                      Navigator.pushNamed(context, StudentSignUp.routeName);
                       if(isSelected){
                         if(dropDownValue == 'Student'){
                           _signupGeneral = GeneralAccount(

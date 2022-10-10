@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import './sign_in/sign_in.dart';
 import 'package:learning_management_system/authentication/sign_up/sign_up.dart';
-import '../student/screens/dashboard.dart';
+import '../student/screens/home_page.dart';
 
 
 class HomePageAuthentication extends StatelessWidget {
