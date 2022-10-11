@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/authentication/home_page_authentication.dart';
+import 'package:learning_management_system/authentication/sign_in/sign_in.dart';
 import 'package:learning_management_system/student/screens/home_page.dart';
 import 'package:learning_management_system/teacher/quiz_marker.dart';
 
@@ -20,7 +20,7 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.person),
             title: const Text('Sign in/Sign up'),
             onTap: (){
-              Navigator.pushNamed(context, HomePageAuthentication.routeName);
+              Navigator.pushNamed(context, SignIn.routeName);
             },
           ),
           ListTile(

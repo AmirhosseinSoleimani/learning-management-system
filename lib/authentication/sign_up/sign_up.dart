@@ -9,6 +9,8 @@ import '../../models/general_account.dart';
 import '../../provider/student_provider.dart';
 
 class SignUp extends StatefulWidget {
+  static const routeName = '/signup';
+
   const SignUp({Key? key}) : super(key: key);
 
   @override

@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../widgets/widgets.dart';
+import 'package:learning_management_system/authentication/sign_up/sign_up.dart';
 import '../../extension/extension.dart';
 
-TextEditingController _mobile = TextEditingController();
-TextEditingController _pass = TextEditingController();
 bool remember = false;
 
 class SignIn extends StatefulWidget {
+  static const routeName = '/authentication';
   const SignIn({
     Key? key,
   }) : super(key: key);
@@ -285,7 +284,9 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, SignUp.routeName);
+                            },
                             style: TextButton.styleFrom(
                                 backgroundColor: const Color(0xff177FB0)),
                             child: const Text(
