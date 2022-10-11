@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/sign_in/sign_in.dart';
 import 'package:learning_management_system/student/screens/home_page.dart';
-import 'package:learning_management_system/teacher/quiz_marker.dart';
+import 'package:learning_management_system/teacher/quiz_marker/screens/quiz_marker.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
