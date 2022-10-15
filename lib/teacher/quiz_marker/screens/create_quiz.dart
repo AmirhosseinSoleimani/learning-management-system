@@ -1,4 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:learning_management_system/teacher/quiz_marker/screens/add_questions.dart';
+import '../database.dart';
+
+File? _image;
 
 class CreateQuiz extends StatefulWidget {
   const CreateQuiz({Key? key}) : super(key: key);
@@ -8,9 +15,50 @@ class CreateQuiz extends StatefulWidget {
 }
 
 class _CreateQuizState extends State<CreateQuiz> {
+
   final _formKey = GlobalKey<FormState>();
   final _quizTitleFocusNode = FocusNode();
   final _quizDescriptionFocusNode = FocusNode();
+
+  Future pickImage(ImageSource source) async {
+    try{
+      final XFile? image = await ImagePicker().pickImage(source: source);
+      if(image == null) return;
+      final  imageTemporary = File(image.path);
+      setState(() => _image = imageTemporary);
+    } on PlatformException catch(e) {
+      debugPrint('Failed to pick image: $e');
+    }
+  }
+
+  String? quizImageUrl, quizTitle, quizDescription, quizId;
+  DatabaseService databaseService = DatabaseService();
+
+  bool _isLoading = false;
+
+  createQuizOnline() async{
+    if(_formKey.currentState!.validate()){
+      setState((){
+        _isLoading = true;
+      });
+      quizId = DateTime.now().toString();
+
+      Map<String,String> quizMap = {
+        'quizId' : quizId!,
+        'quizImgUrl' : quizImageUrl!,
+        'quizTitle' : quizTitle!,
+        'quizDescription' : quizDescription!,
+      };
+      await databaseService.addQuizData(quizMap, quizId!).then((value){
+        setState((){
+          _isLoading = false;
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const AddQuestions()),
+          );
+        });
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +95,9 @@ class _CreateQuizState extends State<CreateQuiz> {
           },
         ),
       ),
-      body: Column(
+      body: _isLoading ? const Center(
+        child: CircularProgressIndicator(),
+      ) : Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
@@ -56,12 +106,86 @@ class _CreateQuizState extends State<CreateQuiz> {
               vertical: 10.0
             ),
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: MediaQuery.of(context).size.height * 0.6,
               width: double.infinity,
               child: Form(
                 key: _formKey,
                 child: ListView(
                   children: [
+                    Stack(
+                      children: [
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            child: _image !=null ? Image.file(_image!,fit: BoxFit.cover,
+                            ): Image.asset(
+                              'assets/images/quiz.png',
+                              fit: BoxFit.cover,
+                            )
+                        ),
+                        Positioned(
+                          left: 285,
+                          top: -5.0,
+                          child: IconButton(
+                              onPressed: (){
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (context){
+                                      return SizedBox(
+                                        height: MediaQuery.of(context).size.height * 0.2,
+                                        child: Column(
+                                          children: [
+                                            ListTile(
+                                              leading: const Icon(
+                                                  Icons.delete,
+                                                size: 30.0,
+                                              ),
+                                              title: const Text(
+                                                'Delete Photo',
+                                                style: TextStyle(
+                                                  fontSize: 16.0
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                            Divider(
+                                              thickness: 1,
+                                              color: Colors.grey.shade500,
+                                            ),
+                                            ListTile(
+                                              leading: const Icon(
+                                                Icons.edit,
+                                                size: 30.0,
+                                              ),
+                                              title: const Text(
+                                                'Edit Photo',
+                                                style: TextStyle(
+                                                    fontSize: 16.0
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              },
+                              icon: Icon(
+                                Icons.more_vert,
+                                color: Colors.grey.shade500,
+                                size: 30.0,
+                              )
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
                     TextFormField(
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -84,6 +208,9 @@ class _CreateQuizState extends State<CreateQuiz> {
                           return 'Field is required';
                         }
                         return null;
+                      },
+                      onChanged: (value){
+                        quizTitle = value;
                       },
                     ),
                     const SizedBox(
@@ -112,6 +239,9 @@ class _CreateQuizState extends State<CreateQuiz> {
                         }
                         return null;
                       },
+                      onChanged: (value){
+                        quizDescription = value;
+                      },
                     ),
                     const SizedBox(
                       height: 20.0,
@@ -139,24 +269,52 @@ class _CreateQuizState extends State<CreateQuiz> {
                                     crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: [
                                       MaterialButton(
-                                          onPressed: (){},
+                                          onPressed: (){
+                                            pickImage(ImageSource.gallery);
+                                            Navigator.of(context).pop();
+                                          },
                                           color: Colors.blue,
-                                          child: const Text(
-                                            'Pick Image from Gallery',
-                                            style: TextStyle(
-                                              color: Colors.white70,
-                                              fontWeight: FontWeight.w400
-                                            ),
+                                          child: Row(
+                                            children: const [
+                                              Icon(
+                                                Icons.image_outlined,
+                                                color: Colors.white70,
+                                              ),
+                                              SizedBox(
+                                                width: 5.0,
+                                              ),
+                                              Text(
+                                                'Pick Image from Gallery',
+                                                style: TextStyle(
+                                                  color: Colors.white70,
+                                                  fontWeight: FontWeight.w400
+                                                ),
+                                              ),
+                                            ],
                                           ),),
                                       MaterialButton(
-                                        onPressed: (){},
+                                        onPressed: (){
+                                          pickImage(ImageSource.camera);
+                                          Navigator.of(context).pop();
+                                        },
                                         color: Colors.blue,
-                                        child: const Text(
-                                          'Pick Image from Camera',
-                                          style: TextStyle(
+                                        child: Row(
+                                          children: const [
+                                            Icon(
+                                              Icons.camera_alt_outlined,
                                               color: Colors.white70,
-                                              fontWeight: FontWeight.w400
-                                          ),
+                                            ),
+                                            SizedBox(
+                                              width: 5.0,
+                                            ),
+                                            Text(
+                                              'Pick Image from Camera',
+                                              style: TextStyle(
+                                                  color: Colors.white70,
+                                                  fontWeight: FontWeight.w400
+                                              ),
+                                            ),
+                                          ],
                                         ),),
                                       const SizedBox(
                                         height: 10,
@@ -174,26 +332,13 @@ class _CreateQuizState extends State<CreateQuiz> {
                                         ),
                                         keyboardType: TextInputType.name,
                                         textInputAction: TextInputAction.next,
+                                        onChanged: (value){
+                                          quizImageUrl = value;
+                                        } ,
                                       ),
                                     ],
                                   ),
                                 ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: (){
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text(
-                                        'Cancel'
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: (){},
-                                    child: const Text(
-                                        'Accept'
-                                    ),
-                                  ),
-                                ],
                               ),
                           );
                         },
@@ -229,7 +374,7 @@ class _CreateQuizState extends State<CreateQuiz> {
               width: MediaQuery.of(context).size.width,
               child: GestureDetector(
                 onTap: (){
-                  print('clicked');
+                  createQuizOnline();
                 },
                 child: const Text(
                   'Create Quiz',
