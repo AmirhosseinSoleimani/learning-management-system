@@ -246,7 +246,10 @@ class _StudentSignUpState extends State<StudentSignUp> {
                         ),
                       ),
                       Text(
-                        Provider.of<StudentProvider>(context).studentAccount[0].email,
+                        Provider.of<StudentProvider>(context).studentAccount[0].email != null ?
+                        Provider.of<StudentProvider>(context).studentAccount[0].email :
+                        'ff',
+                        // Provider.of<StudentProvider>(context).studentAccount[0].email,
                         style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w400

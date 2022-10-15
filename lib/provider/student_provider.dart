@@ -5,7 +5,7 @@ import '../models/student_account.dart';
 import 'package:http/http.dart' as http;
 
 class StudentProvider with ChangeNotifier{
-  List<StudentAccount> _studentAccount = [];
+  final List<StudentAccount> _studentAccount = [];
 
 
   List<StudentAccount> get studentAccount{
@@ -18,9 +18,9 @@ class StudentProvider with ChangeNotifier{
 
 
   Future <void> addGeneralStudent(GeneralAccount generalAccount) async{
-    final url = Uri.parse('https://learning-management-syst-bbdf6-default-rtdb.europe-west1.firebasedatabase.app/products.json');
+    final url = Uri.parse('https://lms-user-account-default-rtdb.europe-west1.firebasedatabase.app/authentication.json');
     try{
-      final response = await http.post(url, body: json.encode({
+     final response = await http.post(url, body: json.encode({
         'typeAccount': generalAccount.typeAccount,
         'firstName': generalAccount.firstName,
         'lastName': generalAccount.lastName,
@@ -46,6 +46,20 @@ class StudentProvider with ChangeNotifier{
     }catch(error){
       throw(error);
     }
+    final newStudentAccount = StudentAccount(
+      id: DateTime.now().toString(),
+      typeAccount: 'Student',
+      firstName: generalAccount.firstName,
+      lastName: generalAccount.lastName,
+      password: generalAccount.password,
+      email: generalAccount.email,
+      phoneNumber: '',
+      gender: '',
+      dateTime: DateTime.now(),
+      country: '',
+    );
+    _studentAccount.add(newStudentAccount);
+    notifyListeners();
 
   }
 

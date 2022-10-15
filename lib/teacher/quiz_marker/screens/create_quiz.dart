@@ -2,8 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:learning_management_system/models/quiz_app_model.dart';
+import 'package:learning_management_system/provider/quiz_app_provider.dart';
 import 'package:learning_management_system/teacher/quiz_marker/screens/add_questions.dart';
-import '../database.dart';
+import 'package:provider/provider.dart';
 
 File? _image;
 
@@ -32,37 +34,56 @@ class _CreateQuizState extends State<CreateQuiz> {
   }
 
   String? quizImageUrl, quizTitle, quizDescription, quizId;
-  DatabaseService databaseService = DatabaseService();
 
   bool _isLoading = false;
+  String? _imageUrl;
+  var _quizGeneralInformation = QuizAppModel(
+    quizTitle: '',
+    quizDescription: '',
+    quizImageUrl: '',
+    id: DateTime.now().toString(),
+  );
 
-  createQuizOnline() async{
-    if(_formKey.currentState!.validate()){
+  Future<void> createQuizOnline() async{
+    if(!_formKey.currentState!.validate()) {
+      return;
+    }
+    _formKey.currentState!.save();
       setState((){
         _isLoading = true;
       });
-      quizId = DateTime.now().toString();
-
-      Map<String,String> quizMap = {
-        'quizId' : quizId!,
-        'quizImgUrl' : quizImageUrl!,
-        'quizTitle' : quizTitle!,
-        'quizDescription' : quizDescription!,
-      };
-      await databaseService.addQuizData(quizMap, quizId!).then((value){
-        setState((){
-          _isLoading = false;
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const AddQuestions()),
-          );
-        });
+      // try{
+      //   await Provider.of<QuizAppProvider>(context,listen: false)
+      //       .addQuizInformation(_quizGeneralInformation);
+      //   Navigator.pushNamed(context, AddQuestions.routeName);
+      // }catch(error){
+      //   await showDialog(
+      //     context: context,
+      //     builder: (context) => AlertDialog(
+      //       title: const Text('an error occurred!'),
+      //       content: const Text('Something went wrong'),
+      //       actions: [
+      //         TextButton(
+      //             onPressed: (){
+      //               Navigator.of(context).pop();
+      //             },
+      //             child: const Text('Okay'))
+      //       ],
+      //     ),
+      //   );
+      // }
+    Provider.of<QuizAppProvider>(context,listen: false)
+          .addQuizInformation(_quizGeneralInformation);
+      Navigator.pushNamed(context, AddQuestions.routeName);
+      setState((){
+        _isLoading = false;
       });
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 60.0),
@@ -106,7 +127,7 @@ class _CreateQuizState extends State<CreateQuiz> {
               vertical: 10.0
             ),
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.6,
+              height: MediaQuery.of(context).size.height * 0.7,
               width: double.infinity,
               child: Form(
                 key: _formKey,
@@ -117,8 +138,10 @@ class _CreateQuizState extends State<CreateQuiz> {
                         SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height * 0.2,
-                            child: _image !=null ? Image.file(_image!,fit: BoxFit.cover,
-                            ): Image.asset(
+                            child: (_image !=null) ? Image.file(
+                              _image!,fit: BoxFit.cover,
+                            ): (_imageUrl != null) ? Image.network(_imageUrl!,fit: BoxFit.fill,):
+                            Image.asset(
                               'assets/images/quiz.png',
                               fit: BoxFit.cover,
                             )
@@ -209,8 +232,12 @@ class _CreateQuizState extends State<CreateQuiz> {
                         }
                         return null;
                       },
-                      onChanged: (value){
-                        quizTitle = value;
+                      onSaved: (value){
+                        _quizGeneralInformation = QuizAppModel(
+                            id: _quizGeneralInformation.id,
+                            quizTitle: value!,
+                            quizDescription: _quizGeneralInformation.quizDescription,
+                            quizImageUrl: _quizGeneralInformation.quizImageUrl);
                       },
                     ),
                     const SizedBox(
@@ -239,9 +266,13 @@ class _CreateQuizState extends State<CreateQuiz> {
                         }
                         return null;
                       },
-                      onChanged: (value){
-                        quizDescription = value;
-                      },
+                        onSaved: (value){
+                          _quizGeneralInformation = QuizAppModel(
+                              id: _quizGeneralInformation.id,
+                              quizTitle: _quizGeneralInformation.quizTitle,
+                              quizDescription: value!,
+                              quizImageUrl: _quizGeneralInformation.quizImageUrl);
+                        },
                     ),
                     const SizedBox(
                       height: 20.0,
@@ -333,12 +364,29 @@ class _CreateQuizState extends State<CreateQuiz> {
                                         keyboardType: TextInputType.name,
                                         textInputAction: TextInputAction.next,
                                         onChanged: (value){
-                                          quizImageUrl = value;
+                                          _imageUrl = value;
+                                        },
+                                        onSaved: (value){
+                                          _quizGeneralInformation = QuizAppModel(
+                                              id: _quizGeneralInformation.id,
+                                              quizTitle: _quizGeneralInformation.quizTitle,
+                                              quizDescription: _quizGeneralInformation.quizDescription,
+                                              quizImageUrl: value!);
                                         } ,
                                       ),
                                     ],
                                   ),
                                 ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: (){
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text(
+                                      'Accept'
+                                    ),
+                                ),
+                                ],
                               ),
                           );
                         },

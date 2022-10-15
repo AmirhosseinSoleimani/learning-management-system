@@ -6,8 +6,10 @@ import 'package:learning_management_system/authentication/sign_up/student.dart';
 import 'package:learning_management_system/authentication/sign_up/student_address.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher.dart';
 import 'package:learning_management_system/introScreen.dart';
+import 'package:learning_management_system/provider/quiz_app_provider.dart';
 import 'package:learning_management_system/store/screens/home_page.dart';
 import 'package:learning_management_system/student/screens/home_page.dart';
+import 'package:learning_management_system/teacher/quiz_marker/screens/add_questions.dart';
 import 'teacher/quiz_marker/screens/quiz_marker.dart';
 import 'package:learning_management_system/teacher/quiz_marker/screens/quiz_marker.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +27,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => StudentProvider(),
+        ),
+        ChangeNotifierProvider(create: (context) => QuizAppProvider(),
         ),
 
       ],
@@ -47,6 +51,7 @@ class MyApp extends StatelessWidget {
           StudentAddress.routeName: (context) => const StudentAddress(),
           LessonItemPage.routeName: (context) => const LessonItemPage(),
           HomePageStudent.routeName: (context) => const HomePageStudent(),
+          AddQuestions.routeName: (context) => const AddQuestions(),
         },
       ),
     );

@@ -67,7 +67,6 @@ class _SignUpState extends State<SignUp> {
     try{
       await Provider.of<StudentProvider>(context,listen: false)
           .addGeneralStudent(_signupGeneral);
-      Navigator.pushNamed(context, StudentSignUp.routeName);
     }catch(error){
       await showDialog(
         context: context,
