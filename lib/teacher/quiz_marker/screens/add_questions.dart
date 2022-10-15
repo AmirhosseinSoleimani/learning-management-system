@@ -27,7 +27,11 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
 
   String get countText{
     Duration count = controller.duration! * controller.value;
-    return '';
+    return controller.isDismissed?
+    '${(controller.duration!.inMinutes % 60).toString().padLeft(2, '0')}:'
+        '${(controller.duration!.inSeconds % 60).toString().padLeft(2,'0')}'
+    :'${(count.inMinutes % 60).toString().padLeft(2, '0')}:'
+        '${(count.inSeconds % 60).toString().padLeft(2,'0')}';
   }
 
   @override
@@ -310,22 +314,30 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                         ),
                         Row(
                           children: [
-                            Expanded(
+                            const Expanded(
+                              flex: 2,
                                 child: Text(
-                                  'Time Answer'
+                                  'Time Answer :',
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                             ),
                             Expanded(
+                              flex: 1,
                                 child: GestureDetector(
                                   onTap: (){
                                     showModalBottomSheet(
                                         context: context,
-                                        builder: (context) => Container(
-                                          height: MediaQuery.of(context).size.height * 0.2,
+                                        builder: (context) => SizedBox(
+                                          height: MediaQuery.of(context).size.height * 0.3,
                                           child: CupertinoTimerPicker(
-                                            initialTimerDuration: ,
+                                            mode: CupertinoTimerPickerMode.ms,
+                                            initialTimerDuration: controller.duration!,
                                             onTimerDurationChanged: (Duration time) {
                                               setState((){
+                                                controller.duration = time;
                                               });
                                             },
 
@@ -333,8 +345,18 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                         ),
                                     );
                                   },
+                                  child: AnimatedBuilder(
+                                    animation: controller,
+                                    builder: (context, child) => Text(
+                                        countText,
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w400
+                                      ),
+                                    ),
+                                    ),
+                                  ),
                                 )
-                            )
                           ],
                         )
                       ],
