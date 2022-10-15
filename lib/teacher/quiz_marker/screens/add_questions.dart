@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:learning_management_system/provider/quiz_app_provider.dart';
@@ -11,7 +12,8 @@ class AddQuestions extends StatefulWidget {
   State<AddQuestions> createState() => _AddQuestionsState();
 }
 
-class _AddQuestionsState extends State<AddQuestions> {
+class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMixin{
+  late AnimationController controller;
   final _formKey = GlobalKey<FormState>();
   final _questions = FocusNode();
   final _option1 = FocusNode();
@@ -22,6 +24,23 @@ class _AddQuestionsState extends State<AddQuestions> {
   bool isSelectOption2 = false;
   bool isSelectOption3 = false;
   bool isSelectOption4 = false;
+
+  String get countText{
+    Duration count = controller.duration! * controller.value;
+    return '';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(vsync: this,duration: const Duration(seconds: 60));
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -297,8 +316,23 @@ class _AddQuestionsState extends State<AddQuestions> {
                                 ),
                             ),
                             Expanded(
-                                child: DateTimePicker(
+                                child: GestureDetector(
+                                  onTap: (){
+                                    showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) => Container(
+                                          height: MediaQuery.of(context).size.height * 0.2,
+                                          child: CupertinoTimerPicker(
+                                            initialTimerDuration: ,
+                                            onTimerDurationChanged: (Duration time) {
+                                              setState((){
+                                              });
+                                            },
 
+                                          ),
+                                        ),
+                                    );
+                                  },
                                 )
                             )
                           ],
