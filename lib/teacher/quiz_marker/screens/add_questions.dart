@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../models/quiz_app_model.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:learning_management_system/provider/quiz_app_provider.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,15 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
   bool isSelectOption2 = false;
   bool isSelectOption3 = false;
   bool isSelectOption4 = false;
+
+  var _question = QuestionsList(
+    question: '',
+    option1: '',
+    option2: '',
+    option3: '',
+    option4: '',
+
+  );
 
   String get countText{
     Duration count = controller.duration! * controller.value;

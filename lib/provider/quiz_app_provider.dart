@@ -41,4 +41,5 @@ class QuizAppProvider with ChangeNotifier{
     notifyListeners();
 
   }
+
 }
