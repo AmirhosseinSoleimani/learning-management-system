@@ -42,6 +42,7 @@ class _CreateQuizState extends State<CreateQuiz> {
     quizDescription: '',
     quizImageUrl: '',
     id: DateTime.now().toString(),
+    questionList: [],
   );
 
   Future<void> createQuizOnline() async{
@@ -237,7 +238,8 @@ class _CreateQuizState extends State<CreateQuiz> {
                             id: _quizGeneralInformation.id,
                             quizTitle: value!,
                             quizDescription: _quizGeneralInformation.quizDescription,
-                            quizImageUrl: _quizGeneralInformation.quizImageUrl);
+                            quizImageUrl: _quizGeneralInformation.quizImageUrl,
+                            questionList: []);
                       },
                     ),
                     const SizedBox(
@@ -271,7 +273,8 @@ class _CreateQuizState extends State<CreateQuiz> {
                               id: _quizGeneralInformation.id,
                               quizTitle: _quizGeneralInformation.quizTitle,
                               quizDescription: value!,
-                              quizImageUrl: _quizGeneralInformation.quizImageUrl);
+                              quizImageUrl: _quizGeneralInformation.quizImageUrl,
+                              questionList: []);
                         },
                     ),
                     const SizedBox(
@@ -371,7 +374,8 @@ class _CreateQuizState extends State<CreateQuiz> {
                                               id: _quizGeneralInformation.id,
                                               quizTitle: _quizGeneralInformation.quizTitle,
                                               quizDescription: _quizGeneralInformation.quizDescription,
-                                              quizImageUrl: value!);
+                                              quizImageUrl: value!,
+                                              questionList: []);
                                         } ,
                                       ),
                                     ],

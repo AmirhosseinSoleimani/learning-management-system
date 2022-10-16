@@ -34,7 +34,8 @@ class QuizAppProvider with ChangeNotifier{
         id:addQuizInformation.id,
         quizTitle: addQuizInformation.quizTitle,
         quizDescription: addQuizInformation.quizDescription,
-        quizImageUrl: addQuizInformation.quizImageUrl
+        quizImageUrl: addQuizInformation.quizImageUrl,
+        questionList: []
     );
     _quizAppList.add(newQuizInformation);
     print(_quizAppList[0].quizTitle);

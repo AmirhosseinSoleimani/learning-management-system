@@ -9,6 +9,7 @@ class QuestionsList{
   bool isSelectOption2;
   bool isSelectOption3;
   bool isSelectOption4;
+  final DateTime dateTime;
 
   QuestionsList({
     required this.question,
@@ -20,6 +21,7 @@ class QuestionsList{
     this.isSelectOption2 = false,
     this.isSelectOption3 = false,
     this.isSelectOption4 = false,
+    required this.dateTime,
 
 });
 }

@@ -32,6 +32,7 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
     option2: '',
     option3: '',
     option4: '',
+    dateTime: DateTime(0,0,0),
 
   );
 
@@ -127,6 +128,16 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                 }
                                 return null;
                               },
+                              onSaved: (value){
+                                _question = QuestionsList(
+                                  question: value!,
+                                  option1: _question.option1,
+                                  option2: _question.option2,
+                                  option3: _question.option3,
+                                  option4: _question.option4,
+                                  dateTime: _question.dateTime,
+                                );
+                              },
                             ),
                             const SizedBox(
                               height: 20.0,
@@ -157,6 +168,16 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                         return 'Field is required';
                                       }
                                       return null;
+                                    },
+                                    onSaved: (value){
+                                      _question = QuestionsList(
+                                        question: _question.question,
+                                        option1: value!,
+                                        option2: _question.option2,
+                                        option3: _question.option3,
+                                        option4: _question.option4,
+                                        dateTime: _question.dateTime,
+                                      );
                                     },
                                   ),
                                 ),
@@ -206,6 +227,16 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                         return 'Field is required';
                                       }
                                       return null;
+                                    },
+                                    onSaved: (value){
+                                      _question = QuestionsList(
+                                        question: _question.question,
+                                        option1: _question.option1,
+                                        option2: value!,
+                                        option3: _question.option3,
+                                        option4: _question.option4,
+                                        dateTime: _question.dateTime,
+                                      );
                                     },
                                   ),
                                 ),
@@ -257,6 +288,16 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                       }
                                       return null;
                                     },
+                                      onSaved: (value){
+                                        _question = QuestionsList(
+                                          question: _question.question,
+                                          option1: _question.option1,
+                                          option2: _question.option2,
+                                          option3: value!,
+                                          option4: _question.option4,
+                                          dateTime: _question.dateTime,
+                                        );
+                                      }
                                   ),
                                 ),
                                 Expanded(
@@ -303,6 +344,16 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                       }
                                       return null;
                                     },
+                                      onSaved: (value){
+                                        _question = QuestionsList(
+                                          question: _question.question,
+                                          option1: _question.option1,
+                                          option2: _question.option2,
+                                          option3: _question.option3,
+                                          option4: value!,
+                                          dateTime: _question.dateTime,
+                                        );
+                                      }
                                   ),
                                 ),
                                 Expanded(
@@ -388,7 +439,9 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        print(_question.dateTime);
+                      },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.blue
                       ),
