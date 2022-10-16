@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:date_time_picker/date_time_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,8 +19,9 @@ class CreateQuiz extends StatefulWidget {
   State<CreateQuiz> createState() => _CreateQuizState();
 }
 
-class _CreateQuizState extends State<CreateQuiz> {
+class _CreateQuizState extends State<CreateQuiz> with TickerProviderStateMixin{
 
+  late AnimationController controller;
   final _formKey = GlobalKey<FormState>();
   final _quizTitleFocusNode = FocusNode();
   final _quizDescriptionFocusNode = FocusNode();
@@ -43,6 +47,8 @@ class _CreateQuizState extends State<CreateQuiz> {
     quizImageUrl: '',
     id: DateTime.now().toString(),
     questionList: [],
+    quizStartCalendar: '',
+    duration: DateTime(0,0,0),
   );
 
   Future<void> createQuizOnline() async{
@@ -79,6 +85,28 @@ class _CreateQuizState extends State<CreateQuiz> {
       setState((){
         _isLoading = false;
       });
+  }
+
+  String get countText{
+    Duration count = controller.duration! * controller.value;
+    return controller.isDismissed?
+    '${(controller.duration!.inMinutes % 60).toString().padLeft(2, '0')}:'
+        '${(controller.duration!.inSeconds % 60).toString().padLeft(2,'0')}'
+        :'${(count.inMinutes % 60).toString().padLeft(2, '0')}:'
+        '${(count.inSeconds % 60).toString().padLeft(2,'0')}';
+  }
+  
+  
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(vsync: this,duration: const Duration(seconds: 60));
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -128,7 +156,7 @@ class _CreateQuizState extends State<CreateQuiz> {
               vertical: 10.0
             ),
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.7,
+              height: MediaQuery.of(context).size.height * 0.75,
               width: double.infinity,
               child: Form(
                 key: _formKey,
@@ -138,10 +166,12 @@ class _CreateQuizState extends State<CreateQuiz> {
                       children: [
                         SizedBox(
                             width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.2,
+                            height: MediaQuery.of(context).size.height * 0.15,
                             child: (_image !=null) ? Image.file(
                               _image!,fit: BoxFit.cover,
-                            ): (_imageUrl != null) ? Image.network(_imageUrl!,fit: BoxFit.fill,):
+                            ): (_imageUrl != null) ? CachedNetworkImage(
+                               imageUrl: _imageUrl!,
+                              fit: BoxFit.fill,):
                             Image.asset(
                               'assets/images/quiz.png',
                               fit: BoxFit.cover,
@@ -239,7 +269,9 @@ class _CreateQuizState extends State<CreateQuiz> {
                             quizTitle: value!,
                             quizDescription: _quizGeneralInformation.quizDescription,
                             quizImageUrl: _quizGeneralInformation.quizImageUrl,
-                            questionList: []);
+                            questionList: [],
+                            quizStartCalendar: _quizGeneralInformation.quizStartCalendar,
+                            duration: _quizGeneralInformation.duration);
                       },
                     ),
                     const SizedBox(
@@ -274,7 +306,10 @@ class _CreateQuizState extends State<CreateQuiz> {
                               quizTitle: _quizGeneralInformation.quizTitle,
                               quizDescription: value!,
                               quizImageUrl: _quizGeneralInformation.quizImageUrl,
-                              questionList: []);
+                              questionList: [],
+                              quizStartCalendar: _quizGeneralInformation.quizStartCalendar,
+                              duration: _quizGeneralInformation.duration
+                          );
                         },
                     ),
                     const SizedBox(
@@ -375,7 +410,10 @@ class _CreateQuizState extends State<CreateQuiz> {
                                               quizTitle: _quizGeneralInformation.quizTitle,
                                               quizDescription: _quizGeneralInformation.quizDescription,
                                               quizImageUrl: value!,
-                                              questionList: []);
+                                              questionList: [],
+                                              quizStartCalendar: _quizGeneralInformation.quizStartCalendar,
+                                              duration: _quizGeneralInformation.duration
+                                          );
                                         } ,
                                       ),
                                     ],
@@ -384,6 +422,7 @@ class _CreateQuizState extends State<CreateQuiz> {
                                 actions: [
                                   TextButton(
                                     onPressed: (){
+                                      print(_imageUrl);
                                       Navigator.of(context).pop();
                                     },
                                     child: const Text(
@@ -404,6 +443,121 @@ class _CreateQuizState extends State<CreateQuiz> {
                           Icons.add,
                           color: Colors.black54,
                         ),
+                    ),
+
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    const Text(
+                      'Add Quiz DateTime Start',
+                      style: TextStyle(
+                          fontSize: 14.0
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    GestureDetector(
+                      onTap: (){},
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2.0,
+                                color: Colors.white12
+                            ),
+                            borderRadius: BorderRadius.circular(8.0)
+                        ),
+                        child: DateTimePicker(
+                          initialValue: DateTime.now().toString(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2100),
+                          dateLabelText: 'Date',
+                          onChanged: (val) => print(val),
+                          validator: (val) {
+                            print(val);
+                            return null;
+                          },
+                          onSaved: (value){
+                            _quizGeneralInformation = QuizAppModel(
+                                id: _quizGeneralInformation.id,
+                                quizTitle: _quizGeneralInformation.quizTitle,
+                                quizDescription: _quizGeneralInformation.quizDescription,
+                                quizImageUrl: _quizGeneralInformation.quizImageUrl,
+                                questionList: [],
+                                quizStartCalendar: value!,
+                                duration: _quizGeneralInformation.duration
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        const Expanded(
+                          flex: 2,
+                          child: Text(
+                            'Time Answer :',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: (){
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) => SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.3,
+                                  child: CupertinoTimerPicker(
+                                    mode: CupertinoTimerPickerMode.ms,
+                                    initialTimerDuration: controller.duration!,
+                                    onTimerDurationChanged: (Duration time) {
+                                      setState((){
+                                        _quizGeneralInformation = QuizAppModel(
+                                          quizTitle: _quizGeneralInformation.quizTitle,
+                                          quizDescription: _quizGeneralInformation.quizDescription,
+                                          quizImageUrl: _quizGeneralInformation.quizImageUrl,
+                                          id: DateTime.now().toString(),
+                                          questionList: [],
+                                          quizStartCalendar: _quizGeneralInformation.quizStartCalendar,
+                                          duration: DateTime(0,0,0),
+                                        );
+                                        controller.duration = time;
+                                        _quizGeneralInformation = QuizAppModel(
+                                          quizTitle: _quizGeneralInformation.quizTitle,
+                                          quizDescription: _quizGeneralInformation.quizDescription,
+                                          quizImageUrl: _quizGeneralInformation.quizImageUrl,
+                                          id: DateTime.now().toString(),
+                                          questionList: [],
+                                          quizStartCalendar: _quizGeneralInformation.quizStartCalendar,
+                                          duration: _quizGeneralInformation.duration.add(time),
+                                        );
+                                      });
+                                    },
+
+                                  ),
+                                ),
+                              );
+                            },
+                            child: AnimatedBuilder(
+                              animation: controller,
+                              builder: (context, child) => Text(
+                                countText,
+                                style: const TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
                     )
 
                   ],

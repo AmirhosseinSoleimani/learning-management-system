@@ -35,6 +35,8 @@ class QuizAppProvider with ChangeNotifier{
         quizTitle: addQuizInformation.quizTitle,
         quizDescription: addQuizInformation.quizDescription,
         quizImageUrl: addQuizInformation.quizImageUrl,
+        quizStartCalendar: addQuizInformation.quizStartCalendar,
+        duration: addQuizInformation.duration,
         questionList: []
     );
     _quizAppList.add(newQuizInformation);

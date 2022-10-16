@@ -139,35 +139,16 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
       return ;
     }
     _formKey.currentState!.save();
+    Provider.of<QuizAppProvider>(context,listen: false)
+        .addQuizQuestions(_question);
     setState((){
       _isLoading = true;
     });
-    // try{
-    //   await Provider.of<QuizAppProvider>(context,listen: false)
-    //       .addQuizQuestions(_question);
-    // }catch(error){
-    //   await showDialog(
-    //     context: context,
-    //     builder: (context) => AlertDialog(
-    //       title: const Text('an error occurred!'),
-    //       content: const Text('Something went wrong'),
-    //       actions: [
-    //         TextButton(
-    //             onPressed: (){
-    //               Navigator.of(context).pop();
-    //             },
-    //             child: const Text('Okay'))
-    //       ],
-    //     ),
-    //   );
-    // }
-    Provider.of<QuizAppProvider>(context,listen: false)
-        .addQuizQuestions(_question);
-    Navigator.pushNamed(context, QuizMarker.routeName);
     Future.delayed(const Duration(seconds: 3),(){
       setState((){
         _isLoading = false;
       });
+      Navigator.pushNamed(context, QuizMarker.routeName);
     });
 
   }
@@ -558,71 +539,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                     )
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [
-                                    const Expanded(
-                                      flex: 2,
-                                      child: Text(
-                                        'Time Answer :',
-                                        style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: GestureDetector(
-                                        onTap: (){
-                                          showModalBottomSheet(
-                                            context: context,
-                                            builder: (context) => SizedBox(
-                                              height: MediaQuery.of(context).size.height * 0.3,
-                                              child: CupertinoTimerPicker(
-                                                mode: CupertinoTimerPickerMode.ms,
-                                                initialTimerDuration: controller.duration!,
-                                                onTimerDurationChanged: (Duration time) {
-                                                  setState((){
-                                                    _question = QuestionsList(
-                                                        question: _question.question,
-                                                        option1: _question.option1,
-                                                        option2: _question.option2,
-                                                        option3: _question.option3,
-                                                        option4: _question.option4,
-                                                        dateTime: DateTime(0,0,0));
-                                                    controller.duration = time;
-                                                    _question = QuestionsList(
-                                                      question: _question.question,
-                                                      option1: _question.option1,
-                                                      option2: _question.option2,
-                                                      option3: _question.option3,
-                                                      option4: _question.option4,
-                                                      dateTime: _question.dateTime.add(time),
-                                                    );
-                                                  });
-                                                },
-
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                        child: AnimatedBuilder(
-                                          animation: controller,
-                                          builder: (context, child) => Text(
-                                            countText,
-                                            style: const TextStyle(
-                                                fontSize: 18.0,
-                                                fontWeight: FontWeight.w400
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )
                               ],
                             ),
                           ),

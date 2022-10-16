@@ -32,10 +32,14 @@ class QuizAppModel{
    final String quizTitle;
    final String quizDescription;
    final String quizImageUrl;
+   final String quizStartCalendar;
+   final DateTime duration;
    final List<QuestionsList> questionList;
    QuizAppModel({
      required this.id,
      required this.quizTitle,
+     required this.quizStartCalendar,
+     required this.duration,
      required this.quizDescription,
      required this.quizImageUrl,
      required this.questionList

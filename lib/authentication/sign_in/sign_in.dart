@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/authentication/sign_up/sign_up.dart';
@@ -36,13 +35,49 @@ class _SignInState extends State<SignIn> {
           icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.black,
-            size: 18.0,
+            size: 20.0,
           ),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
+        title: Padding(
+          padding: const EdgeInsets.only(
+            left: 60.0
+          ),
+          child: Image.asset(
+            'assets/images/epent.PNG',
+            width: MediaQuery.of(context).size.width * 0.3,
+            height: MediaQuery.of(context).size.height * 0.08,
+          ),
+        ),
+        iconTheme: const IconThemeData(
+            color: Colors.black,
+            size: 30.0),
       ),
+      endDrawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              leading: Icon(
+                Icons.home,
+              ),
+              title: const Text('Page 1'),
+              onTap: () {
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.train,
+              ),
+              title: const Text('Page 2'),
+              onTap: () {
+              },
+            ),
+          ],
+        ),
+      ),
+
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Column(
@@ -84,11 +119,6 @@ class _SignInState extends State<SignIn> {
                         },
                       ),
                     ),
-                    Image.asset(
-                      'assets/images/epent.PNG',
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      height: MediaQuery.of(context).size.height * 0.08,
-                    )
                   ],
                 ),
               ),
