@@ -33,6 +33,10 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
     option3: '',
     option4: '',
     dateTime: DateTime(0,0,0),
+    isSelectOption1: false,
+    isSelectOption2: false,
+    isSelectOption3: false,
+    isSelectOption4: false,
 
   );
 
@@ -191,6 +195,18 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                       isSelectOption3 = false;
                                       isSelectOption2 = false;
                                       isSelectOption1 = true;
+                                      _question = QuestionsList(
+                                        question: _question.question,
+                                        option1: _question.option1,
+                                        option2: _question.option2,
+                                        option3: _question.option3,
+                                        option4: _question.option4,
+                                        dateTime: _question.dateTime,
+                                        isSelectOption1: true,
+                                        isSelectOption2: false,
+                                        isSelectOption3: false,
+                                        isSelectOption4: false,
+                                      );
                                     });
                                   },
 
@@ -250,6 +266,18 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                         isSelectOption3 = false;
                                         isSelectOption2 = true;
                                         isSelectOption1 = false;
+                                        _question = QuestionsList(
+                                          question: _question.question,
+                                          option1: _question.option1,
+                                          option2: _question.option2,
+                                          option3: _question.option3,
+                                          option4: _question.option4,
+                                          dateTime: _question.dateTime,
+                                          isSelectOption1: false,
+                                          isSelectOption2: true,
+                                          isSelectOption3: false,
+                                          isSelectOption4: false,
+                                        );
                                       });
 
                                     },
@@ -310,6 +338,18 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                         isSelectOption3 = true;
                                         isSelectOption2 = false;
                                         isSelectOption1 = false;
+                                        _question = QuestionsList(
+                                          question: _question.question,
+                                          option1: _question.option1,
+                                          option2: _question.option2,
+                                          option3: _question.option3,
+                                          option4: _question.option4,
+                                          dateTime: _question.dateTime,
+                                          isSelectOption1: false,
+                                          isSelectOption2: false,
+                                          isSelectOption3: true,
+                                          isSelectOption4: false,
+                                        );
                                       });
                                     },
 
@@ -366,6 +406,18 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                         isSelectOption3 = false;
                                         isSelectOption2 = false;
                                         isSelectOption1 = false;
+                                        _question = QuestionsList(
+                                          question: _question.question,
+                                          option1: _question.option1,
+                                          option2: _question.option2,
+                                          option3: _question.option3,
+                                          option4: _question.option4,
+                                          dateTime: _question.dateTime,
+                                          isSelectOption1: false,
+                                          isSelectOption2: false,
+                                          isSelectOption3: false,
+                                          isSelectOption4: true,
+                                        );
                                       });
                                     },
 
@@ -401,7 +453,22 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                                 initialTimerDuration: controller.duration!,
                                                 onTimerDurationChanged: (Duration time) {
                                                   setState((){
+                                                    _question = QuestionsList(
+                                                      question: _question.question,
+                                                      option1: _question.option1,
+                                                      option2: _question.option2,
+                                                      option3: _question.option3,
+                                                      option4: _question.option4,
+                                                      dateTime: DateTime(0,0,0));
                                                     controller.duration = time;
+                                                    _question = QuestionsList(
+                                                      question: _question.question,
+                                                      option1: _question.option1,
+                                                      option2: _question.option2,
+                                                      option3: _question.option3,
+                                                      option4: _question.option4,
+                                                      dateTime: _question.dateTime.add(time),
+                                                    );
                                                   });
                                                 },
 
