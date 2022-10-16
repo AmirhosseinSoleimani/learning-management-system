@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:learning_management_system/teacher/quiz_marker/screens/quiz_marker.dart';
 import '../../../models/quiz_app_model.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:learning_management_system/provider/quiz_app_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +25,12 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
   bool isSelectOption2 = false;
   bool isSelectOption3 = false;
   bool isSelectOption4 = false;
+  final question = TextEditingController();
+  final option1 = TextEditingController();
+  final option2 = TextEditingController();
+  final option3 = TextEditingController();
+  final option4 = TextEditingController();
+
 
   var _question = QuestionsList(
     question: '',
@@ -59,6 +65,53 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  void clearText() {
+    question.clear();
+    option1.clear();
+    option2.clear();
+    option3.clear();
+    option4.clear();
+  }
+
+  bool _isLoading = false;
+  int numQuestion = 1;
+
+  Future<void> _saveForm() async{
+    final isValid = _formKey.currentState!.validate();
+    if(!isValid){
+      return ;
+    }
+    _formKey.currentState!.save();
+    setState((){
+      _isLoading = true;
+    });
+    // try{
+    //   await Provider.of<QuizAppProvider>(context,listen: false)
+    //       .addQuizQuestions(_question);
+    // }catch(error){
+    //   await showDialog(
+    //     context: context,
+    //     builder: (context) => AlertDialog(
+    //       title: const Text('an error occurred!'),
+    //       content: const Text('Something went wrong'),
+    //       actions: [
+    //         TextButton(
+    //             onPressed: (){
+    //               Navigator.of(context).pop();
+    //             },
+    //             child: const Text('Okay'))
+    //       ],
+    //     ),
+    //   );
+    // }
+    Provider.of<QuizAppProvider>(context,listen: false)
+          .addQuizQuestions(_question);
+    setState((){
+      _isLoading = false;
+    });
+
   }
 
   @override
@@ -104,6 +157,16 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                   width: double.infinity,
                   child: Column(
                     children: [
+                      Text(
+                        'Question${numQuestion}',
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
                       Form(
                         key: _formKey,
                         child: ListView(
@@ -121,6 +184,7 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                   hintText: 'Question'
                               ),
                               focusNode: _questions,
+                              controller: question,
                               keyboardType: TextInputType.name,
                               textInputAction: TextInputAction.next,
                               maxLines: 3,
@@ -162,6 +226,7 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                         hintText: 'Option1'
                                     ),
                                     focusNode: _option1,
+                                    controller: option1,
                                     keyboardType: TextInputType.name,
                                     textInputAction: TextInputAction.next,
                                     onFieldSubmitted: (value) {
@@ -233,6 +298,7 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                         hintText: 'Option2'
                                     ),
                                     focusNode: _option2,
+                                    controller: option2,
                                     keyboardType: TextInputType.name,
                                     textInputAction: TextInputAction.next,
                                     onFieldSubmitted: (value) {
@@ -305,6 +371,7 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                         hintText: 'Option3'
                                     ),
                                     focusNode: _option3,
+                                    controller: option3,
                                     keyboardType: TextInputType.name,
                                     textInputAction: TextInputAction.next,
                                     onFieldSubmitted: (value) {
@@ -376,6 +443,7 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                         hintText: 'Option4'
                                     ),
                                     focusNode: _option4,
+                                    controller: option4,
                                     keyboardType: TextInputType.name,
                                     textInputAction: TextInputAction.next,
                                     validator: (String? value) {
@@ -507,6 +575,8 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                   children: [
                     TextButton(
                       onPressed: (){
+                        _saveForm();
+                        Navigator.pushNamed(context, QuizMarker.routeName);
                         print(_question.dateTime);
                       },
                       style: TextButton.styleFrom(
@@ -521,7 +591,25 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                       ),
                     ),
                     TextButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        _saveForm();
+                        _question = QuestionsList(
+                          question: '',
+                          option1: '',
+                          option2: '',
+                          option3: '',
+                          option4: '',
+                          dateTime: DateTime(0,0,0),
+                          isSelectOption1: false,
+                          isSelectOption2: false,
+                          isSelectOption3: false,
+                          isSelectOption4: false,
+                        );
+                        clearText();
+                        setState((){
+                          numQuestion += 1;
+                        });
+                      },
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.blue
                         ),

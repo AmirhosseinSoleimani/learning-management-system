@@ -38,9 +38,27 @@ class QuizAppProvider with ChangeNotifier{
         questionList: []
     );
     _quizAppList.add(newQuizInformation);
-    print(_quizAppList[0].quizTitle);
     notifyListeners();
 
   }
+
+  Future <void> addQuizQuestions(QuestionsList questionsList) async{
+    final addQuestion = QuestionsList(
+      question: questionsList.question,
+      option1: questionsList.option1,
+      option2: questionsList.option2,
+      option3: questionsList.option3,
+      option4: questionsList.option4,
+      isSelectOption1: questionsList.isSelectOption1,
+      isSelectOption2: questionsList.isSelectOption2,
+      isSelectOption3: questionsList.isSelectOption3,
+      isSelectOption4: questionsList.isSelectOption4,
+      dateTime: questionsList.dateTime
+    );
+    _quizAppList[0].questionList.add(addQuestion);
+    notifyListeners();
+
+  }
+
 
 }
