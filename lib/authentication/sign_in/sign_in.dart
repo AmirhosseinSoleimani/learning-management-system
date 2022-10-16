@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/authentication/sign_up/sign_up.dart';
 import '../../extension/extension.dart';
+import './drawer.dart';
 
 bool remember = false;
 
@@ -20,8 +21,7 @@ class _SignInState extends State<SignIn> {
   final _passwordFocusNode = FocusNode();
   bool _passwordVisible = false;
 
-  String dropDownValue = 'English';
-  var items = ['English', 'فارسی'];
+
   @override
   Widget build(BuildContext context) {
 
@@ -55,28 +55,7 @@ class _SignInState extends State<SignIn> {
             color: Colors.black,
             size: 30.0),
       ),
-      endDrawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              leading: Icon(
-                Icons.home,
-              ),
-              title: const Text('Page 1'),
-              onTap: () {
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.train,
-              ),
-              title: const Text('Page 2'),
-              onTap: () {
-              },
-            ),
-          ],
-        ),
-      ),
+      endDrawer: const DrawerAppBar(),
 
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -93,32 +72,7 @@ class _SignInState extends State<SignIn> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      child: DropdownButtonFormField(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  color: Colors.blue,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(10.0))),
-                        value: dropDownValue,
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        items: items.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropDownValue = newValue!;
-                          });
-                        },
-                      ),
-                    ),
+
                   ],
                 ),
               ),
