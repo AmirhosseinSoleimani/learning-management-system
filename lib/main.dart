@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:learning_management_system/authentication/sign_in/sign_in.dart';
 import 'package:learning_management_system/authentication/sign_up/seller.dart';
 import 'package:learning_management_system/authentication/sign_up/sign_up.dart';
@@ -9,6 +11,7 @@ import 'package:learning_management_system/introScreen.dart';
 import 'package:learning_management_system/provider/quiz_app_provider.dart';
 import 'package:learning_management_system/store/screens/home_page.dart';
 import 'package:learning_management_system/student/screens/home_page.dart';
+import 'package:learning_management_system/student/screens/user_info_model.dart';
 import 'package:learning_management_system/teacher/quiz_marker/screens/add_questions.dart';
 import 'teacher/quiz_marker/screens/quiz_marker.dart';
 import 'package:learning_management_system/teacher/quiz_marker/screens/quiz_marker.dart';
@@ -16,7 +19,9 @@ import 'package:provider/provider.dart';
 import './store/course_details/screens/lesson_item_page.dart';
 import './provider/student_provider.dart';
 
-void main() {
+void main() async{
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserInfoAdapter());
   runApp(const MyApp());
 }
 

@@ -59,26 +59,6 @@ class _CreateQuizState extends State<CreateQuiz> with TickerProviderStateMixin{
       setState((){
         _isLoading = true;
       });
-      // try{
-      //   await Provider.of<QuizAppProvider>(context,listen: false)
-      //       .addQuizInformation(_quizGeneralInformation);
-      //   Navigator.pushNamed(context, AddQuestions.routeName);
-      // }catch(error){
-      //   await showDialog(
-      //     context: context,
-      //     builder: (context) => AlertDialog(
-      //       title: const Text('an error occurred!'),
-      //       content: const Text('Something went wrong'),
-      //       actions: [
-      //         TextButton(
-      //             onPressed: (){
-      //               Navigator.of(context).pop();
-      //             },
-      //             child: const Text('Okay'))
-      //       ],
-      //     ),
-      //   );
-      // }
     Provider.of<QuizAppProvider>(context,listen: false)
           .addQuizInformation(_quizGeneralInformation);
       Navigator.pushNamed(context, AddQuestions.routeName);
