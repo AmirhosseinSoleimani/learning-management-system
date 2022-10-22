@@ -17,6 +17,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
 
   final _nameFocusNode = FocusNode();
   final _lastNameFocusNode = FocusNode();
+  final _bioFocusNode = FocusNode();
 
   String? dropDownValue;
   var items = ['Male', 'Female','No specified'];
@@ -24,6 +25,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
   final _initValues = {
     'name': '',
     'lastName': '',
+    'bio': ''
   };
 
   @override
@@ -346,7 +348,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2,
+                  height: MediaQuery.of(context).size.height * 0.3,
                   width: double.infinity,
                   child: Row(
                     children: [
@@ -395,6 +397,56 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                               ),
                             ),
                           ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0,
+                            ),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.height * 0.18,
+                              child: TextFormField(
+                                maxLines: 8,
+                                initialValue: _initValues['bio'],
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(10.0),
+                                      borderSide: const BorderSide(
+                                          width: 1,
+                                          color: Color(0xffD9D9D9)
+                                      ),
+                                    ),
+                                    hintText: 'Bio',
+                                    hintStyle: const TextStyle(
+                                        fontSize: 16.0,
+                                        color: Color(0xff7E7979)
+                                    ),
+                                ),
+                                focusNode: _bioFocusNode,
+                                keyboardType: TextInputType.text,
+                                textInputAction: TextInputAction.next,
+                                validator: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return 'Field is required';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+
+                          Text(
+                            'Choose Image'
+                          )
                         ],
                       )
                     ],
