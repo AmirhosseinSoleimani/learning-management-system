@@ -1,4 +1,7 @@
+import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../drawer.dart';
 import '../my_separator.dart';
 
@@ -13,8 +16,10 @@ class InformationStudentSignUp extends StatefulWidget {
 
 class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
 
-  final _form = GlobalKey<FormState>();
 
+  File? _image;
+  String? _imageUrl;
+  final _form = GlobalKey<FormState>();
   final _nameFocusNode = FocusNode();
   final _lastNameFocusNode = FocusNode();
   final _bioFocusNode = FocusNode();
@@ -441,20 +446,61 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                           ),
                         ],
                       ),
-                      Column(
-                        children: [
-
-                          Text(
-                            'Choose Image'
-                          )
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Stack(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){
+                                  },
+                                  child: Container(
+                                    width: 90.0,
+                                    height: 90.0,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFffffff),
+                                      border: Border.all(
+                                          width: 2, color: const Color(0xff7E7979),
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(50),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: SvgPicture.asset(
+                                        'assets/images/person.svg',
+                                        width: 80,
+                                        height: 80,
+                                      ),
+                                    ),
+                                  )
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            const Text(
+                              'Select Avatar',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff7E7979)
+                              ),
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 87.0
+                  padding: const EdgeInsets.only(
+                      right: 87.0,
+                      left: 87.0,
+                      bottom: 20.0
                   ),
                   child: TextButton(
                       onPressed: (){
@@ -471,7 +517,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                       ),
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 30
+                          horizontal: 30,
                         ),
                         child: Text(
                           'Next',
