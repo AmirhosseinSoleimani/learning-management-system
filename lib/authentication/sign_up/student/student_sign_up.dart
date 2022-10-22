@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:learning_management_system/authentication/sign_up/student/student_information.dart';
 import 'package:learning_management_system/models/general_account.dart';
 import 'package:provider/provider.dart';
-import './student.dart';
-import './teacher.dart';
-import './seller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../models/general_account.dart';
-import '../../provider/student_provider.dart';
-import '../sign_in/drawer.dart';
+import '../../../models/general_account.dart';
+import '../../../provider/student_provider.dart';
+import '../../drawer.dart';
 
-class SignUp extends StatefulWidget {
-  static const routeName = '/signup';
+class StudentSignUp extends StatefulWidget {
+  static const routeName = '/student_signup';
 
-  const SignUp({Key? key}) : super(key: key);
+  const StudentSignUp({Key? key}) : super(key: key);
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<StudentSignUp> createState() => _StudentSignUpState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _StudentSignUpState extends State<StudentSignUp> {
   final _firstNameFocusNode = FocusNode();
   final _lastNameFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
@@ -285,42 +283,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   child: TextButton(
                       onPressed: (){
-                        Navigator.pushNamed(context, StudentSignUp.routeName);
-                        if (isSelected) {
-                          if (dropDownValue == 'Student') {
-                            _signupGeneral = GeneralAccount(
-                              id: _signupGeneral.id,
-                              firstName: _signupGeneral.firstName,
-                              lastName: _signupGeneral.lastName,
-                              password: _signupGeneral.password,
-                              email: _signupGeneral.email,
-                              typeAccount: 'Student',
-                            );
-                            _saveForm();
-                          } else if (dropDownValue == 'Teacher') {
-                            Navigator.pushNamed(
-                                context, TeacherSignUp.routeName);
-                            _signupGeneral = GeneralAccount(
-                              id: _signupGeneral.id,
-                              firstName: _signupGeneral.firstName,
-                              lastName: _signupGeneral.lastName,
-                              password: _signupGeneral.password,
-                              email: _signupGeneral.email,
-                              typeAccount: 'Teacher',
-                            );
-                          } else {
-                            Navigator.pushNamed(
-                                context, SellerSignUp.routeName);
-                            _signupGeneral = GeneralAccount(
-                              id: _signupGeneral.id,
-                              firstName: _signupGeneral.firstName,
-                              lastName: _signupGeneral.lastName,
-                              password: _signupGeneral.password,
-                              email: _signupGeneral.email,
-                              typeAccount: 'Seller',
-                            );
-                          }
-                        }
+                        Navigator.pushNamed(context, InformationStudentSignUp.routeName);
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
