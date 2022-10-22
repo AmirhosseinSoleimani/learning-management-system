@@ -129,7 +129,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                   padding: const EdgeInsets.symmetric(
                     vertical: 15.0
                   ),
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: Image.asset(

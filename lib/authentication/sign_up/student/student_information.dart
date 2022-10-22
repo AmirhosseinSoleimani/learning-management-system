@@ -37,6 +37,22 @@ class InformationStudentSignUp extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(
+                vertical: 15.0,
+                horizontal: 35.0
+            ),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: Image.asset(
+                'assets/images/epent_only_logo.png',
+                width: 120.0,
+                height: 120.0,
+                alignment: Alignment.topLeft,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
               vertical: 10.0,
               horizontal: 1.0
             ),
