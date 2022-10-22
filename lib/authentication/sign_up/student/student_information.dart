@@ -18,6 +18,9 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
   final _nameFocusNode = FocusNode();
   final _lastNameFocusNode = FocusNode();
 
+  String? dropDownValue;
+  var items = ['Male', 'Female','No specified'];
+
   final _initValues = {
     'name': '',
     'lastName': '',
@@ -160,7 +163,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                             children:  const [
                               Padding(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: 3.0
+                                  horizontal: 4.0
                                 ),
                                 child: Text(
                                   'Sign Up',
@@ -173,7 +176,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                 ),
                               ),
                               SizedBox(
-                                width: 22.0,
+                                width: 20.0,
                               ),
                               Text(
                                   'Information',
@@ -197,7 +200,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(
-                                width: 17.0,
+                                width: 15.0,
                               ),
                               Text(
                                   'Favourite',
@@ -345,6 +348,57 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.2,
                   width: double.infinity,
+                  child: Row(
+                    children: [
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0
+                            ),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.height * 0.08,
+                              child: DropdownButtonFormField<String>(
+                                hint: const Text(
+                                  'Gender',
+                                  style: TextStyle(
+                                      color: Color(0xff7E7979),
+                                      fontSize: 16.0
+                                  ),
+                                ),
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0xffD9D9D9),
+                                          width: 1.5,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                ),
+                                value: null,
+                                icon: const Icon(
+                                    Icons.keyboard_arrow_down,
+                                  color: Color(0xff7E7979),
+                                ),
+                                items: items.map((String items) {
+                                  return DropdownMenuItem(
+                                    value: items,
+                                    child: Text(items),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropDownValue = newValue!;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -363,12 +417,17 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                               )
                           )
                       ),
-                      child: const Text(
-                        'Sign Up',
-                        style: TextStyle(
-                            fontSize: 22.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xffFFFFFF)
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 30
+                        ),
+                        child: Text(
+                          'Next',
+                          style: TextStyle(
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xffFFFFFF)
+                          ),
                         ),
                       )
                   ),
