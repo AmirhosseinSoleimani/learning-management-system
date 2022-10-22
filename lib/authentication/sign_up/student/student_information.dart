@@ -49,341 +49,335 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xffFFFFFF),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-                vertical: 15.0,
-                horizontal: 35.0
-            ),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: Image.asset(
-                'assets/images/epent_only_logo.png',
-                width: 120.0,
-                height: 120.0,
-                alignment: Alignment.topLeft,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10.0,
-              horizontal: 1.0
-            ),
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: Color(0xff177FB0),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(10.0),
-                    topLeft: Radius.circular(10.0)
-                  )
-              ),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.2,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:  const [
-                        SizedBox(
-                          width: 35,
-                          height: 35,
-                          child: CircleAvatar(
-                            backgroundColor: Color(0xff5DBF23),
-                            child: Icon(
-                              Icons.done,
-                              color: Colors.white,
-                              size: 25.0,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 60,
-                          height: 35,
-                          child: MySeparator(
-                            color: Color(0xffD9D9D9),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 35,
-                          height: 35,
-                          child: CircleAvatar(
-                            backgroundColor: Color(0xff5DBF23),
-                            child: null,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 60,
-                          height: 35,
-                          child: MySeparator(color: Color(0xffD9D9D9),),
-                        ),
-                        SizedBox(
-                          width: 35,
-                          height: 35,
-                          child: CircleAvatar(
-                            backgroundColor: Color(0xffD9D9D9),
-                            child: null,
-                            ),
-                          ),
-                        SizedBox(
-                          width: 60,
-                          height: 35,
-                          child: MySeparator(color: Color(0xffD9D9D9),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 35,
-                          height: 35,
-                          child: CircleAvatar(
-                            backgroundColor: Color(0xffD9D9D9),
-                            child: null
-                          ),
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Card(
+          elevation: 8,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 15.0,
+                      horizontal: 35.0
+                  ),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: Image.asset(
+                      'assets/images/epent_only_logo.png',
+                      width: 120.0,
+                      height: 120.0,
+                      alignment: Alignment.topLeft,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10.0,
+                  ),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        color: Color(0xff177FB0),
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10.0),
+                          topLeft: Radius.circular(10.0)
                         )
-                      ],
                     ),
-                    const SizedBox(
-                      height: 10.0,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:  const [
+                              SizedBox(
+                                width: 25,
+                                height: 35,
+                                child: CircleAvatar(
+                                  backgroundColor: Color(0xff5DBF23),
+                                  child: Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                    size: 25.0,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 60,
+                                height: 35,
+                                child: MySeparator(
+                                  color: Color(0xffD9D9D9),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 25,
+                                height: 35,
+                                child: CircleAvatar(
+                                  backgroundColor: Color(0xff5DBF23),
+                                  child: null,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 60,
+                                height: 35,
+                                child: MySeparator(color: Color(0xffD9D9D9),),
+                              ),
+                              SizedBox(
+                                width: 25,
+                                height: 35,
+                                child: CircleAvatar(
+                                  backgroundColor: Color(0xffD9D9D9),
+                                  child: null,
+                                  ),
+                                ),
+                              SizedBox(
+                                width: 60,
+                                height: 35,
+                                child: MySeparator(color: Color(0xffD9D9D9),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 25,
+                                height: 35,
+                                child: CircleAvatar(
+                                  backgroundColor: Color(0xffD9D9D9),
+                                  child: null
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:  const [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 3.0
+                                ),
+                                child: Text(
+                                  'Sign Up',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 22.0,
+                              ),
+                              Text(
+                                  'Information',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                              SizedBox(
+                                width: 13.0,
+                              ),
+                              Text(
+                                  'Information',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(
+                                width: 17.0,
+                              ),
+                              Text(
+                                  'Favourite',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                                ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:  const [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  right: 83.0
+                                ),
+                                child: SizedBox(
+                                  width: 75,
+                                  height: 1,
+                                  child: Divider(
+                                    thickness: 5,
+                                    color: Color(0xff5DBF23),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:  const [
-                        SizedBox(
-                          width: 60,
-                          height: 30,
-                          child: Text(
-                            'Sign Up',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 27,
-                          height: 30,
-                          child: MySeparator(color: Color(0xff177FB0),),
-                        ),
-                        SizedBox(
-                          width: 75,
-                          height: 30,
-                          child: Text(
-                              'Information',
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 25,
-                          height: 30,
-                          child: MySeparator(color: Color(0xff177FB0),),
-                        ),
-                        SizedBox(
-                          width: 75,
-                          height: 30,
-                          child: Text(
-                              'Information',
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 25,
-                          height: 30,
-                          child: MySeparator(color: Color(0xff177FB0),),
-                        ),
-                        SizedBox(
-                          width: 60,
-                          height: 30,
-                          child: Text(
-                              'Favourite',
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                            ),
-                          ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:  const [
-                        SizedBox(
-                          width: 60,
-                          height: 1,
-                          child:  Divider(
-                            color: Color(0xff177FB0),
-                          )
-                        ),
-                        SizedBox(
-                          width: 27,
-                          height: 1,
-                          child: MySeparator(color: Color(0xff177FB0),),
-                        ),
-                        SizedBox(
-                          width: 75,
-                          height: 1,
-                          child: Divider(
-                            thickness: 5,
-                            color: Color(0xff5DBF23),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 25,
-                          height: 1,
-                          child: MySeparator(color: Color(0xff177FB0),),
-                        ),
-                        SizedBox(
-                          width: 75,
-                          height: 1,
-                          child: Divider(
-                            color: Color(0xff177FB0),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 25,
-                          height: 1,
-                          child: MySeparator(color: Color(0xff177FB0),),
-                        ),
-                        SizedBox(
-                          width: 60,
-                          height: 1,
-                          child: Divider(
-                            color: Color(0xff177FB0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          const Text(
-            'Information',
-            style: TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-              color: Color(0xff3F3D56)
-            ),
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.2,
-            width: double.infinity,
-            child: Form(
-              key: _form,
-              child: Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 10.0),
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    TextFormField(
-                      initialValue: _initValues['name'],
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                width: 1,
-                                color: Color(0xffD9D9D9)
+                const SizedBox(
+                  height: 10.0,
+                ),
+                const Text(
+                  'Information',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff3F3D56)
+                  ),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  width: double.infinity,
+                  child: Form(
+                    key: _form,
+                    child: Padding(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          TextFormField(
+                            initialValue: _initValues['name'],
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(10.0),
+                                  borderSide: const BorderSide(
+                                      width: 1,
+                                      color: Color(0xffD9D9D9)
+                                  ),
+                                ),
+                                hintText: 'Name',
+                                hintStyle: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: Color(0xff7E7979)
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.person_outline,
+                                  size: 28.0,
+                                  color: Color(0xff7E7979),
+                                )
                             ),
+                            focusNode: _nameFocusNode,
+                            keyboardType: TextInputType.name,
+                            textInputAction: TextInputAction.next,
+                            onFieldSubmitted: (value) {
+                              FocusScope.of(context)
+                                  .requestFocus(_lastNameFocusNode);
+                            },
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return 'Field is required';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                            },
                           ),
-                          hintText: 'Name',
-                          hintStyle: const TextStyle(
-                              fontSize: 16.0,
-                              color: Color(0xff7E7979)
+                          const SizedBox(
+                            height: 10.0,
                           ),
-                          prefixIcon: const Icon(
-                            Icons.person_outline,
-                            size: 28.0,
-                            color: Color(0xff7E7979),
+                          TextFormField(
+                            initialValue: _initValues['lastName'],
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(10.0),
+                                  borderSide: const BorderSide(
+                                      width: 1,
+                                      color: Color(0xffD9D9D9)
+                                  ),
+                                ),
+                                hintText: 'Last Name',
+                                hintStyle: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: Color(0xff7E7979)
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.people_outline,
+                                  size: 28.0,
+                                  color: Color(0xff7E7979),
+                                )
+                            ),
+                            focusNode: _lastNameFocusNode,
+                            keyboardType: TextInputType.name,
+                            textInputAction: TextInputAction.next,
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return 'Field is required';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  width: double.infinity,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 87.0
+                  ),
+                  child: TextButton(
+                      onPressed: (){
+                        Navigator.pushNamed(context, InformationStudentSignUp.routeName);
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
+                          ),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50.0)
+                              )
                           )
                       ),
-                      focusNode: _nameFocusNode,
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (value) {
-                        FocusScope.of(context)
-                            .requestFocus(_lastNameFocusNode);
-                      },
-                      validator: (String? value) {
-                        if (value!.isEmpty) {
-                          return 'Field is required';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                      },
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    TextFormField(
-                      initialValue: _initValues['lastName'],
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                width: 1,
-                                color: Color(0xffD9D9D9)
-                            ),
-                          ),
-                          hintText: 'Last Name',
-                          hintStyle: const TextStyle(
-                              fontSize: 16.0,
-                              color: Color(0xff7E7979)
-                          ),
-                          prefixIcon: const Icon(
-                            Icons.people_outline,
-                            size: 28.0,
-                            color: Color(0xff7E7979),
-                          )
-                      ),
-                      focusNode: _lastNameFocusNode,
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      validator: (String? value) {
-                        if (value!.isEmpty) {
-                          return 'Field is required';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                      },
-                    ),
-                  ],
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xffFFFFFF)
+                        ),
+                      )
+                  ),
                 ),
-              ),
+
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
