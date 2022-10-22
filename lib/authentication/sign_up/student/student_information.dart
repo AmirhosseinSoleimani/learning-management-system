@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../drawer.dart';
 import '../my_separator.dart';
 
@@ -32,6 +34,17 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
     'lastName': '',
     'bio': ''
   };
+
+  Future pickImage(ImageSource source) async {
+    try{
+      final XFile? image = await ImagePicker().pickImage(source: source);
+      if(image == null) return;
+      final  imageTemporary = File(image.path);
+      setState(() => _image = imageTemporary);
+    } on PlatformException catch(e) {
+      debugPrint('Failed to pick image: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -451,33 +464,100 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Stack(
-                              children: [
-                                GestureDetector(
-                                  onTap: (){
-                                  },
-                                  child: Container(
-                                    width: 90.0,
-                                    height: 90.0,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xFFffffff),
-                                      border: Border.all(
-                                          width: 2, color: const Color(0xff7E7979),
-                                      ),
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(50),
+                            GestureDetector(
+                              onTap: (){
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text(
+                                      'Please Add Image',
+                                    ),
+                                    content: SizedBox(
+                                      height: MediaQuery.of(context).size.height * 0.14,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                                        children: [
+                                          MaterialButton(
+                                            onPressed: (){
+                                              pickImage(ImageSource.gallery);
+                                              Navigator.of(context).pop();
+                                            },
+                                            color: Colors.blue,
+                                            child: Row(
+                                              children: const [
+                                                Icon(
+                                                  Icons.image_outlined,
+                                                  color: Colors.white70,
+                                                ),
+                                                SizedBox(
+                                                  width: 5.0,
+                                                ),
+                                                Text(
+                                                  'Pick Image from Gallery',
+                                                  style: TextStyle(
+                                                      color: Colors.white70,
+                                                      fontWeight: FontWeight.w400
+                                                  ),
+                                                ),
+                                              ],
+                                            ),),
+                                          MaterialButton(
+                                            onPressed: (){
+                                              pickImage(ImageSource.camera);
+                                              Navigator.of(context).pop();
+                                            },
+                                            color: Colors.blue,
+                                            child: Row(
+                                              children: const [
+                                                Icon(
+                                                  Icons.camera_alt_outlined,
+                                                  color: Colors.white70,
+                                                ),
+                                                SizedBox(
+                                                  width: 5.0,
+                                                ),
+                                                Text(
+                                                  'Pick Image from Camera',
+                                                  style: TextStyle(
+                                                      color: Colors.white70,
+                                                      fontWeight: FontWeight.w400
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    child: Center(
-                                      child: SvgPicture.asset(
-                                        'assets/images/person.svg',
-                                        width: 80,
-                                        height: 80,
-                                      ),
-                                    ),
-                                  )
-                                )
-                              ],
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 90.0,
+                                height: 90.0,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFffffff),
+                                  border: Border.all(
+                                      width: 2, color: const Color(0xff7E7979),
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(50),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: (_image != null) ? CircleAvatar(
+                                    radius: 50,
+                                    backgroundImage: FileImage(
+                                        _image!,
+
+                                  ),
+                                ) : SvgPicture.asset(
+                                    'assets/images/person.svg',
+                                    width: 80,
+                                    height: 80,
+                                  ),
+                            ),
+                              ),
                             ),
                             const SizedBox(
                               height: 10.0,
