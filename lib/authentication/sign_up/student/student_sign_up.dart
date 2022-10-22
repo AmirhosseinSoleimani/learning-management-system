@@ -17,8 +17,6 @@ class StudentSignUp extends StatefulWidget {
 }
 
 class _StudentSignUpState extends State<StudentSignUp> {
-  final _firstNameFocusNode = FocusNode();
-  final _lastNameFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
   bool isSelected = false;
@@ -80,8 +78,6 @@ class _StudentSignUpState extends State<StudentSignUp> {
 
   @override
   void dispose() {
-    _firstNameFocusNode.dispose();
-    _lastNameFocusNode.dispose();
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
     // _passwordController.dispose();

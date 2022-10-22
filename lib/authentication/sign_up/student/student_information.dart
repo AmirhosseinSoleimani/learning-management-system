@@ -2,10 +2,26 @@ import 'package:flutter/material.dart';
 import '../../drawer.dart';
 import '../my_separator.dart';
 
-class InformationStudentSignUp extends StatelessWidget {
+class InformationStudentSignUp extends StatefulWidget {
   static const routeName = '/student_information_signup';
 
   const InformationStudentSignUp({Key? key}) : super(key: key);
+
+  @override
+  State<InformationStudentSignUp> createState() => _InformationStudentSignUpState();
+}
+
+class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
+
+  final _form = GlobalKey<FormState>();
+
+  final _nameFocusNode = FocusNode();
+  final _lastNameFocusNode = FocusNode();
+
+  final _initValues = {
+    'name': '',
+    'lastName': '',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -256,6 +272,111 @@ class InformationStudentSignUp extends StatelessWidget {
                           ),
                         ),
                       ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          const Text(
+            'Information',
+            style: TextStyle(
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0xff3F3D56)
+            ),
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.2,
+            width: double.infinity,
+            child: Form(
+              key: _form,
+              child: Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 10.0),
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    TextFormField(
+                      initialValue: _initValues['name'],
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.circular(10.0),
+                            borderSide: const BorderSide(
+                                width: 1,
+                                color: Color(0xffD9D9D9)
+                            ),
+                          ),
+                          hintText: 'Name',
+                          hintStyle: const TextStyle(
+                              fontSize: 16.0,
+                              color: Color(0xff7E7979)
+                          ),
+                          prefixIcon: const Icon(
+                            Icons.person_outline,
+                            size: 28.0,
+                            color: Color(0xff7E7979),
+                          )
+                      ),
+                      focusNode: _nameFocusNode,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      onFieldSubmitted: (value) {
+                        FocusScope.of(context)
+                            .requestFocus(_lastNameFocusNode);
+                      },
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'Field is required';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    TextFormField(
+                      initialValue: _initValues['lastName'],
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.circular(10.0),
+                            borderSide: const BorderSide(
+                                width: 1,
+                                color: Color(0xffD9D9D9)
+                            ),
+                          ),
+                          hintText: 'Last Name',
+                          hintStyle: const TextStyle(
+                              fontSize: 16.0,
+                              color: Color(0xff7E7979)
+                          ),
+                          prefixIcon: const Icon(
+                            Icons.people_outline,
+                            size: 28.0,
+                            color: Color(0xff7E7979),
+                          )
+                      ),
+                      focusNode: _lastNameFocusNode,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'Field is required';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                      },
                     ),
                   ],
                 ),
