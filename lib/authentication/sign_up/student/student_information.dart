@@ -1,11 +1,11 @@
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../drawer.dart';
 import '../my_separator.dart';
+import './second_student_information.dart';
 
 class InformationStudentSignUp extends StatefulWidget {
   static const routeName = '/student_information_signup';
@@ -20,7 +20,6 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
 
 
   File? _image;
-  String? _imageUrl;
   final _form = GlobalKey<FormState>();
   final _nameFocusNode = FocusNode();
   final _lastNameFocusNode = FocusNode();
@@ -48,6 +47,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
 
   @override
   Widget build(BuildContext context) {
+    final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffFFFFFF),
@@ -79,7 +79,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
+                if(!isKeyboard) Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 15.0,
                       horizontal: 35.0
@@ -95,7 +95,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                     ),
                   ),
                 ),
-                Padding(
+                if(!isKeyboard) Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 10.0,
                   ),
@@ -584,7 +584,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                   ),
                   child: TextButton(
                       onPressed: (){
-                        Navigator.pushNamed(context, InformationStudentSignUp.routeName);
+                        Navigator.pushNamed(context, SecondInformationStudent.routeName);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),

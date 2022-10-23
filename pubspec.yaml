@@ -56,6 +56,7 @@ dependencies:
   hive_flutter: ^1.1.0
   hive_generator: ^2.0.0 # flutter packages pub run build_runner build
   build_runner: ^2.3.0
+  pinput: ^2.2.16
 
 dev_dependencies:
   flutter_test:
