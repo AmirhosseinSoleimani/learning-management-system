@@ -3,6 +3,8 @@ import '../../drawer.dart';
 import '../my_separator.dart';
 
 class FavouriteStudent extends StatelessWidget {
+  static const routeName = '/second_student_favourite';
+
   const FavouriteStudent({Key? key}) : super(key: key);
 
   @override

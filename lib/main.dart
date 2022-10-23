@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:learning_management_system/authentication/sign_in/sign_in.dart';
+import 'package:learning_management_system/authentication/sign_up/student/favourite.dart';
 import './authentication/sign_up/student/student_sign_up.dart';
 import './authentication/sign_up/student/student_information.dart';
 import './authentication/sign_up/student/second_student_information.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
           StudentSignUp.routeName: (context) => const StudentSignUp(),
           InformationStudentSignUp.routeName: (context) => const InformationStudentSignUp(),
           SecondInformationStudent.routeName: (context) => const SecondInformationStudent(),
+          FavouriteStudent.routeName: (context) => const FavouriteStudent(),
           TeacherSignUp.routeName: (context) => const TeacherSignUp(),
           SellerSignUp.routeName: (context) => const SellerSignUp(),
           QuizMarker.routeName: (context) => const QuizMarker(),

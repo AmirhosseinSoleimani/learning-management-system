@@ -5,6 +5,8 @@ import '../my_separator.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:country_picker/country_picker.dart';
 
+import 'favourite.dart';
+
 
 class SecondInformationStudent extends StatefulWidget {
   static const routeName = '/second_student_information_signup';
@@ -846,7 +848,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                   ),
                   child: TextButton(
                       onPressed: (){
-                        Navigator.pushNamed(context, SecondInformationStudent.routeName);
+                        Navigator.pushNamed(context, FavouriteStudent.routeName);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
