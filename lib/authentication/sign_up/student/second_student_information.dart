@@ -39,6 +39,9 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
     'phoneNumber': '',
   };
 
+  String? dropDownValue;
+  var items = ['Friend', 'Social Media','Website'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -264,7 +267,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                   height: 10.0,
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.5,
+                  height: MediaQuery.of(context).size.height * 0.42,
                   width: double.infinity,
                   child: Form(
                     key: _form,
@@ -766,19 +769,107 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                         ),
                                       ],
                                     ),
-                                    const Icon(
-                                      Icons.arrow_drop_down_outlined,
-                                      color: Color(0xff7E7979),
-                                      size: 28.0,
+                                    const Padding(
+                                      padding: EdgeInsets.only(
+                                        right: 15.0
+                                      ),
+                                      child: Icon(
+                                        Icons.arrow_drop_down_outlined,
+                                        color: Color(0xff7E7979),
+                                        size: 28.0,
+                                      ),
                                     )
                                   ],
                                 ),
                               ),
                           ),
                           ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            height: 55,
+                            child: DropdownButtonFormField<String>(
+                              hint: const Text(
+                                'Introduction',
+                                style: TextStyle(
+                                    color: Color(0xff7E7979),
+                                    fontSize: 16.0
+                                ),
+                              ),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    color: Color(0xffD9D9D9),
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                prefixIcon: Icon(Icons.person)
+                              ),
+                              value: null,
+                              icon: const Icon(
+                                Icons.arrow_drop_down,
+                                size: 28,
+                                color: Color(0xff7E7979),
+                              ),
+                              items: items.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(
+                                    items,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff7E7979)
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  dropDownValue = newValue!;
+                                });
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      right: 87.0,
+                      left: 87.0,
+                      bottom: 20.0
+                  ),
+                  child: TextButton(
+                      onPressed: (){
+                        Navigator.pushNamed(context, SecondInformationStudent.routeName);
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
+                          ),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50.0)
+                              )
+                          )
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 30,
+                        ),
+                        child: Text(
+                          'Next',
+                          style: TextStyle(
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xffFFFFFF)
+                          ),
+                        ),
+                      )
                   ),
                 ),
               ],
