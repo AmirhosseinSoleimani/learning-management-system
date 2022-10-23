@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../drawer.dart';
 import '../my_separator.dart';
+import 'package:date_time_picker/date_time_picker.dart';
+
 
 class SecondInformationStudent extends StatefulWidget {
   static const routeName = '/second_student_information_signup';
@@ -592,6 +594,21 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                DateTimePicker(
+                  initialValue: '',
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2100),
+                  dateLabelText: 'Date',
+                  onChanged: (val) => print(val),
+                  validator: (val) {
+                    print(val);
+                    return null;
+                  },
+                  onSaved: (val) => print(val),
+                )
               ],
             ),
           ),
