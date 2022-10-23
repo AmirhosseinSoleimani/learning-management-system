@@ -13,6 +13,7 @@ class SecondInformationStudent extends StatefulWidget {
 
 class _SecondInformationStudentState extends State<SecondInformationStudent> {
 
+  bool isSelected = false;
   final _form = GlobalKey<FormState>();
   final _phoneNumberFocusNode = FocusNode();
 
@@ -264,57 +265,19 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                       child: ListView(
                         shrinkWrap: true,
                         children: [
-                          TextFormField(
-                            initialValue: _initValues['phoneNumber'],
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(10.0),
-                                  borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Color(0xffD9D9D9)
-                                  ),
-                                ),
-                                hintText: 'PhoneNumber',
-                                hintStyle: const TextStyle(
-                                    fontSize: 16.0,
-                                    color: Color(0xff7E7979)
-                                ),
-                                prefixIcon: const Icon(
-                                  Icons.phone_android_outlined,
-                                  size: 28.0,
-                                  color: Color(0xff7E7979),
-                                )
-                            ),
-
-                            focusNode: _phoneNumberFocusNode,
-                            keyboardType: TextInputType.number,
-                            textInputAction: TextInputAction.next,
-                            validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return 'Field is required';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                            },
-                          ),
-                          const SizedBox(
-                            height: 10.0,
-                          ),
-                          Container(
+                          (isSelected) ? Container(
                             height: 55.0,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              border: Border.all(
-                                width: 2,
-                                color: Colors.blue
-                              )
+                                color: Colors.white,
+                                border: Border.all(
+                                    width: 2,
+                                    color: Colors.blue
+                                )
                             ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 8.0
+                                  horizontal: 8.0
                               ),
                               child: Row(
                                 children: [
@@ -331,18 +294,18 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                   Row(
                                     children: [
                                       const SizedBox(
-                                        height: 28,
-                                        width: 12,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(bottom: 8.0),
-                                          child: Text(
-                                            '+',
-                                            style: TextStyle(
-                                                fontSize: 18.0,
-                                                color: Colors.black
+                                          height: 28,
+                                          width: 12,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(bottom: 8.0),
+                                            child: Text(
+                                              '+',
+                                              style: TextStyle(
+                                                  fontSize: 18.0,
+                                                  color: Colors.black
+                                              ),
                                             ),
-                                          ),
-                                        )
+                                          )
                                       ),
                                       const SizedBox(
                                         width: 5.0,
@@ -356,6 +319,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                               FocusScope.of(context).nextFocus();
                                             }
                                           },
+                                          autofocus: true,
                                           keyboardType: TextInputType.number,
                                           textAlign: TextAlign.center,
                                           inputFormatters: [
@@ -577,6 +541,48 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                 ],
                               ),
                             ),
+                          ) :TextFormField(
+                            onTap: (){
+                              setState((){
+                                isSelected = true;
+                              });
+                            },
+                            initialValue: _initValues['phoneNumber'],
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(10.0),
+                                  borderSide: const BorderSide(
+                                      width: 1,
+                                      color: Color(0xffD9D9D9)
+                                  ),
+                                ),
+                                hintText: 'PhoneNumber',
+                                hintStyle: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: Color(0xff7E7979)
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.phone_android_outlined,
+                                  size: 28.0,
+                                  color: Color(0xff7E7979),
+                                )
+                            ),
+
+                            focusNode: _phoneNumberFocusNode,
+                            keyboardType: TextInputType.number,
+                            textInputAction: TextInputAction.next,
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return 'Field is required';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                            },
+                          ),
+                          const SizedBox(
+                            height: 10.0,
                           ),
                           const SizedBox(
                             height: 10.0,
