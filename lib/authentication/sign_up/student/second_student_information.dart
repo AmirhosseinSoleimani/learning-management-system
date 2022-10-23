@@ -17,6 +17,7 @@ class SecondInformationStudent extends StatefulWidget {
 
 class _SecondInformationStudentState extends State<SecondInformationStudent> {
   bool isSelected = false;
+  bool dateSelect = false;
   String? country;
   Country iran = Country(
       phoneCode: '98',
@@ -605,7 +606,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                         borderSide: const BorderSide(
-                                            width: 1, color: Color(0xffD9D9D9)),
+                                            width: 2, color: Color(0xffD9D9D9)),
                                       ),
                                       hintText: 'PhoneNumber',
                                       hintStyle: const TextStyle(
@@ -633,7 +634,13 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                           const SizedBox(
                             height: 10.0,
                           ),
-                          Container(
+                          GestureDetector(
+                            onTap: (){
+                              setState((){
+                                dateSelect = true;
+                              });
+                            },
+                            child: Container(
                             height: 55.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
@@ -642,25 +649,57 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                               ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0
-                              ),
-                              child: DateTimePicker(
-                                initialValue: DateTime.now().toString(),
-                                firstDate: DateTime(1950),
-                                lastDate: DateTime.now(),
-                                dateLabelText: 'Date',
-                                onChanged: (val) => print(val),
-                                validator: (val) {
-                                  print(val);
-                                  return null;
-                                },
-                                onSaved: (val) => print(val),
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 30,
+                                    height: 30,
+                                    child: Icon(
+                                      Icons.event_outlined,
+                                      size: 28.0,
+                                      color: Color(0xff7E7979),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  SizedBox(
+                                    width: 200,
+                                    height: 40,
+                                    child: (dateSelect) ?
+                                    DateTimePicker(
+                                      initialValue: 'Birthday Date',
+                                      firstDate: DateTime(1950),
+                                      lastDate: DateTime.now(),
+                                      onChanged: (val) => print(val),
+                                      validator: (val) {
+                                        print(val);
+                                        return null;
+                                      },
+                                      onSaved: (val) => print(val),
+                                    ):
+                                    const Padding(
+                                      padding: EdgeInsets.only(
+                                        top: 8.0,
+                                      ),
+                                      child: Text(
+                                        'Birthday Date',
+                                        style: TextStyle(
+                                            color: Color(0xff7E7979),
+                                            fontSize: 17.0,
+                                            fontWeight: FontWeight.w400
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                ],
                               ),
                             ),
                           ),
+                          ),
                           const SizedBox(
-                            height: 10.0,
+                            height: 20.0,
                           ),
                           GestureDetector(
                             onTap: (){
@@ -713,7 +752,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                           country!,
                                           style: const TextStyle(
                                               color: Color(0xff7E7979),
-                                              fontSize: 18.0,
+                                              fontSize: 17.0,
                                               fontWeight: FontWeight.w400
                                           ),
                                         )
@@ -721,7 +760,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                           'Country',
                                           style: TextStyle(
                                               color: Color(0xff7E7979),
-                                              fontSize: 18.0,
+                                              fontSize: 17.0,
                                               fontWeight: FontWeight.w400
                                           ),
                                         ),
