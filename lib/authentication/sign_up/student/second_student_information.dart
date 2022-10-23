@@ -17,7 +17,7 @@ class SecondInformationStudent extends StatefulWidget {
 
 class _SecondInformationStudentState extends State<SecondInformationStudent> {
   bool isSelected = false;
-  String country = '';
+  String? country;
   Country iran = Country(
       phoneCode: '98',
       countryCode: 'IR',
@@ -30,7 +30,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
       displayNameNoCountryCode: 'Iran (IR)',
       e164Key: '98-IR-0',
   );
-  String icon = '';
+  String? icon;
   final _form = GlobalKey<FormState>();
   final _phoneNumberFocusNode = FocusNode();
 
@@ -667,17 +667,6 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                               showCountryPicker(
                                 showPhoneCode: false,
                                 onSelect: (Country value) {
-                                    debugPrint(value.name);
-                                    debugPrint(value.countryCode);
-                                    debugPrint(value.phoneCode);
-                                    debugPrint(value.e164Key);
-                                    debugPrint(value.e164Sc.toString());
-                                    debugPrint(value.example);
-                                    debugPrint(value.geographic.toString());
-                                    debugPrint(value.level.toString());
-                                    debugPrint(value.displayName);
-                                    debugPrint(value.displayNameNoCountryCode);
-
                                     setState((){
                                       country = value.name;
                                       icon = value.flagEmoji;
@@ -703,7 +692,14 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                   children: [
                                     Row(
                                       children: [
-                                        Text(
+                                        (icon) != null
+                                            ? Text(
+                                          icon!,
+                                          style: const TextStyle(
+                                              fontSize: 22.0
+                                          ),
+                                        )
+                                            : Text(
                                             iran.flagEmoji,
                                           style: const TextStyle(
                                             fontSize: 22.0
@@ -712,7 +708,16 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                         const SizedBox(
                                           width: 10.0,
                                         ),
-                                        const Text(
+                                        (country) != null ?
+                                        Text(
+                                          country!,
+                                          style: const TextStyle(
+                                              color: Color(0xff7E7979),
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w400
+                                          ),
+                                        )
+                                         :const Text(
                                           'Country',
                                           style: TextStyle(
                                               color: Color(0xff7E7979),
