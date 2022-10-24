@@ -28,7 +28,7 @@ class FeatureItem extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            Container(
+            SizedBox(
               width: double.infinity,
               height: 200,
               child: CachedNetworkImage(
