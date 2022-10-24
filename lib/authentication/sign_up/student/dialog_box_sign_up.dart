@@ -1,58 +1,35 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../data.dart';
-import '../../../store/course_details/screens/course_details.dart';
-import './feature_master_sign_up.dart';
-import '../../drawer.dart';
-import './stepper.dart';
-import 'dialog_box_sign_up.dart';
+import 'package:learning_management_system/authentication/sign_up/student/stepper.dart';
 
-class FavouriteStudent extends StatefulWidget {
-  static const routeName = '/second_student_favourite';
+import '../../../store/screens/home_page.dart';
 
-  const FavouriteStudent({Key? key}) : super(key: key);
+class DialogBoxSignUp extends StatefulWidget {
+  const DialogBoxSignUp({Key? key}) : super(key: key);
 
   @override
-  State<FavouriteStudent> createState() => _FavouriteStudentState();
+  State<DialogBoxSignUp> createState() => _DialogBoxSignUpState();
 }
 
-class _FavouriteStudentState extends State<FavouriteStudent> {
+class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
+
   final _form = GlobalKey<FormState>();
   final _nameFocusNode = FocusNode();
   final _lastNameFocusNode = FocusNode();
 
   final _initValues = {'name': '', 'lastName': '', 'bio': ''};
 
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xffFFFFFF),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-            size: 20.0,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        title: Image.asset(
-          'assets/images/epent.png',
-          width: MediaQuery.of(context).size.width * 0.3,
-          height: MediaQuery.of(context).size.height * 0.08,
-        ),
-        centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.black, size: 30.0),
-      ),
-      endDrawer: const DrawerAppBar(),
-      resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
+    return AlertDialog(
+      content: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.14,
         child: Card(
           elevation: 8,
           child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -119,12 +96,6 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: TextFormField(
-                            onTap: (){
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => const DialogBoxSignUp(),
-                              );
-                            },
                             initialValue: _initValues['name'],
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
@@ -215,7 +186,7 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
                                 SizedBox(
                                   width: MediaQuery.of(context).size.width,
                                   height:
-                                      MediaQuery.of(context).size.height * 0.5,
+                                  MediaQuery.of(context).size.height * 0.5,
                                   child: getFeatures(context: context),
                                 ),
                               ],
@@ -226,61 +197,11 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 30.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      right: 87.0, left: 87.0, bottom: 20.0),
-                  child: TextButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color(0xff177FB0),
-                          ),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(50.0)))),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 30,
-                        ),
-                        child: Text(
-                          'Next',
-                          style: TextStyle(
-                              fontSize: 22.0,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xffFFFFFF)),
-                        ),
-                      )),
-                ),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-
-  Widget getFeatures({BuildContext? context}) {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: features.length,
-      itemBuilder: (BuildContext context, int index) {
-        return FeatureMasterSignUp(
-            data: features[index],
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => CourseDetailPage(
-                    data: {"courses": features[index]},
-                  ),
-                ),
-              );
-            });
-      },
     );
   }
 }
