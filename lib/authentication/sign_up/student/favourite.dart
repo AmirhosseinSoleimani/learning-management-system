@@ -120,9 +120,8 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: TextFormField(
                             onTap: (){
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => const DialogBoxSignUp(),
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DialogBoxSignUp(),
+                              ),
                               );
                             },
                             initialValue: _initValues['name'],
