@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
-class FeatureCourseSignUp extends StatelessWidget {
+class FeatureCourseSignUp extends StatefulWidget {
   final data;
-  final GestureTapCallback onTap;
 
-  FeatureCourseSignUp({Key? key,this.data,required this.onTap}) : super(key: key);
+  const FeatureCourseSignUp({Key? key,this.data}) : super(key: key);
+
+  @override
+  State<FeatureCourseSignUp> createState() => _FeatureCourseSignUpState();
+}
+
+class _FeatureCourseSignUpState extends State<FeatureCourseSignUp> {
+
+  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +35,15 @@ class FeatureCourseSignUp extends StatelessWidget {
           leading: Container(
             width: 100,
             height: 50,
-            decoration: const BoxDecoration(
-              color: Color(0xFF177FB0),
-              borderRadius: BorderRadius.all(
+            decoration: BoxDecoration(
+              color: (isSelected) ? const Color(0xFF5DBF23) : const Color(0xFF177FB0),
+              borderRadius: const BorderRadius.all(
                 Radius.circular(5),
               ),
             ),
             child: Center(
               child: Text(
-                data['name'],
+                widget.data['name'],
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.black,
@@ -45,7 +52,27 @@ class FeatureCourseSignUp extends StatelessWidget {
               ),
             ),
           ),
+          trailing: TextButton(
+            onPressed: (){
+              setState((){
+                isSelected = !isSelected;
+              });
+            },
+            child:(isSelected)? const Text(
+              ' Following',
+              style: TextStyle(
+                  color: Color(0xff7E7979)
+              ),
+            ) :
+            const Text(
+              '+ Follow',
+              style: TextStyle(
+                color: Color(0xff7E7979)
+              ),
+            ),
+          ),
         ),
+
       ),
     );
   }

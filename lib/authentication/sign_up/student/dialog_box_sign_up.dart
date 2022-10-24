@@ -174,7 +174,6 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
                               itemCount: features.length,
                                 itemBuilder: (context,index) => FeatureCourseSignUp(
                                   data: features[index],
-                                  onTap: () {  },
                                 ),
                             )
                           ),
