@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FeatureCourseSignUp extends StatelessWidget {
@@ -26,8 +25,25 @@ class FeatureCourseSignUp extends StatelessWidget {
           ),
         ),
         child: ListTile(
-          leading: Text(
-            data['name']
+          leading: Container(
+            width: 100,
+            height: 50,
+            decoration: const BoxDecoration(
+              color: Color(0xFF177FB0),
+              borderRadius: BorderRadius.all(
+                Radius.circular(5),
+              ),
+            ),
+            child: Center(
+              child: Text(
+                data['name'],
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.0
+                ),
+              ),
+            ),
           ),
         ),
       ),
