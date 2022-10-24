@@ -185,8 +185,41 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
                       height: 20.0,
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.2,
+                      height: MediaQuery.of(context).size.height * 0.3,
                       width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFffffff),
+                            border: Border.all(
+                              width: 2, color: const Color(0xffD9D9D9),
+                            ),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              children: [
+                                const Text(
+                                  'MASTEERS',
+                                  style: TextStyle(
+                                    color: Color(0xff3F3D56),
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold
+                                  ),
+                                ),
+
+
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 ),
