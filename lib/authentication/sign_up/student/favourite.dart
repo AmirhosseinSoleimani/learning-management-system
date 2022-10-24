@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
 import '../../drawer.dart';
-import '../my_separator.dart';
+import './stepper.dart';
 
-class FavouriteStudent extends StatelessWidget {
+class FavouriteStudent extends StatefulWidget {
   static const routeName = '/second_student_favourite';
 
   const FavouriteStudent({Key? key}) : super(key: key);
+
+  @override
+  State<FavouriteStudent> createState() => _FavouriteStudentState();
+}
+
+class _FavouriteStudentState extends State<FavouriteStudent> {
+
+  final _form = GlobalKey<FormState>();
+  final _nameFocusNode = FocusNode();
+  final _lastNameFocusNode = FocusNode();
+
+  final _initValues = {
+    'name': '',
+    'lastName': '',
+    'bio': ''
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -39,220 +55,140 @@ class FavouriteStudent extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.8,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 10.0,
-                            ),
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 110.0),
-                              decoration: const BoxDecoration(
-                                color: Color(0xff177FB0),
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10.0),
-                                  topLeft: Radius.circular(10.0),
-                                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          color: Colors.white,
+                          height: MediaQuery.of(context).size.height * 0.38,
+                          width: MediaQuery.of(context).size.width,
+                        ),
+                        Positioned(
+                          top: 120,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Color(0xff177FB0),
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(10.0),
+                                topLeft: Radius.circular(10.0),
                               ),
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.2,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: const [
-                                        SizedBox(
-                                          width: 25,
-                                          height: 35,
-                                          child: CircleAvatar(
-                                            backgroundColor: Color(0xff5DBF23),
-                                            child: Icon(
-                                              Icons.done,
-                                              color: Colors.white,
-                                              size: 25.0,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 60,
-                                          height: 35,
-                                          child: MySeparator(
-                                            color: Color(0xffD9D9D9),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 25,
-                                          height: 35,
-                                          child: CircleAvatar(
-                                            backgroundColor: Color(0xff5DBF23),
-                                            child: Icon(
-                                              Icons.done,
-                                              color: Colors.white,
-                                              size: 25.0,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 60,
-                                          height: 35,
-                                          child: MySeparator(
-                                            color: Color(0xffD9D9D9),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 25,
-                                          height: 35,
-                                          child: CircleAvatar(
-                                            backgroundColor: Color(0xff5DBF23),
-                                            child: Icon(
-                                              Icons.done,
-                                              color: Colors.white,
-                                              size: 25.0,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 60,
-                                          height: 35,
-                                          child: MySeparator(
-                                            color: Color(0xffD9D9D9),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 25,
-                                          height: 35,
-                                          child: CircleAvatar(
-                                              backgroundColor: Color(0xff5DBF23),
-                                              child: null),
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: const [
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 4.0),
-                                          child: Text(
-                                            'Sign Up',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14.0,
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.left,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 20.0,
-                                        ),
-                                        Text(
-                                          'Information',
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                          textAlign: TextAlign.left,
-                                        ),
-                                        SizedBox(
-                                          width: 13.0,
-                                        ),
-                                        Text(
-                                          'Information',
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        SizedBox(
-                                          width: 15.0,
-                                        ),
-                                        Text(
-                                          'Favourite',
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: const [
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 252),
-                                          child: SizedBox(
-                                            width: 60,
-                                            height: 1,
-                                            child: Divider(
-                                              thickness: 5,
-                                              color: Color(0xff5DBF23),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                            ),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            child: const CustomizeStepper(),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 102.0,
+                          left: -40.0,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 15.0, horizontal: 35.0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child:Image.asset(
+                                'assets/images/favourite.png',
+                                width: 150.0,
+                                height: 150.0,
+                                alignment: Alignment.topLeft,
                               ),
                             ),
                           ),
-                          Positioned(
-                            bottom: 207.0,
-                            left: -40.0,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 15.0, horizontal: 35.0),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: MediaQuery.of(context).size.height * 0.2,
-                                  child: Image.asset(
-                                    'assets/images/favourite.png',
-                                    width: 150.0,
-                                    height: 150.0,
-                                    alignment: Alignment.topLeft,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    const Text(
+                      'Favourite',
+                      style: TextStyle(
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff3F3D56)),
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      width: double.infinity,
+                      child: Form(
+                        key: _form,
+                        child: Padding(
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: TextFormField(
+                            initialValue: _initValues['name'],
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(10.0),
+                                  borderSide: const BorderSide(
+                                      width: 2,
+                                      color: Color(0xffD9D9D9)
                                   ),
                                 ),
-                              ),
+                                hintText: 'Categories of interests',
+                                hintStyle: const TextStyle(
+                                    fontSize: 18.0,
+                                    color: Color(0xff7E7979)
+                                ),
+                                prefixIcon: SizedBox(
+                                  width: 20.0,
+                                  height: 20.0,
+                                  child: Stack(
+                                    children: const [
+                                      Positioned(
+                                        bottom: 5,
+                                        left: 5,
+                                        child: Icon(Icons.circle_outlined,
+                                          size: 40.0,
+                                          color: Color(0xffD9D9D9),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 8.5,
+                                        left: 10.8,
+                                        child: Icon(
+                                          Icons.star,
+                                          size: 28.0,
+                                          color: Color(0xffFAD564),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
                             ),
+                            focusNode: _nameFocusNode,
+                            keyboardType: TextInputType.name,
+                            textInputAction: TextInputAction.next,
+                            onFieldSubmitted: (value) {
+                              FocusScope.of(context)
+                                  .requestFocus(_lastNameFocusNode);
+                            },
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return 'Field is required';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                            },
                           ),
-                        ],
+                        ),
                       ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      const Text(
-                        'Favourite',
-                        style: TextStyle(
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff3F3D56)),
-                      ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: double.infinity,
+                    )
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
