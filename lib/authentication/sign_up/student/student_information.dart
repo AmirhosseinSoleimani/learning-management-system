@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import '../../../models/student_account.dart';
+import '../../../provider/student_provider.dart';
 import '../../drawer.dart';
 import '../my_separator.dart';
 import './second_student_information.dart';
@@ -34,6 +37,59 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
     'bio': ''
   };
 
+  var _signupStudent = StudentAccount(
+    firstName: '',
+    lastName: '',
+    password: '',
+    email: '',
+    phoneNumber: '',
+    birthdayDate: DateTime.now(),
+    bio: '',
+    gender: '',
+    introduction: '',
+    country: '',
+    favouriteCourse: [],
+  );
+
+  var _isLoading = false;
+
+  Future<void> _saveForm() async {
+    final isValid = _form.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    _form.currentState!.save();
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      await Provider.of<StudentProvider>(context, listen: false)
+          .addStudentAccount(_signupStudent);
+
+    } catch (error) {
+      await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('an error occurred!'),
+          content: const Text('Something went wrong'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Okay'))
+          ],
+        ),
+      );
+    }
+    setState(() {
+      _isLoading = false;
+    });
+    Navigator.pushNamed(context, SecondInformationStudent.routeName);
+  }
+
+
+
   Future pickImage(ImageSource source) async {
     try{
       final XFile? image = await ImagePicker().pickImage(source: source);
@@ -47,6 +103,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
 
   @override
   Widget build(BuildContext context) {
+    final studentProvider = Provider.of<StudentProvider>(context);
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
@@ -321,6 +378,19 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                               return null;
                             },
                             onSaved: (value) {
+                              _signupStudent = StudentAccount(
+                                firstName: value!,
+                                lastName: '',
+                                password: studentProvider.studentAccount[0].password,
+                                email: studentProvider.studentAccount[0].email,
+                                phoneNumber: '',
+                                birthdayDate: DateTime.now(),
+                                bio: '',
+                                gender: '',
+                                introduction: '',
+                                country: '',
+                                favouriteCourse: [],
+                              );
                             },
                           ),
                           const SizedBox(
@@ -358,6 +428,19 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                               return null;
                             },
                             onSaved: (value) {
+                              _signupStudent = StudentAccount(
+                                firstName: _signupStudent.firstName,
+                                lastName: value!,
+                                password: studentProvider.studentAccount[0].password,
+                                email: studentProvider.studentAccount[0].email,
+                                phoneNumber: '',
+                                birthdayDate: DateTime.now(),
+                                bio: '',
+                                gender: '',
+                                introduction: '',
+                                country: '',
+                                favouriteCourse: [],
+                              );
                             },
                           ),
                         ],
@@ -410,6 +493,19 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                 onChanged: (String? newValue) {
                                   setState(() {
                                     dropDownValue = newValue!;
+                                    _signupStudent = StudentAccount(
+                                      firstName: _signupStudent.firstName,
+                                      lastName: _signupStudent.lastName,
+                                      password: studentProvider.studentAccount[0].password,
+                                      email: studentProvider.studentAccount[0].email,
+                                      phoneNumber: '',
+                                      birthdayDate: DateTime.now(),
+                                      bio: '',
+                                      gender: newValue,
+                                      introduction: '',
+                                      country: '',
+                                      favouriteCourse: [],
+                                    );
                                   });
                                 },
                               ),
@@ -445,7 +541,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                 ),
                                 focusNode: _bioFocusNode,
                                 keyboardType: TextInputType.text,
-                                textInputAction: TextInputAction.next,
+                                textInputAction: TextInputAction.done,
                                 validator: (String? value) {
                                   if (value!.isEmpty) {
                                     return 'Field is required';
@@ -453,6 +549,19 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                   return null;
                                 },
                                 onSaved: (value) {
+                                  _signupStudent = StudentAccount(
+                                    firstName: _signupStudent.firstName,
+                                    lastName: _signupStudent.lastName,
+                                    password: studentProvider.studentAccount[0].password,
+                                    email: studentProvider.studentAccount[0].email,
+                                    phoneNumber: '',
+                                    birthdayDate: DateTime.now(),
+                                    bio: _signupStudent.bio,
+                                    gender: _signupStudent.gender,
+                                    introduction: '',
+                                    country: '',
+                                    favouriteCourse: [],
+                                  );
                                 },
                               ),
                             ),
@@ -584,7 +693,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                   ),
                   child: TextButton(
                       onPressed: (){
-                        Navigator.pushNamed(context, SecondInformationStudent.routeName);
+                        _saveForm();
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
