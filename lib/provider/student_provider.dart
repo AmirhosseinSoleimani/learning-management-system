@@ -13,7 +13,7 @@ class StudentProvider with ChangeNotifier{
 
 
   Future <void> addStudentAccount(StudentAccount studentAccount) async{
-    final url = Uri.parse('http://135.125.59.77:8090/swagger/doc.json');
+    final url = Uri.parse('http://135.125.59.77:8090/api/v1/auth/sign-up/student');
     try{
       await http.post(url,body: json.encode(
         {

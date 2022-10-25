@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/sign_up/student/student_information.dart';
-import 'package:learning_management_system/models/general_account.dart';
 import 'package:learning_management_system/models/student_account.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../models/general_account.dart';
 import '../../../provider/student_provider.dart';
 import '../../drawer.dart';
 
@@ -22,8 +20,6 @@ class _StudentSignUpState extends State<StudentSignUp> {
   final _emailFocusNode = FocusNode();
   bool isSelected = false;
   final _initValues = {
-    'firstName': '',
-    'lastName': '',
     'email': '',
     'password': '',
   };
@@ -34,7 +30,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
 
   bool _passwordVisible = false;
 
-  var _signupGeneral = StudentAccount(
+  var _signupStudent = StudentAccount(
     firstName: '',
     lastName: '',
     password: '',
@@ -47,6 +43,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
     country: '',
     favouriteCourse: [],
   );
+
   var _isLoading = false;
 
   Future<void> _saveForm() async {
@@ -60,7 +57,8 @@ class _StudentSignUpState extends State<StudentSignUp> {
     });
     try {
       await Provider.of<StudentProvider>(context, listen: false)
-          .addGeneralStudent(_signupGeneral);
+          .addStudentAccount(_signupStudent);
+
     } catch (error) {
       await showDialog(
         context: context,
@@ -80,6 +78,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
     setState(() {
       _isLoading = false;
     });
+    Navigator.pushNamed(context, InformationStudentSignUp.routeName);
   }
 
   @override
@@ -117,7 +116,9 @@ class _StudentSignUpState extends State<StudentSignUp> {
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xffFFFFFF),
-      body: Padding(
+      body: (_isLoading) ? const Center(
+        child: CircularProgressIndicator(),
+      ) : Padding(
         padding: const EdgeInsets.all(15.0),
         child: Card(
           elevation: 8,
@@ -156,7 +157,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                   height: 20.0,
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2,
+                  height: MediaQuery.of(context).size.height * 0.25,
                   width: double.infinity,
                   child: Form(
                     key: _form,
@@ -204,13 +205,18 @@ class _StudentSignUpState extends State<StudentSignUp> {
                               return null;
                             },
                             onSaved: (value) {
-                              _signupGeneral = GeneralAccount(
-                                id: _signupGeneral.id,
-                                firstName: _signupGeneral.firstName,
-                                lastName: _signupGeneral.lastName,
-                                password: _signupGeneral.password,
+                              _signupStudent = StudentAccount(
+                                firstName: _signupStudent.firstName,
+                                lastName: _signupStudent.lastName,
+                                password: _signupStudent.password,
                                 email: value!,
-                                typeAccount: _signupGeneral.typeAccount,
+                                country: _signupStudent.country,
+                                favouriteCourse: _signupStudent.favouriteCourse,
+                                gender: _signupStudent.gender,
+                                introduction: _signupStudent.introduction,
+                                birthdayDate: _signupStudent.birthdayDate,
+                                bio: _signupStudent.bio,
+                                phoneNumber: _signupStudent.phoneNumber,
                               );
                             },
                           ),
@@ -252,7 +258,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                               obscureText: !_passwordVisible,
                               // controller: _passwordController,
                               focusNode: _passwordFocusNode,
-                              textInputAction: TextInputAction.next,
+                              textInputAction: TextInputAction.done,
                               validator: (String? value) {
                                 if (value!.isEmpty) {
                                   return 'Field is required';
@@ -262,15 +268,21 @@ class _StudentSignUpState extends State<StudentSignUp> {
                                 return null;
                               },
                               onSaved: (value) {
-                                _signupGeneral = GeneralAccount(
-                                    id: _signupGeneral.id,
-                                    firstName: _signupGeneral.firstName,
-                                    lastName: _signupGeneral.lastName,
-                                    password: value!,
-                                    email: _signupGeneral.email,
-                                    typeAccount:
-                                        _signupGeneral.typeAccount);
-                              })
+                                _signupStudent = StudentAccount(
+                                  firstName: _signupStudent.firstName,
+                                  lastName: _signupStudent.lastName,
+                                  password: value!,
+                                  email: _signupStudent.email,
+                                  country: _signupStudent.country,
+                                  favouriteCourse: _signupStudent.favouriteCourse,
+                                  gender: _signupStudent.gender,
+                                  introduction: _signupStudent.introduction,
+                                  birthdayDate: _signupStudent.birthdayDate,
+                                  bio: _signupStudent.bio,
+                                  phoneNumber: _signupStudent.phoneNumber,
+                                );
+                              }
+                              )
                         ],
                       ),
                     ),
@@ -285,7 +297,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                   ),
                   child: TextButton(
                       onPressed: (){
-                        Navigator.pushNamed(context, InformationStudentSignUp.routeName);
+                        _saveForm();
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
@@ -306,10 +318,10 @@ class _StudentSignUpState extends State<StudentSignUp> {
                       )
                   ),
                 ),
-                const SizedBox(
+                if(!isKeyboard) const SizedBox(
                   height: 20.0,
                 ),
-                Row(
+                if(!isKeyboard) Row(
                   children: [
                     Expanded(
                       child: Container(
@@ -343,7 +355,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                 const SizedBox(
                   height: 20.0,
                 ),
-                Padding(
+                if(!isKeyboard) Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 10.0,
                       vertical: 10,
@@ -426,7 +438,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                     ],
                   ),
                 ),
-                const SizedBox(
+                if(!isKeyboard) const SizedBox(
                   height: 2.0,
                 ),
                 Padding(
@@ -445,7 +457,8 @@ class _StudentSignUpState extends State<StudentSignUp> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                        },
                         child: const Text(
                           'Sign In',
                           style: TextStyle(
