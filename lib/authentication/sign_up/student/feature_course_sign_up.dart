@@ -34,7 +34,7 @@ class _FeatureCourseSignUpState extends State<FeatureCourseSignUp> {
         child: ListTile(
           leading: Container(
             width: 100,
-            height: 50,
+            height: 40,
             decoration: BoxDecoration(
               color: (isSelected) ? const Color(0xFF5DBF23) : const Color(0xFF177FB0),
               borderRadius: const BorderRadius.all(
@@ -47,7 +47,7 @@ class _FeatureCourseSignUpState extends State<FeatureCourseSignUp> {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.black,
-                  fontSize: 16.0
+                  fontSize: 14.0
                 ),
               ),
             ),

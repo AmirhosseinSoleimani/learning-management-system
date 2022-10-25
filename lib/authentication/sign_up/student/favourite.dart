@@ -124,6 +124,7 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
                               ),
                               );
                             },
+                            readOnly: true,
                             initialValue: _initValues['name'],
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(

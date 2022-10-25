@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/sign_up/student/student_information.dart';
 import 'package:learning_management_system/models/general_account.dart';
+import 'package:learning_management_system/models/student_account.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../models/general_account.dart';
@@ -33,13 +34,18 @@ class _StudentSignUpState extends State<StudentSignUp> {
 
   bool _passwordVisible = false;
 
-  var _signupGeneral = GeneralAccount(
-    typeAccount: '',
-    id: '',
+  var _signupGeneral = StudentAccount(
     firstName: '',
     lastName: '',
     password: '',
     email: '',
+    phoneNumber: '',
+    birthdayDate: DateTime.now(),
+    bio: '',
+    gender: '',
+    introduction: '',
+    country: '',
+    favouriteCourse: [],
   );
   var _isLoading = false;
 

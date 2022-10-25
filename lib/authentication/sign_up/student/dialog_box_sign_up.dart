@@ -58,59 +58,20 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Stack(
-                        children: [
-                          Container(
-                            color: Colors.white,
-                            height: MediaQuery.of(context).size.height * 0.38,
-                            width: MediaQuery.of(context).size.width,
-                          ),
-                          Positioned(
-                            top: 120,
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Color(0xff177FB0),
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10.0),
-                                  topLeft: Radius.circular(10.0),
-                                ),
-                              ),
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              height: MediaQuery.of(context).size.height * 0.2,
-                              child: const CustomizeStepper(),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 102.0,
-                            left: -40.0,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 15.0, horizontal: 35.0),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Image.asset(
-                                  'assets/images/favourite.png',
-                                  width: 150.0,
-                                  height: 150.0,
-                                  alignment: Alignment.topLeft,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 10.0
+                        ),
+                        child: Text(
+                          'Favourite',
+                          style: TextStyle(
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff3F3D56)),
+                        ),
                       ),
                       const SizedBox(
                         height: 10.0,
-                      ),
-                      const Text(
-                        'Favourite',
-                        style: TextStyle(
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff3F3D56)),
-                      ),
-                      const SizedBox(
-                        height: 20.0,
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.08,
@@ -120,6 +81,7 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10.0),
                             child: TextFormField(
+                              enabled: false,
                               initialValue: _initValues['name'],
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
@@ -178,7 +140,39 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
                             )
                           ),
                         ),
-                      )
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            right: 87.0, left: 87.0, bottom: 20.0),
+                        child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(
+                                  const Color(0xff177FB0),
+                                ),
+                                shape:
+                                MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(50.0),
+                                    ),
+                                ),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 30,
+                              ),
+                              child: Text(
+                                'Close',
+                                style: TextStyle(
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffFFFFFF)),
+                              ),
+                            )),
+                      ),
                     ],
                   ),
                 ],

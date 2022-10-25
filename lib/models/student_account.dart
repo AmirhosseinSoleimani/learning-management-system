@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 
 class StudentAccount {
-  final String typeAccount;
-  final String id;
+  final String email;
+  final String password;
   final String firstName;
   final String lastName;
-  final String password;
-  final DateTime dateTime;
   final String gender;
+  final String bio;
   final String phoneNumber;
-  final String email;
+  final DateTime birthdayDate;
   final String country;
+  final String introduction;
+  final List<String> favouriteCourse;
 
 
   StudentAccount(
       {
-        required this.typeAccount,
-        required this.id,
+        required this.email,
+        required this.password,
         required this.firstName,
         required this.lastName,
-        required this.dateTime,
-        required this.password,
+        required this.birthdayDate,
         required this.gender,
-        required this.country,
+        required this.bio,
         required this.phoneNumber,
-        required this.email
+        required this.country,
+        required this.introduction,
+        required this.favouriteCourse
       });
 
 

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/models/general_account.dart';
 import '../models/student_account.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,55 +11,43 @@ class StudentProvider with ChangeNotifier{
     return _studentAccount;
   }
 
-  StudentAccount findById(String id){
-    return _studentAccount.firstWhere((element) => element.id == id);
-  }
 
-
-  Future <void> addGeneralStudent(GeneralAccount generalAccount) async{
-    final url = Uri.parse('https://lms-user-account-default-rtdb.europe-west1.firebasedatabase.app/authentication.json');
+  Future <void> addStudentAccount(StudentAccount studentAccount) async{
+    final url = Uri.parse('http://135.125.59.77:8090/swagger/doc.json');
     try{
-     final response = await http.post(url, body: json.encode({
-        'typeAccount': generalAccount.typeAccount,
-        'firstName': generalAccount.firstName,
-        'lastName': generalAccount.lastName,
-        'password': generalAccount.password,
-        'email': generalAccount.email,
-
-      })
-      );
+      await http.post(url,body: json.encode(
+        {
+          'password': studentAccount.password,
+          'email': studentAccount.email,
+          'firstName': studentAccount.firstName,
+          'lastName': studentAccount.lastName,
+          'phoneNumber': studentAccount.phoneNumber,
+          'gender': studentAccount.gender,
+          'bio': studentAccount.bio,
+          'country': studentAccount.country,
+          'introduction': studentAccount.introduction,
+          'birthdayDate': studentAccount.birthdayDate,
+          'favouriteCourse': studentAccount.favouriteCourse,
+        }
+      ));
       final newStudentAccount = StudentAccount(
-        id: json.decode(response.body)['name'],
-        typeAccount: 'Student',
-        firstName: generalAccount.firstName,
-        lastName: generalAccount.lastName,
-        password: generalAccount.password,
-        email: generalAccount.email,
-        phoneNumber: '',
-        gender: '',
-        dateTime: DateTime.now(),
-        country: '',
+        password: studentAccount.password,
+        email: studentAccount.email,
+        firstName: studentAccount.firstName,
+        lastName: studentAccount.lastName,
+        phoneNumber: studentAccount.phoneNumber,
+        gender: studentAccount.gender,
+        bio: studentAccount.bio,
+        country: studentAccount.country,
+        introduction: studentAccount.introduction,
+        birthdayDate: DateTime.now(),
+        favouriteCourse: [],
       );
       _studentAccount.add(newStudentAccount);
       notifyListeners();
-    }catch(error){
-      throw(error);
+    }catch(e){
+      debugPrint(e.toString());
     }
-    final newStudentAccount = StudentAccount(
-      id: DateTime.now().toString(),
-      typeAccount: 'Student',
-      firstName: generalAccount.firstName,
-      lastName: generalAccount.lastName,
-      password: generalAccount.password,
-      email: generalAccount.email,
-      phoneNumber: '',
-      gender: '',
-      dateTime: DateTime.now(),
-      country: '',
-    );
-    _studentAccount.add(newStudentAccount);
-    notifyListeners();
-
   }
 
 
