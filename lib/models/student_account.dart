@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class StudentAccount {
@@ -8,7 +9,7 @@ class StudentAccount {
   final String gender;
   final String bio;
   final String phoneNumber;
-  final DateTime birthdayDate;
+  final int birthdayDate;
   final String country;
   final String introduction;
   final List<String> favouriteCourse;

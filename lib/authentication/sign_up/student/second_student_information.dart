@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:learning_management_system/authentication/sign_up/student/customize_stepper_second_information.dart';
+import 'package:learning_management_system/authentication/sign_up/student/phoneNumber_textFormField.dart';
+import 'package:learning_management_system/provider/student_provider.dart';
+import 'package:provider/provider.dart';
+import '../../../models/student_account.dart';
 import '../../drawer.dart';
-import '../my_separator.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:country_picker/country_picker.dart';
-
 import 'favourite.dart';
 
 
@@ -18,7 +21,7 @@ class SecondInformationStudent extends StatefulWidget {
 }
 
 class _SecondInformationStudentState extends State<SecondInformationStudent> {
-  bool isSelected = false;
+
   bool dateSelect = false;
   String? country;
   Country iran = Country(
@@ -35,17 +38,65 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
   );
   String? icon;
   final _form = GlobalKey<FormState>();
-  final _phoneNumberFocusNode = FocusNode();
-
-  final _initValues = {
-    'phoneNumber': '',
-  };
 
   String? dropDownValue;
   var items = ['Friend', 'Social Media','Website'];
 
+  var _signupStudent = StudentAccount(
+    firstName: '',
+    lastName: '',
+    password: '',
+    email: '',
+    phoneNumber: '',
+    birthdayDate: Timestamp.fromDate(DateTime.now()).seconds,
+    bio: '',
+    gender: '',
+    introduction: '',
+    country: '',
+    favouriteCourse: [],
+  );
+
+  var _isLoading = false;
+
+
+  Future<void> _saveForm() async {
+    final isValid = _form.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    _form.currentState!.save();
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      await Provider.of<StudentProvider>(context, listen: false)
+          .replaceStudentAccount(_signupStudent);
+
+    } catch (error) {
+      await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('an error occurred!'),
+          content: const Text('Something went wrong'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Okay'))
+          ],
+        ),
+      );
+    }
+    setState(() {
+      _isLoading = false;
+    });
+    Navigator.pushNamed(context, FavouriteStudent.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final studentAccount = Provider.of<StudentProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffFFFFFF),
@@ -70,7 +121,9 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xffFFFFFF),
-      body: Padding(
+      body: (_isLoading) ? const Center(
+        child: CircularProgressIndicator(),
+      ) :Padding(
         padding: const EdgeInsets.all(15.0),
         child: Card(
           elevation: 8,
@@ -103,156 +156,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                             topLeft: Radius.circular(10.0))),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.2,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              SizedBox(
-                                width: 25,
-                                height: 35,
-                                child: CircleAvatar(
-                                  backgroundColor: Color(0xff5DBF23),
-                                  child: Icon(
-                                    Icons.done,
-                                    color: Colors.white,
-                                    size: 25.0,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 60,
-                                height: 35,
-                                child: MySeparator(
-                                  color: Color(0xffD9D9D9),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 25,
-                                height: 35,
-                                child: CircleAvatar(
-                                  backgroundColor: Color(0xff5DBF23),
-                                  child: Icon(
-                                    Icons.done,
-                                    color: Colors.white,
-                                    size: 25.0,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 60,
-                                height: 35,
-                                child: MySeparator(
-                                  color: Color(0xffD9D9D9),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 25,
-                                height: 35,
-                                child: CircleAvatar(
-                                  backgroundColor: Color(0xff5DBF23),
-                                  child: null,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 60,
-                                height: 35,
-                                child: MySeparator(
-                                  color: Color(0xffD9D9D9),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 25,
-                                height: 35,
-                                child: CircleAvatar(
-                                    backgroundColor: Color(0xffD9D9D9),
-                                    child: null),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 4.0),
-                                child: Text(
-                                  'Sign Up',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 20.0,
-                              ),
-                              Text(
-                                'Information',
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                                textAlign: TextAlign.left,
-                              ),
-                              SizedBox(
-                                width: 13.0,
-                              ),
-                              Text(
-                                'Information',
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(
-                                width: 15.0,
-                              ),
-                              Text(
-                                'Favourite',
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.only(left: 90),
-                                child: SizedBox(
-                                  width: 75,
-                                  height: 1,
-                                  child: Divider(
-                                    thickness: 5,
-                                    color: Color(0xff5DBF23),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                    child: const CustomizeStepperSecondInformation(),
                   ),
                 ),
                 const SizedBox(
@@ -278,361 +182,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                       child: ListView(
                         shrinkWrap: true,
                         children: [
-                          (isSelected)
-                              ? Container(
-                                  height: 55.0,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white,
-                                      border: Border.all(
-                                          width: 2, color: Colors.blue)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0),
-                                    child: Row(
-                                      children: [
-                                        const SizedBox(
-                                          child: Icon(
-                                            Icons.phone_android_outlined,
-                                            size: 28.0,
-                                            color: Color(0xff7E7979),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        Row(
-                                          children: [
-                                            const SizedBox(
-                                                height: 28,
-                                                width: 12,
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      bottom: 8.0),
-                                                  child: Text(
-                                                    '+',
-                                                    style: TextStyle(
-                                                        fontSize: 18.0,
-                                                        color: Colors.black),
-                                                  ),
-                                                )),
-                                            const SizedBox(
-                                              width: 5.0,
-                                            ),
-                                            SizedBox(
-                                              height: 18,
-                                              width: 12,
-                                              child: TextFormField(
-                                                onChanged: (value) {
-                                                  if (value.length == 1) {
-                                                    FocusScope.of(context)
-                                                        .nextFocus();
-                                                  }
-                                                },
-                                                autofocus: true,
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly,
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 18,
-                                              width: 12,
-                                              child: TextFormField(
-                                                onChanged: (value) {
-                                                  if (value.length == 1) {
-                                                    FocusScope.of(context)
-                                                        .nextFocus();
-                                                  }
-                                                },
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly,
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              height: 18,
-                                              width: 12,
-                                              child: TextFormField(
-                                                onChanged: (value) {
-                                                  if (value.length == 1) {
-                                                    FocusScope.of(context)
-                                                        .nextFocus();
-                                                  }
-                                                },
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly,
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 18,
-                                              width: 12,
-                                              child: TextFormField(
-                                                onChanged: (value) {
-                                                  if (value.length == 1) {
-                                                    FocusScope.of(context)
-                                                        .nextFocus();
-                                                  }
-                                                },
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly,
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 18,
-                                              width: 12,
-                                              child: TextFormField(
-                                                onChanged: (value) {
-                                                  if (value.length == 1) {
-                                                    FocusScope.of(context)
-                                                        .nextFocus();
-                                                  }
-                                                },
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly,
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              height: 18,
-                                              width: 12,
-                                              child: TextFormField(
-                                                onChanged: (value) {
-                                                  if (value.length == 1) {
-                                                    FocusScope.of(context)
-                                                        .nextFocus();
-                                                  }
-                                                },
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly,
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 18,
-                                              width: 12,
-                                              child: TextFormField(
-                                                onChanged: (value) {
-                                                  if (value.length == 1) {
-                                                    FocusScope.of(context)
-                                                        .nextFocus();
-                                                  }
-                                                },
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly,
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 18,
-                                              width: 12,
-                                              child: TextFormField(
-                                                onChanged: (value) {
-                                                  if (value.length == 1) {
-                                                    FocusScope.of(context)
-                                                        .nextFocus();
-                                                  }
-                                                },
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly,
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              height: 18,
-                                              width: 12,
-                                              child: TextFormField(
-                                                onChanged: (value) {
-                                                  if (value.length == 1) {
-                                                    FocusScope.of(context)
-                                                        .nextFocus();
-                                                  }
-                                                },
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly,
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 18,
-                                              width: 12,
-                                              child: TextFormField(
-                                                onChanged: (value) {
-                                                  if (value.length == 1) {
-                                                    FocusScope.of(context)
-                                                        .nextFocus();
-                                                  }
-                                                },
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly,
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 18,
-                                              width: 12,
-                                              child: TextFormField(
-                                                onChanged: (value) {
-                                                  if (value.length == 1) {
-                                                    FocusScope.of(context)
-                                                        .nextFocus();
-                                                  }
-                                                },
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly,
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 18,
-                                              width: 12,
-                                              child: TextFormField(
-                                                onChanged: (value) {
-                                                  if (value.length == 1) {
-                                                    FocusScope.of(context)
-                                                        .nextFocus();
-                                                  }
-                                                },
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly,
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              : TextFormField(
-                                  onTap: () {
-                                    setState(() {
-                                      isSelected = true;
-                                    });
-                                  },
-                                  initialValue: _initValues['phoneNumber'],
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        borderSide: const BorderSide(
-                                            width: 2, color: Color(0xffD9D9D9)),
-                                      ),
-                                      hintText: 'PhoneNumber',
-                                      hintStyle: const TextStyle(
-                                          fontSize: 16.0,
-                                          color: Color(0xff7E7979)),
-                                      prefixIcon: const Icon(
-                                        Icons.phone_android_outlined,
-                                        size: 28.0,
-                                        color: Color(0xff7E7979),
-                                      )),
-                                  focusNode: _phoneNumberFocusNode,
-                                  keyboardType: TextInputType.number,
-                                  textInputAction: TextInputAction.next,
-                                  validator: (String? value) {
-                                    if (value!.isEmpty) {
-                                      return 'Field is required';
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (value) {},
-                                ),
+                          const PhoneNumberTextFormField(),
                           const SizedBox(
                             height: 10.0,
                           ),
@@ -682,7 +232,21 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                         print(val);
                                         return null;
                                       },
-                                      onSaved: (val) => print(val),
+                                      onSaved: (val){
+                                        _signupStudent = StudentAccount(
+                                          firstName: studentAccount.studentAccount[0].firstName,
+                                          lastName: studentAccount.studentAccount[0].lastName,
+                                          password: studentAccount.studentAccount[0].password,
+                                          email: studentAccount.studentAccount[0].email,
+                                          phoneNumber: studentAccount.phoneNumberTextFormField!,
+                                          birthdayDate: Timestamp.fromDate(DateTime.parse(val!)).seconds,
+                                          bio: studentAccount.studentAccount[0].bio,
+                                          gender: studentAccount.studentAccount[0].gender,
+                                          introduction: _signupStudent.introduction,
+                                          country: _signupStudent.country,
+                                          favouriteCourse: _signupStudent.favouriteCourse,
+                                        );
+                                      },
                                     ):
                                     const Padding(
                                       padding: EdgeInsets.only(
@@ -714,6 +278,19 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                     setState((){
                                       country = value.name;
                                       icon = value.flagEmoji;
+                                      _signupStudent = StudentAccount(
+                                        firstName: _signupStudent.firstName,
+                                        lastName: _signupStudent.lastName,
+                                        password: _signupStudent.password,
+                                        email: _signupStudent.email,
+                                        phoneNumber: _signupStudent.phoneNumber,
+                                        birthdayDate: _signupStudent.birthdayDate,
+                                        bio: _signupStudent.bio,
+                                        gender: _signupStudent.gender,
+                                        introduction: _signupStudent.introduction,
+                                        country: value.displayName,
+                                        favouriteCourse: _signupStudent.favouriteCourse,
+                                      );
                                     });
                                   },
                                   context: context,
@@ -808,7 +385,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                   ),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                prefixIcon: Icon(Icons.person)
+                                prefixIcon: const Icon(Icons.person)
                               ),
                               value: null,
                               icon: const Icon(
@@ -831,6 +408,21 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                               onChanged: (String? newValue) {
                                 setState(() {
                                   dropDownValue = newValue!;
+                                  _signupStudent = StudentAccount(
+                                    firstName: _signupStudent.firstName,
+                                    lastName: _signupStudent.lastName,
+                                    password: _signupStudent.password,
+                                    email: _signupStudent.email,
+                                    phoneNumber: _signupStudent.phoneNumber,
+                                    birthdayDate: _signupStudent.birthdayDate,
+                                    bio: _signupStudent.bio,
+                                    gender: _signupStudent.gender,
+                                    introduction: newValue,
+                                    country: _signupStudent.country,
+                                    favouriteCourse: _signupStudent.favouriteCourse,
+                                  );
+
+
                                 });
                               },
                             ),
@@ -848,7 +440,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                   ),
                   child: TextButton(
                       onPressed: (){
-                        Navigator.pushNamed(context, FavouriteStudent.routeName);
+                        _saveForm();
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),

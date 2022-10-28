@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/sign_up/student/feature_course_sign_up.dart';
-import 'package:learning_management_system/authentication/sign_up/student/stepper.dart';
 import 'package:learning_management_system/data.dart';
-import '../../../store/screens/home_page.dart';
+import 'package:provider/provider.dart';
+import '../../../models/student_account.dart';
+import '../../../provider/student_provider.dart';
 import '../../drawer.dart';
 
 class DialogBoxSignUp extends StatefulWidget {
@@ -15,14 +17,26 @@ class DialogBoxSignUp extends StatefulWidget {
 class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
 
   final _form = GlobalKey<FormState>();
-  final _nameFocusNode = FocusNode();
-  final _lastNameFocusNode = FocusNode();
-
-  final _initValues = {'name': '', 'lastName': '', 'bio': ''};
+  final _favouriteCourse = FocusNode();
+  final _initValues = {'favouriteCourse': ''};
+  var _signupStudent = StudentAccount(
+    firstName: '',
+    lastName: '',
+    password: '',
+    email: '',
+    phoneNumber: '',
+    birthdayDate: Timestamp.fromDate(DateTime.now()).seconds,
+    bio: '',
+    gender: '',
+    introduction: '',
+    country: '',
+    favouriteCourse: [],
+  );
 
 
   @override
   Widget build(BuildContext context) {
+    final studentAccount = Provider.of<StudentProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffFFFFFF),
@@ -82,7 +96,7 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
                             padding: const EdgeInsets.symmetric(horizontal: 10.0),
                             child: TextFormField(
                               enabled: false,
-                              initialValue: _initValues['name'],
+                              initialValue: _initValues['favouriteCourse'],
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
@@ -95,13 +109,9 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
                                     size: 28.0,
                                   )
                               ),
-                              focusNode: _nameFocusNode,
+                              focusNode: _favouriteCourse,
                               keyboardType: TextInputType.name,
-                              textInputAction: TextInputAction.next,
-                              onFieldSubmitted: (value) {
-                                FocusScope.of(context)
-                                    .requestFocus(_lastNameFocusNode);
-                              },
+                              textInputAction: TextInputAction.search,
                               validator: (String? value) {
                                 if (value!.isEmpty) {
                                   return 'Field is required';
@@ -146,6 +156,19 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
                             right: 87.0, left: 87.0, bottom: 20.0),
                         child: TextButton(
                             onPressed: () {
+                              _signupStudent = StudentAccount(
+                                firstName: studentAccount.studentAccount[0].firstName,
+                                lastName: studentAccount.studentAccount[0].lastName,
+                                password: studentAccount.studentAccount[0].password,
+                                email: studentAccount.studentAccount[0].email,
+                                phoneNumber: studentAccount.studentAccount[0].phoneNumber,
+                                birthdayDate: studentAccount.studentAccount[0].birthdayDate,
+                                bio: studentAccount.studentAccount[0].bio,
+                                gender: studentAccount.studentAccount[0].gender,
+                                introduction: studentAccount.studentAccount[0].introduction,
+                                country: studentAccount.studentAccount[0].country,
+                                favouriteCourse: studentAccount.favouriteCourseList,
+                              );
                               Navigator.of(context).pop();
                             },
                             style: ButtonStyle(

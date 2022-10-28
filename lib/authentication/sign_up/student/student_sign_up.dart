@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/sign_up/student/student_information.dart';
 import 'package:learning_management_system/models/student_account.dart';
@@ -5,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../provider/student_provider.dart';
 import '../../drawer.dart';
+
 
 class StudentSignUp extends StatefulWidget {
   static const routeName = '/student_signup';
@@ -36,7 +38,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
     password: '',
     email: '',
     phoneNumber: '',
-    birthdayDate: DateTime.now(),
+    birthdayDate: Timestamp.fromDate(DateTime.now()).seconds,
     bio: '',
     gender: '',
     introduction: '',
@@ -400,9 +402,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                         width: 30.0,
                       ),
                       GestureDetector(
-                        onTap: () {
-                          debugPrint('hhh');
-                        },
+                        onTap: () {},
                         child: Container(
                           width: 60.0,
                           height: 60.0,

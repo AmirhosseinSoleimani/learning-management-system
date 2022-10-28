@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learning_management_system/store/screens/home_page.dart';
+import 'package:provider/provider.dart';
 import '../../../data.dart';
+import '../../../models/student_account.dart';
+import '../../../provider/student_provider.dart';
 import '../../../store/course_details/screens/course_details.dart';
 import './feature_master_sign_up.dart';
 import '../../drawer.dart';
@@ -17,10 +22,47 @@ class FavouriteStudent extends StatefulWidget {
 
 class _FavouriteStudentState extends State<FavouriteStudent> {
   final _form = GlobalKey<FormState>();
-  final _nameFocusNode = FocusNode();
-  final _lastNameFocusNode = FocusNode();
+  final _favouriteCourse = FocusNode();
 
-  final _initValues = {'name': '', 'lastName': '', 'bio': ''};
+  final _initValues = {'favouriteCourse': ''};
+
+
+  var _isLoading = false;
+
+  Future<void> _saveForm() async {
+    final isValid = _form.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    _form.currentState!.save();
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      await Provider.of<StudentProvider>(context, listen: false)
+          .postData(Provider.of<StudentProvider>(context,listen: false).studentAccount[0]);
+
+    } catch (error) {
+      await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('an error occurred!'),
+          content: const Text('Something went wrong'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Okay'))
+          ],
+        ),
+      );
+    }
+    setState(() {
+      _isLoading = false;
+    });
+    // Navigator.pushNamed(context, HomePage.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +167,7 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
                               );
                             },
                             readOnly: true,
-                            initialValue: _initValues['name'],
+                            initialValue: _initValues['favouriteCourse'],
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
@@ -161,19 +203,9 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
                                     ],
                                   ),
                                 )),
-                            focusNode: _nameFocusNode,
+                            focusNode: _favouriteCourse,
                             keyboardType: TextInputType.name,
-                            textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (value) {
-                              FocusScope.of(context)
-                                  .requestFocus(_lastNameFocusNode);
-                            },
-                            validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return 'Field is required';
-                              }
-                              return null;
-                            },
+                            textInputAction: TextInputAction.search,
                             onSaved: (value) {},
                           ),
                         ),
@@ -233,7 +265,9 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
                   padding: const EdgeInsets.only(
                       right: 87.0, left: 87.0, bottom: 20.0),
                   child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _saveForm();
+                      },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                             const Color(0xff177FB0),
