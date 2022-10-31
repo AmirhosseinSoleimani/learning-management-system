@@ -50,8 +50,11 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
     gender: 1,
     introduction: '',
     country: '',
-    favouriteCourse: [], userName: '',
+    favouriteCourse: [],
+    userName: '',
   );
+
+  var _userNameError = false;
 
   var _isLoading = false;
 
@@ -66,7 +69,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
     });
     try {
       await Provider.of<StudentProvider>(context, listen: false)
-          .replaceStudentAccount(_signupStudent);
+          .replaceStudentAccount(context,_signupStudent);
 
     } catch (error) {
       await showDialog(
@@ -176,7 +179,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                 const SizedBox(
                   height: 10.0,
                 ),
-                if(!isKeyboard) const Text(
+                if(!isKeyboard)  const Text(
                   'Information',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -236,14 +239,15 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                               firstName: value!,
                               lastName: _signupStudent.lastName,
                               password: studentProvider.studentAccount[0].password,
-                              email: studentProvider.studentAccount[0].email,
+                              email: _signupStudent.email,
                               phoneNumber: _signupStudent.phoneNumber,
                               birthdayDate: _signupStudent.birthdayDate,
                               bio: _signupStudent.bio,
                               gender: _signupStudent.gender,
                               introduction: _signupStudent.introduction,
                               country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse, userName: '',
+                              favouriteCourse: _signupStudent.favouriteCourse,
+                              userName: studentProvider.studentAccount[0].userName,
                             );
                           },
                         ),
@@ -296,7 +300,8 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                               gender: _signupStudent.gender,
                               introduction: _signupStudent.introduction,
                               country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse, userName: '',
+                              favouriteCourse: _signupStudent.favouriteCourse,
+                              userName: _signupStudent.userName,
                             );
                           },
                         ),
@@ -360,6 +365,9 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                           },
                         ),
                       ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
                       Row(
                         children: [
                           Column(
@@ -416,7 +424,8 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                           gender: 1,
                                           introduction: _signupStudent.introduction,
                                           country: _signupStudent.country,
-                                          favouriteCourse: _signupStudent.favouriteCourse, userName: '',
+                                          favouriteCourse: _signupStudent.favouriteCourse,
+                                          userName: _signupStudent.userName,
                                         );
                                       });
                                     }
@@ -435,7 +444,8 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                           gender: 0,
                                           introduction: _signupStudent.introduction,
                                           country: _signupStudent.country,
-                                          favouriteCourse: _signupStudent.favouriteCourse, userName: '',
+                                          favouriteCourse: _signupStudent.favouriteCourse,
+                                          userName: _signupStudent.userName,
                                         );
                                       });
                                     }
@@ -454,7 +464,8 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                           gender: 3,
                                           introduction: _signupStudent.introduction,
                                           country: _signupStudent.country,
-                                          favouriteCourse: _signupStudent.favouriteCourse, userName: '',
+                                          favouriteCourse: _signupStudent.favouriteCourse,
+                                          userName: _signupStudent.userName,
                                         );
                                       });
                                     }
@@ -510,7 +521,8 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                         gender: _signupStudent.gender,
                                         introduction: _signupStudent.introduction,
                                         country: _signupStudent.country,
-                                        favouriteCourse: _signupStudent.favouriteCourse, userName: '',
+                                        favouriteCourse: _signupStudent.favouriteCourse,
+                                        userName: _signupStudent.userName,
                                       );
                                     },
                                   ),

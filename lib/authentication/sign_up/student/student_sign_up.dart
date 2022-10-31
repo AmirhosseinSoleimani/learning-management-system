@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/authentication/sign_up/student/student_information.dart';
 import 'package:learning_management_system/models/student_account.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,21 +32,23 @@ class _StudentSignUpState extends State<StudentSignUp> {
   bool _passwordVisible = false;
 
   var _signupStudent = StudentAccount(
-    firstName: '',
-    lastName: '',
-    password: '',
-    email: '',
-    phoneNumber: '',
+    firstName: 'Student',
+    lastName: 'Student',
+    password: '123456',
+    email: 'example@gmail.com',
+    phoneNumber: '+091212345678',
     birthdayDate: Timestamp.fromDate(DateTime.now()).seconds,
-    bio: '',
-    gender: 0,
-    introduction: '',
-    country: '',
+    bio: 'Student',
+    gender: 1,
+    introduction: 'Student',
+    country: 'Student',
     favouriteCourse: [],
-    userName: '',
+    userName: 'Student',
   );
 
   var _isLoading = false;
+
+  var _userNameError = false;
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState!.validate();
@@ -60,8 +61,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
     });
     try {
       await Provider.of<StudentProvider>(context, listen: false)
-          .addStudentAccount(_signupStudent);
-
+          .addStudentAccount(context,_signupStudent);
     } catch (error) {
       await showDialog(
         context: context,
@@ -81,7 +81,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
     setState(() {
       _isLoading = false;
     });
-    Navigator.pushNamed(context, InformationStudentSignUp.routeName);
+
   }
 
   @override
@@ -200,7 +200,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                                   .requestFocus(_passwordFocusNode);
                             },
                             validator: (String? value) {
-                              if (value == null || value!.isEmpty) {
+                              if (value == null || value.isEmpty) {
                                 return 'Field is required';
                               }
                               return null;
@@ -221,6 +221,15 @@ class _StudentSignUpState extends State<StudentSignUp> {
                                 phoneNumber: _signupStudent.phoneNumber,
                               );
                             },
+                          ),
+                          if (_userNameError) Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              Provider.of<StudentProvider>(context).userNameError,
+                              style: const TextStyle(
+                                color: Colors.red
+                              ),
+                            ),
                           ),
                           const SizedBox(
                             height: 10.0,
@@ -301,6 +310,12 @@ class _StudentSignUpState extends State<StudentSignUp> {
                   child: TextButton(
                       onPressed: (){
                         _saveForm();
+                        _userNameError = true;
+                        Future.delayed(const Duration(seconds: 5), () {
+                          setState((){
+                            _userNameError = false;
+                          });
+                        });
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
