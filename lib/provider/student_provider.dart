@@ -17,21 +17,48 @@ class StudentProvider with ChangeNotifier{
 
 
   Future <void> addStudentAccount(StudentAccount studentAccount) async{
-      final newStudentAccount = StudentAccount(
-        password: studentAccount.password,
-        email: studentAccount.email,
-        firstName: studentAccount.firstName,
-        lastName: studentAccount.lastName,
-        phoneNumber: studentAccount.phoneNumber,
-        gender: studentAccount.gender,
-        bio: studentAccount.bio,
-        country: studentAccount.country,
-        introduction: studentAccount.introduction,
-        birthdayDate: studentAccount.birthdayDate,
-        favouriteCourse: studentAccount.favouriteCourse,
-      );
-      _studentAccount.add(newStudentAccount);
-      notifyListeners();
+    final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/student/');
+      try{
+        http.Response response = await http.post(url,
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: json.encode(
+              {
+                "user_name": studentAccount.userName,
+                'first_name': studentAccount.firstName,
+                'last_name': studentAccount.lastName,
+                'password': studentAccount.password,
+                'email': studentAccount.email,
+                'phone_number': '+${studentAccount.phoneNumber}',
+                'gender': studentAccount.gender,
+                'bio': studentAccount.bio,
+                'country': studentAccount.country,
+                'how_to_know_us': studentAccount.introduction,
+                'birthday': studentAccount.birthdayDate,
+                'favouriteCourse': studentAccount.favouriteCourse,
+              }
+          ),
+        );
+        final newStudentAccount = StudentAccount(
+          password: studentAccount.password,
+          email: studentAccount.email,
+          firstName: studentAccount.firstName,
+          lastName: studentAccount.lastName,
+          phoneNumber: studentAccount.phoneNumber,
+          gender: studentAccount.gender,
+          bio: studentAccount.bio,
+          country: studentAccount.country,
+          introduction: studentAccount.introduction,
+          birthdayDate: studentAccount.birthdayDate,
+          favouriteCourse: studentAccount.favouriteCourse,
+          userName: studentAccount.userName,
+        );
+        _studentAccount.add(newStudentAccount);
+        notifyListeners();
+      }catch(error){
+        debugPrint(error.toString());
+      }
   }
 
   Future <void> replaceStudentAccount(StudentAccount studentAccount) async{
@@ -47,6 +74,7 @@ class StudentProvider with ChangeNotifier{
       introduction: studentAccount.introduction,
       birthdayDate: studentAccount.birthdayDate,
       favouriteCourse: studentAccount.favouriteCourse,
+      userName: studentAccount.userName,
     );
     _studentAccount.removeAt(0);
     _studentAccount.add(newStudentAccount);
@@ -56,14 +84,19 @@ class StudentProvider with ChangeNotifier{
 
 
   Future<void> postData(StudentAccount studentAccount) async {
-    final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/student');
-    http.Response response = await http.post(url,body: json.encode(
+    final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/student/');
+    http.Response response = await http.post(url,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: json.encode(
         {
+          "user_name":'${studentAccount.firstName}1234',
           'first_name': studentAccount.firstName,
           'last_name': studentAccount.lastName,
           'password': studentAccount.password,
           'email': studentAccount.email,
-          'phone_number': studentAccount.phoneNumber,
+          'phone_number': '+${studentAccount.phoneNumber}',
           'gender': studentAccount.gender,
           'bio': studentAccount.bio,
           'country': studentAccount.country,

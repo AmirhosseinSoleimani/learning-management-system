@@ -19,10 +19,10 @@ class StudentSignUp extends StatefulWidget {
 
 class _StudentSignUpState extends State<StudentSignUp> {
   final _passwordFocusNode = FocusNode();
-  final _emailFocusNode = FocusNode();
+  final _userNameFocusNode = FocusNode();
   bool isSelected = false;
   final _initValues = {
-    'email': '',
+    'user_name': '',
     'password': '',
   };
 
@@ -40,10 +40,11 @@ class _StudentSignUpState extends State<StudentSignUp> {
     phoneNumber: '',
     birthdayDate: Timestamp.fromDate(DateTime.now()).seconds,
     bio: '',
-    gender: '',
+    gender: 0,
     introduction: '',
     country: '',
     favouriteCourse: [],
+    userName: '',
   );
 
   var _isLoading = false;
@@ -85,7 +86,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
 
   @override
   void dispose() {
-    _emailFocusNode.dispose();
+    _userNameFocusNode.dispose();
     _passwordFocusNode.dispose();
     // _passwordController.dispose();
     super.dispose();
@@ -125,7 +126,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
         child: Card(
           elevation: 8,
           child: SingleChildScrollView(
-            physics: const ScrollPhysics(),
+            physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -170,7 +171,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                         shrinkWrap: true,
                         children: [
                           TextFormField(
-                            initialValue: _initValues['email'],
+                            initialValue: _initValues['user_name'],
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius:
@@ -180,38 +181,37 @@ class _StudentSignUpState extends State<StudentSignUp> {
                                       color: Color(0xffD9D9D9)
                                     ),
                                 ),
-                                hintText: 'Email',
+                                hintText: 'User Name',
                               hintStyle: const TextStyle(
                                 fontSize: 16.0,
                                 color: Color(0xff7E7979)
                               ),
                               prefixIcon: const Icon(
-                                Icons.email_outlined,
+                                Icons.person,
                                 size: 28.0,
                                 color: Color(0xff7E7979),
                               )
                             ),
-                            focusNode: _emailFocusNode,
-                            keyboardType: TextInputType.emailAddress,
+                            focusNode: _userNameFocusNode,
+                            keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (value) {
                               FocusScope.of(context)
                                   .requestFocus(_passwordFocusNode);
                             },
                             validator: (String? value) {
-                              if (value!.isEmpty) {
+                              if (value == null || value!.isEmpty) {
                                 return 'Field is required';
-                              } else if (!value.contains('@')) {
-                                return 'Invalid email!';
                               }
                               return null;
                             },
                             onSaved: (value) {
                               _signupStudent = StudentAccount(
+                                userName: value!,
                                 firstName: _signupStudent.firstName,
                                 lastName: _signupStudent.lastName,
                                 password: _signupStudent.password,
-                                email: value!,
+                                email: _signupStudent.email,
                                 country: _signupStudent.country,
                                 favouriteCourse: _signupStudent.favouriteCourse,
                                 gender: _signupStudent.gender,
@@ -282,6 +282,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                                   birthdayDate: _signupStudent.birthdayDate,
                                   bio: _signupStudent.bio,
                                   phoneNumber: _signupStudent.phoneNumber,
+                                  userName: _signupStudent.userName,
                                 );
                               }
                               )

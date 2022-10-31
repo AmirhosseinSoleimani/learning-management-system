@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:learning_management_system/authentication/sign_in/sign_in.dart';
 import 'package:learning_management_system/authentication/sign_up/student/favourite.dart';
+import 'package:learning_management_system/student/screens/calendar_table.dart';
 import './authentication/sign_up/student/student_sign_up.dart';
 import './authentication/sign_up/student/student_information.dart';
 import './authentication/sign_up/student/second_student_information.dart';
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
           LessonItemPage.routeName: (context) => const LessonItemPage(),
           HomePageStudent.routeName: (context) => const HomePageStudent(),
           AddQuestions.routeName: (context) => const AddQuestions(),
+          CalendarTable.routeName: (context) => const CalendarTable(),
         },
       ),
     );

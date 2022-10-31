@@ -50,10 +50,10 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
     phoneNumber: '',
     birthdayDate: Timestamp.fromDate(DateTime.now()).seconds,
     bio: '',
-    gender: '',
+    gender: 0,
     introduction: '',
     country: '',
-    favouriteCourse: [],
+    favouriteCourse: [], userName: '',
   );
 
   var _isLoading = false;
@@ -244,7 +244,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                           gender: studentAccount.studentAccount[0].gender,
                                           introduction: _signupStudent.introduction,
                                           country: _signupStudent.country,
-                                          favouriteCourse: _signupStudent.favouriteCourse,
+                                          favouriteCourse: _signupStudent.favouriteCourse, userName: '',
                                         );
                                       },
                                     ):
@@ -289,7 +289,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                         gender: _signupStudent.gender,
                                         introduction: _signupStudent.introduction,
                                         country: value.displayName,
-                                        favouriteCourse: _signupStudent.favouriteCourse,
+                                        favouriteCourse: _signupStudent.favouriteCourse, userName: '',
                                       );
                                     });
                                   },
@@ -419,7 +419,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                     gender: _signupStudent.gender,
                                     introduction: newValue,
                                     country: _signupStudent.country,
-                                    favouriteCourse: _signupStudent.favouriteCourse,
+                                    favouriteCourse: _signupStudent.favouriteCourse, userName: '',
                                   );
 
 

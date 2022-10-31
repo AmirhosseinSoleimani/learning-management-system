@@ -27,10 +27,10 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
     phoneNumber: '',
     birthdayDate: Timestamp.fromDate(DateTime.now()).seconds,
     bio: '',
-    gender: '',
+    gender: 0,
     introduction: '',
     country: '',
-    favouriteCourse: [],
+    favouriteCourse: [], userName: '',
   );
 
 
@@ -167,7 +167,7 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
                                 gender: studentAccount.studentAccount[0].gender,
                                 introduction: studentAccount.studentAccount[0].introduction,
                                 country: studentAccount.studentAccount[0].country,
-                                favouriteCourse: studentAccount.favouriteCourseList,
+                                favouriteCourse: studentAccount.favouriteCourseList, userName: '',
                               );
                               Navigator.of(context).pop();
                             },

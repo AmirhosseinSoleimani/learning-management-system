@@ -30,17 +30,17 @@ class QuizAppProvider with ChangeNotifier{
     // }catch(error){
     //   throw(error);
     // }
-    final newQuizInformation = QuizAppModel(
-        id:addQuizInformation.id,
-        quizTitle: addQuizInformation.quizTitle,
-        quizDescription: addQuizInformation.quizDescription,
-        quizImageUrl: addQuizInformation.quizImageUrl,
-        quizStartCalendar: addQuizInformation.quizStartCalendar,
-        duration: addQuizInformation.duration,
-        questionList: []
-    );
-    _quizAppList.add(newQuizInformation);
-    notifyListeners();
+    // final newQuizInformation = QuizAppModel(
+    //     id:addQuizInformation.id,
+    //     quizTitle: addQuizInformation.quizTitle,
+    //     quizDescription: addQuizInformation.quizDescription,
+    //     quizImageUrl: addQuizInformation.quizImageUrl,
+    //     quizStartCalendar: addQuizInformation.quizStartCalendar,
+    //     duration: addQuizInformation.duration,
+    //     questionList: []
+    // );
+    // _quizAppList.add(newQuizInformation);
+    // notifyListeners();
 
   }
 

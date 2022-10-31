@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class StudentAccount {
+  final String userName;
   final String email;
   final String password;
   final String firstName;
   final String lastName;
-  final String gender;
+  final int gender;
   final String bio;
   final String phoneNumber;
   final int birthdayDate;
@@ -17,6 +18,7 @@ class StudentAccount {
 
   StudentAccount(
       {
+        required this.userName,
         required this.email,
         required this.password,
         required this.firstName,
