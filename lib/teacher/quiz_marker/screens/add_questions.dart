@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/teacher/quiz_marker/screens/quiz_marker.dart';
 import '../../../models/quiz_app_model.dart';
@@ -81,6 +80,12 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
     option2.clear();
     option3.clear();
     option4.clear();
+    setState((){
+      isSelectOption1 = false;
+      isSelectOption2 = false;
+      isSelectOption3 = false;
+      isSelectOption4 = false;
+    });
   }
 
   bool _isLoading = false;
@@ -105,6 +110,18 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
       quizImageUrl: quizInformation.quizAppList[0].quizImageUrl,
       questionList: quizInformation.quizAppList[0].questionList,
     );
+    _question = QuestionsList(
+      question: _question.question,
+      option1: _question.option1,
+      option2: _question.option2,
+      option3: _question.option3,
+      option4: _question.option4,
+      isSelectOption1: isSelectOption1,
+      isSelectOption2: isSelectOption2,
+      isSelectOption3: isSelectOption3,
+      isSelectOption4: isSelectOption4,
+    );
+
     try{
       await Provider.of<QuizAppProvider>(context,listen: false)
           .addQuizQuestions(_question,_questionInformation);
@@ -128,17 +145,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
       setState((){
         _isLoading = false;
       });
-      _question = QuestionsList(
-        question: '',
-        option1: '',
-        option2: '',
-        option3: '',
-        option4: '',
-        isSelectOption1: false,
-        isSelectOption2: false,
-        isSelectOption3: false,
-        isSelectOption4: false,
-      );
       clearText();
       setState((){
         numQuestion += 1;
@@ -162,6 +168,18 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
       quizImageUrl: quizInformation.quizAppList[0].quizImageUrl,
       questionList: quizInformation.quizAppList[0].questionList,
     );
+    _question = QuestionsList(
+      question: _question.question,
+      option1: _question.option1,
+      option2: _question.option2,
+      option3: _question.option3,
+      option4: _question.option4,
+      isSelectOption1: isSelectOption1,
+      isSelectOption2: isSelectOption2,
+      isSelectOption3: isSelectOption3,
+      isSelectOption4: isSelectOption4,
+    );
+
     Provider.of<QuizAppProvider>(context,listen: false)
         .addQuizQuestions(_question,_questionInformation);
     setState((){
@@ -327,17 +345,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                             isSelectOption3 = false;
                                             isSelectOption2 = false;
                                             isSelectOption1 = true;
-                                            _question = QuestionsList(
-                                              question: _question.question,
-                                              option1: _question.option1,
-                                              option2: _question.option2,
-                                              option3: _question.option3,
-                                              option4: _question.option4,
-                                              isSelectOption1: true,
-                                              isSelectOption2: false,
-                                              isSelectOption3: false,
-                                              isSelectOption4: false,
-                                            );
                                           });
                                         },
 
@@ -397,17 +404,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                             isSelectOption3 = false;
                                             isSelectOption2 = true;
                                             isSelectOption1 = false;
-                                            _question = QuestionsList(
-                                              question: _question.question,
-                                              option1: _question.option1,
-                                              option2: _question.option2,
-                                              option3: _question.option3,
-                                              option4: _question.option4,
-                                              isSelectOption1: false,
-                                              isSelectOption2: true,
-                                              isSelectOption3: false,
-                                              isSelectOption4: false,
-                                            );
                                           });
 
                                         },
@@ -468,17 +464,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                             isSelectOption3 = true;
                                             isSelectOption2 = false;
                                             isSelectOption1 = false;
-                                            _question = QuestionsList(
-                                              question: _question.question,
-                                              option1: _question.option1,
-                                              option2: _question.option2,
-                                              option3: _question.option3,
-                                              option4: _question.option4,
-                                              isSelectOption1: false,
-                                              isSelectOption2: false,
-                                              isSelectOption3: true,
-                                              isSelectOption4: false,
-                                            );
                                           });
                                         },
 
@@ -535,17 +520,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                             isSelectOption3 = false;
                                             isSelectOption2 = false;
                                             isSelectOption1 = false;
-                                            _question = QuestionsList(
-                                              question: _question.question,
-                                              option1: _question.option1,
-                                              option2: _question.option2,
-                                              option3: _question.option3,
-                                              option4: _question.option4,
-                                              isSelectOption1: false,
-                                              isSelectOption2: false,
-                                              isSelectOption3: false,
-                                              isSelectOption4: true,
-                                            );
                                           });
                                         },
 
