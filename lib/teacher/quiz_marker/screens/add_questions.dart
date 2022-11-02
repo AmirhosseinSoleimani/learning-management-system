@@ -194,6 +194,67 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
 
   }
 
+  Future<void> _addNextQuestion() async{
+    final isValid = _formKey.currentState!.validate();
+    if(!isValid){
+      return ;
+    }
+    _formKey.currentState!.save();
+    setState((){
+      _isLoading = true;
+    });
+    final quizInformation = Provider.of<QuizAppProvider>(context,listen: false);
+    _questionInformation = QuizAppModel(
+      id: quizInformation.quizAppList[0].id,
+      quizTitle: quizInformation.quizAppList[0].quizTitle,
+      quizStartCalendar: quizInformation.quizAppList[0].quizStartCalendar,
+      duration: quizInformation.quizAppList[0].duration,
+      quizDescription: quizInformation.quizAppList[0].quizDescription,
+      quizImageUrl: quizInformation.quizAppList[0].quizImageUrl,
+      questionList: quizInformation.quizAppList[0].questionList,
+    );
+    _question = QuestionsList(
+      question: _question.question,
+      option1: _question.option1,
+      option2: _question.option2,
+      option3: _question.option3,
+      option4: _question.option4,
+      isSelectOption1: isSelectOption1,
+      isSelectOption2: isSelectOption2,
+      isSelectOption3: isSelectOption3,
+      isSelectOption4: isSelectOption4,
+    );
+
+    try{
+      await Provider.of<QuizAppProvider>(context,listen: false)
+          .addNextQuizQuestions(_question,_questionInformation,numQuestion);
+    }catch(error){
+      await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('an error occurred!'),
+          content: const Text('Something went wrong'),
+          actions: [
+            TextButton(
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Okay'))
+          ],
+        ),
+      );
+    }
+    Future.delayed(const Duration(seconds: 3),(){
+      setState((){
+        _isLoading = false;
+      });
+      clearText();
+      setState((){
+        numQuestion += 1;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -561,7 +622,12 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                     ),
                     TextButton(
                       onPressed: (){
-                        _saveFormNextQuestion();
+                        if(numQuestion == 1){
+                          _saveFormNextQuestion();
+                        }
+                        else{
+                        _addNextQuestion();
+                        }
                       },
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.blue
