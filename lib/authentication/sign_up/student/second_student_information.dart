@@ -70,7 +70,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
     });
     try {
       await Provider.of<StudentProvider>(context, listen: false)
-          .replaceStudentAccount(_signupStudent);
+          .replaceStudentAccount(context,_signupStudent);
 
     } catch (error) {
       await showDialog(

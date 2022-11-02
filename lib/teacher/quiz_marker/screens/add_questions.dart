@@ -38,12 +38,20 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
     option2: '',
     option3: '',
     option4: '',
-    dateTime: DateTime(0,0,0),
     isSelectOption1: false,
     isSelectOption2: false,
     isSelectOption3: false,
     isSelectOption4: false,
+  );
 
+  var _questionInformation = QuizAppModel(
+      id: '',
+      quizTitle: '',
+      quizStartCalendar: 0,
+      duration: DateTime.now(),
+      quizDescription: '',
+      quizImageUrl: '',
+      questionList: [],
   );
 
   String get countText{
@@ -87,27 +95,35 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
     setState((){
       _isLoading = true;
     });
-    // try{
-    //   await Provider.of<QuizAppProvider>(context,listen: false)
-    //       .addQuizQuestions(_question);
-    // }catch(error){
-    //   await showDialog(
-    //     context: context,
-    //     builder: (context) => AlertDialog(
-    //       title: const Text('an error occurred!'),
-    //       content: const Text('Something went wrong'),
-    //       actions: [
-    //         TextButton(
-    //             onPressed: (){
-    //               Navigator.of(context).pop();
-    //             },
-    //             child: const Text('Okay'))
-    //       ],
-    //     ),
-    //   );
-    // }
-    Provider.of<QuizAppProvider>(context,listen: false)
-          .addQuizQuestions(_question);
+    final quizInformation = Provider.of<QuizAppProvider>(context,listen: false);
+    _questionInformation = QuizAppModel(
+      id: quizInformation.quizAppList[0].id,
+      quizTitle: quizInformation.quizAppList[0].quizTitle,
+      quizStartCalendar: quizInformation.quizAppList[0].quizStartCalendar,
+      duration: quizInformation.quizAppList[0].duration,
+      quizDescription: quizInformation.quizAppList[0].quizDescription,
+      quizImageUrl: quizInformation.quizAppList[0].quizImageUrl,
+      questionList: quizInformation.quizAppList[0].questionList,
+    );
+    try{
+      await Provider.of<QuizAppProvider>(context,listen: false)
+          .addQuizQuestions(_question,_questionInformation);
+    }catch(error){
+      await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('an error occurred!'),
+          content: const Text('Something went wrong'),
+          actions: [
+            TextButton(
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Okay'))
+          ],
+        ),
+      );
+    }
     Future.delayed(const Duration(seconds: 3),(){
       setState((){
         _isLoading = false;
@@ -118,7 +134,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
         option2: '',
         option3: '',
         option4: '',
-        dateTime: DateTime(0,0,0),
         isSelectOption1: false,
         isSelectOption2: false,
         isSelectOption3: false,
@@ -129,9 +144,7 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
         numQuestion += 1;
       });
     });
-
   }
-
 
   Future<void> _saveFormFinishQuestion() async{
     final isValid = _formKey.currentState!.validate();
@@ -139,8 +152,18 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
       return ;
     }
     _formKey.currentState!.save();
+    final quizInformation = Provider.of<QuizAppProvider>(context,listen: false);
+    _questionInformation = QuizAppModel(
+      id: quizInformation.quizAppList[0].id,
+      quizTitle: quizInformation.quizAppList[0].quizTitle,
+      quizStartCalendar: quizInformation.quizAppList[0].quizStartCalendar,
+      duration: quizInformation.quizAppList[0].duration,
+      quizDescription: quizInformation.quizAppList[0].quizDescription,
+      quizImageUrl: quizInformation.quizAppList[0].quizImageUrl,
+      questionList: quizInformation.quizAppList[0].questionList,
+    );
     Provider.of<QuizAppProvider>(context,listen: false)
-        .addQuizQuestions(_question);
+        .addQuizQuestions(_question,_questionInformation);
     setState((){
       _isLoading = true;
     });
@@ -249,7 +272,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                       option2: _question.option2,
                                       option3: _question.option3,
                                       option4: _question.option4,
-                                      dateTime: _question.dateTime,
                                     );
                                   },
                                 ),
@@ -291,7 +313,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                             option2: _question.option2,
                                             option3: _question.option3,
                                             option4: _question.option4,
-                                            dateTime: _question.dateTime,
                                           );
                                         },
                                       ),
@@ -312,7 +333,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                               option2: _question.option2,
                                               option3: _question.option3,
                                               option4: _question.option4,
-                                              dateTime: _question.dateTime,
                                               isSelectOption1: true,
                                               isSelectOption2: false,
                                               isSelectOption3: false,
@@ -363,7 +383,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                             option2: value!,
                                             option3: _question.option3,
                                             option4: _question.option4,
-                                            dateTime: _question.dateTime,
                                           );
                                         },
                                       ),
@@ -384,7 +403,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                               option2: _question.option2,
                                               option3: _question.option3,
                                               option4: _question.option4,
-                                              dateTime: _question.dateTime,
                                               isSelectOption1: false,
                                               isSelectOption2: true,
                                               isSelectOption3: false,
@@ -436,7 +454,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                               option2: _question.option2,
                                               option3: value!,
                                               option4: _question.option4,
-                                              dateTime: _question.dateTime,
                                             );
                                           }
                                       ),
@@ -457,7 +474,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                               option2: _question.option2,
                                               option3: _question.option3,
                                               option4: _question.option4,
-                                              dateTime: _question.dateTime,
                                               isSelectOption1: false,
                                               isSelectOption2: false,
                                               isSelectOption3: true,
@@ -505,7 +521,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                               option2: _question.option2,
                                               option3: _question.option3,
                                               option4: value!,
-                                              dateTime: _question.dateTime,
                                             );
                                           }
                                       ),
@@ -526,7 +541,6 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                                               option2: _question.option2,
                                               option3: _question.option3,
                                               option4: _question.option4,
-                                              dateTime: _question.dateTime,
                                               isSelectOption1: false,
                                               isSelectOption2: false,
                                               isSelectOption3: false,
@@ -558,7 +572,7 @@ class _AddQuestionsState extends State<AddQuestions> with TickerProviderStateMix
                   children: [
                     TextButton(
                       onPressed: (){
-                        _saveFormFinishQuestion;
+                        _saveFormFinishQuestion();
                       },
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.blue

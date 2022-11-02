@@ -1,4 +1,6 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class QuestionsList{
   final String question;
   final String option1;
@@ -9,7 +11,6 @@ class QuestionsList{
   bool isSelectOption2;
   bool isSelectOption3;
   bool isSelectOption4;
-  final DateTime dateTime;
 
   QuestionsList({
     required this.question,
@@ -21,8 +22,6 @@ class QuestionsList{
     this.isSelectOption2 = false,
     this.isSelectOption3 = false,
     this.isSelectOption4 = false,
-    required this.dateTime,
-
 });
 }
 
@@ -32,7 +31,7 @@ class QuizAppModel{
    final String quizTitle;
    final String quizDescription;
    final String quizImageUrl;
-   final String quizStartCalendar;
+   final int quizStartCalendar;
    final DateTime duration;
    final List<QuestionsList> questionList;
    QuizAppModel({

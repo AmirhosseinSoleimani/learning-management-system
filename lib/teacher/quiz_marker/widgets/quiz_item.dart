@@ -11,14 +11,16 @@ class QuizItem extends StatelessWidget {
     required this.title,
     required this.time,
     required this.calendar,
+    required this.description,
 
 
   }) : super(key: key);
   final String imageUrl;
   final String title;
   final DateTime time;
-  final String calendar;
+  final int calendar;
   final GestureTapCallback onTap;
+  final String description;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -63,7 +65,7 @@ class QuizItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  imageUrl
+                  description
                 ),
                 const SizedBox(
                   height: 15.0,

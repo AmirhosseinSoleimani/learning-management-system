@@ -79,9 +79,10 @@ class QuizMarker extends StatelessWidget {
               title: quizApp.quizAppList[index].quizTitle,
               time: quizApp.quizAppList[index].duration,
               calendar: quizApp.quizAppList[index].quizStartCalendar,
-            onTap: (){
-              print(index);
-            },
+              description: quizApp.quizAppList[index].quizDescription,
+              onTap: (){
+                print(quizApp.quizAppList[0].questionList);
+             },
           ),
         )
         ),

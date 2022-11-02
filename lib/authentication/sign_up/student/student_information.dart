@@ -54,7 +54,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
     userName: '',
   );
 
-  var _userNameError = false;
+  var _emailError = false;
 
   var _isLoading = false;
 
@@ -90,7 +90,6 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
     setState(() {
       _isLoading = false;
     });
-    Navigator.pushNamed(context, SecondInformationStudent.routeName);
   }
 
 
@@ -363,6 +362,15 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                               phoneNumber: _signupStudent.phoneNumber, userName: '',
                             );
                           },
+                        ),
+                      ),
+                      if (_emailError) Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          Provider.of<StudentProvider>(context).userNameError,
+                          style: const TextStyle(
+                              color: Colors.red
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -658,6 +666,12 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                         child: TextButton(
                             onPressed: (){
                               _saveForm();
+                              _emailError = true;
+                              Future.delayed(const Duration(seconds: 5), () {
+                                setState((){
+                                  _emailError = false;
+                                });
+                              });
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),

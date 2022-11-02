@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:learning_management_system/models/quiz_app_model.dart';
 import 'package:learning_management_system/provider/quiz_app_provider.dart';
-import 'package:learning_management_system/teacher/quiz_marker/screens/add_questions.dart';
 import 'package:provider/provider.dart';
 
 File? _image;
@@ -47,7 +47,7 @@ class _CreateQuizState extends State<CreateQuiz> with TickerProviderStateMixin{
     quizImageUrl: '',
     id: DateTime.now().toString(),
     questionList: [],
-    quizStartCalendar: '',
+    quizStartCalendar: Timestamp.fromDate(DateTime.now()).seconds,
     duration: DateTime(0,0,0),
   );
 
@@ -59,9 +59,34 @@ class _CreateQuizState extends State<CreateQuiz> with TickerProviderStateMixin{
       setState((){
         _isLoading = true;
       });
-    Provider.of<QuizAppProvider>(context,listen: false)
-          .addQuizInformation(_quizGeneralInformation);
-      Navigator.pushNamed(context, AddQuestions.routeName);
+    _quizGeneralInformation = QuizAppModel(
+        id: _quizGeneralInformation.id,
+        quizTitle: _quizGeneralInformation.quizTitle,
+        quizDescription: _quizGeneralInformation.quizDescription,
+        quizImageUrl: _imageUrl!,
+        questionList: [],
+        quizStartCalendar: _quizGeneralInformation.quizStartCalendar,
+        duration: _quizGeneralInformation.duration
+    );
+    try {
+      Provider.of<QuizAppProvider>(context,listen: false)
+          .addQuizInformation(context,_quizGeneralInformation);
+    } catch(error){
+      await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('an error occurred!'),
+          content: const Text('Something went wrong'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Okay'))
+          ],
+        ),
+      );
+    }
       setState((){
         _isLoading = false;
       });
@@ -86,6 +111,8 @@ class _CreateQuizState extends State<CreateQuiz> with TickerProviderStateMixin{
   @override
   void dispose() {
     controller.dispose();
+    _quizTitleFocusNode.dispose();
+    _quizDescriptionFocusNode.dispose();
     super.dispose();
   }
 
@@ -385,15 +412,6 @@ class _CreateQuizState extends State<CreateQuiz> with TickerProviderStateMixin{
                                           _imageUrl = value;
                                         },
                                         onSaved: (value){
-                                          _quizGeneralInformation = QuizAppModel(
-                                              id: _quizGeneralInformation.id,
-                                              quizTitle: _quizGeneralInformation.quizTitle,
-                                              quizDescription: _quizGeneralInformation.quizDescription,
-                                              quizImageUrl: value!,
-                                              questionList: [],
-                                              quizStartCalendar: _quizGeneralInformation.quizStartCalendar,
-                                              duration: _quizGeneralInformation.duration
-                                          );
                                         } ,
                                       ),
                                     ],
@@ -402,7 +420,6 @@ class _CreateQuizState extends State<CreateQuiz> with TickerProviderStateMixin{
                                 actions: [
                                   TextButton(
                                     onPressed: (){
-                                      print(_imageUrl);
                                       Navigator.of(context).pop();
                                     },
                                     child: const Text(
@@ -452,9 +469,9 @@ class _CreateQuizState extends State<CreateQuiz> with TickerProviderStateMixin{
                           firstDate: DateTime.now(),
                           lastDate: DateTime(2100),
                           dateLabelText: 'Date',
-                          onChanged: (val) => print(val),
+                          onChanged: (val) => debugPrint(val),
                           validator: (val) {
-                            print(val);
+                            debugPrint(val);
                             return null;
                           },
                           onSaved: (value){
@@ -464,7 +481,7 @@ class _CreateQuizState extends State<CreateQuiz> with TickerProviderStateMixin{
                                 quizDescription: _quizGeneralInformation.quizDescription,
                                 quizImageUrl: _quizGeneralInformation.quizImageUrl,
                                 questionList: [],
-                                quizStartCalendar: value!,
+                                quizStartCalendar: Timestamp.fromDate(DateTime.parse(value!)).seconds,
                                 duration: _quizGeneralInformation.duration
                             );
                           },

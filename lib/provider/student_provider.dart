@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:learning_management_system/authentication/sign_up/student/second_student_information.dart';
 import 'package:learning_management_system/extension/extension.dart';
 import '../authentication/sign_up/student/student_information.dart';
 import '../models/student_account.dart';
@@ -96,10 +97,12 @@ class StudentProvider with ChangeNotifier{
             }
         ),
       );
+      debugPrint(response.body);
+      debugPrint(response.statusCode.toString());
       if(response.body.contains('this username is exist, try another')){
         userNameError = 'This User Name is Exit';
       }else{
-        Navigator.pushNamed(context, InformationStudentSignUp.routeName);
+        Navigator.pushNamed(context, SecondInformationStudent.routeName);
       }
       final newStudentAccount = StudentAccount(
         password: studentAccount.password,
