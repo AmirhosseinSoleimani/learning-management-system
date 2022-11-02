@@ -58,52 +58,14 @@ class QuizAppProvider with ChangeNotifier{
     }
   }
 
-  Future <void> addQuizQuestions(QuestionsList questionsList,QuizAppModel quizInformation) async{
-    final url = Uri.parse('https://quiz-maker-app-f5e35-default-rtdb.firebaseio.com/quizDataBase.json');
-    try {
-      final response = await http.patch(url, headers: {
-        'Content-Type': 'application/json'
-      }, body: json.encode({
-          'question1' : {
-            'question': questionsList.question,
-            'option1': questionsList.option1,
-            'option2': questionsList.option2,
-            'option3': questionsList.option3,
-            'option4': questionsList.option4,
-            'isSelectOption1': questionsList.isSelectOption1,
-            'isSelectOption2': questionsList.isSelectOption2,
-            'isSelectOption3': questionsList.isSelectOption3,
-            'isSelectOption4': questionsList.isSelectOption4,
-          }
-      })
-      );
-      debugPrint(response.statusCode.toString());
-      debugPrint(response.body);
-    }catch(error){
-      debugPrint(error.toString());
-    }
-    final addQuestion = QuestionsList(
-      question: questionsList.question,
-      option1: questionsList.option1,
-      option2: questionsList.option2,
-      option3: questionsList.option3,
-      option4: questionsList.option4,
-      isSelectOption1: questionsList.isSelectOption1,
-      isSelectOption2: questionsList.isSelectOption2,
-      isSelectOption3: questionsList.isSelectOption3,
-      isSelectOption4: questionsList.isSelectOption4,
-    );
-    _quizAppList[0].questionList.add(addQuestion);
-    notifyListeners();
-  }
 
   Future <void> addNextQuizQuestions(QuestionsList questionsList,QuizAppModel quizInformation,int numQuestion) async{
-    final url = Uri.parse('https://quiz-maker-app-f5e35-default-rtdb.firebaseio.com/quizDataBase.json');
+    final id = _quizAppList[0].id;
+    final url = Uri.parse('https://quiz-maker-app-f5e35-default-rtdb.firebaseio.com/quizDataBase/$id.json');
     try {
       final response = await http.patch(url, headers: {
         'Content-Type': 'application/json'
       }, body: json.encode({
-        'questionList': {
           'question$numQuestion' : {
             'question': questionsList.question,
             'option1': questionsList.option1,
@@ -115,7 +77,6 @@ class QuizAppProvider with ChangeNotifier{
             'isSelectOption3': questionsList.isSelectOption3,
             'isSelectOption4': questionsList.isSelectOption4,
           }
-        }
       })
       );
       debugPrint(response.statusCode.toString());

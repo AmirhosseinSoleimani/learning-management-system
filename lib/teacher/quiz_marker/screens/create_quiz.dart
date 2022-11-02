@@ -579,7 +579,9 @@ class _CreateQuizState extends State<CreateQuiz> with TickerProviderStateMixin{
                 onTap: (){
                   createQuizOnline();
                 },
-                child: const Text(
+                child: (_isLoading) ? const Center(
+                  child: CircularProgressIndicator(),
+                ) :const Text(
                   'Create Quiz',
                   style: TextStyle(
                     color: Colors.white,
