@@ -5,13 +5,29 @@ import 'package:learning_management_system/teacher/quiz_marker/widgets/quiz_item
 import 'package:provider/provider.dart';
 
 
-class QuizMarker extends StatelessWidget {
+class QuizMarker extends StatefulWidget {
   static const routeName = '/quiz_marker';
   const QuizMarker({Key? key}) : super(key: key);
 
   @override
+  State<QuizMarker> createState() => _QuizMarkerState();
+}
+
+class _QuizMarkerState extends State<QuizMarker> {
+
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    Provider.of<QuizAppProvider>(context,listen: false).getDataInformation();
+    Future.delayed(const Duration(seconds: 3),(){
+      setState((){_isLoading = false;});
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final quizApp = Provider.of<QuizAppProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -45,7 +61,9 @@ class QuizMarker extends StatelessWidget {
           },
         ),
       ),
-      body: Padding(
+      body: _isLoading ? const Center(
+        child: CircularProgressIndicator(),
+      ) :Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 10.0,
           vertical: 20.0
@@ -53,7 +71,11 @@ class QuizMarker extends StatelessWidget {
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          child: getQuizMarker(context)
+          child: Column(
+            children: [
+              getQuizMarker(context),
+            ],
+          )
           ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -64,8 +86,9 @@ class QuizMarker extends StatelessWidget {
       ),
     );
   }
+
   Widget getQuizMarker(BuildContext context){
-    final quizApp = Provider.of<QuizAppProvider>(context);
+    final quizApp = Provider.of<QuizAppProvider>(context,listen: false);
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -75,21 +98,18 @@ class QuizMarker extends StatelessWidget {
           padding: const EdgeInsets.only(left: 15.0),
           margin: const EdgeInsets.only(right: 15.0,bottom: 5.0),
           child: QuizItem(
-            imageUrl: quizApp.quizAppList[index].quizImageUrl,
-              title: quizApp.quizAppList[index].quizTitle,
-              time: quizApp.quizAppList[index].duration,
-              calendar: quizApp.quizAppList[index].quizStartCalendar,
-              description: quizApp.quizAppList[index].quizDescription,
-              onTap: (){
-                print(quizApp.quizAppList[0].questionList);
-             },
+            quizTitle: quizApp.quizAppList[index].quizTitle,
+            quizDescription: quizApp.quizAppList[index].quizDescription,
+            duration: quizApp.quizAppList[index].duration,
+            quizImageUrl: quizApp.quizAppList[index].quizImageUrl,
+            quizStartCalendar: quizApp.quizAppList[index].quizStartCalendar,
+
           ),
         )
         ),
       ),
     );
   }
-
 }
 
 

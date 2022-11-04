@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../teacher/quiz_marker/screens/add_questions.dart';
 
 class QuizAppProvider with ChangeNotifier{
-  final List<QuizAppModel> _quizAppList = [];
+  List<QuizAppModel> _quizAppList = [];
 
   List<QuizAppModel> get quizAppList{
     return _quizAppList;
@@ -97,5 +97,35 @@ class QuizAppProvider with ChangeNotifier{
     );
     _quizAppList[0].questionList.add(addQuestion);
     notifyListeners();
+  }
+
+  Future <void> getDataInformation() async{
+    final url = Uri.parse('https://quiz-maker-app-f5e35-default-rtdb.firebaseio.com/quizDataBase.json');
+    try{
+      final response = await http.get(url,headers: {
+        'Content-Type': 'application/json'
+      },);
+      final quizAppData = json.decode(response.body) as Map<String , dynamic>;
+      final List<QuizAppModel> listAppQuestions = [];
+      quizAppData.forEach((quizId, quizData) {
+        listAppQuestions.add(QuizAppModel(
+            quizTitle: quizData['quizTitle'],
+            questionList: [
+
+            ],
+            duration: DateTime.parse(quizData['duration']),
+            quizDescription: quizData['quizDescription'],
+            quizImageUrl: quizData['quizImageUrl'],
+            id: quizId,
+            quizStartCalendar: quizData['quizStartCalendar']),
+        );
+      });
+      _quizAppList = listAppQuestions;
+      notifyListeners();
+      debugPrint(response.statusCode.toString());
+      debugPrint(response.body);
+    }catch(error){
+      debugPrint(error.toString());
+    }
   }
 }
