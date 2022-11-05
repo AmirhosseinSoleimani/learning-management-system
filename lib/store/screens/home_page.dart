@@ -432,6 +432,50 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              Container(
+                color: Color(0xffD7E8F1),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Discover',
+                        style: TextStyle(
+                          color: Color(0xff3F3D56),
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                      Row(
+                        children: const [
+                          Text(
+                            'World\' Best',
+                            style: TextStyle(
+                                color: Color(0xff3F3D56),
+                                fontSize: 26.0,
+                                fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Text(
+                            'Courses',
+                            style: TextStyle(
+                                color: Color(0xffC94B04),
+                                fontSize: 26.0,
+                                fontWeight: FontWeight.w500
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
               getFeatures(context: context),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
