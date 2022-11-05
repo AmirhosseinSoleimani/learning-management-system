@@ -7,7 +7,6 @@ import '../../data.dart';
 import '../widgets/feature_item.dart';
 import '../course_details/screens/course_details.dart';
 import './recommend_item.dart';
-import './get_categories.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/store';
@@ -23,16 +22,6 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xffFFFFFF),
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-              size: 20.0,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
           title: Image.asset(
             'assets/images/epent.png',
             width: MediaQuery.of(context).size.width * 0.3,
@@ -46,7 +35,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: appBarColor,
         body: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -69,7 +58,10 @@ class _HomePageState extends State<HomePage> {
               ),
               const Center(
                 child: Image(
-                    image: AssetImage('assets/images/Background.png')
+                    image: AssetImage(
+                        'assets/images/Background.png',
+                    ),
+                  height: 300.0,
                 ),
               ),
               const Padding(
@@ -93,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                     vertical: 10.0
                 ),
                 child: Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit laboris nisi ut aliquip ex',
                   style: TextStyle(
                       color: Color(0xff7E7979),
                       fontWeight: FontWeight.w400,
@@ -101,7 +93,162 @@ class _HomePageState extends State<HomePage> {
                   textAlign: TextAlign.center,
                 ),
               ),
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: TextButton(
+                      onPressed: (){},
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(40.0)
+                              )
+                          )
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 50.0),
+                        child:  Text(
+                          'View All Courses',
+                          style: TextStyle(
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xffFFFFFF)
+                          ),
+                        ),
+                      )
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40.0,
+                  vertical: 20.0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      'most popular:',
+                      style: TextStyle(
+                        color: Color(0xffC94B04),
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w400
+                      ),
+                    ),
+                    Text(
+                      'Figma',
+                      style: TextStyle(
+                          color: Color(0xffC94B04),
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w400
+                      ),
+                    ),
+                    Text(
+                      'Flutter',
+                      style: TextStyle(
+                          color: Color(0xffC94B04),
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w400
+                      ),
+                    ),
+                    Text(
+                      'GO',
+                      style: TextStyle(
+                          color: Color(0xffC94B04),
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w400
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                  padding: EdgeInsets.all(10.0),
+                child: Container(
+                  color: Color(0xffFFF7F2),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Explore',
+                          style: TextStyle(
+                            color: Color(0xff3F3D56),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 26.0
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            Text(
+                              'Our',
+                              style: TextStyle(
+                                  color: Color(0xff3F3D56),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26.0
+                              ),
+                            ),
+                            SizedBox(
+                              width: 3.0,
+                            ),
+                            Text(
+                              'Popular',
+                              style: TextStyle(
+                                  color: Color(0xffC94B04),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26.0
+                              ),
+                            ),
+                            SizedBox(
+                              width: 3.0,
+                            ),
+                            Text(
+                              'Courses',
+                              style: TextStyle(
+                                  color: Color(0xff3F3D56),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26.0
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          child: Divider(
+                            thickness: 1.5,
+                            color: Color(0xffD9D9D9),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            const Text(
+                              'view all category',
+                              style: TextStyle(
+                                color: Color(0xff7E7979),
+                                fontSize: 14.0
+                              ),
+                            ),
+                            IconButton(
+                                onPressed: (){},
+                                icon: const Icon(
+                                  Icons.arrow_forward,
+                                  color: Color(0xffC94B04),
+                                  size: 20.0,
+                                ),
+                            )
+                          ],
+                        ),
 
+                      ],
+                    ),
+                  ),
+                ),
+              ),
               getFeatures(context: context),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
