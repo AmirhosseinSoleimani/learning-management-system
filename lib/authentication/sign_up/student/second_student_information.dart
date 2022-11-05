@@ -5,7 +5,7 @@ import 'package:learning_management_system/authentication/sign_up/student/phoneN
 import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
-import '../../drawer.dart';
+import '../../../store/drawer.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:country_picker/country_picker.dart';
 import 'favourite.dart';

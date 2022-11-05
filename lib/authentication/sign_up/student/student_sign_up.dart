@@ -4,7 +4,7 @@ import 'package:learning_management_system/models/student_account.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../provider/student_provider.dart';
-import '../../drawer.dart';
+import '../../../store/drawer.dart';
 
 
 class StudentSignUp extends StatefulWidget {

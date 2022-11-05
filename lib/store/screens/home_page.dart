@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../drawer.dart';
 import '../../constant/colors.dart';
-import '../widgets/app_drawer.dart';
 import '../../data.dart';
 import '../widgets/feature_item.dart';
 import '../course_details/screens/course_details.dart';
@@ -21,15 +21,52 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: _getAppBar(),
-        drawer: const AppDrawer(),
+        appBar: AppBar(
+          backgroundColor: const Color(0xffFFFFFF),
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+              size: 20.0,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          title: Image.asset(
+            'assets/images/epent.png',
+            width: MediaQuery.of(context).size.width * 0.3,
+            height: MediaQuery.of(context).size.height * 0.08,
+          ),
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: Colors.black, size: 30.0),
+        ),
+        endDrawer: const DrawerAppBar(),
         resizeToAvoidBottomInset: false,
         backgroundColor: appBarColor,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const GetCategories(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    IconButton(
+                        onPressed: (){},
+                        icon: SvgPicture.asset(
+                          'assets/icons/shop.svg'
+                        ),
+                    ),
+                    IconButton(
+                      onPressed: (){},
+                      icon: SvgPicture.asset(
+                          'assets/icons/support.svg'
+                      ),
+                    )
+                  ],
+                ),
+              ),
               const Padding(
                 padding: EdgeInsets.fromLTRB(15, 5, 15, 20),
                 child: Text(

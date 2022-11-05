@@ -7,7 +7,7 @@ import '../../../models/student_account.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/course_details/screens/course_details.dart';
 import './feature_master_sign_up.dart';
-import '../../drawer.dart';
+import '../../../store/drawer.dart';
 import './stepper.dart';
 import 'dialog_box_sign_up.dart';
 

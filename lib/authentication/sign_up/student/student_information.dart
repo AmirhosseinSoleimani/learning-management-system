@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
 import '../../../provider/student_provider.dart';
-import '../../drawer.dart';
+import '../../../store/drawer.dart';
 import './second_student_information.dart';
 import 'customize_stepper_first_information.dart';
 

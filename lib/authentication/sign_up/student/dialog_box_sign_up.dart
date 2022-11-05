@@ -5,7 +5,7 @@ import 'package:learning_management_system/data.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
 import '../../../provider/student_provider.dart';
-import '../../drawer.dart';
+import '../../../store/drawer.dart';
 
 class DialogBoxSignUp extends StatefulWidget {
   const DialogBoxSignUp({Key? key}) : super(key: key);

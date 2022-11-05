@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/authentication/sign_up/student/student_sign_up.dart';
 import '../../extension/extension.dart';
-import '../drawer.dart';
+import '../../store/drawer.dart';
 
 bool remember = false;
 
