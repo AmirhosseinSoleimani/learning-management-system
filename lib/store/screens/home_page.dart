@@ -163,89 +163,272 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Padding(
-                  padding: EdgeInsets.all(10.0),
-                child: Container(
-                  color: Color(0xffFFF7F2),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Explore',
-                          style: TextStyle(
-                            color: Color(0xff3F3D56),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 26.0
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.7,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: const Color(0xffFFF7F2),
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20.0),
+                    bottomRight: Radius.circular(20.0)
+                  ),
+                  color: const Color(0xffFFF7F2),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Explore',
+                        style: TextStyle(
+                          color: Color(0xff3F3D56),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 26.0
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Our',
+                            style: TextStyle(
+                                color: Color(0xff3F3D56),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 26.0
+                            ),
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Text(
-                              'Our',
-                              style: TextStyle(
-                                  color: Color(0xff3F3D56),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26.0
-                              ),
-                            ),
-                            SizedBox(
-                              width: 3.0,
-                            ),
-                            Text(
-                              'Popular',
-                              style: TextStyle(
-                                  color: Color(0xffC94B04),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26.0
-                              ),
-                            ),
-                            SizedBox(
-                              width: 3.0,
-                            ),
-                            Text(
-                              'Courses',
-                              style: TextStyle(
-                                  color: Color(0xff3F3D56),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26.0
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          child: Divider(
-                            thickness: 1.5,
-                            color: Color(0xffD9D9D9),
+                          SizedBox(
+                            width: 3.0,
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            const Text(
-                              'view all category',
-                              style: TextStyle(
-                                color: Color(0xff7E7979),
-                                fontSize: 14.0
-                              ),
+                          Text(
+                            'Popular',
+                            style: TextStyle(
+                                color: Color(0xffC94B04),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 26.0
                             ),
-                            IconButton(
-                                onPressed: (){},
-                                icon: const Icon(
-                                  Icons.arrow_forward,
-                                  color: Color(0xffC94B04),
-                                  size: 20.0,
+                          ),
+                          SizedBox(
+                            width: 3.0,
+                          ),
+                          Text(
+                            'Courses',
+                            style: TextStyle(
+                                color: Color(0xff3F3D56),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 26.0
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        child: Divider(
+                          thickness: 1.5,
+                          color: Color(0xffD9D9D9),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Text(
+                            'view all category',
+                            style: TextStyle(
+                              color: Color(0xff7E7979),
+                              fontSize: 14.0
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: (){},
+                              icon: const Icon(
+                                Icons.arrow_forward,
+                                color: Color(0xffC94B04),
+                                size: 20.0,
+                              ),
+                          )
+                        ],
+                      ),
+                      Center(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.width * 0.3,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xff7E7979),
+                            ),
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: const Color(0xffE6E6E6),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                color: Color(0xffFFFFFF),
+                                width: 70.0,
+                                height: 70.0,
+                                child: const Image(
+                                    image: AssetImage(
+                                      'assets/images/g2869.png'
+                                    ),
                                 ),
-                            )
-                          ],
+                              ),
+                              const SizedBox(
+                                width: 30.0,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text(
+                                    'Business',
+                                    style: TextStyle(
+                                      color: Color(0xff3F3D56),
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    '62 Courses',
+                                    style: TextStyle(
+                                        color: Color(0xff3F3D56),
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w500
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      Center(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.width * 0.3,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xff7E7979),
+                            ),
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: const Color(0xffE6E6E6),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                color: const Color(0xffFFFFFF),
+                                width: 70.0,
+                                height: 70.0,
+                                child: const Image(
+                                  image: AssetImage(
+                                      'assets/images/Icon_27.png'
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 30.0,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text(
+                                    'IT',
+                                    style: TextStyle(
+                                        color: Color(0xff3F3D56),
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    '150 Courses',
+                                    style: TextStyle(
+                                        color: Color(0xff3F3D56),
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w500
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      Center(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.width * 0.3,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xff7E7979),
+                            ),
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: const Color(0xffE6E6E6),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                color: const Color(0xffFFFFFF),
+                                width: 70.0,
+                                height: 70.0,
+                                child: const Image(
+                                  image: AssetImage(
+                                      'assets/images/Vector.png'
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 30.0,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text(
+                                    'Development',
+                                    style: TextStyle(
+                                        color: Color(0xff3F3D56),
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    '80 Courses',
+                                    style: TextStyle(
+                                        color: Color(0xff3F3D56),
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w500
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
