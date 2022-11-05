@@ -67,16 +67,41 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(15, 5, 15, 20),
-                child: Text(
-                  'Featured',
-                  style: TextStyle(
-                      color: textColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 22.0),
+              const Center(
+                child: Image(
+                    image: AssetImage('assets/images/Background.png')
                 ),
               ),
+              const Padding(
+                padding: EdgeInsets.only(
+                  left: 20.0,
+                  right: 20.0,
+                  top: 25.0,
+                ),
+                child: Text(
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                  style: TextStyle(
+                      color: Color(0xff334155),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 24.0),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 10.0
+                ),
+                child: Text(
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure',
+                  style: TextStyle(
+                      color: Color(0xff7E7979),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20.0),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+
               getFeatures(context: context),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
