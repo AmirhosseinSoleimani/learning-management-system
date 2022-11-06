@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/models/student_account.dart';
+import 'package:learning_management_system/models/student_signUp_put_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../models/student_account.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 
@@ -37,12 +38,12 @@ class _StudentSignUpState extends State<StudentSignUp> {
     password: '123456',
     email: 'example@gmail.com',
     phoneNumber: '+091212345678',
-    birthdayDate: Timestamp.fromDate(DateTime.now()).seconds,
+    birthDay: Timestamp.fromDate(DateTime.now()).seconds,
     bio: 'Student',
     gender: 1,
     introduction: 'Student',
     country: 'Student',
-    favouriteCourse: [],
+    favouriteCourse: '',
     userName: 'Student',
   );
 
@@ -216,7 +217,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                                 favouriteCourse: _signupStudent.favouriteCourse,
                                 gender: _signupStudent.gender,
                                 introduction: _signupStudent.introduction,
-                                birthdayDate: _signupStudent.birthdayDate,
+                                birthDay: _signupStudent.birthDay,
                                 bio: _signupStudent.bio,
                                 phoneNumber: _signupStudent.phoneNumber,
                               );
@@ -288,7 +289,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                                   favouriteCourse: _signupStudent.favouriteCourse,
                                   gender: _signupStudent.gender,
                                   introduction: _signupStudent.introduction,
-                                  birthdayDate: _signupStudent.birthdayDate,
+                                  birthDay: _signupStudent.birthDay,
                                   bio: _signupStudent.bio,
                                   phoneNumber: _signupStudent.phoneNumber,
                                   userName: _signupStudent.userName,

@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:learning_management_system/store/course_details/widgets/discover_courses.dart';
 import '../drawer.dart';
 import '../../constant/colors.dart';
 import '../../data.dart';
+import '../widgets/app_drawer.dart';
 import '../widgets/feature_item.dart';
 import '../course_details/screens/course_details.dart';
 import './recommend_item.dart';
@@ -15,7 +17,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>{
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,6 +33,7 @@ class _HomePageState extends State<HomePage> {
           iconTheme: const IconThemeData(color: Colors.black, size: 30.0),
         ),
         endDrawer: const DrawerAppBar(),
+        drawer: const AppDrawer(),
         resizeToAvoidBottomInset: false,
         backgroundColor: appBarColor,
         body: SingleChildScrollView(
@@ -268,7 +271,7 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                color: Color(0xffFFFFFF),
+                                color: const Color(0xffFFFFFF),
                                 width: 70.0,
                                 height: 70.0,
                                 child: const Image(
@@ -291,7 +294,7 @@ class _HomePageState extends State<HomePage> {
                                       fontWeight: FontWeight.w500
                                     ),
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     height: 10.0,
                                   ),
                                   Text(
@@ -433,9 +436,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Container(
-                color: Color(0xffD7E8F1),
+                color: const Color(0xffD7E8F1),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.7,
+                height: MediaQuery.of(context).size.height,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
@@ -450,8 +453,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Row(
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             'World\' Best',
                             style: TextStyle(
                                 color: Color(0xff3F3D56),
@@ -459,19 +462,42 @@ class _HomePageState extends State<HomePage> {
                                 fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5.0,
                           ),
-                          Text(
-                            'Courses',
-                            style: TextStyle(
-                                color: Color(0xffC94B04),
-                                fontSize: 26.0,
-                                fontWeight: FontWeight.w500
-                            ),
+                          Column(
+                            children: const [
+                              Text(
+                                'Courses',
+                                style: TextStyle(
+                                    color: Color(0xffC94B04),
+                                    fontSize: 26.0,
+                                    fontWeight: FontWeight.w500
+                                ),
+                              ),
+                              Image(
+                                  image: AssetImage(
+                                    'assets/images/down-mark-line 3.png'
+                                  ),
+                              )
+                            ],
                           )
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        child: DiscoverCourses(
+                          data: {"courses": features[1]},
+                        ),
+                      ),
+                      const SizedBox(
+                        child: Divider(
+                          thickness: 1.5,
+                          color: Color(0xff7E7979),
+                        ),
+                      ),
+                      getFeatures(context: context),
                     ],
                   ),
                 ),
@@ -512,7 +538,7 @@ class _HomePageState extends State<HomePage> {
                 height: MediaQuery.of(context).size.height * 0.4,
                 child: Column(
                   children: [
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.3,
                       child: Row(
@@ -640,7 +666,7 @@ Widget getFeatures({BuildContext? context}) {
       ),
     ),
     options: CarouselOptions(
-        height: 290.0, enlargeCenterPage: true, disableCenter: true),
+        height: 380.0, enlargeCenterPage: true, disableCenter: true),
   );
 }
 

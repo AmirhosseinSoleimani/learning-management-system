@@ -5,6 +5,7 @@ import 'package:learning_management_system/authentication/sign_up/student/phoneN
 import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
+import '../../../models/student_signUp_put_model.dart';
 import '../../../store/drawer.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:country_picker/country_picker.dart';
@@ -48,12 +49,12 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
     password: '',
     email: '',
     phoneNumber: '',
-    birthdayDate: Timestamp.fromDate(DateTime.now()).seconds,
+    birthDay: Timestamp.fromDate(DateTime.now()).seconds,
     bio: '',
     gender: 0,
     introduction: '',
     country: '',
-    favouriteCourse: [], userName: '',
+    favouriteCourse: '', userName: '',
   );
 
   var _isLoading = false;
@@ -239,7 +240,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                           password: studentAccount.studentAccount[0].password,
                                           email: studentAccount.studentAccount[0].email,
                                           phoneNumber: studentAccount.phoneNumberTextFormField!,
-                                          birthdayDate: Timestamp.fromDate(DateTime.parse(val!)).seconds,
+                                          birthDay: Timestamp.fromDate(DateTime.parse(val!)).seconds,
                                           bio: studentAccount.studentAccount[0].bio,
                                           gender: studentAccount.studentAccount[0].gender,
                                           introduction: _signupStudent.introduction,
@@ -284,7 +285,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                         password: _signupStudent.password,
                                         email: _signupStudent.email,
                                         phoneNumber: _signupStudent.phoneNumber,
-                                        birthdayDate: _signupStudent.birthdayDate,
+                                        birthDay: _signupStudent.birthDay,
                                         bio: _signupStudent.bio,
                                         gender: _signupStudent.gender,
                                         introduction: _signupStudent.introduction,
@@ -414,7 +415,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                     password: _signupStudent.password,
                                     email: _signupStudent.email,
                                     phoneNumber: _signupStudent.phoneNumber,
-                                    birthdayDate: _signupStudent.birthdayDate,
+                                    birthDay: _signupStudent.birthDay,
                                     bio: _signupStudent.bio,
                                     gender: _signupStudent.gender,
                                     introduction: newValue,

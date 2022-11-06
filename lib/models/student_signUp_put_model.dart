@@ -1,5 +1,5 @@
 
-class StudentSignUp {
+class StudentSignUpPut {
   String? bio;
   int? birthDay;
   String? country;
@@ -11,7 +11,7 @@ class StudentSignUp {
   String? lastName;
   String? phoneNumber;
 
-  StudentSignUp(
+  StudentSignUpPut(
       {this.bio,
         this.birthDay,
         this.country,
@@ -23,7 +23,7 @@ class StudentSignUp {
         this.lastName,
         this.phoneNumber});
 
-  StudentSignUp.fromJson(Map<String, dynamic> json) {
+  StudentSignUpPut.fromJson(Map<String, dynamic> json) {
     bio = json['bio'];
     birthDay = json['birth_day'];
     country = json['country'];
@@ -50,7 +50,4 @@ class StudentSignUp {
     data['phone_number'] = phoneNumber;
     return data;
   }
-
-
-
 }

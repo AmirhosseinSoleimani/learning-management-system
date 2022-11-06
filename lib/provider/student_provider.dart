@@ -4,6 +4,7 @@ import 'package:learning_management_system/authentication/sign_up/student/second
 import 'package:learning_management_system/extension/extension.dart';
 import '../authentication/sign_up/student/student_information.dart';
 import '../models/student_account.dart';
+import '../models/student_signUp_put_model.dart';
 import 'package:http/http.dart' as http;
 
 class StudentProvider with ChangeNotifier{
@@ -40,7 +41,7 @@ class StudentProvider with ChangeNotifier{
                 'bio': studentAccount.bio,
                 'country': studentAccount.country,
                 'how_to_know_us': studentAccount.introduction,
-                'birthday': studentAccount.birthdayDate,
+                'birthday': studentAccount.birthDay,
                 'favouriteCourse': studentAccount.favouriteCourse,
               }
           ),
@@ -62,7 +63,7 @@ class StudentProvider with ChangeNotifier{
           bio: studentAccount.bio,
           country: studentAccount.country,
           introduction: studentAccount.introduction,
-          birthdayDate: studentAccount.birthdayDate,
+          birthDay: studentAccount.birthDay,
           favouriteCourse: studentAccount.favouriteCourse,
           userName: studentAccount.userName,
         );
@@ -92,7 +93,7 @@ class StudentProvider with ChangeNotifier{
               'bio': studentAccount.bio,
               'country': studentAccount.country,
               'how_to_know_us': studentAccount.introduction,
-              'birthday': studentAccount.birthdayDate,
+              'birthday': studentAccount.birthDay,
               'favouriteCourse': studentAccount.favouriteCourse,
             }
         ),
@@ -114,7 +115,7 @@ class StudentProvider with ChangeNotifier{
         bio: studentAccount.bio,
         country: studentAccount.country,
         introduction: studentAccount.introduction,
-        birthdayDate: studentAccount.birthdayDate,
+        birthDay: studentAccount.birthDay,
         favouriteCourse: studentAccount.favouriteCourse,
         userName: studentAccount.userName,
       );
@@ -144,7 +145,7 @@ class StudentProvider with ChangeNotifier{
           'bio': studentAccount.bio,
           'country': studentAccount.country,
           'how_to_know_us': studentAccount.introduction,
-          'birthday': studentAccount.birthdayDate,
+          'birthday': studentAccount.birthDay,
           'favouriteCourse': studentAccount.favouriteCourse,
         }
     ),

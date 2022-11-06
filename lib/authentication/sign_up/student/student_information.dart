@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
+import '../../../models/student_signUp_put_model.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 import './second_student_information.dart';
@@ -45,12 +46,12 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
     password: '',
     email: '',
     phoneNumber: '',
-    birthdayDate: Timestamp.fromDate(DateTime.now()).seconds,
+    birthDay: Timestamp.fromDate(DateTime.now()).seconds,
     bio: '',
     gender: 1,
     introduction: '',
     country: '',
-    favouriteCourse: [],
+    favouriteCourse: '',
     userName: '',
   );
 
@@ -240,7 +241,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                               password: studentProvider.studentAccount[0].password,
                               email: _signupStudent.email,
                               phoneNumber: _signupStudent.phoneNumber,
-                              birthdayDate: _signupStudent.birthdayDate,
+                              birthDay: _signupStudent.birthDay,
                               bio: _signupStudent.bio,
                               gender: _signupStudent.gender,
                               introduction: _signupStudent.introduction,
@@ -294,7 +295,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                               password: _signupStudent.password,
                               email: _signupStudent.email,
                               phoneNumber: _signupStudent.phoneNumber,
-                              birthdayDate: _signupStudent.birthdayDate,
+                              birthDay: _signupStudent.birthDay,
                               bio: _signupStudent.bio,
                               gender: _signupStudent.gender,
                               introduction: _signupStudent.introduction,
@@ -357,7 +358,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                               favouriteCourse: _signupStudent.favouriteCourse,
                               gender: _signupStudent.gender,
                               introduction: _signupStudent.introduction,
-                              birthdayDate: _signupStudent.birthdayDate,
+                              birthDay: _signupStudent.birthDay,
                               bio: _signupStudent.bio,
                               phoneNumber: _signupStudent.phoneNumber, userName: '',
                             );
@@ -427,7 +428,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                           password: _signupStudent.password,
                                           email: _signupStudent.email,
                                           phoneNumber: _signupStudent.phoneNumber,
-                                          birthdayDate: _signupStudent.birthdayDate,
+                                          birthDay: _signupStudent.birthDay,
                                           bio: _signupStudent.bio,
                                           gender: 1,
                                           introduction: _signupStudent.introduction,
@@ -447,7 +448,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                           password: _signupStudent.password,
                                           email: _signupStudent.email,
                                           phoneNumber: _signupStudent.phoneNumber,
-                                          birthdayDate: _signupStudent.birthdayDate,
+                                          birthDay: _signupStudent.birthDay,
                                           bio: _signupStudent.bio,
                                           gender: 0,
                                           introduction: _signupStudent.introduction,
@@ -467,7 +468,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                           password: _signupStudent.password,
                                           email: _signupStudent.email,
                                           phoneNumber: _signupStudent.phoneNumber,
-                                          birthdayDate: _signupStudent.birthdayDate,
+                                          birthDay: _signupStudent.birthDay,
                                           bio: _signupStudent.bio,
                                           gender: 3,
                                           introduction: _signupStudent.introduction,
@@ -524,7 +525,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                         password: _signupStudent.password,
                                         email: _signupStudent.email,
                                         phoneNumber: _signupStudent.phoneNumber,
-                                        birthdayDate: _signupStudent.birthdayDate,
+                                        birthDay: _signupStudent.birthDay,
                                         bio: value!,
                                         gender: _signupStudent.gender,
                                         introduction: _signupStudent.introduction,

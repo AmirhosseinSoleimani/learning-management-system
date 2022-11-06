@@ -4,6 +4,7 @@ import 'package:learning_management_system/authentication/sign_up/student/featur
 import 'package:learning_management_system/data.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
+import '../../../models/student_signUp_put_model.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 
@@ -25,12 +26,12 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
     password: '',
     email: '',
     phoneNumber: '',
-    birthdayDate: Timestamp.fromDate(DateTime.now()).seconds,
+    birthDay: Timestamp.fromDate(DateTime.now()).seconds,
     bio: '',
     gender: 0,
     introduction: '',
     country: '',
-    favouriteCourse: [], userName: '',
+    favouriteCourse: '', userName: '',
   );
 
 
@@ -162,12 +163,12 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
                                 password: studentAccount.studentAccount[0].password,
                                 email: studentAccount.studentAccount[0].email,
                                 phoneNumber: studentAccount.studentAccount[0].phoneNumber,
-                                birthdayDate: studentAccount.studentAccount[0].birthdayDate,
+                                birthDay: studentAccount.studentAccount[0].birthDay,
                                 bio: studentAccount.studentAccount[0].bio,
                                 gender: studentAccount.studentAccount[0].gender,
                                 introduction: studentAccount.studentAccount[0].introduction,
                                 country: studentAccount.studentAccount[0].country,
-                                favouriteCourse: studentAccount.favouriteCourseList, userName: '',
+                                favouriteCourse: '', userName: '',
                               );
                               Navigator.of(context).pop();
                             },

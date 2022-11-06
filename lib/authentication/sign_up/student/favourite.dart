@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:learning_management_system/store/screens/home_page.dart';
 import 'package:provider/provider.dart';
 import '../../../data.dart';
-import '../../../models/student_account.dart';
+import '../../../models/student_signUp_put_model.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/course_details/screens/course_details.dart';
 import './feature_master_sign_up.dart';
