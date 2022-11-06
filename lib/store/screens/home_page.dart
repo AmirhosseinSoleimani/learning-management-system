@@ -436,9 +436,19 @@ class _HomePageState extends State<HomePage>{
                 ),
               ),
               Container(
-                color: const Color(0xffD7E8F1),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height * 0.85,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: const Color(0xffD7E8F1),
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(20.0),
+                    bottomLeft: Radius.circular(20.0),
+                  ),
+                  color: const Color(0xffD7E8F1),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
@@ -500,6 +510,222 @@ class _HomePageState extends State<HomePage>{
                       getFeatures(context: context),
                     ],
                   ),
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.8,
+                child: Stack(
+                  children: [
+                    const Image(image: AssetImage(
+                      'assets/images/Group 192.png'
+                    ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Text(
+                                'why students',
+                                style: TextStyle(
+                                  color: Color(0xff000000),
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.w600
+                                ),
+                              ),
+                              Column(
+                                children: const [
+                                  Text(
+                                    'choose',
+                                    style: TextStyle(
+                                        color: Color(0xffC94B04),
+                                        fontSize: 26,
+                                        fontWeight: FontWeight.w600
+                                    ),
+                                  ),
+                                  Image(
+                                    image: AssetImage(
+                                        'assets/images/down-mark-line 3.png'
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                          const Text(
+                            'us for gain their knowledge',
+                            style: TextStyle(
+                                color: Color(0xff000000),
+                                fontSize: 26,
+                                fontWeight: FontWeight.w600
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      top: 100.0,
+                      left: 20,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'There are always new freebies',
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: Color(0xff7E7979),
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text(
+                            'for you to enjoy on Envato',
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: Color(0xff7E7979),
+                                fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text(
+                            'Website templates here on ',
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: Color(0xff7E7979),
+                                fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text(
+                            'ThemeForest WordPress plugins,',
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: Color(0xff7E7979),
+                                fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text(
+                            'assets of all sorts.',
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: Color(0xff7E7979),
+                                fontWeight: FontWeight.w500
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      top: 280,
+                      left: 30.0,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: const [
+                              SizedBox(
+                                width: 25,
+                                height: 35,
+                                child: CircleAvatar(
+                                  backgroundColor: Color(0xff7E7979),
+                                  child: Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                    size: 25.0,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              Text(
+                                'Website templates here',
+                                style: TextStyle(
+                                  color: Color(0xff7E7979),
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          Row(
+                            children: const [
+                              SizedBox(
+                                width: 25,
+                                height: 35,
+                                child: CircleAvatar(
+                                  backgroundColor: Color(0xff7E7979),
+                                  child: Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                    size: 25.0,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              Text(
+                                'always new freebies',
+                                style: TextStyle(
+                                    color: Color(0xff7E7979),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w400
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          Row(
+                            children: const [
+                              SizedBox(
+                                width: 25,
+                                height: 35,
+                                child: CircleAvatar(
+                                  backgroundColor: Color(0xff7E7979),
+                                  child: Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                    size: 25.0,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              Text(
+                                'enjoy on Envato Market',
+                                style: TextStyle(
+                                    color: Color(0xff7E7979),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w400
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
               getFeatures(context: context),
