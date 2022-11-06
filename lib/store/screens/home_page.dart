@@ -514,7 +514,7 @@ class _HomePageState extends State<HomePage>{
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.8,
+                height: MediaQuery.of(context).size.height * 0.71,
                 child: Stack(
                   children: [
                     const Image(image: AssetImage(
@@ -725,6 +725,62 @@ class _HomePageState extends State<HomePage>{
                         ],
                       ),
                     )
+                  ],
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.8,
+                color: const Color(0xffFFFCFC),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'our ',
+                          style: TextStyle(
+                              color: Color(0xff000000),
+                              fontSize: 26.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        Column(
+                          children: const [
+                            Text(
+                              'Teachers',
+                              style: TextStyle(
+                                  color: Color(0xffC94B04),
+                                  fontSize: 26.0,
+                                  fontWeight: FontWeight.w500
+                              ),
+                            ),
+                            Image(
+                              image: AssetImage(
+                                  'assets/images/down-mark-line 3.png'
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 35.0
+                      ),
+                      child: Text(
+                        'Single user, personal educational use only, no redistribution. The total price includes the item price and a buyer fee.',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Color(0xff7E7979),
+                          fontWeight: FontWeight.w400
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ],
                 ),
               ),
