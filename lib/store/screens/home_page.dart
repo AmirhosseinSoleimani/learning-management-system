@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/store/course_details/widgets/discover_courses.dart';
+import '../../authentication/sign_up/teacher/teacher_sign_up.dart';
 import '../drawer.dart';
 import '../../constant/colors.dart';
 import '../../data.dart';
@@ -1037,7 +1038,9 @@ class _HomePageState extends State<HomePage>{
                             ),
                             Center(
                               child: TextButton(
-                                  onPressed: (){},
+                                  onPressed: (){
+                                    Navigator.pushNamed(context,TeacherSignUp.routeName);
+                                  },
                                   style: ButtonStyle(
                                       backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),),
                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -1317,7 +1320,7 @@ class _HomePageState extends State<HomePage>{
                       ),
                     ),
                     const Padding(
-                      padding: const EdgeInsets.symmetric(
+                      padding: EdgeInsets.symmetric(
                         horizontal: 15.0,
                         vertical: 10.0
                       ),

@@ -9,15 +9,15 @@ import './authentication/sign_up/student/student_information.dart';
 import './authentication/sign_up/student/second_student_information.dart';
 import 'package:learning_management_system/authentication/sign_up/seller.dart';
 import 'package:learning_management_system/authentication/sign_up/student_address.dart';
-import 'package:learning_management_system/authentication/sign_up/teacher.dart';
 import 'package:learning_management_system/introScreen.dart';
 import 'package:learning_management_system/provider/quiz_app_provider.dart';
 import 'package:learning_management_system/store/screens/home_page.dart';
 import 'package:learning_management_system/student/screens/home_page.dart';
 import 'package:learning_management_system/student/screens/user_info_model.dart';
 import 'package:learning_management_system/teacher/quiz_marker/screens/add_questions.dart';
+import 'authentication/sign_up/teacher/teacher_information.dart';
+import 'authentication/sign_up/teacher/teacher_sign_up.dart';
 import 'teacher/quiz_marker/screens/quiz_marker.dart';
-import 'package:learning_management_system/teacher/quiz_marker/screens/quiz_marker.dart';
 import 'package:provider/provider.dart';
 import './store/course_details/screens/lesson_item_page.dart';
 import './provider/student_provider.dart';
@@ -56,6 +56,7 @@ class MyApp extends StatelessWidget {
           SecondInformationStudent.routeName: (context) => const SecondInformationStudent(),
           FavouriteStudent.routeName: (context) => const FavouriteStudent(),
           TeacherSignUp.routeName: (context) => const TeacherSignUp(),
+          InformationTeacherSignUp.routeName: (context) => const InformationTeacherSignUp(),
           SellerSignUp.routeName: (context) => const SellerSignUp(),
           QuizMarker.routeName: (context) => const QuizMarker(),
           StudentAddress.routeName: (context) => const StudentAddress(),
