@@ -40,131 +40,144 @@ class _HomePageState extends State<HomePage>{
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    IconButton(
-                        onPressed: (){},
-                        icon: SvgPicture.asset(
-                          'assets/icons/shop.svg'
+              Stack(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: const Image(
+                        image: AssetImage(
+                            'assets/images/Group184.png',
                         ),
+                      fit: BoxFit.fill,
                     ),
-                    IconButton(
-                      onPressed: (){},
-                      icon: SvgPicture.asset(
-                          'assets/icons/support.svg'
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const Center(
-                child: Image(
-                    image: AssetImage(
-                        'assets/images/Background.png',
-                    ),
-                  height: 300.0,
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: 20.0,
-                  right: 20.0,
-                  top: 25.0,
-                ),
-                child: Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-                  style: TextStyle(
-                      color: Color(0xff334155),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 24.0),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 10.0
-                ),
-                child: Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit laboris nisi ut aliquip ex',
-                  style: TextStyle(
-                      color: Color(0xff7E7979),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20.0),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: TextButton(
-                      onPressed: (){},
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(40.0)
-                              )
-                          )
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 50.0),
-                        child:  Text(
-                          'View All Courses',
-                          style: TextStyle(
-                              fontSize: 22.0,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xffFFFFFF)
+                  ),
+                  Positioned(
+                    top: 10.0,
+                    left: 10.0,
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: (){},
+                          icon: SvgPicture.asset(
+                              'assets/icons/shop.svg'
                           ),
                         ),
-                      )
+                        IconButton(
+                          onPressed: (){},
+                          icon: SvgPicture.asset(
+                              'assets/icons/support.svg'
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40.0,
-                  vertical: 20.0,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'most popular:',
-                      style: TextStyle(
-                        color: Color(0xffC94B04),
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400
+                  Positioned(
+                    top: 420.0,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      child: const Text(
+                        'Lorem ipsum dolor sit amet',
+                        style: TextStyle(
+                            color: Color(0xff334155),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 24.0),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                    Text(
-                      'Figma',
-                      style: TextStyle(
-                          color: Color(0xffC94B04),
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w400
+                  ),
+                  Positioned(
+                    bottom: 200.0,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit laboris nisi ut aliquip ex',
+                          style: TextStyle(
+                              color: Color(0xff7E7979),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20.0),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
-                    Text(
-                      'Flutter',
-                      style: TextStyle(
-                          color: Color(0xffC94B04),
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w400
+                  ),
+                  Positioned(
+                    bottom: 100.0,
+                    left: 35.0,
+                    child: Center(
+                      child: TextButton(
+                          onPressed: (){},
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(40.0)
+                                  )
+                              )
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 50.0),
+                            child:  Text(
+                              'View All Courses',
+                              style: TextStyle(
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xffFFFFFF)
+                              ),
+                            ),
+                          )
                       ),
                     ),
-                    Text(
-                      'GO',
-                      style: TextStyle(
-                          color: Color(0xffC94B04),
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w400
+                  ),
+                  Positioned(
+                    bottom: 60.0,
+                    left: 30.0,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Text(
+                            'most popular:',
+                            style: TextStyle(
+                                color: Color(0xffC94B04),
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w400
+                            ),
+                          ),
+                          Text(
+                            'Figma',
+                            style: TextStyle(
+                                color: Color(0xffC94B04),
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w400
+                            ),
+                          ),
+                          Text(
+                            'Flutter',
+                            style: TextStyle(
+                                color: Color(0xffC94B04),
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w400
+                            ),
+                          ),
+                          Text(
+                            'GO',
+                            style: TextStyle(
+                                color: Color(0xffC94B04),
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w400
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -781,6 +794,7 @@ class _HomePageState extends State<HomePage>{
                         textAlign: TextAlign.center,
                       ),
                     ),
+
                   ],
                 ),
               ),
