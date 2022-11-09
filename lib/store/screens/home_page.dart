@@ -1222,77 +1222,70 @@ class _HomePageState extends State<HomePage>{
                 height: MediaQuery.of(context).size.height * 0.6,
                 child: Column(
                   children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: Column(
-                              children: [
-                                getButton(
-                                  'About us',
-                                  context
-                                ),
-                                getButton(
-                                  'Contact us',
-                                  context
-                                ),
-                                getButton(
-                                  'Blog',
-                                  context
-                                ),
-                                getButton(
-                                  'Get the app',
-                                  context
-                                ),
-                                getButton(
-                                  'Terms',
-                                  context
-                                ),
-                                getButton(
-                                  'Privacy Policy',
-                                  context
-                                ),
-
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: ElevatedButton(
-                              onPressed: (){},
-                              style: ElevatedButton.styleFrom(
-                                  side: const BorderSide(
-                                    width: 3.0,
-                                    color: Colors.white,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0,
+                        vertical: 8.0
+                      ),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                children: [
+                                  getButton(
+                                    'About us',
+                                    context
                                   ),
-                                  primary: Colors.grey.shade500
-                              ),
-                              child: Row(
-                                children: const [
-                                  Icon(
-                                    Icons.language_outlined,
-                                    color: Colors.white,
-                                    size: 22,
+                                  getButton(
+                                    'Contact us',
+                                    context
                                   ),
-                                  SizedBox(
-                                    width: 5.0,
+                                  getButton(
+                                    'Blog',
+                                    context
                                   ),
-                                  Text(
-                                    'English',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18.0
-                                    ),
-                                  )
+                                  getButton(
+                                    'Support',
+                                    context
+                                  ),
+                                  getButton(
+                                    'become teacher',
+                                    context
+                                  ),
+                                  getButton(
+                                    'news',
+                                    context
+                                  ),
                                 ],
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  getButton(
+                                      'cookies',
+                                      context
+                                  ),
+                                  getButton(
+                                      'privacy',
+                                      context
+                                  ),
+                                  getButton(
+                                      'terms of',
+                                      context
+                                  ),
+                                ],
+                              )
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -1326,16 +1319,6 @@ class _HomePageState extends State<HomePage>{
   }
 }
 
-AppBar _getAppBar() {
-  return AppBar(
-    elevation: 0.0,
-    backgroundColor: Colors.blue,
-    title: const Text(
-      'LMS',
-    ),
-    );
-}
-
 Widget getFeatures({BuildContext? context}) {
   return CarouselSlider(
     items: List.generate(
@@ -1354,41 +1337,21 @@ Widget getFeatures({BuildContext? context}) {
   );
 }
 
-Widget getRecommend(){
-  return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Row(
-      children:
-      List.generate(
-          recommends.length, (index) => Container(
-        padding: const EdgeInsets.only(left: 15.0),
-        margin: const EdgeInsets.only(right: 15.0,bottom: 5.0),
-        child: RecommendItem(
-          data: recommends[index],
-          onTap: (){
-            print(index);
-          },
-        ),
-      )
-      ),
-    ),
-  );
-}
 
 Widget getButton(String text,BuildContext context){
   return SizedBox(
-    height: MediaQuery.of(context).size.height * 0.3 / 6,
+    height: MediaQuery.of(context).size.height * 0.4/ 6,
     child: TextButton(
         onPressed: (){},
         style: TextButton.styleFrom(
-        primary: Colors.grey.shade500
+        foregroundColor: Colors.grey.shade500
       ),
         child: Row(
           children: [
             Text(
               text,
               style: const TextStyle(
-                fontSize: 14,
+                fontSize: 18,
                 color: Colors.white
               ),
             ),
