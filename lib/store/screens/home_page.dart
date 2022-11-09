@@ -975,7 +975,7 @@ class _HomePageState extends State<HomePage>{
               Container(
                 color: const Color(0xffE8F2F7),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height * 0.95,
                 child: Column(
                   children: [
                     Padding(
@@ -1074,10 +1074,10 @@ class _HomePageState extends State<HomePage>{
                         decoration: BoxDecoration(
                           border: Border.all(
                             width: 1,
-                            color: const Color(0xff5DBF23).withOpacity(0.62),
+                            color: const Color(0xff177FB0),
                           ),
                           borderRadius: BorderRadius.circular(10.0),
-                          color: const Color(0xff5DBF23).withOpacity(0.62),
+                          color: const Color(0xff177FB0).withOpacity(0.62),
                         ),
 
                         child: Column(
@@ -1088,7 +1088,7 @@ class _HomePageState extends State<HomePage>{
                                 padding: EdgeInsets.all(10.0),
                                 child: Image(
                                   image: AssetImage(
-                                      'assets/images/Group180.png'
+                                      'assets/images/course33.png'
                                   ),
                                 ),
                               ),
@@ -1126,7 +1126,7 @@ class _HomePageState extends State<HomePage>{
                               child: TextButton(
                                   onPressed: (){},
                                   style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),),
+                                      backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff5DBF23),),
                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(10.0)
@@ -1155,40 +1155,71 @@ class _HomePageState extends State<HomePage>{
                   ],
                 ),
               ),
-              getFeatures(context: context),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Recommended',
-                      style: TextStyle(
-                          color: textColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 22.0),
-                    ),
-                    Text(
-                      'See all',
-                      style: TextStyle(
-                          color: labelColor,
-                          fontSize: 14.0
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.7,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: const Color(0xffF1F9EC)
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(20.0),
+                    bottomLeft: Radius.circular(20.0)
+                  ),
+                  color: const Color(0xffF1F9EC),
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'New ',
+                            style: TextStyle(
+                                color: Color(0xff000000),
+                                fontSize: 26.0,
+                                fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          Column(
+                            children: const [
+                              Text(
+                                'Blog',
+                                style: TextStyle(
+                                    color: Color(0xffC94B04),
+                                    fontSize: 26.0,
+                                    fontWeight: FontWeight.w500
+                                ),
+                              ),
+                              Image(
+                                image: AssetImage(
+                                    'assets/images/down-mark-line 3.png',
+                                ),
+                                width: 70.0,
+                                height: 20,
+                              ),
+                            ],
+                          )
+                        ],
                       ),
-                    )
+
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.55,
+                      child: getFeatures(context: context),
+                    ),
                   ],
                 ),
               ),
-              getRecommend(),
-              const SizedBox(
-                height: 15.0,
-              ),
-              const SizedBox(
-                height: 15.0,
-              ),
               Container(
-                color: Colors.grey.shade500,
+                color: const Color(0xff177FB0),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.4,
+                height: MediaQuery.of(context).size.height * 0.6,
                 child: Column(
                   children: [
                     SizedBox(
