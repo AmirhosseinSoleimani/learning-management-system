@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,7 +36,7 @@ class _HomePageState extends State<HomePage>{
         endDrawer: const DrawerAppBar(),
         drawer: const AppDrawer(),
         resizeToAvoidBottomInset: false,
-        backgroundColor: appBarColor,
+        backgroundColor: const Color(0xffD7E8F1),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -743,8 +744,19 @@ class _HomePageState extends State<HomePage>{
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.8,
-                color: const Color(0xffFFFCFC),
+                height: MediaQuery.of(context).size.height * 0.68,
+
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: const Color(0xffFFFCFC),
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20.0),
+                    bottomRight: Radius.circular(20.0),
+                  ),
+                  color: const Color(0xffFFFCFC),
+                ),
                 child: Column(
                   children: [
                     Row(
@@ -772,7 +784,7 @@ class _HomePageState extends State<HomePage>{
                               image: AssetImage(
                                   'assets/images/down-mark-line 3.png'
                               ),
-                            )
+                            ),
                           ],
                         )
                       ],
@@ -794,7 +806,352 @@ class _HomePageState extends State<HomePage>{
                         textAlign: TextAlign.center,
                       ),
                     ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.42,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: features.length,
+                        itemBuilder: (BuildContext context,int index){
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0
+                            ),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 2,
+                                  color: const Color(0xffD9D9D9),
+                                ),
+                                borderRadius: BorderRadius.circular(10.0)
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          width: 0.5,
+                                          color: const Color(0xffFFFCFC)
+                                        ),
+                                        borderRadius: BorderRadius.circular(50.0)
+                                      ),
+                                      child: CachedNetworkImage(
+                                        imageBuilder: (context,imageProvider) => Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(50.0),
+                                              image: DecorationImage(image: imageProvider,
+                                                  fit: BoxFit.cover
+                                              )
+                                          ),
+                                        ),
+                                        imageUrl: features[index]['image'],
+                                      ),
 
+                                    ),
+                                  ),
+                                  const Text(
+                                    'Alex Stanton',
+                                    style: TextStyle(
+                                      color: Color(0xff3F3D56),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 15.0,
+                                  ),
+                                  const Text(
+                                    'master of education degree',
+                                    style: TextStyle(
+                                        color: Color(0xff7E7979),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 17.0,
+                                      vertical: 8.0
+                                    ),
+                                    child: Row(
+                                      children: const [
+                                        Icon(
+                                          Icons.star,
+                                          size: 20.0,
+                                          color: Color(0xffC94B04),
+                                        ),
+                                        Icon(
+                                          Icons.star,
+                                          size: 20.0,
+                                          color: Color(0xffC94B04),
+                                        ),
+                                        Icon(
+                                          Icons.star,
+                                          size: 20.0,
+                                          color: Color(0xffC94B04),
+                                        ),
+                                        Icon(
+                                          Icons.star,
+                                          size: 20.0,
+                                          color: Color(0xffC94B04),
+                                        ),
+                                        Icon(
+                                          Icons.star,
+                                          size: 20.0,
+                                          color: Color(0xffC94B04),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: (){},
+                                          child: Container(
+                                            width: 40.0,
+                                            height: 40.0,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                width: 1,
+                                                color: const Color(0xff7E7979)
+                                              ),
+                                              borderRadius: BorderRadius.circular(5.0)
+                                            ),
+                                            child: const Icon(Icons.favorite_border,
+                                            size: 20.0,
+                                            color: Color(0xff7E7979),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10.0,
+                                        ),
+                                        GestureDetector(
+                                          onTap: (){},
+                                          child: Container(
+                                            width: 40.0,
+                                            height: 40.0,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color: const Color(0xff177FB0)
+                                                ),
+                                                borderRadius: BorderRadius.circular(5.0),
+                                              color: const Color(0xff177FB0)
+                                            ),
+                                            child: const Icon(
+                                              Icons.share_outlined,
+                                              size: 20.0,
+                                              color: Color(0xffFFFFFF),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                color: const Color(0xffE8F2F7),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Container(
+
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.42,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: const Color(0xff5DBF23).withOpacity(0.62),
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: const Color(0xff5DBF23).withOpacity(0.62),
+                        ),
+
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: Image(
+                                  image: AssetImage(
+                                    'assets/images/Group180.png'
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 20.0
+                              ),
+                              child: Text(
+                                'start from today',
+                                style: TextStyle(
+                                  color: Color(0xffFFFFFF),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.0
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 20.0,
+                                vertical: 10.0
+                              ),
+                              child: Text(
+                                  'become an instructor and spread your knowledge',
+                                style: TextStyle(
+                                    color: Color(0xff3F3D56),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16.0
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            Center(
+                              child: TextButton(
+                                  onPressed: (){},
+                                  style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),),
+                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10.0)
+                                          )
+                                      )
+                                  ),
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 20.0
+                                    ),
+                                    child: Text(
+                                      'View Details',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xffFFFFFF)
+                                      ),
+                                    ),
+                                  )
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Container(
+
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.42,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: const Color(0xff5DBF23).withOpacity(0.62),
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: const Color(0xff5DBF23).withOpacity(0.62),
+                        ),
+
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: Image(
+                                  image: AssetImage(
+                                      'assets/images/Group180.png'
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20.0
+                              ),
+                              child: Text(
+                                'start from today',
+                                style: TextStyle(
+                                    color: Color(0xffFFFFFF),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18.0
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20.0,
+                                  vertical: 10.0
+                              ),
+                              child: Text(
+                                'become an instructor and spread your knowledge',
+                                style: TextStyle(
+                                    color: Color(0xff3F3D56),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16.0
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            Center(
+                              child: TextButton(
+                                  onPressed: (){},
+                                  style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),),
+                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10.0)
+                                          )
+                                      )
+                                  ),
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20.0
+                                    ),
+                                    child: Text(
+                                      'View Details',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xffFFFFFF)
+                                      ),
+                                    ),
+                                  )
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
