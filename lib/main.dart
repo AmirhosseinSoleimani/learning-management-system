@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:learning_management_system/authentication/sign_in/sign_in.dart';
 import 'package:learning_management_system/authentication/sign_up/student/favourite.dart';
+import 'package:learning_management_system/authentication/sign_up/teacher/third_teacher_information.dart';
 import 'package:learning_management_system/student/screens/calendar_table.dart';
 import './authentication/sign_up/student/student_sign_up.dart';
 import './authentication/sign_up/student/student_information.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
           TeacherSignUp.routeName: (context) => const TeacherSignUp(),
           InformationTeacherSignUp.routeName: (context) => const InformationTeacherSignUp(),
           SecondInformationTeacher.routeName: (context) => const SecondInformationTeacher(),
+          ThirdInformationStudentSignUp.routeName: (context) => const ThirdInformationStudentSignUp(),
           SellerSignUp.routeName: (context) => const SellerSignUp(),
           QuizMarker.routeName: (context) => const QuizMarker(),
           StudentAddress.routeName: (context) => const StudentAddress(),

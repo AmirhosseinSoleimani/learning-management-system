@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/sign_up/student/customize_stepper_second_information.dart';
 import 'package:learning_management_system/authentication/sign_up/student/phoneNumber_textFormField.dart';
+import 'package:learning_management_system/authentication/sign_up/teacher/third_teacher_information.dart';
 import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
@@ -397,7 +398,8 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                   ),
                   child: TextButton(
                       onPressed: (){
-                        _saveForm();
+                        // _saveForm();
+                        Navigator.pushNamed(context, ThirdInformationStudentSignUp.routeName);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
