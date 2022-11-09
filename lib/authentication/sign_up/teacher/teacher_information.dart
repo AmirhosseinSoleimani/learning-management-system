@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,8 +24,21 @@ class InformationTeacherSignUp extends StatefulWidget {
 class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
 
 
+  String? country;
+  Country iran = Country(
+    phoneCode: '98',
+    countryCode: 'IR',
+    e164Sc: 0,
+    geographic: true,
+    level: 1,
+    name: 'Iran',
+    example: '9123456789',
+    displayName: 'Iran (IR) [+98]',
+    displayNameNoCountryCode: 'Iran (IR)',
+    e164Key: '98-IR-0',
+  );
+  String? icon;
   bool dateSelect = false;
-  File? _image;
   final _form = GlobalKey<FormState>();
   final _nameFocusNode = FocusNode();
   final _lastNameFocusNode = FocusNode();
@@ -91,19 +105,6 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
     setState(() {
       _isLoading = false;
     });
-  }
-
-
-
-  Future pickImage(ImageSource source) async {
-    try{
-      final XFile? image = await ImagePicker().pickImage(source: source);
-      if(image == null) return;
-      final  imageTemporary = File(image.path);
-      setState(() => _image = imageTemporary);
-    } on PlatformException catch(e) {
-      debugPrint('Failed to pick image: $e');
-    }
   }
 
   @override
@@ -490,7 +491,7 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 5.0,
+                                horizontal: 10.0,
                                 vertical: 8.0
                               ),
                               child: GestureDetector(
@@ -571,6 +572,105 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                           ),
                         ],
                       ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 8.0
+                        ),
+                        child: GestureDetector(
+                          onTap: (){
+                            showCountryPicker(
+                              showPhoneCode: false,
+                              onSelect: (Country value) {
+                                setState((){
+                                  country = value.name;
+                                  icon = value.flagEmoji;
+                                  _signupStudent = StudentAccount(
+                                    firstName: _signupStudent.firstName,
+                                    lastName: _signupStudent.lastName,
+                                    password: _signupStudent.password,
+                                    email: _signupStudent.email,
+                                    phoneNumber: _signupStudent.phoneNumber,
+                                    birthDay: _signupStudent.birthDay,
+                                    bio: _signupStudent.bio,
+                                    gender: _signupStudent.gender,
+                                    introduction: _signupStudent.introduction,
+                                    country: value.displayName,
+                                    favouriteCourse: _signupStudent.favouriteCourse, userName: '',
+                                  );
+                                });
+                              },
+                              context: context,
+                            );
+                          },
+                          child: Container(
+                            height: 55.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.white,
+                              border: Border.all(width: 2, color: const Color(0xffD9D9D9),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      (icon) != null
+                                          ? Text(
+                                        icon!,
+                                        style: const TextStyle(
+                                            fontSize: 22.0
+                                        ),
+                                      )
+                                          : Text(
+                                        iran.flagEmoji,
+                                        style: const TextStyle(
+                                            fontSize: 22.0
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      (country) != null ?
+                                      Text(
+                                        country!,
+                                        style: const TextStyle(
+                                            color: Color(0xff7E7979),
+                                            fontSize: 17.0,
+                                            fontWeight: FontWeight.w400
+                                        ),
+                                      )
+                                          :const Text(
+                                        'Country',
+                                        style: TextStyle(
+                                            color: Color(0xff7E7979),
+                                            fontSize: 17.0,
+                                            fontWeight: FontWeight.w400
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(
+                                        right: 15.0
+                                    ),
+                                    child: Icon(
+                                      Icons.arrow_drop_down_outlined,
+                                      color: Color(0xff7E7979),
+                                      size: 28.0,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                       const SizedBox(
                         height: 20.0,
                       ),
@@ -614,6 +714,7 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                             )
                         ),
                       ),
+
                     ],
                   ),
                 ),
