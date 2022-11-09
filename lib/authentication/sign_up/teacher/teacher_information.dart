@@ -671,6 +671,73 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 8.0
+                        ),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          height: 55,
+                          child: DropdownButtonFormField<String>(
+                            hint: const Text(
+                              'Introduction',
+                              style: TextStyle(
+                                  color: Color(0xff7E7979),
+                                  fontSize: 16.0
+                              ),
+                            ),
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    color: Color(0xffD9D9D9),
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                prefixIcon: const Icon(Icons.person)
+                            ),
+                            value: null,
+                            icon: const Icon(
+                              Icons.arrow_drop_down,
+                              size: 28,
+                              color: Color(0xff7E7979),
+                            ),
+                            items: items.map((String items) {
+                              return DropdownMenuItem(
+                                value: items,
+                                child: Text(
+                                  items,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff7E7979)
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                dropDownValue = newValue!;
+                                _signupStudent = StudentAccount(
+                                  firstName: _signupStudent.firstName,
+                                  lastName: _signupStudent.lastName,
+                                  password: _signupStudent.password,
+                                  email: _signupStudent.email,
+                                  phoneNumber: _signupStudent.phoneNumber,
+                                  birthDay: _signupStudent.birthDay,
+                                  bio: _signupStudent.bio,
+                                  gender: _signupStudent.gender,
+                                  introduction: newValue,
+                                  country: _signupStudent.country,
+                                  favouriteCourse: _signupStudent.favouriteCourse, userName: '',
+                                );
+
+
+                              });
+                            },
+                          ),
+                        ),
+                      ),
                       const SizedBox(
                         height: 20.0,
                       ),
