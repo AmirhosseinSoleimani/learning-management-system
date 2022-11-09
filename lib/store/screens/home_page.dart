@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/store/course_details/widgets/discover_courses.dart';
 import '../../authentication/sign_up/teacher/teacher_sign_up.dart';
+import '../../presentation/resources/color_manager.dart';
 import '../drawer.dart';
-import '../../constant/colors.dart';
 import '../../data.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/feature_item.dart';
 import '../course_details/screens/course_details.dart';
-import './recommend_item.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/store';
@@ -25,19 +24,22 @@ class _HomePageState extends State<HomePage>{
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color(0xffFFFFFF),
+          backgroundColor: ColorManager.white,
           title: Image.asset(
             'assets/images/epent.png',
             width: MediaQuery.of(context).size.width * 0.3,
             height: MediaQuery.of(context).size.height * 0.08,
           ),
           centerTitle: true,
-          iconTheme: const IconThemeData(color: Colors.black, size: 30.0),
+          iconTheme: IconThemeData(
+              color: ColorManager.black,
+              size: 30.0,
+          ),
         ),
         endDrawer: const DrawerAppBar(),
         drawer: const AppDrawer(),
         resizeToAvoidBottomInset: false,
-        backgroundColor: const Color(0xffD7E8F1),
+        backgroundColor: ColorManager.lightBlue1,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -79,10 +81,10 @@ class _HomePageState extends State<HomePage>{
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.05,
-                      child: const Text(
+                      child: Text(
                         'Lorem ipsum dolor sit amet',
                         style: TextStyle(
-                            color: Color(0xff334155),
+                            color: ColorManager.slateGray1,
                             fontWeight: FontWeight.w600,
                             fontSize: 24.0),
                         textAlign: TextAlign.center,
@@ -94,12 +96,12 @@ class _HomePageState extends State<HomePage>{
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.1,
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
                           'Lorem ipsum dolor sit amet, consectetur adipiscing elit laboris nisi ut aliquip ex',
                           style: TextStyle(
-                              color: Color(0xff7E7979),
+                              color: ColorManager.lightSteelBlue1,
                               fontWeight: FontWeight.w400,
                               fontSize: 20.0),
                           textAlign: TextAlign.center,
@@ -114,21 +116,23 @@ class _HomePageState extends State<HomePage>{
                       child: TextButton(
                           onPressed: (){},
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                ColorManager.primary,
+                              ),
                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(40.0)
                                   )
                               )
                           ),
-                          child: const Padding(
+                          child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 50.0),
                             child:  Text(
                               'View All Courses',
                               style: TextStyle(
                                   fontSize: 22.0,
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xffFFFFFF)
+                                  color: ColorManager.white
                               ),
                             ),
                           )
@@ -142,11 +146,11 @@ class _HomePageState extends State<HomePage>{
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Text(
                             'most popular:',
                             style: TextStyle(
-                                color: Color(0xffC94B04),
+                                color: ColorManager.darkOrange,
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w400
                             ),
@@ -154,7 +158,7 @@ class _HomePageState extends State<HomePage>{
                           Text(
                             'Figma',
                             style: TextStyle(
-                                color: Color(0xffC94B04),
+                                color: ColorManager.darkOrange,
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w400
                             ),
@@ -162,7 +166,7 @@ class _HomePageState extends State<HomePage>{
                           Text(
                             'Flutter',
                             style: TextStyle(
-                                color: Color(0xffC94B04),
+                                color: ColorManager.darkOrange,
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w400
                             ),
@@ -170,7 +174,7 @@ class _HomePageState extends State<HomePage>{
                           Text(
                             'GO',
                             style: TextStyle(
-                                color: Color(0xffC94B04),
+                                color: ColorManager.darkOrange,
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w400
                             ),
@@ -187,83 +191,83 @@ class _HomePageState extends State<HomePage>{
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1,
-                    color: const Color(0xffFFF7F2),
+                    color: ColorManager.navajoWhite,
                   ),
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(20.0),
                     bottomRight: Radius.circular(20.0)
                   ),
-                  color: const Color(0xffFFF7F2),
+                  color: ColorManager.navajoWhite,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Explore',
                         style: TextStyle(
-                          color: Color(0xff3F3D56),
+                          color: ColorManager.slateGray2,
                           fontWeight: FontWeight.w600,
                           fontSize: 26.0
                         ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             'Our',
                             style: TextStyle(
-                                color: Color(0xff3F3D56),
+                                color: ColorManager.slateGray2,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 26.0
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 3.0,
                           ),
                           Text(
                             'Popular',
                             style: TextStyle(
-                                color: Color(0xffC94B04),
+                                color: ColorManager.darkOrange,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 26.0
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 3.0,
                           ),
                           Text(
                             'Courses',
                             style: TextStyle(
-                                color: Color(0xff3F3D56),
+                                color: ColorManager.slateGray2,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 26.0
                             ),
                           )
                         ],
                       ),
-                      const SizedBox(
+                      SizedBox(
                         child: Divider(
                           thickness: 1.5,
-                          color: Color(0xffD9D9D9),
+                          color: ColorManager.lightSteelBlue1,
                         ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          const Text(
+                          Text(
                             'view all category',
                             style: TextStyle(
-                              color: Color(0xff7E7979),
+                              color: ColorManager.lightSteelBlue1,
                               fontSize: 14.0
                             ),
                           ),
                           IconButton(
                               onPressed: (){},
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.arrow_forward,
-                                color: Color(0xffC94B04),
+                                color: ColorManager.darkOrange,
                                 size: 20.0,
                               ),
                           )
@@ -276,17 +280,17 @@ class _HomePageState extends State<HomePage>{
                           decoration: BoxDecoration(
                             border: Border.all(
                               width: 1,
-                              color: const Color(0xff7E7979),
+                              color: ColorManager.oldLaceOpacity50,
                             ),
                             borderRadius: BorderRadius.circular(5.0),
-                            color: const Color(0xffE6E6E6),
+                            color: ColorManager.oldLaceOpacity50,
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                color: const Color(0xffFFFFFF),
+                                color: ColorManager.white,
                                 width: 70.0,
                                 height: 70.0,
                                 child: const Image(
@@ -300,22 +304,22 @@ class _HomePageState extends State<HomePage>{
                               ),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Text(
                                     'Business',
                                     style: TextStyle(
-                                      color: Color(0xff3F3D56),
+                                      color: ColorManager.slateGray2,
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w500
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10.0,
                                   ),
                                   Text(
                                     '62 Courses',
                                     style: TextStyle(
-                                        color: Color(0xff3F3D56),
+                                        color: ColorManager.slateGray2,
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w500
                                     ),
@@ -336,17 +340,17 @@ class _HomePageState extends State<HomePage>{
                           decoration: BoxDecoration(
                             border: Border.all(
                               width: 1,
-                              color: const Color(0xff7E7979),
+                              color: ColorManager.oldLaceOpacity50,
                             ),
                             borderRadius: BorderRadius.circular(5.0),
-                            color: const Color(0xffE6E6E6),
+                            color: ColorManager.oldLaceOpacity50,
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                color: const Color(0xffFFFFFF),
+                                color: ColorManager.white,
                                 width: 70.0,
                                 height: 70.0,
                                 child: const Image(
@@ -360,22 +364,22 @@ class _HomePageState extends State<HomePage>{
                               ),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Text(
                                     'IT',
                                     style: TextStyle(
-                                        color: Color(0xff3F3D56),
+                                        color: ColorManager.slateGray2,
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w500
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10.0,
                                   ),
                                   Text(
                                     '150 Courses',
                                     style: TextStyle(
-                                        color: Color(0xff3F3D56),
+                                        color: ColorManager.slateGray2,
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w500
                                     ),
@@ -396,17 +400,17 @@ class _HomePageState extends State<HomePage>{
                           decoration: BoxDecoration(
                             border: Border.all(
                               width: 1,
-                              color: const Color(0xff7E7979),
+                              color: ColorManager.oldLaceOpacity50,
                             ),
                             borderRadius: BorderRadius.circular(5.0),
-                            color: const Color(0xffE6E6E6),
+                            color: ColorManager.oldLaceOpacity50,
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                color: const Color(0xffFFFFFF),
+                                color: ColorManager.white,
                                 width: 70.0,
                                 height: 70.0,
                                 child: const Image(
@@ -420,22 +424,22 @@ class _HomePageState extends State<HomePage>{
                               ),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Text(
                                     'Development',
                                     style: TextStyle(
-                                        color: Color(0xff3F3D56),
+                                        color: ColorManager.slateGray2,
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w500
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10.0,
                                   ),
                                   Text(
                                     '80 Courses',
                                     style: TextStyle(
-                                        color: Color(0xff3F3D56),
+                                        color: ColorManager.slateGray2,
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w500
                                     ),
@@ -456,33 +460,33 @@ class _HomePageState extends State<HomePage>{
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1,
-                    color: const Color(0xffD7E8F1),
+                    color: ColorManager.lightBlue1,
                   ),
                   borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(20.0),
                     bottomLeft: Radius.circular(20.0),
                   ),
-                  color: const Color(0xffD7E8F1),
+                  color: ColorManager.lightBlue1,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Discover',
                         style: TextStyle(
-                          color: Color(0xff3F3D56),
+                          color: ColorManager.slateGray2,
                           fontSize: 26.0,
                           fontWeight: FontWeight.w500
                         ),
                       ),
                       Row(
                         children: [
-                          const Text(
+                          Text(
                             'World\' Best',
                             style: TextStyle(
-                                color: Color(0xff3F3D56),
+                                color: ColorManager.slateGray2,
                                 fontSize: 26.0,
                                 fontWeight: FontWeight.w500
                             ),
@@ -491,16 +495,16 @@ class _HomePageState extends State<HomePage>{
                             width: 5.0,
                           ),
                           Column(
-                            children: const [
+                            children: [
                               Text(
                                 'Courses',
                                 style: TextStyle(
-                                    color: Color(0xffC94B04),
+                                    color: ColorManager.darkOrange,
                                     fontSize: 26.0,
                                     fontWeight: FontWeight.w500
                                 ),
                               ),
-                              Image(
+                              const Image(
                                   image: AssetImage(
                                     'assets/images/down-mark-line 3.png'
                                   ),
@@ -516,10 +520,10 @@ class _HomePageState extends State<HomePage>{
                           data: {"courses": features[1]},
                         ),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         child: Divider(
                           thickness: 1.5,
-                          color: Color(0xff7E7979),
+                          color: ColorManager.lightSteelBlue1,
                         ),
                       ),
                       getFeatures(context: context),
@@ -545,25 +549,25 @@ class _HomePageState extends State<HomePage>{
                         children: [
                           Row(
                             children: [
-                              const Text(
+                              Text(
                                 'why students',
                                 style: TextStyle(
-                                  color: Color(0xff000000),
+                                  color: ColorManager.black,
                                   fontSize: 26,
                                   fontWeight: FontWeight.w600
                                 ),
                               ),
                               Column(
-                                children: const [
+                                children: [
                                   Text(
                                     'choose',
                                     style: TextStyle(
-                                        color: Color(0xffC94B04),
+                                        color: ColorManager.darkOrange,
                                         fontSize: 26,
                                         fontWeight: FontWeight.w600
                                     ),
                                   ),
-                                  Image(
+                                  const Image(
                                     image: AssetImage(
                                         'assets/images/down-mark-line 3.png'
                                     ),
@@ -572,10 +576,10 @@ class _HomePageState extends State<HomePage>{
                               )
                             ],
                           ),
-                          const Text(
+                          Text(
                             'us for gain their knowledge',
                             style: TextStyle(
-                                color: Color(0xff000000),
+                                color: ColorManager.black,
                                 fontSize: 26,
                                 fontWeight: FontWeight.w600
                             ),
@@ -588,56 +592,56 @@ class _HomePageState extends State<HomePage>{
                       left: 20,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             'There are always new freebies',
                             style: TextStyle(
                               fontSize: 17,
-                              color: Color(0xff7E7979),
+                              color: ColorManager.lightSteelBlue1,
                               fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10.0,
                           ),
                           Text(
                             'for you to enjoy on Envato',
                             style: TextStyle(
                                 fontSize: 17,
-                                color: Color(0xff7E7979),
+                                color: ColorManager.lightSteelBlue1,
                                 fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10.0,
                           ),
                           Text(
                             'Website templates here on ',
                             style: TextStyle(
                                 fontSize: 17,
-                                color: Color(0xff7E7979),
+                                color: ColorManager.lightSteelBlue1,
                                 fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10.0,
                           ),
                           Text(
                             'ThemeForest WordPress plugins,',
                             style: TextStyle(
                                 fontSize: 17,
-                                color: Color(0xff7E7979),
+                                color: ColorManager.lightSteelBlue1,
                                 fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10.0,
                           ),
                           Text(
                             'assets of all sorts.',
                             style: TextStyle(
                                 fontSize: 17,
-                                color: Color(0xff7E7979),
+                                color: ColorManager.lightSteelBlue1,
                                 fontWeight: FontWeight.w500
                             ),
                           )
@@ -651,26 +655,26 @@ class _HomePageState extends State<HomePage>{
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
-                            children: const [
+                            children: [
                               SizedBox(
                                 width: 25,
                                 height: 35,
                                 child: CircleAvatar(
-                                  backgroundColor: Color(0xff7E7979),
+                                  backgroundColor: ColorManager.lightSteelBlue1,
                                   child: Icon(
                                     Icons.done,
-                                    color: Colors.white,
+                                    color: ColorManager.white,
                                     size: 25.0,
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 15.0,
                               ),
                               Text(
                                 'Website templates here',
                                 style: TextStyle(
-                                  color: Color(0xff7E7979),
+                                  color: ColorManager.lightSteelBlue1,
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w400
                                 ),
@@ -681,26 +685,26 @@ class _HomePageState extends State<HomePage>{
                             height: 10.0,
                           ),
                           Row(
-                            children: const [
+                            children: [
                               SizedBox(
                                 width: 25,
                                 height: 35,
                                 child: CircleAvatar(
-                                  backgroundColor: Color(0xff7E7979),
+                                  backgroundColor: ColorManager.lightSteelBlue1,
                                   child: Icon(
                                     Icons.done,
-                                    color: Colors.white,
+                                    color: ColorManager.white,
                                     size: 25.0,
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 15.0,
                               ),
                               Text(
                                 'always new freebies',
                                 style: TextStyle(
-                                    color: Color(0xff7E7979),
+                                    color: ColorManager.lightSteelBlue1,
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.w400
                                 ),
@@ -711,26 +715,26 @@ class _HomePageState extends State<HomePage>{
                             height: 10.0,
                           ),
                           Row(
-                            children: const [
+                            children: [
                               SizedBox(
                                 width: 25,
                                 height: 35,
                                 child: CircleAvatar(
-                                  backgroundColor: Color(0xff7E7979),
+                                  backgroundColor: ColorManager.lightSteelBlue1,
                                   child: Icon(
                                     Icons.done,
-                                    color: Colors.white,
+                                    color: ColorManager.white,
                                     size: 25.0,
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 15.0,
                               ),
                               Text(
                                 'enjoy on Envato Market',
                                 style: TextStyle(
-                                    color: Color(0xff7E7979),
+                                    color: ColorManager.lightSteelBlue1,
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.w400
                                 ),
@@ -750,38 +754,38 @@ class _HomePageState extends State<HomePage>{
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1,
-                    color: const Color(0xffFFFCFC),
+                    color: ColorManager.ivory,
                   ),
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(20.0),
                     bottomRight: Radius.circular(20.0),
                   ),
-                  color: const Color(0xffFFFCFC),
+                  color: ColorManager.ivory,
                 ),
                 child: Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           'our ',
                           style: TextStyle(
-                              color: Color(0xff000000),
+                              color: ColorManager.black,
                               fontSize: 26.0,
                               fontWeight: FontWeight.w500
                           ),
                         ),
                         Column(
-                          children: const [
+                          children: [
                             Text(
                               'Teachers',
                               style: TextStyle(
-                                  color: Color(0xffC94B04),
+                                  color: ColorManager.darkOrange,
                                   fontSize: 26.0,
                                   fontWeight: FontWeight.w500
                               ),
                             ),
-                            Image(
+                            const Image(
                               image: AssetImage(
                                   'assets/images/down-mark-line 3.png'
                               ),
@@ -793,15 +797,15 @@ class _HomePageState extends State<HomePage>{
                     const SizedBox(
                       height: 10.0,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 35.0
                       ),
                       child: Text(
                         'Single user, personal educational use only, no redistribution. The total price includes the item price and a buyer fee.',
                         style: TextStyle(
                           fontSize: 18,
-                          color: Color(0xff7E7979),
+                          color: ColorManager.lightSteelBlue1,
                           fontWeight: FontWeight.w400
                         ),
                         textAlign: TextAlign.center,
@@ -826,7 +830,7 @@ class _HomePageState extends State<HomePage>{
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   width: 2,
-                                  color: const Color(0xffD9D9D9),
+                                  color: ColorManager.lightSteelBlue2,
                                 ),
                                 borderRadius: BorderRadius.circular(10.0)
                               ),
@@ -841,7 +845,7 @@ class _HomePageState extends State<HomePage>{
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                           width: 0.5,
-                                          color: const Color(0xffFFFCFC)
+                                          color: ColorManager.ivory
                                         ),
                                         borderRadius: BorderRadius.circular(50.0)
                                       ),
@@ -859,10 +863,10 @@ class _HomePageState extends State<HomePage>{
 
                                     ),
                                   ),
-                                  const Text(
+                                  Text(
                                     'Alex Stanton',
                                     style: TextStyle(
-                                      color: Color(0xff3F3D56),
+                                      color:ColorManager.slateGray2,
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600
                                     ),
@@ -870,10 +874,10 @@ class _HomePageState extends State<HomePage>{
                                   const SizedBox(
                                     height: 15.0,
                                   ),
-                                  const Text(
+                                  Text(
                                     'master of education degree',
                                     style: TextStyle(
-                                        color: Color(0xff7E7979),
+                                        color: ColorManager.lightSteelBlue1,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400
                                     ),
@@ -885,31 +889,31 @@ class _HomePageState extends State<HomePage>{
                                       vertical: 8.0
                                     ),
                                     child: Row(
-                                      children: const [
+                                      children: [
                                         Icon(
                                           Icons.star,
                                           size: 20.0,
-                                          color: Color(0xffC94B04),
+                                          color: ColorManager.darkOrange,
                                         ),
                                         Icon(
                                           Icons.star,
                                           size: 20.0,
-                                          color: Color(0xffC94B04),
+                                          color: ColorManager.darkOrange,
                                         ),
                                         Icon(
                                           Icons.star,
                                           size: 20.0,
-                                          color: Color(0xffC94B04),
+                                          color: ColorManager.darkOrange,
                                         ),
                                         Icon(
                                           Icons.star,
                                           size: 20.0,
-                                          color: Color(0xffC94B04),
+                                          color: ColorManager.darkOrange,
                                         ),
                                         Icon(
                                           Icons.star,
                                           size: 20.0,
-                                          color: Color(0xffC94B04),
+                                          color: ColorManager.darkOrange,
                                         )
                                       ],
                                     ),
@@ -927,13 +931,13 @@ class _HomePageState extends State<HomePage>{
                                             decoration: BoxDecoration(
                                               border: Border.all(
                                                 width: 1,
-                                                color: const Color(0xff7E7979)
+                                                color: ColorManager.lightSteelBlue1
                                               ),
                                               borderRadius: BorderRadius.circular(5.0)
                                             ),
-                                            child: const Icon(Icons.favorite_border,
+                                            child: Icon(Icons.favorite_border,
                                             size: 20.0,
-                                            color: Color(0xff7E7979),
+                                            color: ColorManager.lightSteelBlue1,
                                             ),
                                           ),
                                         ),
@@ -948,15 +952,15 @@ class _HomePageState extends State<HomePage>{
                                             decoration: BoxDecoration(
                                                 border: Border.all(
                                                     width: 1,
-                                                    color: const Color(0xff177FB0)
+                                                    color: ColorManager.primary
                                                 ),
                                                 borderRadius: BorderRadius.circular(5.0),
-                                              color: const Color(0xff177FB0)
+                                              color: ColorManager.primary
                                             ),
-                                            child: const Icon(
+                                            child: Icon(
                                               Icons.share_outlined,
                                               size: 20.0,
-                                              color: Color(0xffFFFFFF),
+                                              color: ColorManager.white,
                                             ),
                                           ),
                                         )
@@ -974,7 +978,7 @@ class _HomePageState extends State<HomePage>{
                 ),
               ),
               Container(
-                color: const Color(0xffE8F2F7),
+                color: ColorManager.lightSteelBlue2,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.95,
                 child: Column(
@@ -988,10 +992,10 @@ class _HomePageState extends State<HomePage>{
                         decoration: BoxDecoration(
                           border: Border.all(
                             width: 1,
-                            color: const Color(0xff5DBF23).withOpacity(0.62),
+                            color: ColorManager.greenOpacity60,
                           ),
                           borderRadius: BorderRadius.circular(10.0),
-                          color: const Color(0xff5DBF23).withOpacity(0.62),
+                          color: ColorManager.greenOpacity60,
                         ),
 
                         child: Column(
@@ -1007,29 +1011,29 @@ class _HomePageState extends State<HomePage>{
                                 ),
                               ),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 20.0
                               ),
                               child: Text(
                                 'start from today',
                                 style: TextStyle(
-                                  color: Color(0xffFFFFFF),
+                                  color: ColorManager.white,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18.0
                                 ),
                                 textAlign: TextAlign.left,
                               ),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 20.0,
                                 vertical: 10.0
                               ),
                               child: Text(
                                   'become an instructor and spread your knowledge',
                                 style: TextStyle(
-                                    color: Color(0xff3F3D56),
+                                    color: ColorManager.slateGray2,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16.0
                                 ),
@@ -1042,15 +1046,15 @@ class _HomePageState extends State<HomePage>{
                                     Navigator.pushNamed(context,TeacherSignUp.routeName);
                                   },
                                   style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),),
+                                      backgroundColor: MaterialStateProperty.all<Color>(ColorManager.primary,),
                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(10.0)
                                           )
                                       )
                                   ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
                                       horizontal: 20.0
                                     ),
                                     child: Text(
@@ -1058,7 +1062,7 @@ class _HomePageState extends State<HomePage>{
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w600,
-                                          color: Color(0xffFFFFFF)
+                                          color: ColorManager.white
                                       ),
                                     ),
                                   )
@@ -1077,10 +1081,10 @@ class _HomePageState extends State<HomePage>{
                         decoration: BoxDecoration(
                           border: Border.all(
                             width: 1,
-                            color: const Color(0xff177FB0),
+                            color: ColorManager.primary,
                           ),
                           borderRadius: BorderRadius.circular(10.0),
-                          color: const Color(0xff177FB0).withOpacity(0.62),
+                          color: ColorManager.primary,
                         ),
 
                         child: Column(
@@ -1096,29 +1100,29 @@ class _HomePageState extends State<HomePage>{
                                 ),
                               ),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 20.0
                               ),
                               child: Text(
                                 'start from today',
                                 style: TextStyle(
-                                    color: Color(0xffFFFFFF),
+                                    color: ColorManager.white,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 18.0
                                 ),
                                 textAlign: TextAlign.left,
                               ),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 20.0,
                                   vertical: 10.0
                               ),
                               child: Text(
                                 'become an instructor and spread your knowledge',
                                 style: TextStyle(
-                                    color: Color(0xff3F3D56),
+                                    color: ColorManager.slateGray2,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16.0
                                 ),
@@ -1129,15 +1133,15 @@ class _HomePageState extends State<HomePage>{
                               child: TextButton(
                                   onPressed: (){},
                                   style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff5DBF23),),
+                                      backgroundColor: MaterialStateProperty.all<Color>(ColorManager.greenOpacity60,),
                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(10.0)
                                           )
                                       )
                                   ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 20.0
                                     ),
                                     child: Text(
@@ -1145,7 +1149,7 @@ class _HomePageState extends State<HomePage>{
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w600,
-                                          color: Color(0xffFFFFFF)
+                                          color: ColorManager.white
                                       ),
                                     ),
                                   )
@@ -1164,13 +1168,13 @@ class _HomePageState extends State<HomePage>{
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1,
-                    color: const Color(0xffF1F9EC)
+                    color: ColorManager.lightBlue3
                   ),
                   borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(20.0),
                     bottomLeft: Radius.circular(20.0)
                   ),
-                  color: const Color(0xffF1F9EC),
+                  color: ColorManager.lightBlue3,
                 ),
                 child: Column(
                   children: [
@@ -1180,25 +1184,25 @@ class _HomePageState extends State<HomePage>{
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'New ',
                             style: TextStyle(
-                                color: Color(0xff000000),
+                                color: ColorManager.black,
                                 fontSize: 26.0,
                                 fontWeight: FontWeight.w500
                             ),
                           ),
                           Column(
-                            children: const [
+                            children: [
                               Text(
                                 'Blog',
                                 style: TextStyle(
-                                    color: Color(0xffC94B04),
+                                    color: ColorManager.darkOrange,
                                     fontSize: 26.0,
                                     fontWeight: FontWeight.w500
                                 ),
                               ),
-                              Image(
+                              const Image(
                                 image: AssetImage(
                                     'assets/images/down-mark-line 3.png',
                                 ),
@@ -1220,7 +1224,7 @@ class _HomePageState extends State<HomePage>{
                 ),
               ),
               Container(
-                color: const Color(0xff177FB0),
+                color: ColorManager.primary,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.61,
                 child: Column(
@@ -1313,21 +1317,21 @@ class _HomePageState extends State<HomePage>{
                         ],
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       child: Divider(
                         thickness: 1,
-                        color: Color(0xffFFFFFF),
+                        color: ColorManager.white,
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 15.0,
                         vertical: 10.0
                       ),
                       child: Text(
                         'copyright..',
                         style: TextStyle(
-                          color: Color(0xffFFFFFF),
+                          color: ColorManager.white,
                           fontSize: 16.0,
                           fontWeight: FontWeight.w500
                         ),
@@ -1370,15 +1374,14 @@ Widget getButton(String text,BuildContext context){
     child: TextButton(
         onPressed: (){},
         style: TextButton.styleFrom(
-        foregroundColor: Colors.grey.shade500
       ),
         child: Row(
           children: [
             Text(
               text,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
-                color: Colors.white
+                color: ColorManager.white
               ),
             ),
           ],
@@ -1394,7 +1397,7 @@ Widget getIconButton(String svg){
         svg,
         width: 20.0,
         height: 20.0,
-        color: const Color(0xffDEDCFF),
+        color: ColorManager.lavender,
       ),
   );
 }
