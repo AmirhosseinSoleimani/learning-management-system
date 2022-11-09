@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/store/course_details/widgets/discover_courses.dart';
 import '../../authentication/sign_up/teacher/teacher_sign_up.dart';
 import '../../presentation/resources/color_manager.dart';
+import '../../presentation/resources/assets_manager.dart';
 import '../drawer.dart';
 import '../../data.dart';
 import '../widgets/app_drawer.dart';
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage>{
                     width: MediaQuery.of(context).size.width,
                     child: const Image(
                         image: AssetImage(
-                            'assets/images/homePage_header.png',
+                          ImageAssets.homePageHeader,
                         ),
                       fit: BoxFit.fill,
                     ),
@@ -226,13 +227,22 @@ class _HomePageState extends State<HomePage>{
                           const SizedBox(
                             width: 3.0,
                           ),
-                          Text(
-                            'Popular',
-                            style: TextStyle(
-                                color: ColorManager.darkOrange,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 26.0
-                            ),
+                          Column(
+                            children: [
+                              Text(
+                                'Popular',
+                                style: TextStyle(
+                                    color: ColorManager.darkOrange,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 26.0
+                                ),
+                              ),
+                              const Image(
+                                image: AssetImage(
+                                    ImageAssets.markLine
+                              ),
+                              )
+                            ],
                           ),
                           const SizedBox(
                             width: 3.0,
@@ -295,7 +305,7 @@ class _HomePageState extends State<HomePage>{
                                 height: 70.0,
                                 child: const Image(
                                     image: AssetImage(
-                                      'assets/images/marketingLogo.png'
+                                        ImageAssets.marketingLogo
                                     ),
                                 ),
                               ),
@@ -355,7 +365,7 @@ class _HomePageState extends State<HomePage>{
                                 height: 70.0,
                                 child: const Image(
                                   image: AssetImage(
-                                      'assets/images/iTLogo.png'
+                                      ImageAssets.iTLogo
                                   ),
                                 ),
                               ),
@@ -415,7 +425,7 @@ class _HomePageState extends State<HomePage>{
                                 height: 70.0,
                                 child: const Image(
                                   image: AssetImage(
-                                      'assets/images/softwareLogo.png'
+                                      ImageAssets.softwareLogo
                                   ),
                                 ),
                               ),
@@ -506,7 +516,7 @@ class _HomePageState extends State<HomePage>{
                               ),
                               const Image(
                                   image: AssetImage(
-                                    'assets/images/markLine.png'
+                                      ImageAssets.markLine
                                   ),
                               )
                             ],
@@ -537,7 +547,7 @@ class _HomePageState extends State<HomePage>{
                 child: Stack(
                   children: [
                     const Image(image: AssetImage(
-                      'assets/images/homePage_body1.png'
+                        ImageAssets.homePageBody1
                     ),
                     ),
                     Padding(
@@ -569,7 +579,7 @@ class _HomePageState extends State<HomePage>{
                                   ),
                                   const Image(
                                     image: AssetImage(
-                                        'assets/images/markLine.png'
+                                        ImageAssets.markLine
                                     ),
                                   )
                                 ],
@@ -787,7 +797,7 @@ class _HomePageState extends State<HomePage>{
                             ),
                             const Image(
                               image: AssetImage(
-                                  'assets/images/markLine.png'
+                                  ImageAssets.markLine
                               ),
                             ),
                           ],
@@ -1006,7 +1016,7 @@ class _HomePageState extends State<HomePage>{
                                 padding: EdgeInsets.all(10.0),
                                 child: Image(
                                   image: AssetImage(
-                                    'assets/images/homePage_body2.png'
+                                      ImageAssets.homePageBody2
                                   ),
                                 ),
                               ),
@@ -1095,7 +1105,7 @@ class _HomePageState extends State<HomePage>{
                                 padding: EdgeInsets.all(10.0),
                                 child: Image(
                                   image: AssetImage(
-                                      'assets/images/homePage_body3.png'
+                                      ImageAssets.homePageBody3
                                   ),
                                 ),
                               ),
@@ -1204,7 +1214,7 @@ class _HomePageState extends State<HomePage>{
                               ),
                               const Image(
                                 image: AssetImage(
-                                    'assets/images/markLine.png',
+                                    ImageAssets.markLine
                                 ),
                                 width: 70.0,
                                 height: 20,
