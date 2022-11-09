@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage>{
                     width: MediaQuery.of(context).size.width,
                     child: const Image(
                         image: AssetImage(
-                            'assets/images/Group184.png',
+                            'assets/images/homePage_header.png',
                         ),
                       fit: BoxFit.fill,
                     ),
@@ -295,7 +295,7 @@ class _HomePageState extends State<HomePage>{
                                 height: 70.0,
                                 child: const Image(
                                     image: AssetImage(
-                                      'assets/images/g2869.png'
+                                      'assets/images/marketingLogo.png'
                                     ),
                                 ),
                               ),
@@ -355,7 +355,7 @@ class _HomePageState extends State<HomePage>{
                                 height: 70.0,
                                 child: const Image(
                                   image: AssetImage(
-                                      'assets/images/Icon_27.png'
+                                      'assets/images/iTLogo.png'
                                   ),
                                 ),
                               ),
@@ -415,7 +415,7 @@ class _HomePageState extends State<HomePage>{
                                 height: 70.0,
                                 child: const Image(
                                   image: AssetImage(
-                                      'assets/images/Vector.png'
+                                      'assets/images/softwareLogo.png'
                                   ),
                                 ),
                               ),
@@ -506,7 +506,7 @@ class _HomePageState extends State<HomePage>{
                               ),
                               const Image(
                                   image: AssetImage(
-                                    'assets/images/down-mark-line 3.png'
+                                    'assets/images/markLine.png'
                                   ),
                               )
                             ],
@@ -537,7 +537,7 @@ class _HomePageState extends State<HomePage>{
                 child: Stack(
                   children: [
                     const Image(image: AssetImage(
-                      'assets/images/Group 192.png'
+                      'assets/images/homePage_body1.png'
                     ),
                     ),
                     Padding(
@@ -569,7 +569,7 @@ class _HomePageState extends State<HomePage>{
                                   ),
                                   const Image(
                                     image: AssetImage(
-                                        'assets/images/down-mark-line 3.png'
+                                        'assets/images/markLine.png'
                                     ),
                                   )
                                 ],
@@ -787,7 +787,7 @@ class _HomePageState extends State<HomePage>{
                             ),
                             const Image(
                               image: AssetImage(
-                                  'assets/images/down-mark-line 3.png'
+                                  'assets/images/markLine.png'
                               ),
                             ),
                           ],
@@ -1006,7 +1006,7 @@ class _HomePageState extends State<HomePage>{
                                 padding: EdgeInsets.all(10.0),
                                 child: Image(
                                   image: AssetImage(
-                                    'assets/images/Group180.png'
+                                    'assets/images/homePage_body2.png'
                                   ),
                                 ),
                               ),
@@ -1095,7 +1095,7 @@ class _HomePageState extends State<HomePage>{
                                 padding: EdgeInsets.all(10.0),
                                 child: Image(
                                   image: AssetImage(
-                                      'assets/images/course33.png'
+                                      'assets/images/homePage_body3.png'
                                   ),
                                 ),
                               ),
@@ -1204,7 +1204,7 @@ class _HomePageState extends State<HomePage>{
                               ),
                               const Image(
                                 image: AssetImage(
-                                    'assets/images/down-mark-line 3.png',
+                                    'assets/images/markLine.png',
                                 ),
                                 width: 70.0,
                                 height: 20,
