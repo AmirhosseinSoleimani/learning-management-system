@@ -12,3 +12,11 @@ class ImageAssets{
   static const String markLine = '$imagePath/homePage/markLine.png';
 
 }
+
+const String iconPath = 'assets/icons';
+class IconAssets{
+  // homePage
+  static const String shop = '$iconPath/homePage/shop.svg';
+  static const String support = '$iconPath/homePage/support.svg';
+
+}

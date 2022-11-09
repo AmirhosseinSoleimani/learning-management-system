@@ -65,13 +65,13 @@ class _HomePageState extends State<HomePage>{
                         IconButton(
                           onPressed: (){},
                           icon: SvgPicture.asset(
-                              'assets/icons/shop.svg'
+                              IconAssets.shop
                           ),
                         ),
                         IconButton(
                           onPressed: (){},
                           icon: SvgPicture.asset(
-                              'assets/icons/support.svg'
+                              IconAssets.support
                           ),
                         )
                       ],
