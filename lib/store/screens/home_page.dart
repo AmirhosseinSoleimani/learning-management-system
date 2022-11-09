@@ -1219,8 +1219,9 @@ class _HomePageState extends State<HomePage>{
               Container(
                 color: const Color(0xff177FB0),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.6,
+                height: MediaQuery.of(context).size.height * 0.61,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -1292,6 +1293,7 @@ class _HomePageState extends State<HomePage>{
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.1,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           getIconButton(
                             'assets/images/telegram.svg'
@@ -1306,6 +1308,27 @@ class _HomePageState extends State<HomePage>{
                               'assets/images/twitter.svg'
                           )
                         ],
+                      ),
+                    ),
+                    const SizedBox(
+                      child: Divider(
+                        thickness: 1,
+                        color: Color(0xffFFFFFF),
+                      ),
+                    ),
+                    const Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0,
+                        vertical: 10.0
+                      ),
+                      child: Text(
+                        'copyright..',
+                        style: TextStyle(
+                          color: Color(0xffFFFFFF),
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w500
+                        ),
+                        textAlign: TextAlign.left,
                       ),
                     )
                   ],
@@ -1364,9 +1387,11 @@ Widget getButton(String text,BuildContext context){
 Widget getIconButton(String svg){
   return IconButton(
       onPressed: (){},
-      icon: SvgPicture.asset(svg,
-      width: 25.0,
-        height: 25.0,
+      icon: SvgPicture.asset(
+        svg,
+        width: 20.0,
+        height: 20.0,
+        color: const Color(0xffDEDCFF),
       ),
   );
 }
