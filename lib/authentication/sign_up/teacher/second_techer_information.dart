@@ -188,243 +188,201 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                           const SizedBox(
                             height: 10.0,
                           ),
-                          GestureDetector(
-                            onTap: (){
-                              setState((){
-                                dateSelect = true;
-                              });
-                            },
-                            child: Container(
-                              height: 55.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.white,
-                                border: Border.all(width: 2, color: const Color(0xffD9D9D9),
+                          TextFormField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(10.0),
+                                  borderSide: const BorderSide(
+                                      width: 1,
+                                      color: Color(0xffD9D9D9)
+                                  ),
                                 ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: 30,
-                                      height: 30,
-                                      child: Icon(
-                                        Icons.event_outlined,
-                                        size: 28.0,
-                                        color: Color(0xff7E7979),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10.0,
-                                    ),
-                                    SizedBox(
-                                        width: 200,
-                                        height: 40,
-                                        child: (dateSelect) ?
-                                        DateTimePicker(
-                                          initialValue: 'Birthday Date',
-                                          firstDate: DateTime(1950),
-                                          lastDate: DateTime.now(),
-                                          onChanged: (val) => print(val),
-                                          validator: (val) {
-                                            print(val);
-                                            return null;
-                                          },
-                                          onSaved: (val){
-                                            _signupStudent = StudentAccount(
-                                              firstName: studentAccount.studentAccount[0].firstName,
-                                              lastName: studentAccount.studentAccount[0].lastName,
-                                              password: studentAccount.studentAccount[0].password,
-                                              email: studentAccount.studentAccount[0].email,
-                                              phoneNumber: studentAccount.phoneNumberTextFormField!,
-                                              birthDay: Timestamp.fromDate(DateTime.parse(val!)).seconds,
-                                              bio: studentAccount.studentAccount[0].bio,
-                                              gender: studentAccount.studentAccount[0].gender,
-                                              introduction: _signupStudent.introduction,
-                                              country: _signupStudent.country,
-                                              favouriteCourse: _signupStudent.favouriteCourse, userName: '',
-                                            );
-                                          },
-                                        ):
-                                        const Padding(
-                                          padding: EdgeInsets.only(
-                                            top: 8.0,
-                                          ),
-                                          child: Text(
-                                            'Birthday Date',
-                                            style: TextStyle(
-                                                color: Color(0xff7E7979),
-                                                fontSize: 17.0,
-                                                fontWeight: FontWeight.w400
-                                            ),
-                                          ),
-                                        )
-                                    ),
-                                  ],
+                                hintText: 'Address',
+                                hintStyle: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: Color(0xff7E7979)
                                 ),
-                              ),
+                                prefixIcon: const Icon(
+                                  Icons.directions,
+                                  size: 28.0,
+                                  color: Color(0xff7E7979),
+                                )
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                              showCountryPicker(
-                                showPhoneCode: false,
-                                onSelect: (Country value) {
-                                  setState((){
-                                    country = value.name;
-                                    icon = value.flagEmoji;
-                                    _signupStudent = StudentAccount(
-                                      firstName: _signupStudent.firstName,
-                                      lastName: _signupStudent.lastName,
-                                      password: _signupStudent.password,
-                                      email: _signupStudent.email,
-                                      phoneNumber: _signupStudent.phoneNumber,
-                                      birthDay: _signupStudent.birthDay,
-                                      bio: _signupStudent.bio,
-                                      gender: _signupStudent.gender,
-                                      introduction: _signupStudent.introduction,
-                                      country: value.displayName,
-                                      favouriteCourse: _signupStudent.favouriteCourse, userName: '',
-                                    );
-                                  });
-                                },
-                                context: context,
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.next,
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Field is required';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _signupStudent = StudentAccount(
+                                userName: value!,
+                                firstName: _signupStudent.firstName,
+                                lastName: _signupStudent.lastName,
+                                password: _signupStudent.password,
+                                email: _signupStudent.email,
+                                country: _signupStudent.country,
+                                favouriteCourse: _signupStudent.favouriteCourse,
+                                gender: _signupStudent.gender,
+                                introduction: _signupStudent.introduction,
+                                birthDay: _signupStudent.birthDay,
+                                bio: _signupStudent.bio,
+                                phoneNumber: _signupStudent.phoneNumber,
                               );
                             },
-                            child: Container(
-                              height: 55.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.white,
-                                border: Border.all(width: 2, color: const Color(0xffD9D9D9),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        (icon) != null
-                                            ? Text(
-                                          icon!,
-                                          style: const TextStyle(
-                                              fontSize: 22.0
-                                          ),
-                                        )
-                                            : Text(
-                                          iran.flagEmoji,
-                                          style: const TextStyle(
-                                              fontSize: 22.0
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        (country) != null ?
-                                        Text(
-                                          country!,
-                                          style: const TextStyle(
-                                              color: Color(0xff7E7979),
-                                              fontSize: 17.0,
-                                              fontWeight: FontWeight.w400
-                                          ),
-                                        )
-                                            :const Text(
-                                          'Country',
-                                          style: TextStyle(
-                                              color: Color(0xff7E7979),
-                                              fontSize: 17.0,
-                                              fontWeight: FontWeight.w400
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(
-                                          right: 15.0
-                                      ),
-                                      child: Icon(
-                                        Icons.arrow_drop_down_outlined,
-                                        color: Color(0xff7E7979),
-                                        size: 28.0,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
                           ),
                           const SizedBox(
                             height: 20.0,
                           ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            height: 55,
-                            child: DropdownButtonFormField<String>(
-                              hint: const Text(
-                                'Introduction',
-                                style: TextStyle(
-                                    color: Color(0xff7E7979),
-                                    fontSize: 16.0
+                          TextFormField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(10.0),
+                                  borderSide: const BorderSide(
+                                      width: 1,
+                                      color: Color(0xffD9D9D9)
+                                  ),
                                 ),
-                              ),
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0xffD9D9D9),
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  prefixIcon: const Icon(Icons.person)
-                              ),
-                              value: null,
-                              icon: const Icon(
-                                Icons.arrow_drop_down,
-                                size: 28,
-                                color: Color(0xff7E7979),
-                              ),
-                              items: items.map((String items) {
-                                return DropdownMenuItem(
-                                  value: items,
-                                  child: Text(
-                                    items,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff7E7979)
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  dropDownValue = newValue!;
-                                  _signupStudent = StudentAccount(
-                                    firstName: _signupStudent.firstName,
-                                    lastName: _signupStudent.lastName,
-                                    password: _signupStudent.password,
-                                    email: _signupStudent.email,
-                                    phoneNumber: _signupStudent.phoneNumber,
-                                    birthDay: _signupStudent.birthDay,
-                                    bio: _signupStudent.bio,
-                                    gender: _signupStudent.gender,
-                                    introduction: newValue,
-                                    country: _signupStudent.country,
-                                    favouriteCourse: _signupStudent.favouriteCourse, userName: '',
-                                  );
-
-
-                                });
-                              },
+                                hintText: 'Add Location',
+                                hintStyle: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: Color(0xff7E7979)
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.location_on,
+                                  size: 28.0,
+                                  color: Color(0xff7E7979),
+                                )
                             ),
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.next,
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Field is required';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _signupStudent = StudentAccount(
+                                userName: value!,
+                                firstName: _signupStudent.firstName,
+                                lastName: _signupStudent.lastName,
+                                password: _signupStudent.password,
+                                email: _signupStudent.email,
+                                country: _signupStudent.country,
+                                favouriteCourse: _signupStudent.favouriteCourse,
+                                gender: _signupStudent.gender,
+                                introduction: _signupStudent.introduction,
+                                birthDay: _signupStudent.birthDay,
+                                bio: _signupStudent.bio,
+                                phoneNumber: _signupStudent.phoneNumber,
+                              );
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(10.0),
+                                  borderSide: const BorderSide(
+                                      width: 1,
+                                      color: Color(0xffD9D9D9)
+                                  ),
+                                ),
+                                hintText: 'financial information',
+                                hintStyle: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: Color(0xff7E7979)
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.money,
+                                  size: 28.0,
+                                  color: Color(0xff7E7979),
+                                )
+                            ),
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.next,
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Field is required';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _signupStudent = StudentAccount(
+                                userName: value!,
+                                firstName: _signupStudent.firstName,
+                                lastName: _signupStudent.lastName,
+                                password: _signupStudent.password,
+                                email: _signupStudent.email,
+                                country: _signupStudent.country,
+                                favouriteCourse: _signupStudent.favouriteCourse,
+                                gender: _signupStudent.gender,
+                                introduction: _signupStudent.introduction,
+                                birthDay: _signupStudent.birthDay,
+                                bio: _signupStudent.bio,
+                                phoneNumber: _signupStudent.phoneNumber,
+                              );
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(10.0),
+                                  borderSide: const BorderSide(
+                                      width: 1,
+                                      color: Color(0xffD9D9D9)
+                                  ),
+                                ),
+                                hintText: 'Via Card Number',
+                                hintStyle: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: Color(0xff7E7979)
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.credit_card_outlined,
+                                  size: 28.0,
+                                  color: Color(0xff7E7979),
+                                )
+                            ),
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.next,
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Field is required';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _signupStudent = StudentAccount(
+                                userName: value!,
+                                firstName: _signupStudent.firstName,
+                                lastName: _signupStudent.lastName,
+                                password: _signupStudent.password,
+                                email: _signupStudent.email,
+                                country: _signupStudent.country,
+                                favouriteCourse: _signupStudent.favouriteCourse,
+                                gender: _signupStudent.gender,
+                                introduction: _signupStudent.introduction,
+                                birthDay: _signupStudent.birthDay,
+                                bio: _signupStudent.bio,
+                                phoneNumber: _signupStudent.phoneNumber,
+                              );
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20.0,
                           ),
                         ],
                       ),
