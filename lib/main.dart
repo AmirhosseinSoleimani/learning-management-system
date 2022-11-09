@@ -15,6 +15,7 @@ import 'package:learning_management_system/store/screens/home_page.dart';
 import 'package:learning_management_system/student/screens/home_page.dart';
 import 'package:learning_management_system/student/screens/user_info_model.dart';
 import 'package:learning_management_system/teacher/quiz_marker/screens/add_questions.dart';
+import 'authentication/sign_up/teacher/second_techer_information.dart';
 import 'authentication/sign_up/teacher/teacher_information.dart';
 import 'authentication/sign_up/teacher/teacher_sign_up.dart';
 import 'teacher/quiz_marker/screens/quiz_marker.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
           FavouriteStudent.routeName: (context) => const FavouriteStudent(),
           TeacherSignUp.routeName: (context) => const TeacherSignUp(),
           InformationTeacherSignUp.routeName: (context) => const InformationTeacherSignUp(),
+          SecondInformationTeacher.routeName: (context) => const SecondInformationTeacher(),
           SellerSignUp.routeName: (context) => const SellerSignUp(),
           QuizMarker.routeName: (context) => const QuizMarker(),
           StudentAddress.routeName: (context) => const StudentAddress(),

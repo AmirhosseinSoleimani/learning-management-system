@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:learning_management_system/authentication/sign_up/teacher/second_techer_information.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
 import '../../../provider/student_provider.dart';
@@ -749,6 +750,7 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                         ),
                         child: TextButton(
                             onPressed: (){
+                              Navigator.pushNamed(context, SecondInformationTeacher.routeName);
                               // _saveForm();
                               // _emailError = true;
                               // Future.delayed(const Duration(seconds: 5), () {
