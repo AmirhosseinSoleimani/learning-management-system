@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/widgets.dart';
 
 extension ContextExtension on BuildContext {
   double get width => MediaQuery.of(this).size.width;
@@ -8,14 +7,14 @@ extension ContextExtension on BuildContext {
   void routePage(Widget child) => Navigator.of(this).push(MaterialPageRoute(builder: (context) => child));
 }
 
-extension StringExtension on String {
-  Widget toLabel({double? fontSize, Color? color, bool bold = false}) => MLabel(
-    title: replaceAll('Exception:', ''),
-    bold: bold,
-    fontSize: fontSize,
-    color: color,
-  );
-}
+// extension StringExtension on String {
+//   Widget toLabel({double? fontSize, Color? color, bool bold = false}) => MLabel(
+//     title: replaceAll('Exception:', ''),
+//     bold: bold,
+//     fontSize: fontSize,
+//     color: color,
+//   );
+// }
 
 extension WidgetExtension on Widget {
   Widget get vMargin3 => Container(

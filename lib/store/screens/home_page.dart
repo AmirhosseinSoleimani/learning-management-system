@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/store/course_details/widgets/discover_courses.dart';
 import '../../authentication/sign_up/teacher/teacher_sign_up.dart';
+import '../../presentation/footer/footer.dart';
 import '../../presentation/resources/color_manager.dart';
 import '../../presentation/resources/assets_manager.dart';
 import '../drawer.dart';
@@ -1233,124 +1234,7 @@ class _HomePageState extends State<HomePage>{
                   ],
                 ),
               ),
-              Container(
-                color: ColorManager.primary,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.61,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15.0,
-                        vertical: 8.0
-                      ),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.4,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Column(
-                                children: [
-                                  getButton(
-                                    'About us',
-                                    context
-                                  ),
-                                  getButton(
-                                    'Contact us',
-                                    context
-                                  ),
-                                  getButton(
-                                    'Blog',
-                                    context
-                                  ),
-                                  getButton(
-                                    'Support',
-                                    context
-                                  ),
-                                  getButton(
-                                    'become teacher',
-                                    context
-                                  ),
-                                  getButton(
-                                    'news',
-                                    context
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  getButton(
-                                      'cookies',
-                                      context
-                                  ),
-                                  getButton(
-                                      'privacy',
-                                      context
-                                  ),
-                                  getButton(
-                                      'terms of',
-                                      context
-                                  ),
-                                ],
-                              )
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          getIconButton(
-                            'assets/images/telegram.svg'
-                          ),
-                          getIconButton(
-                              'assets/images/facebook.svg'
-                          ),
-                          getIconButton(
-                              'assets/images/instagram.svg'
-                          ),
-                          getIconButton(
-                              'assets/images/twitter.svg'
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      child: Divider(
-                        thickness: 1,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15.0,
-                        vertical: 10.0
-                      ),
-                      child: Text(
-                        'copyright..',
-                        style: TextStyle(
-                          color: ColorManager.white,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
-                    )
-                  ],
-                )
-              )
+              Footer()
             ],
           ),
         ),

@@ -19,4 +19,10 @@ class IconAssets{
   static const String shop = '$iconPath/homePage/shop.svg';
   static const String support = '$iconPath/homePage/support.svg';
 
+  //footer
+  static const String instagram = '$iconPath/footer/instagram.svg';
+  static const String telegram = '$iconPath/footer/telegram.svg';
+  static const String twitter = '$iconPath/footer/twitter.svg';
+  static const String whatsApp = '$iconPath/footer/whatsApp.svg';
+
 }
