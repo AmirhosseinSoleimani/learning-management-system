@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../presentation/resources/color_manager.dart';
 
-Widget getButton(
-    {required String text,
+Widget getButton({required String text,
     required BuildContext context,
     required Color color,
     double fontSize = 14,
@@ -11,8 +9,7 @@ Widget getButton(
     double radius = 0,
     Color borderColor = Colors.black,
     double width = 30,
-    double height = 30
-    }){
+    double height = 30}){
   return SizedBox(
     height: height,
     width: width,

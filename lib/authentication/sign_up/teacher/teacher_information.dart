@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:learning_management_system/authentication/sign_up/teacher/cutomize_stepper_information.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher/second_techer_information.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
@@ -175,7 +176,7 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                       ),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.2,
-                      child: const CustomizeStepperFirstInformation()
+                      child: const CustomizeStepperInformation()
                   ),
                 ),
                 const SizedBox(
