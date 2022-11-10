@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import '../resources/color_manager.dart';
+import '../../widgets/widgets.dart';
 
 class Footer extends StatelessWidget {
   const Footer({Key? key}) : super(key: key);
@@ -10,8 +10,14 @@ class Footer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: ColorManager.primary,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.61,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height * 0.61,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -21,8 +27,14 @@ class Footer extends StatelessWidget {
                   vertical: 8.0
               ),
               child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.4,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.4,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -31,28 +43,64 @@ class Footer extends StatelessWidget {
                       child: Column(
                         children: [
                           getButton(
-                              'About us',
-                              context
+                              text: 'About us',
+                              context: context,
+                              color: ColorManager.white,
+                              height: MediaQuery.of(context).size.height * 0.4/ 6,
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w400,
+                              borderColor: ColorManager.primary
                           ),
                           getButton(
-                              'Contact us',
-                              context
+                              text: 'Contact us',
+                              context: context,
+                              color: ColorManager.white,
+                              height: MediaQuery.of(context).size.height * 0.4/ 6,
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w400,
+                              borderColor: ColorManager.primary
                           ),
                           getButton(
-                              'Blog',
-                              context
+                              text: 'Blog',
+                              context: context,
+                              color: ColorManager.white,
+                              height: MediaQuery.of(context).size.height * 0.4/ 6,
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w400,
+                              borderColor: ColorManager.primary
                           ),
                           getButton(
-                              'Support',
-                              context
+                              text: 'Support',
+                              context: context,
+                              color: ColorManager.white,
+                              height: MediaQuery.of(context).size.height * 0.4/ 6,
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w400,
+                              borderColor: ColorManager.primary
                           ),
                           getButton(
-                              'become teacher',
-                              context
+                              text: 'become teacher',
+                              context: context,
+                              color: ColorManager.white,
+                              height: MediaQuery.of(context).size.height * 0.4/ 6,
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w400,
+                              borderColor: ColorManager.primary
                           ),
                           getButton(
-                              'news',
-                              context
+                              text:' news',
+                              context: context,
+                              color: ColorManager.white,
+                              height: MediaQuery.of(context).size.height * 0.4/ 6,
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w400,
+                              borderColor: ColorManager.primary
                           ),
                         ],
                       ),
@@ -63,16 +111,34 @@ class Footer extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             getButton(
-                                'cookies',
-                                context
+                                text: 'cookies',
+                                context: context,
+                                color: ColorManager.white,
+                                height: MediaQuery.of(context).size.height * 0.4/ 6,
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w400,
+                                borderColor: ColorManager.primary
                             ),
                             getButton(
-                                'privacy',
-                                context
+                                text: 'privacy',
+                                context: context,
+                                color: ColorManager.white,
+                                height: MediaQuery.of(context).size.height * 0.4/ 6,
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w400,
+                                borderColor: ColorManager.primary
                             ),
                             getButton(
-                                'terms of',
-                                context
+                                text: 'terms of',
+                                context: context,
+                                color: ColorManager.white,
+                                height: MediaQuery.of(context).size.height * 0.4/ 6,
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w400,
+                                borderColor: ColorManager.primary
                             ),
                           ],
                         )
@@ -82,22 +148,28 @@ class Footer extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.1,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.1,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   getIconButton(
-                      IconAssets.instagram
+                      IconAssets.instagram, ColorManager.lavender, 20, 20
                   ),
                   getIconButton(
-                      IconAssets.telegram
+                      IconAssets.telegram, ColorManager.lavender, 20, 20
                   ),
                   getIconButton(
-                      IconAssets.whatsApp
+                      IconAssets.whatsApp, ColorManager.lavender, 20, 20
                   ),
                   getIconButton(
-                      IconAssets.twitter
+                      IconAssets.twitter, ColorManager.lavender, 20, 20
                   )
                 ],
               ),
@@ -117,48 +189,14 @@ class Footer extends StatelessWidget {
                 'copyright..',
                 style: TextStyle(
                     color: ColorManager.white,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w500
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w400
                 ),
                 textAlign: TextAlign.left,
               ),
             )
           ],
         )
-    );
-  }
-
-  Widget getButton(String text,BuildContext context){
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.4/ 6,
-      child: TextButton(
-        onPressed: (){},
-        style: TextButton.styleFrom(
-        ),
-        child: Row(
-          children: [
-            Text(
-              text,
-              style: TextStyle(
-                  fontSize: 18,
-                  color: ColorManager.white
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget getIconButton(String svg){
-    return IconButton(
-      onPressed: (){},
-      icon: SvgPicture.asset(
-        svg,
-        width: 20.0,
-        height: 20.0,
-        color: ColorManager.lavender,
-      ),
     );
   }
 }
