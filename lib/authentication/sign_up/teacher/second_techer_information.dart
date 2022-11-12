@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learning_management_system/authentication/sign_up/student/customize_stepper_first_information.dart';
 import 'package:learning_management_system/authentication/sign_up/student/customize_stepper_second_information.dart';
 import 'package:learning_management_system/authentication/sign_up/student/phoneNumber_textFormField.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher/third_teacher_information.dart';
 import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
-import '../../../models/student_signUp_put_model.dart';
 import '../../../store/drawer.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:country_picker/country_picker.dart';
@@ -156,7 +156,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                             topLeft: Radius.circular(10.0))),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.2,
-                    child: const CustomizeStepperSecondInformation(),
+                    child: const CustomizeStepperFirstInformation(),
                   ),
                 ),
                 const SizedBox(
@@ -237,6 +237,16 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                           ),
                           const SizedBox(
                             height: 20.0,
+                          ),
+                          Container(
+                            height: 55.0,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1, 
+                                  color: const Color(0xffD9D9D9),
+                              ),
+                              borderRadius: BorderRadius.circular(10.0)
+                            ),
                           ),
                           TextFormField(
                             decoration: InputDecoration(

@@ -523,45 +523,48 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                                           color: Color(0xff7E7979),
                                         ),
                                       ),
-                                      SizedBox(
-                                        width: MediaQuery.of(context).size.width * 0.3,
-                                        height: MediaQuery.of(context).size.height * 0.08,
-                                        child: (dateSelect) ?
-                                        DateTimePicker(
-                                          initialValue: 'Birthday Date',
-                                          firstDate: DateTime(1950),
-                                          lastDate: DateTime.now(),
-                                          onChanged: (val) => print(val),
-                                          validator: (val) {
-                                            print(val);
-                                            return null;
-                                          },
-                                          onSaved: (val){
-                                            _signupStudent = StudentAccount(
-                                              firstName: studentAccount.studentAccount[0].firstName,
-                                              lastName: studentAccount.studentAccount[0].lastName,
-                                              password: studentAccount.studentAccount[0].password,
-                                              email: studentAccount.studentAccount[0].email,
-                                              phoneNumber: studentAccount.phoneNumberTextFormField!,
-                                              birthDay: Timestamp.fromDate(DateTime.parse(val!)).seconds,
-                                              bio: studentAccount.studentAccount[0].bio,
-                                              gender: studentAccount.studentAccount[0].gender,
-                                              introduction: _signupStudent.introduction,
-                                              country: _signupStudent.country,
-                                              favouriteCourse: _signupStudent.favouriteCourse, userName: '',
-                                            );
-                                          },
-                                        ):
-                                        const Padding(
-                                          padding: EdgeInsets.only(
-                                            top: 8.0,
-                                          ),
-                                          child: Text(
-                                            'Birthday Date',
-                                            style: TextStyle(
-                                                color: Color(0xff7E7979),
-                                                fontSize: 17.0,
-                                                fontWeight: FontWeight.w400
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10.0),
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context).size.width * 0.3,
+                                          height: MediaQuery.of(context).size.height * 0.08,
+                                          child: (dateSelect) ?
+                                          DateTimePicker(
+                                            initialValue: 'Birthday Date',
+                                            firstDate: DateTime(1950),
+                                            lastDate: DateTime.now(),
+                                            onChanged: (val) => print(val),
+                                            validator: (val) {
+                                              print(val);
+                                              return null;
+                                            },
+                                            onSaved: (val){
+                                              _signupStudent = StudentAccount(
+                                                firstName: studentAccount.studentAccount[0].firstName,
+                                                lastName: studentAccount.studentAccount[0].lastName,
+                                                password: studentAccount.studentAccount[0].password,
+                                                email: studentAccount.studentAccount[0].email,
+                                                phoneNumber: studentAccount.phoneNumberTextFormField!,
+                                                birthDay: Timestamp.fromDate(DateTime.parse(val!)).seconds,
+                                                bio: studentAccount.studentAccount[0].bio,
+                                                gender: studentAccount.studentAccount[0].gender,
+                                                introduction: _signupStudent.introduction,
+                                                country: _signupStudent.country,
+                                                favouriteCourse: _signupStudent.favouriteCourse, userName: '',
+                                              );
+                                            },
+                                          ):
+                                          const Padding(
+                                            padding: EdgeInsets.only(
+                                              top: 8.0,
+                                            ),
+                                            child: Text(
+                                              'Birthday Date',
+                                              style: TextStyle(
+                                                  color: Color(0xff7E7979),
+                                                  fontSize: 17.0,
+                                                  fontWeight: FontWeight.w400
+                                              ),
                                             ),
                                           ),
                                         ),

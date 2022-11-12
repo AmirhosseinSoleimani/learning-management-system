@@ -58,6 +58,7 @@ dependencies:
   country_picker: ^2.0.16
   syncfusion_flutter_calendar: ^20.3.52
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -88,6 +89,7 @@ flutter:
     - assets/icons/category/
     - assets/icons/homePage/
     - assets/icons/footer/
+    - assets/icons/signUp/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
