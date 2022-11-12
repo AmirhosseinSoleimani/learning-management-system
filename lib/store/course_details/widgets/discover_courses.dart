@@ -165,7 +165,7 @@ class _DiscoverCoursesState extends State<DiscoverCourses> with SingleTickerProv
             (index) => FeatureItem(
           data: features[index],
           onTap: () {
-            Navigator.of(context!).push(MaterialPageRoute(builder: (context) => CourseDetailPage(data: {"courses": features[index]},),
+            Navigator.of(context!).push(MaterialPageRoute(builder: (context) => const CourseDetails(),
             ),
             );
           },

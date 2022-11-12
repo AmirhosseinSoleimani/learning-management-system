@@ -1111,7 +1111,7 @@ Widget getFeatures({BuildContext? context}) {
           (index) => FeatureItem(
         data: features[index],
         onTap: () {
-          Navigator.of(context!).push(MaterialPageRoute(builder: (context) => CourseDetailPage(data: {"courses": features[index]},),
+          Navigator.of(context!).push(MaterialPageRoute(builder: (context) => const CourseDetails(),
           ),
           );
         },

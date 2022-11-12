@@ -57,7 +57,7 @@ dependencies:
   build_runner: ^2.3.0
   country_picker: ^2.0.16
   syncfusion_flutter_calendar: ^20.3.52
-
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:
@@ -90,6 +90,8 @@ flutter:
     - assets/icons/homePage/
     - assets/icons/footer/
     - assets/icons/signUp/
+    - assets/avatar/
+    - assets/svg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

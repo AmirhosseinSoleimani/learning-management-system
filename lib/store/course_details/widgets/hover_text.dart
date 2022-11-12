@@ -215,7 +215,7 @@ class CardSimulator extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   image: const DecorationImage(
-                      image: AssetImage('assets/svg/avatar/course5.jpg'),
+                      image: AssetImage('assets/avatar/course5.jpg'),
                       fit: BoxFit.cover),
                   borderRadius: BorderRadius.circular(10)),
               height: 216,
@@ -269,7 +269,7 @@ class CardSimulator extends StatelessWidget {
                       width: 90,
                       height: 90,
                       child: ClipOval(
-                          child: Image.asset('assets/svg/avatar/av1.jpg'))),
+                          child: Image.asset('assets/avatar/av1.jpg'))),
                 ),
                 const SizedBox(
                   width: 5,
@@ -501,7 +501,7 @@ class Teachers extends StatelessWidget {
                         child: SizedBox(
                             child: ClipOval(
                                 child: Image.asset(
-                                  'assets/svg/avatar/teacher.png',
+                                  'assets/avatar/teacher.png',
                                 ))),
                       )),
                 ),
@@ -526,7 +526,7 @@ class Teachers extends StatelessWidget {
                       SizedBox(
                         width: 280,
                         height: 140,
-                        child: Image.asset('assets/svg/avatar/recTeacher.png'),
+                        child: Image.asset('assets/avatar/recTeacher.png'),
                       ),
                       const SizedBox(
                         height: 10,
@@ -654,7 +654,7 @@ class CommentPart extends StatelessWidget {
                     width: 90,
                     height: 90,
                     child: ClipOval(
-                        child: Image.asset('assets/svg/avatar/av1.jpg'))),
+                        child: Image.asset('assets/avatar/av1.jpg'))),
               ),
               Column(
                 children: const [

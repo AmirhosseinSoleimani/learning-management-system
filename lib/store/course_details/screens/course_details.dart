@@ -1,247 +1,701 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../widgets/custom_bottom_bar.dart';
-import '../widgets/lesson_item.dart';
-import '../widgets/bookmark_box.dart';
-import '../../../data.dart';
-import '../../../constant/colors.dart';
-import 'package:readmore/readmore.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:learning_management_system/authentication/sign_in/sign_in.dart';
+import 'package:learning_management_system/authentication/sign_up/student/student_sign_up.dart';
+import '../widgets/hover_text.dart';
+import '../widgets/video_player.dart';
 
-
-class CourseDetailPage extends StatefulWidget {
-  CourseDetailPage({Key? key,this.data}) : super(key: key);
-  final data;
+class CourseDetails extends StatefulWidget {
+  const CourseDetails({Key? key}) : super(key: key);
+  static const routeName = '/course_details_page';
 
   @override
-  State<CourseDetailPage> createState() => _CourseDetailPageState();
+  State<CourseDetails> createState() => _CourseDetailsState();
 }
 
-class _CourseDetailPageState extends State<CourseDetailPage>
-    with SingleTickerProviderStateMixin{
-  late TabController tabController;
-  late var courseData;
-  @override
-  void initState() {
-    super.initState();
-    tabController = TabController(length: 2, vsync: this);
-    courseData = widget.data["courses"];
-  }
+class _CourseDetailsState extends State<CourseDetails> {
+  late TabController _tabController;
+  static const List<Tab> _tabs = [
+    Tab(
+      text: ('Information about courses'),
+    ),
+    Tab(
+      text: ('Courses'),
+    ),
+    Tab(
+      text: ('About Teachers'),
+    ),
+    Tab(
+      text: ('Comments'),
+    )
+  ];
+  String firstDropDownItem = 'English';
+  final List<String> languageItems = <String>[
+    'English',
+    'Persian',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appBarColor,
-      appBar: buildAppbar(),
-      body: buildBody(),
-      bottomNavigationBar: const CustomBottomBar(),
-    );
-  }
-
-  buildAppbar(){
-    return AppBar(
-      backgroundColor: appBgColor,
-      title: const Center(
-        child: Text(
-          'Detail',
-          style: TextStyle(
-              color: textColor
+      // backgroundColor: Colors,
+      appBar: AppBar(
+        elevation: 2,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.chevron_left,
+            size: 36,
+            color: Colors.black,
+          ),
+          onPressed: (){
+            Navigator.of(context).pop();
+          },
+        ),
+        backgroundColor: Colors.white,
+        title: SizedBox(
+          width: 58,
+          height: 53,
+          child: Image.asset(
+            'assets/svg/logo.png',
+            fit: BoxFit.cover,
           ),
         ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.menu,
+                color: Colors.black,
+              ))
+        ],
       ),
-      iconTheme: const IconThemeData(color: textColor),
-    );
-  }
-
-  Widget buildBody(){
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(15.0,20.0,15.0,20.0),
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              height: 200.0,
-              child: CachedNetworkImage(
-                imageBuilder: (context,imageProvider) => Container(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          child: Column(children: [
+            Row(
+              children: [
+                Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover
-                      )
+                      color: const Color(0Xff187EB3),
+                      borderRadius: BorderRadius.circular(40)),
+                  child: Row(children: [
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: DropdownButtonHideUnderline(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: DropdownButton(
+                              dropdownColor: const Color(0Xff187EB3),
+                              isDense: true,
+                              style: const TextStyle(color: Colors.white),
+                              icon: const Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Colors.white,
+                              ),
+                              value: firstDropDownItem,
+                              items: languageItems
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                              onChanged: (String? newVal) {
+                                setState(() {
+                                  firstDropDownItem = newVal!;
+                                });
+                              },
+                            ),
+                          ),
+                        )),
+                  ]),
+                ),
+                const Spacer(),
+                Row(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                          color: Color(0XFF5DBF23),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              bottomLeft: Radius.circular(20))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, StudentSignUp.routeName);
+                          },
+                          child: const Text(
+                            'Sign Up',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20),
+                              bottomRight: Radius.circular(20))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                        child: TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, SignIn.routeName);
+                            },
+                            child: const Text(
+                              'Login',
+                              style: TextStyle(color: Colors.black),
+                            )),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            Row(
+              children: const [Text("Home >Product >Oreders")],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: const [
+                Expanded(
+                  child: Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                   ),
                 ),
-                imageUrl: courseData["image"],
+              ],
+            ),
+            Row(
+              children: const [
+                Expanded(
+                  child: Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: const [
+                Expanded(
+                  child: Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit,Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit ',
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      child: SizedBox(
+                          width: 90,
+                          height: 90,
+                          child: ClipOval(
+                              child: Image.asset('assets/avatar/av1.jpg'))),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      child: SizedBox(
+                          width: 90,
+                          height: 90,
+                          child: ClipOval(
+                              child: Image.asset('assets/avatar/av2.png'))),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Techers:',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    Row(
+                      children: const [
+                        Text('First Teacher'),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text('Second Teacher')
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width/1.2,
+              color: Colors.white,
+              child: const VideoPlayerPage(),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 0),
+              child: Card(
+                elevation: 8,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.monetization_on_outlined,
+                                      color: Color(0xff7E7979),
+                                      size: 27,
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      '90.000',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                    ),
+                                    Text(
+                                      '110.000',
+                                      style: TextStyle(
+                                        decoration: TextDecoration.lineThrough,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.access_alarm,
+                                      size: 26,
+                                      color: Color(0xff5DBF23),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      '2 days left !',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xff5DBF23)),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            width: 70,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: const Color(0Xff187EB3)),
+                            child: const Center(
+                              child: Text(
+                                '22% off',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Divider(
+                        thickness: 1.2,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const CardTitle(
+                        icon: Icons.access_time,
+                        info: '12 Hours',
+                        title: 'Duration',
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const CardTitle(
+                        icon: Icons.show_chart,
+                        info: 'Bigginer',
+                        title: 'Level',
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const CardTitle(
+                        icon: Icons.people_outline,
+                        info: '630 Students',
+                        title: 'Registers',
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const CardTitle(
+                        icon: Icons.language,
+                        info: 'English',
+                        title: 'Languages',
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const CardTitle(
+                        icon: Icons.speaker_notes,
+                        info: '12 Hours',
+                        title: 'Subtitles',
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40)),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 60),
+                            backgroundColor: const Color(0Xff187EB3),
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                            'Add to cart',
+                          )),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(40)),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 70),
+                              backgroundColor: const Color(0XffAED2E3)),
+                          onPressed: () {},
+                          child: const Text('Buy now')),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextButton.icon(
+                              style: TextButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 30),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      side: const BorderSide(
+                                          width: 2, color: Color(0Xff187EB3)))),
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.bookmark_border,
+                                color: Color(0xff3F3D56),
+                              ),
+                              label: const Text(
+                                'Save',
+                                style: TextStyle(
+                                  color: Color(0xff3F3D56),
+                                ),
+                              )),
+                          TextButton.icon(
+                              style: TextButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 35),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      side: const BorderSide(
+                                          width: 2, color: Color(0Xff187EB3)))),
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.thumb_up_alt_outlined,
+                                color: Color(0xff3F3D56),
+                              ),
+                              label: const Text(
+                                'Like',
+                                style: TextStyle(
+                                  color: Color(0xff3F3D56),
+                                ),
+                              )),
+                        ],
+                      ),
+                      const Divider(
+                        thickness: 1.2,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'This lesson cotains:',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                          )),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const CardTileContains(
+                        svgAdd: 'assets/svg/dollar.svg',
+                        title: 'Full time',
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const CardTileContains(
+                        svgAdd: 'assets/svg/acctime.svg',
+                        title: 'Mony back 100% Grantiyed',
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const CardTileContains(
+                        svgAdd: 'assets/svg/freetrain.svg',
+                        title: 'Free training and resources',
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const CardTileContains(
+                        svgAdd: 'assets/svg/cup.svg',
+                        title: 'Reward',
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const CardTileContains(
+                        svgAdd: 'assets/svg/computer.svg',
+                        title: 'Accessable with phone and tablet',
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const CardTileContains(
+                        svgAdd: 'assets/svg/subtitle.svg',
+                        title: 'Subtitel',
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const CardTileContains(
+                        svgAdd: 'assets/svg/online.svg',
+                        title: '100% Online',
+                      ),
+                      const Divider(
+                        thickness: 1.2,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Share this course with:',
+                          )),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const ShareButton(
+                              svgAdd: 'assets/svg/email.svg',
+                            ),
+                            const ShareButton(
+                              svgAdd: 'assets/svg/whapp.svg',
+                            ),
+                            const ShareButton(
+                              svgAdd: 'assets/svg/telegram.svg',
+                            ),
+                            const ShareButton(
+                              svgAdd: 'assets/svg/instagram.svg',
+                            ),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xffC3DEEA),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7)),
+                                onPressed: () {},
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/svg/copy.svg',
+                                      color: const Color(0xff3F3D56),
+                                    ),
+                                    const SizedBox(
+                                      width: 7,
+                                    ),
+                                    const Text(
+                                      'Copy link',
+                                      style: TextStyle(color: Color(0xff3F3D56)),
+                                    )
+                                  ],
+                                ))
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
             const SizedBox(
-              height: 20.0,
+              height: 20,
             ),
-            getInfo(),
-            const SizedBox(
-              height: 10.0,
-            ),
-            Divider(),
-            const SizedBox(
-              height: 20.0,
-            ),
-            getTabBar(),
-            getTabBarPages()
-          ],
+            const HoverText()
+          ]),
         ),
       ),
     );
   }
+}
 
-  Widget getTabBar(){
-    return Container(
-      child: TabBar(
-        indicatorColor: primary,
-        controller: tabController,
-        tabs: const [
-          Tab(
-            child: Text(
-              'Lessons',
-              style: TextStyle(
-                  fontSize: 16.0,
-                  color: textColor
-              ),
-            ),
-          ),
-          Tab(
-            child: Text(
-              'Excercises',
-              style: TextStyle(
-                  fontSize: 16.0,
-                  color: textColor
-              ),
-            ),
-          ),
-        ],
+//////////////custome widget///////////////
+///
+///
+class ShareButton extends StatelessWidget {
+  const ShareButton({
+    required this.svgAdd,
+    super.key,
+  });
+  final String svgAdd;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 48,
+      child: ElevatedButton(
+        onPressed: () {},
+        style:
+        ElevatedButton.styleFrom(backgroundColor: const Color(0xffC3DEEA)),
+        child: SvgPicture.asset(
+          svgAdd,
+          fit: BoxFit.scaleDown,
+          color: const Color(0xff3F3D56),
+        ),
       ),
     );
   }
+}
 
-  Widget getTabBarPages(){
-    return Container(
-      width: double.infinity,
-      height: 200.0,
-      child: TabBarView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: tabController,
-        children: [
-          getLessons(),
-          Container(
-            child: Text(
-                'Exercises'
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+class CardTileContains extends StatelessWidget {
+  const CardTileContains({
+    required this.svgAdd,
+    required this.title,
+    super.key,
+  });
+  final String title;
 
-  Widget getLessons(){
-    return ListView.builder(
-      itemCount: lessons.length,
-      itemBuilder: (context,index) => LessonItem(data: lessons[index]),
-    );
-  }
+  final String svgAdd;
 
-  Widget getInfo(){
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                courseData["name"],
-                style: const TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w500,
-                    color: textColor
-                ),
-              ),
-              BookMarkBox(
-                  onBookMark: (){}
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Row(
-            children: [
-              getAttribute(Icons.play_circle_outline,courseData['session'],labelColor),
-              const SizedBox(
-                width: 20.0,
-              ),
-              getAttribute(Icons.schedule_outlined,courseData['duration'],labelColor),
-              const SizedBox(
-                width: 20.0,
-              ),
-              getAttribute(Icons.star,courseData['review'],yellow),
-            ],
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'About Course',
-                style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w500,
-                    color: textColor
-                ),
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              ReadMoreText(
-                courseData["description"],
-                trimLines: 2,
-                trimMode: TrimMode.Line,
-                style: const TextStyle(
-                    fontSize: 14.0,
-                    color: labelColor
-                ),
-                trimCollapsedText: 'Show more',
-                moreStyle: const TextStyle(
-                    fontSize: 14.0,
-                    color: primary
-                ),
-              ),
-
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget getAttribute(IconData icon,String info,Color color){
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
-          icon,
-          size: 20.0,
-          color: color,
+        SvgPicture.asset(
+          svgAdd,
+          width: 30,
+          height: 30,
         ),
         const SizedBox(
-          width: 5.0,
+          width: 15,
         ),
         Text(
-          info,
-          style: const TextStyle(
-              color: labelColor
-          ),
-        )
-
+          title,
+        ),
       ],
     );
+  }
+}
+
+class CardTitle extends StatelessWidget {
+  const CardTitle({
+    required this.icon,
+    required this.title,
+    required this.info,
+    super.key,
+  });
+  final String title;
+  final IconData icon;
+  final String info;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: [
+      Icon(
+        icon,
+        size: 26,
+        color: const Color(0xff3F3D56),
+      ),
+      const SizedBox(
+        width: 5,
+      ),
+      Text(
+        title,
+        style: const TextStyle(color: Color(0xff3F3D56)),
+      ),
+      const Spacer(),
+      Text(
+        info,
+        style: const TextStyle(color: Color(0xff3F3D56)),
+      ),
+    ]);
   }
 }

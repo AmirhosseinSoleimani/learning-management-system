@@ -308,8 +308,7 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => CourseDetailPage(
-                    data: {"courses": features[index]},
+                  builder: (context) => const CourseDetails(
                   ),
                 ),
               );

@@ -26,11 +26,11 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     _initPlayer();
   }
   void _initPlayer() async {
-    videoPlayerController = VideoPlayerController.network(widget.data["video_url"]);
+    videoPlayerController = VideoPlayerController.network('https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4');
     await videoPlayerController.initialize();
     _controller = ChewieController(
         videoPlayerController: videoPlayerController,
-        autoPlay: true,
+        autoPlay: false,
         looping: true,
         additionalOptions: (context){
           return <OptionItem>[
@@ -46,7 +46,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
 
   void startTimer(){
     Timer.periodic(
-        const Duration(seconds: 5),
+        const Duration(seconds: 8),
             (timer) {
           setState((){
             isLoading = true;
