@@ -8,8 +8,8 @@ import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
 import '../../../store/drawer.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:country_picker/country_picker.dart';
+import 'google_map.dart';
 
 
 class SecondInformationTeacher extends StatefulWidget {
@@ -60,7 +60,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
   );
 
   var _isLoading = false;
-  // static const double _defaultLat =
+
 
 
   Future<void> _saveForm() async {
@@ -250,15 +250,15 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                               ),
                               borderRadius: BorderRadius.circular(10.0)
                             ),
-                            // child: GoogleMap(
-                            //   initialCameraPosition: _defaultLocation,
-                            // ),
-                            child: TextButton(
-                              child: Text(
-                                'clicked'
+                            child: GestureDetector(
+                              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => GoogleMapPage())),
+                              child: Row(
+                                children: const [
+                                  Icon(Icons.location_on),
+                                  Text('Add Location')
+                                ],
                               ),
-                              onPressed: (){},
-                            ),
+                            )
                           ),
                           TextFormField(
                             decoration: InputDecoration(
@@ -454,4 +454,5 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
       ),
     );
   }
+
 }
