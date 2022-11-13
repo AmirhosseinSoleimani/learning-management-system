@@ -50,3 +50,24 @@ Widget getIconButton(String svg,Color color,double width,double height){
     ),
   );
 }
+
+
+Widget getAttribute(String info,IconData icon,Color color,Color textColor,double fontSize){
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Icon(
+        icon,
+        size: 24.0,
+        color: color,
+      ),
+      const SizedBox(
+        width: 3.0,
+      ),
+      Text(
+        info,
+        style: TextStyle(color: textColor,fontSize: fontSize),
+      )
+    ],
+  );
+}

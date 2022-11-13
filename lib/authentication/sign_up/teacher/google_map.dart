@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import '../../../presentation/resources/color_manager.dart';
 
 
 class GoogleMapPage extends StatefulWidget {
@@ -17,11 +18,11 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
 
   Set<Marker> markers = {};
 
-  static const double _defualtLat = 35.715298;
-  static const double _defualtLng = 51.404343;
+  static const double _defaultLat = 35.715298;
+  static const double _defaultLng = 51.404343;
 
   static const CameraPosition _defaultLocation = CameraPosition(
-      target: LatLng(_defualtLat, _defualtLng),zoom: 15
+      target: LatLng(_defaultLat, _defaultLng),zoom: 15
   );
 
   MapType _currentMapType = MapType.normal;
@@ -95,38 +96,54 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
               googleMapController = controller;
             },
           ),
-          Container(
-            padding: const EdgeInsets.only(top: 24.0,right: 12.0),
-            alignment: Alignment.topRight,
-            child: Column(
-              children: [
-                IconButton(
-                    onPressed: _changeMapType,
-                    icon: Icon(Icons.map),
-                ),
-                IconButton(
-                    onPressed: () async{
-                      Position position = await _determinePosition();
-                      googleMapController.animateCamera(
-                        CameraUpdate.newCameraPosition(CameraPosition(
-                            target: LatLng(position.latitude,position.longitude),zoom: 15.0),
+          Positioned(
+            child: Container(
+              padding: const EdgeInsets.only(top: 24.0,right: 12.0),
+              alignment: Alignment.topRight,
+              child: Column(
+                children: [
+                  IconButton(
+                      onPressed: _changeMapType,
+                      icon: CircleAvatar(
+                        radius: 40.0,
+                        backgroundColor: ColorManager.white,
+                        child: const Icon(
+                            Icons.map,
                         ),
-                      );
-                        markers.clear();
-                        markers.add(
-                            Marker(
-                                markerId: const MarkerId('currentLocation'),
-                              position: LatLng(position.latitude,position.longitude)
-                            ));
-                        setState(() {
+                      ),
+                  ),
+                  IconButton(
+                      onPressed: () async{
+                        Position position = await _determinePosition();
+                        googleMapController.animateCamera(
+                          CameraUpdate.newCameraPosition(CameraPosition(
+                              target: LatLng(position.latitude,position.longitude),zoom: 15.0),
+                          ),
+                        );
+                          markers.clear();
+                          markers.add(
+                              Marker(
+                                  markerId: const MarkerId('currentLocation'),
+                                position: LatLng(position.latitude,position.longitude),
+                                
+                              ));
+                          setState(() {
 
-                        });
+                          });
 
-                    },
-                    icon: Icon(Icons.location_on),
-                ),
+                      },
+                      icon: CircleAvatar(
+                        radius: 30.0,
+                          backgroundColor: ColorManager.white,
+                          child: Icon(
+                            Icons.location_on_sharp,
+                            color: Color(0xffd10a0a),
+                          ),
+                      ),
+                  ),
 
-              ],
+                ],
+              ),
             ),
           )
         ],

@@ -18,8 +18,11 @@ class ColorManager{
   static Color lavender = HexColor.fromHex('#DEDCFF');
   static Color lightBlue2 = HexColor.fromHex('#E8F2F7');
   static Color lightBlue3 = HexColor.fromHex('#F1F9EC');
+  static Color paleTurquoise = HexColor.fromHex('#AED2E3');
   static Color white = HexColor.fromHex('#FFFFFF');
-  static Color error = HexColor.fromHex('#e61f34'); // red color
+  static Color error = HexColor.fromHex('#e61f34');  // red color
+  static Color errorOpacity30 = HexColor.fromHex('#8B0000');
+  static Color shadowColorOpacity10 = HexColor.fromHex('#1A00000');
 }
 
 extension HexColor on Color{

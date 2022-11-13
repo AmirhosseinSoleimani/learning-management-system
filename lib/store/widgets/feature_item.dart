@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../constant/colors.dart';
+import '../../presentation/resources/color_manager.dart';
+import '../../widgets/widgets.dart';
+
 class FeatureItem extends StatelessWidget {
   const FeatureItem({Key? key,this.data,required this.onTap}) : super(key: key);
   final data;
@@ -13,11 +15,11 @@ class FeatureItem extends StatelessWidget {
         width: 270.0,
         height: 290,
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20.0),
+            color: ColorManager.white,
+            borderRadius: BorderRadius.circular(5.0),
             boxShadow: [
               BoxShadow(
-                  color: shadowColor.withOpacity(.1),
+                  color: ColorManager.shadowColorOpacity10,
                   spreadRadius: 1,
                   blurRadius: 1,
                   offset: const Offset(1,1)
@@ -32,7 +34,7 @@ class FeatureItem extends StatelessWidget {
               child: CachedNetworkImage(
                 imageBuilder: (context,imageProvider) => Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(5.0),
                       image: DecorationImage(image: imageProvider,
                           fit: BoxFit.cover
                       )
@@ -51,10 +53,10 @@ class FeatureItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1,
-                    color: const Color(0xffFFFFFF)
+                    color: ColorManager.white
                   ),
                   borderRadius: BorderRadius.circular(50.0),
-                  color: const Color(0xffFFFFFF)
+                  color: ColorManager.white
                 ),
                 child: Image.asset(
                         'assets/images/image 7.png',
@@ -75,19 +77,19 @@ class FeatureItem extends StatelessWidget {
                       decoration: BoxDecoration(
                           border: Border.all(
                               width: 1,
-                              color: const Color(0xffAED2E3),
+                              color: ColorManager.paleTurquoise,
                           ),
                           borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(5.0),
                             bottomRight: Radius.circular(5.0)
                           ),
-                          color: const Color(0xffAED2E3),
+                          color: ColorManager.paleTurquoise,
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           'Business',
                           style: TextStyle(
-                            color: Color(0xff3F3D56),
+                            color: ColorManager.slateGray2,
                             fontSize: 14.0
                           ),
                         ),
@@ -96,12 +98,12 @@ class FeatureItem extends StatelessWidget {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
                         'fashion photography from professional',
                         style: TextStyle(
-                          color: Color(0xff3F3D56),
+                          color: ColorManager.slateGray2,
                           fontSize: 16.0,
                           fontWeight: FontWeight.w600
                         ),
@@ -114,14 +116,14 @@ class FeatureItem extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Row(
                         children: [
-                          getAttribute(data["review"],Icons.star,const Color(0xffFAD564),),
+                          getAttribute(data["review"],Icons.star,ColorManager.gold,ColorManager.lightSteelBlue1,12),
                           const SizedBox(
                             width: 5.0,
                           ),
-                          const Text(
+                          Text(
                             '(3.8k + Review)',
                             style: TextStyle(
-                              color: Color(0xff7E7979),
+                              color: ColorManager.lightSteelBlue1,
                               fontSize: 14
                             ),
                           )
@@ -132,16 +134,16 @@ class FeatureItem extends StatelessWidget {
                       height: 10.0,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: const EdgeInsets.only(left: 10.0),
                       child: Row(
                         children: [
-                          getAttribute(data["session"],Icons.bookmark_border_outlined,const Color(0xff7E7979),),
+                          getAttribute(data["session"],Icons.bookmark_border_outlined,ColorManager.lightSteelBlue1,ColorManager.lightSteelBlue1,12),
                           const SizedBox(
-                            width: 3.0,
+                            width: 5.0,
                           ),
-                          getAttribute(data["duration"],Icons.schedule_outlined,const Color(0xff7E7979),),
+                          getAttribute(data["duration"],Icons.schedule_outlined,ColorManager.lightSteelBlue1,ColorManager.lightSteelBlue1,12),
                           const SizedBox(
-                            width: 3.0,
+                            width: 8.0,
                           ),
                           TextButton(
                               onPressed: (){},
@@ -151,12 +153,12 @@ class FeatureItem extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(5.0),
                                     ),
                                 ),
-                              backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff187EB3)),
+                              backgroundColor: MaterialStateProperty.all<Color>(ColorManager.primary),
                             ),
-                              child: const Text(
+                              child: Text(
                                 'participate',
                                 style: TextStyle(
-                                  color: Color(0xffFFFFFF)
+                                  color: ColorManager.white
                                 ),
                               ),
                           )
@@ -174,22 +176,3 @@ class FeatureItem extends StatelessWidget {
   }
 }
 
-Widget getAttribute(String info,IconData icon,Color color){
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Icon(
-        icon,
-        size: 24.0,
-        color: color,
-      ),
-      const SizedBox(
-        width: 3.0,
-      ),
-      Text(
-        info,
-        style: const TextStyle(color: Color(0xff7E7979),fontSize: 12.0),
-      )
-    ],
-  );
-}

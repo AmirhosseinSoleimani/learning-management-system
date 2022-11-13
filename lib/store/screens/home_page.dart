@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/store/course_details/widgets/discover_courses.dart';
 import '../../authentication/sign_up/teacher/teacher_sign_up.dart';
 import '../../presentation/footer/footer.dart';
@@ -13,6 +12,7 @@ import '../../data.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/feature_item.dart';
 import '../course_details/screens/course_details.dart';
+import '../widgets/new_blog.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/store';
@@ -858,7 +858,6 @@ class _HomePageState extends State<HomePage>{
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Container(
-
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height * 0.42,
                         decoration: BoxDecoration(
@@ -1034,67 +1033,7 @@ class _HomePageState extends State<HomePage>{
                   ],
                 ),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.7,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 1,
-                    color: ColorManager.lightBlue3
-                  ),
-                  borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(20.0),
-                    bottomLeft: Radius.circular(20.0)
-                  ),
-                  color: ColorManager.lightBlue3,
-                ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'New ',
-                            style: TextStyle(
-                                color: ColorManager.black,
-                                fontSize: 26.0,
-                                fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                'Blog',
-                                style: TextStyle(
-                                    color: ColorManager.darkOrange,
-                                    fontSize: 26.0,
-                                    fontWeight: FontWeight.w500
-                                ),
-                              ),
-                              const Image(
-                                image: AssetImage(
-                                    ImageAssets.markLine
-                                ),
-                                width: 70.0,
-                                height: 20,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.55,
-                      child: getFeatures(context: context),
-                    ),
-                  ],
-                ),
-              ),
+              const NewBlog(),
               const Footer()
             ],
           ),
@@ -1119,40 +1058,5 @@ Widget getFeatures({BuildContext? context}) {
     ),
     options: CarouselOptions(
         height: 380.0, enlargeCenterPage: true, disableCenter: true),
-  );
-}
-
-
-Widget getButton(String text,BuildContext context){
-  return SizedBox(
-    height: MediaQuery.of(context).size.height * 0.4/ 6,
-    child: TextButton(
-        onPressed: (){},
-        style: TextButton.styleFrom(
-      ),
-        child: Row(
-          children: [
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: 18,
-                color: ColorManager.white
-              ),
-            ),
-          ],
-        ),
-    ),
-  );
-}
-
-Widget getIconButton(String svg){
-  return IconButton(
-      onPressed: (){},
-      icon: SvgPicture.asset(
-        svg,
-        width: 20.0,
-        height: 20.0,
-        color: ColorManager.lavender,
-      ),
   );
 }
