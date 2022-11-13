@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/store/screens/home_page.dart';
 import 'package:provider/provider.dart';
 import '../../../data.dart';
 import '../../../models/student_signUp_put_model.dart';

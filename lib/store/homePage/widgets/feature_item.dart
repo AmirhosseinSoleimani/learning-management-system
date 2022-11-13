@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../presentation/resources/color_manager.dart';
-import '../../widgets/widgets.dart';
+import '../../../presentation/resources/color_manager.dart';
+import '../../../widgets/widgets.dart';
 
 class FeatureItem extends StatelessWidget {
   const FeatureItem({Key? key,this.data,required this.onTap}) : super(key: key);

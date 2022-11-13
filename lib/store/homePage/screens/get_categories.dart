@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../data.dart';
+import '../../../data.dart';
 import '../widgets/category_box.dart';
 
 class GetCategories extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../../../constant/colors.dart';
 import '../../../data.dart';
-import '../../widgets/feature_item.dart';
+import '../../homePage/./widgets/feature_item.dart';
 import '../screens/course_details.dart';
 
 class DiscoverCourses extends StatefulWidget {

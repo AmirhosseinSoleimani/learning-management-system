@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../constant/colors.dart';
+import '../../../constant/colors.dart';
 
 class RecommendItem extends StatelessWidget {
   const RecommendItem({Key? key,this.data,required this.onTap}) : super(key: key);

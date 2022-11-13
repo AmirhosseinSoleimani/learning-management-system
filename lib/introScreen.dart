@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:learning_management_system/store/screens/home_page.dart';
+import 'package:learning_management_system/store/homePage/screens/home_page.dart';
 
 
 class IntroScreen extends StatelessWidget {

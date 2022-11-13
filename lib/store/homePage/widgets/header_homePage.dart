@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../presentation/resources/assets_manager.dart';
-import '../../presentation/resources/color_manager.dart';
+import '../../../presentation/resources/assets_manager.dart';
+import '../../../presentation/resources/color_manager.dart';
 
 class HeaderHomePage extends StatelessWidget {
   const HeaderHomePage({Key? key}) : super(key: key);

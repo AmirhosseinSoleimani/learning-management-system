@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import '../../data.dart';
-import '../../presentation/resources/assets_manager.dart';
-import '../../presentation/resources/color_manager.dart';
-import '../course_details/screens/course_details.dart';
+import '../../../data.dart';
+import '../../../presentation/resources/assets_manager.dart';
+import '../../../presentation/resources/color_manager.dart';
+import '../../course_details/screens/course_details.dart';
 import 'feature_item.dart';
 
 class NewBlog extends StatelessWidget {
