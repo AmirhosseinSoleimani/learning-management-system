@@ -15,6 +15,7 @@ import '../widgets/feature_item.dart';
 import '../../course_details/screens/course_details.dart';
 import '../widgets/new_blog.dart';
 import '../widgets/our_teachers.dart';
+import '../widgets/selected_menu.dart';
 import '../widgets/student_read.dart';
 import '../widgets/teacher_section.dart';
 
@@ -50,91 +51,15 @@ class _HomePageState extends State<HomePage>{
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const HeaderHomePage(),
-              const Explore(),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.85,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 1,
-                    color: ColorManager.lightBlue1,
-                  ),
-                  borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(20.0),
-                    bottomLeft: Radius.circular(20.0),
-                  ),
-                  color: ColorManager.lightBlue1,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Discover',
-                        style: TextStyle(
-                          color: ColorManager.slateGray2,
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w500
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'World\' Best',
-                            style: TextStyle(
-                                color: ColorManager.slateGray2,
-                                fontSize: 26.0,
-                                fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5.0,
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                'Courses',
-                                style: TextStyle(
-                                    color: ColorManager.darkOrange,
-                                    fontSize: 26.0,
-                                    fontWeight: FontWeight.w500
-                                ),
-                              ),
-                              const Image(
-                                  image: AssetImage(
-                                      ImageAssets.markLine
-                                  ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.15,
-                        child: DiscoverCourses(
-                          data: {"courses": features[1]},
-                        ),
-                      ),
-                      SizedBox(
-                        child: Divider(
-                          thickness: 1.5,
-                          color: ColorManager.lightSteelBlue1,
-                        ),
-                      ),
-                      getFeatures(context: context),
-                    ],
-                  ),
-                ),
-              ),
-              const StudentRead(),
-              const OurTeachers(),
-              const TeacherSection(),
-              const NewBlog(),
-              const Footer()
+            children: const [
+              HeaderHomePage(),
+              Explore(),
+              SelectedMenu(),
+              StudentRead(),
+              OurTeachers(),
+              TeacherSection(),
+              NewBlog(),
+              Footer()
             ],
           ),
         ),

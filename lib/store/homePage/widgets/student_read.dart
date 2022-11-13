@@ -37,7 +37,11 @@ class StudentRead extends StatelessWidget {
                           fontWeight: FontWeight.w600
                       ),
                     ),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'choose',
