@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 
 class ShopPage extends StatelessWidget {
@@ -9,11 +9,11 @@ class ShopPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      backgroundColor: ColorManager.white,
-      title: Image.asset(
-        'assets/images/epent.png',
-        width: MediaQuery.of(context).size.width * 0.3,
-        height: MediaQuery.of(context).size.height * 0.08,
+        backgroundColor: ColorManager.white,
+        title: Image.asset(
+          ImageAssets.epent,
+          width: MediaQuery.of(context).size.width * 0.3,
+          height: MediaQuery.of(context).size.height * 0.08,
       ),
       centerTitle: true,
       iconTheme: IconThemeData(

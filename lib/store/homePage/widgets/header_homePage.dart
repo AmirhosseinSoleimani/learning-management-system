@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
+import '../../../presentation/resources/routes_manager.dart';
 
 class HeaderHomePage extends StatelessWidget {
   const HeaderHomePage({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class HeaderHomePage extends StatelessWidget {
             child: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              color: const Color(0xffFFF7F2),
+              color: ColorManager.navajoWhite,
               child: const Image(
                 image: AssetImage(
                   ImageAssets.homePageHeader,
@@ -32,7 +33,9 @@ class HeaderHomePage extends StatelessWidget {
             child: Row(
               children: [
                 IconButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.of(context).pushReplacementNamed(Routes.shopPageRoute);
+                  },
                   icon: SvgPicture.asset(
                       IconAssets.shop
                   ),

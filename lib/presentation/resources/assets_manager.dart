@@ -11,6 +11,8 @@ class ImageAssets{
   static const String softwareLogo = '$imagePath/homePage/softwareLogo.png';
   static const String markLine = '$imagePath/homePage/markLine.png';
 
+  // appBar
+  static const String epent = '$imagePath/appBar/epent.png';
 }
 
 const String iconPath = 'assets/icons';

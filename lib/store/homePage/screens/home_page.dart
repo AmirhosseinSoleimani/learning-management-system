@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../../../presentation/footer/footer.dart';
 import '../../../presentation/resources/color_manager.dart';
+import '../../../presentation/resources/assets_manager.dart';
 import '../widgets/explore.dart';
 import '../widgets/header_homePage.dart';
 import '../../drawer.dart';
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage>{
         appBar: AppBar(
           backgroundColor: ColorManager.white,
           title: Image.asset(
-            'assets/images/epent.png',
+            ImageAssets.epent,
             width: MediaQuery.of(context).size.width * 0.3,
             height: MediaQuery.of(context).size.height * 0.08,
           ),
@@ -46,15 +47,15 @@ class _HomePageState extends State<HomePage>{
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: const [
-              HeaderHomePage(),
-              Explore(),
-              SelectedMenu(),
-              StudentRead(),
+            children: [
+              const HeaderHomePage(),
+              const Explore(),
+              const SelectedMenu(),
+              const StudentRead(),
               OurTeachers(),
-              TeacherSection(),
-              NewBlog(),
-              Footer()
+              const TeacherSection(),
+              const NewBlog(),
+              const Footer()
             ],
           ),
         ),

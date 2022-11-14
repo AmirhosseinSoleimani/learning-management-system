@@ -87,6 +87,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/homePage/
+    - assets/images/appBar/
     - assets/icons/
     - assets/icons/category/
     - assets/icons/homePage/
