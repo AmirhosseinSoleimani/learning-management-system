@@ -94,7 +94,7 @@ class NewBlog extends StatelessWidget {
         ),
       ),
       options: CarouselOptions(
-          height: 380.0, enlargeCenterPage: true, disableCenter: true),
+          height: 380.0, enlargeCenterPage: true, disableCenter: true, reverse: true),
     );
   }
 }

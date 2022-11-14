@@ -1,11 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/store/course_details/widgets/discover_courses.dart';
-import '../../../authentication/sign_up/teacher/teacher_sign_up.dart';
 import '../../../presentation/footer/footer.dart';
 import '../../../presentation/resources/color_manager.dart';
-import '../../../presentation/resources/assets_manager.dart';
 import '../widgets/explore.dart';
 import '../widgets/header_homePage.dart';
 import '../../drawer.dart';
@@ -20,7 +16,6 @@ import '../widgets/student_read.dart';
 import '../widgets/teacher_section.dart';
 
 class HomePage extends StatefulWidget {
-  static const routeName = '/store';
   const HomePage({Key? key}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();

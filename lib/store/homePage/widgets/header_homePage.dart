@@ -13,19 +13,16 @@ class HeaderHomePage extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       child: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 4.0),
-            child: Positioned.fill(
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                color: const Color(0xffFFF7F2),
-                child: const Image(
-                  image: AssetImage(
-                    ImageAssets.homePageHeader,
-                  ),
-                  fit: BoxFit.cover,
+          Positioned.fill(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              color: const Color(0xffFFF7F2),
+              child: const Image(
+                image: AssetImage(
+                  ImageAssets.homePageHeader,
                 ),
+                fit: BoxFit.cover,
               ),
             ),
           ),

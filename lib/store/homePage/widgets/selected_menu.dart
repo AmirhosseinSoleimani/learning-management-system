@@ -9,8 +9,14 @@ class SelectedMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.85,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height * 0.85,
       decoration: BoxDecoration(
         border: Border.all(
           width: 1,
@@ -70,8 +76,14 @@ class SelectedMenu extends StatelessWidget {
               ],
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.71,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.71,
               child: const DiscoverCourses(),
             ),
           ],
@@ -79,3 +91,4 @@ class SelectedMenu extends StatelessWidget {
       ),
     );
   }
+}

@@ -48,10 +48,12 @@ class _DiscoverCoursesState extends State<DiscoverCourses>
   Widget buildBody() {
     return GridView.count(
       primary: false,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.all(20),
       crossAxisSpacing: 50.0,
       childAspectRatio: 10 / 3,
-      mainAxisSpacing: 0.0,
+      mainAxisSpacing: 1.0,
       crossAxisCount: 2,
       children: <Widget>[
         GestureDetector(
@@ -174,7 +176,7 @@ class _DiscoverCoursesState extends State<DiscoverCourses>
         ),
       ),
       options: CarouselOptions(
-          height: 150.0, enlargeCenterPage: true, disableCenter: true),
+          height: 150.0, enlargeCenterPage: true, disableCenter: true, reverse: true),
     );
   }
 }

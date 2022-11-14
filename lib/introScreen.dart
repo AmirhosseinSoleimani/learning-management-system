@@ -54,10 +54,10 @@ class IntroScreen extends StatelessWidget {
           ),
         ],
         onDone: (){
-          Navigator.pushNamed(context, HomePage.routeName);
+          // Navigator.pushNamed(context, HomePage.routeName);
         },
         onSkip: (){
-          Navigator.pushNamed(context, HomePage.routeName);
+          // Navigator.pushNamed(context, HomePage.routeName);
         },
         showSkipButton: true,
         skip: const Text(
