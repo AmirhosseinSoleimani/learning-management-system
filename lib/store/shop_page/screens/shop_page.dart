@@ -119,6 +119,11 @@ class ShopPage extends StatelessWidget {
                                       ),
                                       borderRadius: BorderRadius.circular(7.0)
                                     ),
+                                    child: IconButton(
+                                      onPressed: (){},
+                                      icon: Icon(Icons.delete_outline_outlined,
+                                      color: ColorManager.darkOrange,
+                                    ),
                                   ),
                                 )
                               ],
