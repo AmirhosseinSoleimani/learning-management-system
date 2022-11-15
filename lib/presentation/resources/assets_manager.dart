@@ -38,5 +38,9 @@ class IconAssets{
   // teacherSignUp
   static const String linkedin = '$iconPath/teacherSignUp/Google.svg';
   static const String google = '$iconPath/teacherSignUp/LinkedIn.svg';
+  static const String passwordIcon = '$iconPath/teacherSignUp/password_icon.svg';
+  static const String personIcon = '$iconPath/teacherSignUp/person_icon.svg';
+
+
 
 }

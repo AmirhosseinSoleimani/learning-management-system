@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../models/student_account.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
+import '../../../presentation/resources/string_teachersignUp/string_teacherSignUp.dart';
 import '../../../presentation/resources/values_manager.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
@@ -154,7 +155,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                   height: AppSize.s10,
                 ),
                 const Text(
-                  'Create Account',
+                  TeacherSignUpString.teacherSignUpTitle1,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 26,
@@ -162,7 +163,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                   ),
                 ),
                 const SizedBox(
-                  height: AppSize.s20,
+                  height: AppSize.s10,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.25,
@@ -171,7 +172,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                     key: _form,
                     child: Padding(
                       padding:
-                      const EdgeInsets.symmetric(horizontal: 10.0),
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p10),
                       child: ListView(
                         shrinkWrap: true,
                         children: [
@@ -186,15 +187,14 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                                       color: ColorManager.lightSteelBlue2
                                   ),
                                 ),
-                                hintText: 'User Name',
+                                hintText: TeacherSignUpString.teacherSignUpTextFormField1,
                                 hintStyle: TextStyle(
                                     fontSize: 16.0,
                                     color: ColorManager.lightSteelBlue1
                                 ),
-                                prefixIcon: Icon(
-                                  Icons.person,
-                                  size: AppSize.s28,
-                                  color: ColorManager.lightSteelBlue1,
+                                prefixIcon: Padding(
+                                  padding: const EdgeInsets.all(AppPadding.p12),
+                                  child: SvgPicture.asset(IconAssets.personIcon),
                                 )
                             ),
                             focusNode: _userNameFocusNode,
@@ -237,7 +237,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                             ),
                           ),
                           const SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s20,
                           ),
                           TextFormField(
                               initialValue: _initValues['password'],
@@ -257,10 +257,11 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                                       size: 28.0,
                                     ),
                                   ),
-                                  prefixIcon: Icon(
-                                    Icons.lock_outline,
-                                    size: AppSize.s28,
-                                    color: ColorManager.lightSteelBlue1,
+                                  prefixIcon: Padding(
+                                    padding: const EdgeInsets.all(AppPadding.p12),
+                                    child: SvgPicture.asset(
+                                      IconAssets.passwordIcon
+                                    ),
                                   ),
                                   border: OutlineInputBorder(
                                     borderRadius:
