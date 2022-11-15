@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../models/student_account.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
+import '../../../presentation/resources/values_manager.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 
@@ -106,7 +107,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
           icon: Icon(
             Icons.arrow_back_ios,
             color: ColorManager.black,
-            size: 20.0,
+            size: AppSize.s20,
           ),
           onPressed: () {
             Navigator.of(context).pushReplacementNamed(Routes.homePage);
@@ -118,7 +119,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
           height: MediaQuery.of(context).size.height * 0.08,
         ),
         centerTitle: true,
-        iconTheme: IconThemeData(color: ColorManager.black, size: 30.0),
+        iconTheme: IconThemeData(color: ColorManager.black, size: AppSize.s30),
       ),
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
@@ -126,7 +127,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
       body: (_isLoading) ? const Center(
         child: CircularProgressIndicator(),
       ) : Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(AppPadding.p16),
         child: Card(
           elevation: 8,
           child: SingleChildScrollView(
@@ -137,7 +138,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
               children: [
                 if (!isKeyboard) Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 15.0
+                      vertical: AppPadding.p16
                   ),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
@@ -150,7 +151,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10.0,
+                  height: AppSize.s10,
                 ),
                 const Text(
                   'Create Account',
@@ -161,7 +162,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                   ),
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: AppSize.s20,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.25,
@@ -179,7 +180,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.circular(10.0),
+                                  BorderRadius.circular(AppSize.s10),
                                   borderSide: BorderSide(
                                       width: 1,
                                       color: ColorManager.lightSteelBlue2
@@ -192,7 +193,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                                 ),
                                 prefixIcon: Icon(
                                   Icons.person,
-                                  size: 28.0,
+                                  size: AppSize.s28,
                                   color: ColorManager.lightSteelBlue1,
                                 )
                             ),
@@ -227,7 +228,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                             },
                           ),
                           if (_userNameError) Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(AppPadding.p8),
                             child: Text(
                               Provider.of<StudentProvider>(context).userNameError,
                               style: TextStyle(
@@ -236,7 +237,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                             ),
                           ),
                           const SizedBox(
-                            height: 10.0,
+                            height: AppSize.s10,
                           ),
                           TextFormField(
                               initialValue: _initValues['password'],
@@ -258,12 +259,12 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                                   ),
                                   prefixIcon: Icon(
                                     Icons.lock_outline,
-                                    size: 28.0,
+                                    size: AppSize.s28,
                                     color: ColorManager.lightSteelBlue1,
                                   ),
                                   border: OutlineInputBorder(
                                     borderRadius:
-                                    BorderRadius.circular(10.0),
+                                    BorderRadius.circular(AppSize.s10),
                                     borderSide: BorderSide(
                                         width: 1,
                                         color: ColorManager.lightSteelBlue2
@@ -305,7 +306,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                   ),
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: AppSize.s20,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -328,7 +329,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                           ),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50.0)
+                                  borderRadius: BorderRadius.circular(AppSize.s50)
                               )
                           )
                       ),
@@ -350,11 +351,11 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                     Expanded(
                       child: Container(
                         margin: const EdgeInsets.only(
-                            left: 10.0, right: 20.0),
+                            left: AppPadding.p10, right: AppPadding.p20),
                         child: Divider(
                           color: ColorManager.lightSteelBlue2,
                           thickness: 1,
-                          height: 10,
+                          height: AppSize.s10,
                         ),
                       ),
                     ),
@@ -367,22 +368,22 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                     Expanded(
                       child: Container(
                           margin: const EdgeInsets.only(
-                              left: 10.0, right: 20.0),
+                              left: AppPadding.p10, right: AppPadding.p20),
                           child: Divider(
                             color: ColorManager.lightSteelBlue2,
                             thickness: 1,
-                            height: 10,
+                            height: AppSize.s10,
                           )),
                     )
                   ],
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: AppSize.s20,
                 ),
                 if(!isKeyboard) Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 10,
+                    horizontal: AppPadding.p10,
+                    vertical: AppPadding.p10,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -390,15 +391,15 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                       GestureDetector(
                         onTap: () {},
                         child: Container(
-                          width: 60.0,
-                          height: 60.0,
+                          width: AppSize.s60,
+                          height: AppSize.s60,
                           decoration: BoxDecoration(
                             color: ColorManager.white,
                             border: Border.all(
                                 width: 1, color: ColorManager.lightSteelBlue2,
                             ),
                             borderRadius: const BorderRadius.all(
-                              Radius.circular(30),
+                              Radius.circular(AppSize.s30),
                             ),
                             boxShadow: [
                               BoxShadow(
@@ -415,14 +416,14 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                           child: Center(
                             child: SvgPicture.asset(
                               IconAssets.google,
-                              width: 40,
-                              height: 40,
+                              width: AppSize.s40,
+                              height: AppSize.s40,
                             ),
                           ),
                         ),
                       ),
                       const SizedBox(
-                        width: 30.0,
+                        width: AppSize.s30,
                       ),
                       GestureDetector(
                         onTap: () {},
@@ -435,7 +436,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                                 width: 1, color: ColorManager.lightSteelBlue2,
                             ),
                             borderRadius: const BorderRadius.all(
-                              Radius.circular(30),
+                              Radius.circular(AppSize.s30),
                             ),
                             boxShadow: [
                               BoxShadow(
@@ -453,8 +454,8 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                           child: Center(
                             child: SvgPicture.asset(
                               IconAssets.linkedin,
-                              width: 40,
-                              height: 40,
+                              width: AppSize.s40,
+                              height: AppSize.s40,
                             ),
                           ),
                         ),
@@ -467,8 +468,8 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 10.0,
+                    horizontal: AppPadding.p10,
+                    vertical: AppPadding.p10,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
