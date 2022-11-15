@@ -13,6 +13,7 @@ class ColorManager{
   static Color oldLaceOpacity50 = HexColor.fromHex('#804DE6E6E6');
   static Color lightBlue1	 = HexColor.fromHex('#D7E8F1');
   static Color gold = HexColor.fromHex('#FAD564');
+  static Color yellow = HexColor.fromHex('#FFCB04');
   static Color black = HexColor.fromHex('#000000');
   static Color ivory = HexColor.fromHex('#FFFCFC');
   static Color green = HexColor.fromHex('#5DBF23');

@@ -60,104 +60,108 @@ class ShopPage extends StatelessWidget {
               height: 15.0,
             ),
             Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: MediaQuery.of(context).size.height * 0.95,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 1.5, color: ColorManager.lightSteelBlue2),
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Text(
-                        'your product list',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 28.0,
-                            color: ColorManager.primary),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.65,
-                      child: ListView.builder(
-                        itemCount: 3,
-                        itemBuilder: (context, index) => ShopItem(
-                          data: courses[index],
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          width: 1.5, color: ColorManager.lightSteelBlue2),
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          'your product list',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 28.0,
+                              color: ColorManager.primary),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      child: Divider(
-                        thickness: 2,
-                        color: ColorManager.lightSteelBlue2,
+                      const SizedBox(
+                        height: 10.0,
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Total Amount:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16.0,
-                              color: ColorManager.slateGray2
-                            ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.25,
+                        child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 1,
+                          itemBuilder: (context, index) => ShopItem(
+                            data: courses[index],
                           ),
-                          Text(
-                              courses[1]['price'],
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.primary
-                            ),
-                          )
-                        ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: TextButton(
-                          onPressed: (){
-                            Navigator.of(context).pushReplacementNamed(Routes.paymentPageRoute);
-                          },
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    side: BorderSide(color: ColorManager.green)
-                                ),
-                            ),
-                            backgroundColor: MaterialStateProperty.all(ColorManager.green),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'payment',
-                                style: TextStyle(
-                                  color: ColorManager.white,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w400
-                                ),
+                      SizedBox(
+                        child: Divider(
+                          thickness: 2,
+                          color: ColorManager.lightSteelBlue2,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Total Amount:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                                color: ColorManager.slateGray2
                               ),
-                              Icon(
-                                  Icons.arrow_forward_ios,
-                                size: 16.0,
-                                color: ColorManager.white,
-                              )
-                            ],
-                          ),
+                            ),
+                            Text(
+                                courses[1]['price'],
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: ColorManager.primary
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: TextButton(
+                            onPressed: (){
+                              Navigator.of(context).pushReplacementNamed(Routes.paymentPageRoute);
+                            },
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      side: BorderSide(color: ColorManager.green)
+                                  ),
+                              ),
+                              backgroundColor: MaterialStateProperty.all(ColorManager.green),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'payment',
+                                  style: TextStyle(
+                                    color: ColorManager.white,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w400
+                                  ),
+                                ),
+                                Icon(
+                                    Icons.arrow_forward_ios,
+                                  size: 16.0,
+                                  color: ColorManager.white,
+                                )
+                              ],
+                            ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             )

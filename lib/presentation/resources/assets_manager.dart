@@ -13,6 +13,11 @@ class ImageAssets{
 
   // appBar
   static const String epent = '$imagePath/appBar/epent.png';
+
+  // payment
+  static const String paymentLogo = '$imagePath/payment/other_payments_logo.png';
+  static const String visa = '$imagePath/payment/visa.png';
+
 }
 
 const String iconPath = 'assets/icons';
