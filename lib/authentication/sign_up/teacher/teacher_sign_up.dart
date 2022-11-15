@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../models/student_account.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
-import '../../../presentation/resources/string_teachersignUp/string_teacherSignUp.dart';
+import '../../../presentation/resources/string_teacherSignUp/string_teacherSignUp.dart';
 import '../../../presentation/resources/values_manager.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
@@ -31,8 +31,6 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
     'password': '',
   };
 
-  // final _passwordController = TextEditingController();
-
   final _form = GlobalKey<FormState>();
 
   bool _passwordVisible = false;
@@ -54,7 +52,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
 
   var _isLoading = false;
 
-  var _userNameError = false;
+  final _userNameError = false;
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState!.validate();
@@ -94,7 +92,6 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
   void dispose() {
     _userNameFocusNode.dispose();
     _passwordFocusNode.dispose();
-    // _passwordController.dispose();
     super.dispose();
   }
 
@@ -187,7 +184,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                                       color: ColorManager.lightSteelBlue2
                                   ),
                                 ),
-                                hintText: TeacherSignUpString.teacherSignUpTextFormField1,
+                                hintText: TeacherSignUpString.textFormField1,
                                 hintStyle: TextStyle(
                                     fontSize: 16.0,
                                     color: ColorManager.lightSteelBlue1
@@ -206,7 +203,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                             },
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
-                                return 'Field is required';
+                                return TeacherSignUpString.validator;
                               }
                               return null;
                             },
@@ -271,7 +268,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                                         color: ColorManager.lightSteelBlue2
                                     ),
                                   ),
-                                  hintText: 'Password'),
+                                  hintText: TeacherSignUpString.textFormField2),
                               obscureText: !_passwordVisible,
                               // controller: _passwordController,
                               focusNode: _passwordFocusNode,
@@ -306,9 +303,6 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: AppSize.s20,
-                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 87.0
@@ -335,7 +329,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                           )
                       ),
                       child: Text(
-                        'Sign Up',
+                        TeacherSignUpString.textButtonSignUp,
                         style: TextStyle(
                             fontSize: 22.0,
                             fontWeight: FontWeight.bold,
@@ -361,7 +355,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                       ),
                     ),
                     Text(
-                      'Or Sign Up With',
+                      TeacherSignUpString.teacherSignUpSubTitle1,
                       style: TextStyle(
                           color: ColorManager.lightSteelBlue1,
                       ),
@@ -404,7 +398,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.8),
+                                color: Colors.blueAccent.withOpacity(0.5),
                                 blurRadius: 12.0, // soften the shadow
                                 spreadRadius: 6.0, //extend the shadow
                                 offset: const Offset(
@@ -429,8 +423,8 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                       GestureDetector(
                         onTap: () {},
                         child: Container(
-                          width: 60.0,
-                          height: 60.0,
+                          width: AppSize.s60,
+                          height: AppSize.s60,
                           decoration: BoxDecoration(
                             color: ColorManager.white,
                             border: Border.all(
@@ -441,7 +435,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.8),
+                                color: Colors.blueAccent.withOpacity(0.5),
                                 blurRadius: 12.0, // soften the shadow
                                 spreadRadius: 6.0, //extend the shadow
                                 offset: const Offset(
@@ -476,7 +470,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Do have an account?',
+                        TeacherSignUpString.teacherSignUpTitle2,
                         style: TextStyle(
                           color: ColorManager.lightSteelBlue1,
                           fontSize: 18.0,
@@ -486,10 +480,10 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                         onPressed: () {
                         },
                         child: Text(
-                          'Sign In',
+                          TeacherSignUpString.textButtonSignIn,
                           style: TextStyle(
                               color: ColorManager.primary,
-                              fontSize: 22.0,
+                              fontSize: 18.0,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
