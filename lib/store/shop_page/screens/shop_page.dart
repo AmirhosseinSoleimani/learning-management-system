@@ -38,64 +38,129 @@ class ShopPage extends StatelessWidget {
         ),
       ),
       endDrawer: const DrawerAppBar(),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushReplacementNamed(Routes.shopPageRoute);
-                },
-                icon: SvgPicture.asset(IconAssets.shop),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: SvgPicture.asset(IconAssets.support),
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 15.0,
-          ),
-          Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.8,
-              decoration: BoxDecoration(
-                  border: Border.all(
-                      width: 1.5, color: ColorManager.lightSteelBlue2),
-                  borderRadius: BorderRadius.circular(10.0)),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      'your product list',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 28.0,
-                          color: ColorManager.primary),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.6,
-                    child: ListView.builder(
-                      itemCount: 1,
-                      itemBuilder: (context, index) => CourseShop(
-                        data: courses[1],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed(Routes.shopPageRoute);
+                  },
+                  icon: SvgPicture.asset(IconAssets.shop),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: SvgPicture.asset(IconAssets.support),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 15.0,
+            ),
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.95,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 1.5, color: ColorManager.lightSteelBlue2),
+                    borderRadius: BorderRadius.circular(10.0)),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        'your product list',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 28.0,
+                            color: ColorManager.primary),
                       ),
                     ),
-                  )
-                ],
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.65,
+                      child: ListView.builder(
+                        itemCount: 3,
+                        itemBuilder: (context, index) => CourseShop(
+                          data: courses[index],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      child: Divider(
+                        thickness: 2,
+                        color: ColorManager.lightSteelBlue2,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Total Amount:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                              color: ColorManager.slateGray2
+                            ),
+                          ),
+                          Text(
+                              courses[1]['price'],
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.primary
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: TextButton(
+                          onPressed: (){},
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    side: BorderSide(color: ColorManager.green)
+                                ),
+                            ),
+                            backgroundColor: MaterialStateProperty.all(ColorManager.green),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'payment',
+                                style: TextStyle(
+                                  color: ColorManager.white,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400
+                                ),
+                              ),
+                              Icon(
+                                  Icons.arrow_forward_ios,
+                                size: 16.0,
+                                color: ColorManager.white,
+                              )
+                            ],
+                          ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

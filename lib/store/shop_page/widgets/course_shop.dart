@@ -78,9 +78,9 @@ class CourseShop extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.5,
                         height: 40,
                         child: Text(
-                          'fashion photography from professional',
+                          data['name'],
                           style: TextStyle(
-                            fontSize: 14.0,
+                            fontSize: 16.0,
                             fontWeight: FontWeight.w400,
                             color: ColorManager.slateGray2
                           ),
@@ -90,7 +90,7 @@ class CourseShop extends StatelessWidget {
                         'master: Jessica Lambert',
                         style: TextStyle(
                           fontSize: 14.0,
-                          fontWeight: FontWeight.w300,
+                          fontWeight: FontWeight.w400,
                           color: ColorManager.lightSteelBlue1
                         ),
                       ),
