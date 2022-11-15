@@ -125,7 +125,9 @@ class ShopPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: TextButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            Navigator.of(context).pushReplacementNamed(Routes.paymentPageRoute);
+                          },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
