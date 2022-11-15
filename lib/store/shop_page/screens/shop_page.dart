@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:learning_management_system/store/shop_page/widgets/course_shop.dart';
+import 'package:learning_management_system/store/shop_page/widgets/shop_item.dart';
 import '../../../data.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
@@ -87,7 +87,7 @@ class ShopPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.65,
                       child: ListView.builder(
                         itemCount: 3,
-                        itemBuilder: (context, index) => CourseShop(
+                        itemBuilder: (context, index) => ShopItem(
                           data: courses[index],
                         ),
                       ),

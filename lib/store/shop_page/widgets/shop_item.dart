@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../../presentation/resources/color_manager.dart';
 
-class CourseShop extends StatelessWidget {
-  const CourseShop({Key? key,this.data}) : super(key: key);
+class ShopItem extends StatelessWidget {
+  const ShopItem({Key? key,this.data}) : super(key: key);
 
   final data;
   @override
