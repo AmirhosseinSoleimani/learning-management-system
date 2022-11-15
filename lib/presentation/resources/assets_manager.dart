@@ -18,6 +18,9 @@ class ImageAssets{
   static const String paymentLogo = '$imagePath/payment/other_payments_logo.png';
   static const String visa = '$imagePath/payment/visa.png';
 
+  // teacherSignUp
+  static const String epentBody = '$imagePath/teacherSignUp/epent_body.png';
+
 }
 
 const String iconPath = 'assets/icons';
@@ -31,5 +34,9 @@ class IconAssets{
   static const String telegram = '$iconPath/footer/telegram.svg';
   static const String twitter = '$iconPath/footer/twitter.svg';
   static const String whatsApp = '$iconPath/footer/whatsApp.svg';
+
+  // teacherSignUp
+  static const String linkedin = '$imagePath/teacherSignUp/Google.png';
+  static const String google = '$imagePath/teacherSignUp/LinkedIn.png';
 
 }

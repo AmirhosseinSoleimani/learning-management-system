@@ -1,15 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher/teacher_information.dart';
+import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../models/student_account.dart';
+import '../../../presentation/resources/color_manager.dart';
+import '../../../presentation/resources/routes_manager.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 
 
 class TeacherSignUp extends StatefulWidget {
-  static const routeName = '/teacher_signup';
+
 
   const TeacherSignUp({Key? key}) : super(key: key);
 
@@ -98,28 +101,28 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xffFFFFFF),
+        backgroundColor: ColorManager.white,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: ColorManager.black,
             size: 20.0,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(Routes.homePage);
           },
         ),
         title: Image.asset(
-          'assets/images/epent.png',
+          ImageAssets.epent,
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.height * 0.08,
         ),
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.black, size: 30.0),
+        iconTheme: IconThemeData(color: ColorManager.black, size: 30.0),
       ),
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xffFFFFFF),
+      backgroundColor: ColorManager.white,
       body: (_isLoading) ? const Center(
         child: CircularProgressIndicator(),
       ) : Padding(
@@ -140,7 +143,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: Image.asset(
-                      'assets/images/epent_body.png',
+                      ImageAssets.epentBody,
                       width: 120.0,
                       height: 120.0,
                     ),
@@ -177,20 +180,20 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                                 border: OutlineInputBorder(
                                   borderRadius:
                                   BorderRadius.circular(10.0),
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                       width: 1,
-                                      color: Color(0xffD9D9D9)
+                                      color: ColorManager.lightSteelBlue2
                                   ),
                                 ),
                                 hintText: 'User Name',
-                                hintStyle: const TextStyle(
+                                hintStyle: TextStyle(
                                     fontSize: 16.0,
-                                    color: Color(0xff7E7979)
+                                    color: ColorManager.lightSteelBlue1
                                 ),
-                                prefixIcon: const Icon(
+                                prefixIcon: Icon(
                                   Icons.person,
                                   size: 28.0,
-                                  color: Color(0xff7E7979),
+                                  color: ColorManager.lightSteelBlue1,
                                 )
                             ),
                             focusNode: _userNameFocusNode,
@@ -227,8 +230,8 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               Provider.of<StudentProvider>(context).userNameError,
-                              style: const TextStyle(
-                                  color: Colors.red
+                              style: TextStyle(
+                                  color: ColorManager.error
                               ),
                             ),
                           ),
@@ -249,21 +252,21 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                                       _passwordVisible
                                           ? Icons.visibility
                                           : Icons.visibility_off,
-                                      color: const Color(0xff7E7979),
+                                      color: ColorManager.lightSteelBlue1,
                                       size: 28.0,
                                     ),
                                   ),
-                                  prefixIcon: const Icon(
+                                  prefixIcon: Icon(
                                     Icons.lock_outline,
                                     size: 28.0,
-                                    color: Color(0xff7E7979),
+                                    color: ColorManager.lightSteelBlue1,
                                   ),
                                   border: OutlineInputBorder(
                                     borderRadius:
                                     BorderRadius.circular(10.0),
-                                    borderSide: const BorderSide(
+                                    borderSide: BorderSide(
                                         width: 1,
-                                        color: Color(0xffD9D9D9)
+                                        color: ColorManager.lightSteelBlue2
                                     ),
                                   ),
                                   hintText: 'Password'),
@@ -320,7 +323,8 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                         // });
                       },
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            ColorManager.primary,
                           ),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
@@ -328,12 +332,12 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                               )
                           )
                       ),
-                      child: const Text(
+                      child: Text(
                         'Sign Up',
                         style: TextStyle(
                             fontSize: 22.0,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffFFFFFF)
+                            color: ColorManager.white
                         ),
                       )
                   ),
@@ -347,25 +351,25 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                       child: Container(
                         margin: const EdgeInsets.only(
                             left: 10.0, right: 20.0),
-                        child: const Divider(
-                          color: Color(0xffD9D9D9),
+                        child: Divider(
+                          color: ColorManager.lightSteelBlue2,
                           thickness: 1,
                           height: 10,
                         ),
                       ),
                     ),
-                    const Text(
+                    Text(
                       'Or Sign Up With',
                       style: TextStyle(
-                          color: Color(0xff7E7979)
+                          color: ColorManager.lightSteelBlue1,
                       ),
                     ),
                     Expanded(
                       child: Container(
                           margin: const EdgeInsets.only(
                               left: 10.0, right: 20.0),
-                          child: const Divider(
-                            color: Color(0xffD9D9D9),
+                          child: Divider(
+                            color: ColorManager.lightSteelBlue2,
                             thickness: 1,
                             height: 10,
                           )),
@@ -389,9 +393,10 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                           width: 60.0,
                           height: 60.0,
                           decoration: BoxDecoration(
-                            color: const Color(0xFFffffff),
+                            color: ColorManager.white,
                             border: Border.all(
-                                width: 1, color: const Color(0xffD9D9D9)),
+                                width: 1, color: ColorManager.lightSteelBlue2,
+                            ),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(30),
                             ),
@@ -425,9 +430,10 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                           width: 60.0,
                           height: 60.0,
                           decoration: BoxDecoration(
-                            color: const Color(0xFFffffff),
+                            color: ColorManager.white,
                             border: Border.all(
-                                width: 1, color: const Color(0xffD9D9D9)),
+                                width: 1, color: ColorManager.lightSteelBlue2,
+                            ),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(30),
                             ),
@@ -467,20 +473,20 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         'Do have an account?',
                         style: TextStyle(
-                          color: Color(0xff7E7979),
+                          color: ColorManager.lightSteelBlue1,
                           fontSize: 18.0,
                         ),
                       ),
                       TextButton(
                         onPressed: () {
                         },
-                        child: const Text(
+                        child: Text(
                           'Sign In',
                           style: TextStyle(
-                              color: Color(0xff177FB0),
+                              color: ColorManager.primary,
                               fontSize: 22.0,
                               fontWeight: FontWeight.bold),
                         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../authentication/sign_up/teacher/teacher_sign_up.dart';
+import 'package:learning_management_system/presentation/resources/routes_manager.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 
@@ -73,7 +73,7 @@ class TeacherSection extends StatelessWidget {
                   Center(
                     child: TextButton(
                         onPressed: (){
-                          Navigator.pushNamed(context,TeacherSignUp.routeName);
+                          Navigator.of(context).pushReplacementNamed(Routes.teacherSignUpRoutes);
                         },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(ColorManager.primary,),

@@ -89,6 +89,7 @@ flutter:
     - assets/images/homePage/
     - assets/images/appBar/
     - assets/images/payment/
+    - assets/images/teacherSignUp/
     - assets/icons/
     - assets/icons/category/
     - assets/icons/homePage/
