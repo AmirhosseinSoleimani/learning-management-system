@@ -60,7 +60,7 @@ class PaymentPage extends StatelessWidget {
           ),
           Container(
             width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.height * 0.6,
+            height: MediaQuery.of(context).size.height * 0.60,
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1.5,
@@ -97,14 +97,44 @@ class PaymentPage extends StatelessWidget {
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.45,
+                  height: MediaQuery.of(context).size.height * 0.40,
                   child: ListView.builder(
                     itemCount: 3,
                     itemBuilder: (context, index) => PaymentItem(
                       data: courses[index],
                     ),
                   ),
-                )
+                ),
+                SizedBox(
+                  child: Divider(
+                    thickness: 2,
+                    color: ColorManager.lightSteelBlue2,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total Amount:',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16.0,
+                            color: ColorManager.slateGray2
+                        ),
+                      ),
+                      Text(
+                        courses[1]['price'],
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.primary
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           )
