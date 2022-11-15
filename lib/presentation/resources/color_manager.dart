@@ -6,6 +6,7 @@ class ColorManager{
   static Color lightSteelBlue1 = HexColor.fromHex('#7E7979');
   static Color lightSteelBlue2 = HexColor.fromHex('#D9D9D9');
   static Color lightSteelBlue3 = HexColor.fromHex('#EDEDED');
+  static Color lightSteelBlue4 = HexColor.fromHex('#F3F3F3');
   static Color darkOrange = HexColor.fromHex('#C94B04');
   static Color navajoWhite	 = HexColor.fromHex('#FFF7F2');
   static Color tanOpacity30 = HexColor.fromHex('#4D7E7979');
