@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:learning_management_system/store/shop_page/widgets/course_shop.dart';
 import '../../../data.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
@@ -41,18 +43,15 @@ class ShopPage extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                onPressed: (){
-                  Navigator.of(context).pushReplacementNamed(Routes.shopPageRoute);
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushReplacementNamed(Routes.shopPageRoute);
                 },
-                icon: SvgPicture.asset(
-                    IconAssets.shop
-                ),
+                icon: SvgPicture.asset(IconAssets.shop),
               ),
               IconButton(
-                onPressed: (){},
-                icon: SvgPicture.asset(
-                    IconAssets.support
-                ),
+                onPressed: () {},
+                icon: SvgPicture.asset(IconAssets.support),
               )
             ],
           ),
@@ -62,14 +61,11 @@ class ShopPage extends StatelessWidget {
           Center(
             child: Container(
               width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.7,
+              height: MediaQuery.of(context).size.height * 0.8,
               decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1.5,
-                  color: ColorManager.lightSteelBlue2
-                ),
-                borderRadius: BorderRadius.circular(10.0)
-              ),
+                  border: Border.all(
+                      width: 1.5, color: ColorManager.lightSteelBlue2),
+                  borderRadius: BorderRadius.circular(10.0)),
               child: Column(
                 children: [
                   Padding(
@@ -77,10 +73,9 @@ class ShopPage extends StatelessWidget {
                     child: Text(
                       'your product list',
                       style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 28.0,
-                        color: ColorManager.primary
-                      ),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 28.0,
+                          color: ColorManager.primary),
                     ),
                   ),
                   const SizedBox(
@@ -88,48 +83,12 @@ class ShopPage extends StatelessWidget {
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.15,
+                    height: MediaQuery.of(context).size.height * 0.6,
                     child: ListView.builder(
-                        itemCount: courses.length,
-                        itemBuilder: (context,index) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            height: MediaQuery.of(context).size.height * 0.15,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: ColorManager.lightSteelBlue3
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: ColorManager.lightSteelBlue3,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: 30.0,
-                                    height: 30.0,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        width: 1.5,
-                                        color: ColorManager.darkOrange
-                                      ),
-                                      borderRadius: BorderRadius.circular(7.0)
-                                    ),
-                                    child: IconButton(
-                                      onPressed: (){},
-                                      icon: Icon(Icons.delete_outline_outlined,
-                                      color: ColorManager.darkOrange,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                      itemCount: 1,
+                      itemBuilder: (context, index) => CourseShop(
+                        data: courses[1],
+                      ),
                     ),
                   )
                 ],
