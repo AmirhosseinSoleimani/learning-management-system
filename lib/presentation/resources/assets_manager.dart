@@ -36,7 +36,7 @@ class IconAssets{
   static const String whatsApp = '$iconPath/footer/whatsApp.svg';
 
   // teacherSignUp
-  static const String linkedin = '$imagePath/teacherSignUp/Google.png';
-  static const String google = '$imagePath/teacherSignUp/LinkedIn.png';
+  static const String linkedin = '$iconPath/teacherSignUp/Google.svg';
+  static const String google = '$iconPath/teacherSignUp/LinkedIn.svg';
 
 }

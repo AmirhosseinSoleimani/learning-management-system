@@ -414,7 +414,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                           ),
                           child: Center(
                             child: SvgPicture.asset(
-                              'assets/images/Google.svg',
+                              IconAssets.google,
                               width: 40,
                               height: 40,
                             ),
@@ -452,7 +452,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                           ),
                           child: Center(
                             child: SvgPicture.asset(
-                              'assets/images/LinkedIn.svg',
+                              IconAssets.linkedin,
                               width: 40,
                               height: 40,
                             ),
