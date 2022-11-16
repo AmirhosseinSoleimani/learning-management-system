@@ -21,6 +21,8 @@ class ImageAssets{
   // teacherSignUp
   static const String epentBody = '$imagePath/teacherSignUp/epent_body.png';
   static const String epentLogo = '$imagePath/teacherSignUp/epent_only_logo.png';
+  static const String introduction = '$imagePath/teacherSignUp/introduction.png';
+
 
 }
 
@@ -41,6 +43,10 @@ class IconAssets{
   static const String google = '$iconPath/teacherSignUp/LinkedIn.svg';
   static const String passwordIcon = '$iconPath/teacherSignUp/password_icon.svg';
   static const String personIcon = '$iconPath/teacherSignUp/person_icon.svg';
+  static const String email = '$iconPath/teacherSignUp/email.svg';
+  static const String gender = '$iconPath/teacherSignUp/gender.svg';
+  static const String calendar = '$iconPath/teacherSignUp/calendar.svg';
+
 
 
 

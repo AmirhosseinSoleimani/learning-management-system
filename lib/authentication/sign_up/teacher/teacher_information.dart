@@ -184,46 +184,47 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                 const SizedBox(
                   height: 10.0,
                 ),
-                if(!isKeyboard)  const Text(
+                if(!isKeyboard) Text(
                   'Information',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 30.0,
+                      fontSize: AppSize.s30,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xff3F3D56)
+                      color: ColorManager.slateGray2
                   ),
                 ),
                 const SizedBox(
-                  height: 10.0,
+                  height: AppSize.s10,
                 ),
                 Form(
                   key: _form,
                   child: ListView(
-                    physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                         child: TextFormField(
                           initialValue: _initValues['name'],
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
+                                BorderRadius.circular(AppSize.s10),
+                                borderSide: BorderSide(
                                     width: 1,
-                                    color: Color(0xffD9D9D9)
+                                    color: ColorManager.lightSteelBlue2
                                 ),
                               ),
                               hintText: 'Name',
-                              hintStyle: const TextStyle(
+                              hintStyle: TextStyle(
                                   fontSize: 16.0,
-                                  color: Color(0xff7E7979)
+                                  color: ColorManager.lightSteelBlue1
                               ),
-                              prefixIcon: const Icon(
-                                Icons.person_outline,
-                                size: 28.0,
-                                color: Color(0xff7E7979),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(AppPadding.p12),
+                                child: SvgPicture.asset(
+                                  IconAssets.personIcon
+                                ),
                               )
                           ),
                           focusNode: _nameFocusNode,
@@ -261,27 +262,28 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                         height: 10.0,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                         child: TextFormField(
                           initialValue: _initValues['lastName'],
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
+                                BorderRadius.circular(AppSize.s10),
+                                borderSide: BorderSide(
                                     width: 1,
-                                    color: Color(0xffD9D9D9)
+                                    color: ColorManager.lightSteelBlue2
                                 ),
                               ),
                               hintText: 'Last Name',
-                              hintStyle: const TextStyle(
+                              hintStyle: TextStyle(
                                   fontSize: 16.0,
-                                  color: Color(0xff7E7979)
+                                  color: ColorManager.lightSteelBlue1
                               ),
-                              prefixIcon: const Icon(
-                                Icons.people_outline,
-                                size: 28.0,
-                                color: Color(0xff7E7979),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(AppPadding.p12),
+                                child: SvgPicture.asset(
+                                  IconAssets.personIcon
+                                ),
                               )
                           ),
                           focusNode: _lastNameFocusNode,
@@ -312,30 +314,31 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10.0,
+                        height: AppSize.s10,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                         child: TextFormField(
                           initialValue: _initValues['email'],
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
+                                BorderRadius.circular(AppSize.s10),
+                                borderSide: BorderSide(
                                     width: 1,
-                                    color: Color(0xffD9D9D9)
+                                    color: ColorManager.lightSteelBlue2
                                 ),
                               ),
                               hintText: 'Email',
-                              hintStyle: const TextStyle(
+                              hintStyle: TextStyle(
                                   fontSize: 16.0,
-                                  color: Color(0xff7E7979)
+                                  color: ColorManager.lightSteelBlue1
                               ),
-                              prefixIcon: const Icon(
-                                Icons.email_outlined,
-                                size: 28.0,
-                                color: Color(0xff7E7979),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(AppPadding.p12),
+                                child: SvgPicture.asset(
+                                  IconAssets.email
+                                ),
                               )
                           ),
                           focusNode: _emailFocusNode,
@@ -374,215 +377,210 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           Provider.of<StudentProvider>(context).userNameError,
-                          style: const TextStyle(
-                              color: Colors.red
+                          style: TextStyle(
+                              color: ColorManager.error
                           ),
                         ),
                       ),
                       const SizedBox(
                         height: 10.0,
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10.0,
-                                vertical: 8.0
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: AppPadding.p10,
+                            vertical: AppPadding.p8
+                        ),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          child: DropdownButtonFormField<String>(
+                            hint: Text(
+                              'Gender',
+                              style: TextStyle(
+                                  color: ColorManager.lightSteelBlue1,
+                                  fontSize: 16.0
                               ),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                height: MediaQuery.of(context).size.height * 0.08,
-                                child: DropdownButtonFormField<String>(
-                                  hint: const Text(
-                                    'Gender',
-                                    style: TextStyle(
-                                        color: Color(0xff7E7979),
-                                        fontSize: 16.0
-                                    ),
-                                  ),
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Color(0xffD9D9D9),
-                                        width: 1.5,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                  value: null,
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: Color(0xff7E7979),
-                                  ),
-                                  items: items.map((String items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
+                            ),
+                            decoration: InputDecoration(
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(AppPadding.p12),
+                                child: SvgPicture.asset(
+                                    IconAssets.gender
+                                ),
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: ColorManager.lightSteelBlue2,
+                                  width: 1.5,
+                                ),
+                                borderRadius: BorderRadius.circular(AppSize.s10),
+                              ),
+                            ),
+                            value: null,
+                            icon: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: ColorManager.lightSteelBlue1,
+                            ),
+                            items: items.map((String items) {
+                              return DropdownMenuItem(
+                                value: items,
+                                child: Text(items),
+                              );
+                            }).toList(),
+                            validator: (value) {
+                              if(value!.isEmpty) {
+                                return 'field is required';
+                              }
+                              return null;
+                            },
+                            onChanged: (String? newValue) {
+                              if(newValue == 'Male'){
+                                setState(() {
+                                  dropDownValue = newValue!;
+                                  _signupStudent = StudentAccount(
+                                    firstName: _signupStudent.firstName,
+                                    lastName: _signupStudent.lastName,
+                                    password: _signupStudent.password,
+                                    email: _signupStudent.email,
+                                    phoneNumber: _signupStudent.phoneNumber,
+                                    birthDay: _signupStudent.birthDay,
+                                    bio: _signupStudent.bio,
+                                    gender: 1,
+                                    introduction: _signupStudent.introduction,
+                                    country: _signupStudent.country,
+                                    favouriteCourse: _signupStudent.favouriteCourse,
+                                    userName: _signupStudent.userName,
+                                  );
+                                });
+                              }
+                              else if(newValue == 'Female'){
+                                {
+                                  setState(() {
+                                    dropDownValue = newValue!;
+                                    _signupStudent = StudentAccount(
+                                      firstName: _signupStudent.firstName,
+                                      lastName: _signupStudent.lastName,
+                                      password: _signupStudent.password,
+                                      email: _signupStudent.email,
+                                      phoneNumber: _signupStudent.phoneNumber,
+                                      birthDay: _signupStudent.birthDay,
+                                      bio: _signupStudent.bio,
+                                      gender: 0,
+                                      introduction: _signupStudent.introduction,
+                                      country: _signupStudent.country,
+                                      favouriteCourse: _signupStudent.favouriteCourse,
+                                      userName: _signupStudent.userName,
                                     );
-                                  }).toList(),
-                                  validator: (value) {
-                                    if(value!.isEmpty) {
-                                      return 'field is required';
-                                    }
-                                    return null;
-                                  },
-                                  onChanged: (String? newValue) {
-                                    if(newValue == 'Male'){
-                                      setState(() {
-                                        dropDownValue = newValue!;
-                                        _signupStudent = StudentAccount(
-                                          firstName: _signupStudent.firstName,
-                                          lastName: _signupStudent.lastName,
-                                          password: _signupStudent.password,
-                                          email: _signupStudent.email,
-                                          phoneNumber: _signupStudent.phoneNumber,
-                                          birthDay: _signupStudent.birthDay,
-                                          bio: _signupStudent.bio,
-                                          gender: 1,
-                                          introduction: _signupStudent.introduction,
-                                          country: _signupStudent.country,
-                                          favouriteCourse: _signupStudent.favouriteCourse,
-                                          userName: _signupStudent.userName,
-                                        );
-                                      });
-                                    }
-                                    else if(newValue == 'Female'){
-                                      {
-                                        setState(() {
-                                          dropDownValue = newValue!;
-                                          _signupStudent = StudentAccount(
-                                            firstName: _signupStudent.firstName,
-                                            lastName: _signupStudent.lastName,
-                                            password: _signupStudent.password,
-                                            email: _signupStudent.email,
-                                            phoneNumber: _signupStudent.phoneNumber,
-                                            birthDay: _signupStudent.birthDay,
-                                            bio: _signupStudent.bio,
-                                            gender: 0,
-                                            introduction: _signupStudent.introduction,
-                                            country: _signupStudent.country,
-                                            favouriteCourse: _signupStudent.favouriteCourse,
-                                            userName: _signupStudent.userName,
-                                          );
-                                        });
-                                      }
-                                    }
-                                    else{
-                                      setState(() {
-                                        dropDownValue = newValue!;
-                                        _signupStudent = StudentAccount(
-                                          firstName: _signupStudent.firstName,
-                                          lastName: _signupStudent.lastName,
-                                          password: _signupStudent.password,
-                                          email: _signupStudent.email,
-                                          phoneNumber: _signupStudent.phoneNumber,
-                                          birthDay: _signupStudent.birthDay,
-                                          bio: _signupStudent.bio,
-                                          gender: 3,
-                                          introduction: _signupStudent.introduction,
-                                          country: _signupStudent.country,
-                                          favouriteCourse: _signupStudent.favouriteCourse,
-                                          userName: _signupStudent.userName,
-                                        );
-                                      });
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10.0,
-                                vertical: 8.0
-                              ),
-                              child: GestureDetector(
-                                onTap: (){
-                                  setState((){
-                                    dateSelect = true;
                                   });
-                                },
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.3,
-                                  height: MediaQuery.of(context).size.height * 0.08,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: Colors.white,
-                                    border: Border.all(width: 2, color: const Color(0xffD9D9D9),
-                                    ),
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      const SizedBox(
-                                        width: 20,
-                                        height: 20,
-                                        child: Icon(
-                                          Icons.event_outlined,
-                                          size: 22.0,
-                                          color: Color(0xff7E7979),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 10.0),
-                                        child: SizedBox(
-                                          width: MediaQuery.of(context).size.width * 0.3,
-                                          height: MediaQuery.of(context).size.height * 0.08,
-                                          child: (dateSelect) ?
-                                          DateTimePicker(
-                                            initialValue: 'Birthday Date',
-                                            firstDate: DateTime(1950),
-                                            lastDate: DateTime.now(),
-                                            onChanged: (val) => print(val),
-                                            validator: (val) {
-                                              print(val);
-                                              return null;
-                                            },
-                                            onSaved: (val){
-                                              _signupStudent = StudentAccount(
-                                                firstName: studentAccount.studentAccount[0].firstName,
-                                                lastName: studentAccount.studentAccount[0].lastName,
-                                                password: studentAccount.studentAccount[0].password,
-                                                email: studentAccount.studentAccount[0].email,
-                                                phoneNumber: studentAccount.phoneNumberTextFormField!,
-                                                birthDay: Timestamp.fromDate(DateTime.parse(val!)).seconds,
-                                                bio: studentAccount.studentAccount[0].bio,
-                                                gender: studentAccount.studentAccount[0].gender,
-                                                introduction: _signupStudent.introduction,
-                                                country: _signupStudent.country,
-                                                favouriteCourse: _signupStudent.favouriteCourse, userName: '',
-                                              );
-                                            },
-                                          ):
-                                          const Padding(
-                                            padding: EdgeInsets.only(
-                                              top: 8.0,
-                                            ),
-                                            child: Text(
-                                              'Birthday Date',
-                                              style: TextStyle(
-                                                  color: Color(0xff7E7979),
-                                                  fontSize: 17.0,
-                                                  fontWeight: FontWeight.w400
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
+                                }
+                              }
+                              else{
+                                setState(() {
+                                  dropDownValue = newValue!;
+                                  _signupStudent = StudentAccount(
+                                    firstName: _signupStudent.firstName,
+                                    lastName: _signupStudent.lastName,
+                                    password: _signupStudent.password,
+                                    email: _signupStudent.email,
+                                    phoneNumber: _signupStudent.phoneNumber,
+                                    birthDay: _signupStudent.birthDay,
+                                    bio: _signupStudent.bio,
+                                    gender: 3,
+                                    introduction: _signupStudent.introduction,
+                                    country: _signupStudent.country,
+                                    favouriteCourse: _signupStudent.favouriteCourse,
+                                    userName: _signupStudent.userName,
+                                  );
+                                });
+                              }
+                            },
                           ),
-                        ],
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 8.0
+                          horizontal: AppPadding.p10,
+                          vertical: AppPadding.p8
+                        ),
+                        child: GestureDetector(
+                          onTap: (){
+                            setState((){
+                              dateSelect = true;
+                            });
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            height: MediaQuery.of(context).size.height * 0.08,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(AppSize.s10),
+                              color: ColorManager.white,
+                              border: Border.all(width: 2, color: ColorManager.lightSteelBlue2,
+                              ),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(AppPadding.p12),
+                                  child: SvgPicture.asset(
+                                    IconAssets.calendar
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: AppPadding.p10),
+                                  child: SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.3,
+                                    height: MediaQuery.of(context).size.height * 0.08,
+                                    child: (dateSelect) ?
+                                    DateTimePicker(
+                                      initialValue: 'Birthday Date',
+                                      firstDate: DateTime(1950),
+                                      lastDate: DateTime.now(),
+                                      onChanged: (val) => print(val),
+                                      validator: (val) {
+                                        print(val);
+                                        return null;
+                                      },
+                                      onSaved: (val){
+                                        _signupStudent = StudentAccount(
+                                          firstName: studentAccount.studentAccount[0].firstName,
+                                          lastName: studentAccount.studentAccount[0].lastName,
+                                          password: studentAccount.studentAccount[0].password,
+                                          email: studentAccount.studentAccount[0].email,
+                                          phoneNumber: studentAccount.phoneNumberTextFormField!,
+                                          birthDay: Timestamp.fromDate(DateTime.parse(val!)).seconds,
+                                          bio: studentAccount.studentAccount[0].bio,
+                                          gender: studentAccount.studentAccount[0].gender,
+                                          introduction: _signupStudent.introduction,
+                                          country: _signupStudent.country,
+                                          favouriteCourse: _signupStudent.favouriteCourse, userName: '',
+                                        );
+                                      },
+                                    ):
+                                    const Padding(
+                                      padding: EdgeInsets.only(
+                                        top: 8.0,
+                                      ),
+                                      child: Text(
+                                        'Birthday Date',
+                                        style: TextStyle(
+                                            color: Color(0xff7E7979),
+                                            fontSize: 17.0,
+                                            fontWeight: FontWeight.w400
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppPadding.p10,
+                          vertical: AppPadding.p8
                         ),
                         child: GestureDetector(
                           onTap: (){
@@ -613,14 +611,14 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                           child: Container(
                             height: 55.0,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Colors.white,
-                              border: Border.all(width: 2, color: const Color(0xffD9D9D9),
+                              borderRadius: BorderRadius.circular(AppSize.s10),
+                              color: ColorManager.white,
+                              border: Border.all(width: 2, color: ColorManager.lightSteelBlue2,
                               ),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 8.0,
+                                horizontal: AppPadding.p8,
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -646,29 +644,29 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                                       (country) != null ?
                                       Text(
                                         country!,
-                                        style: const TextStyle(
-                                            color: Color(0xff7E7979),
+                                        style: TextStyle(
+                                            color: ColorManager.lightSteelBlue1,
                                             fontSize: 17.0,
                                             fontWeight: FontWeight.w400
                                         ),
                                       )
-                                          :const Text(
+                                          : Text(
                                         'Country',
                                         style: TextStyle(
-                                            color: Color(0xff7E7979),
+                                            color: ColorManager.lightSteelBlue1,
                                             fontSize: 17.0,
                                             fontWeight: FontWeight.w400
                                         ),
                                       ),
                                     ],
                                   ),
-                                  const Padding(
-                                    padding: EdgeInsets.only(
-                                        right: 15.0
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: AppPadding.p16
                                     ),
                                     child: Icon(
-                                      Icons.arrow_drop_down_outlined,
-                                      color: Color(0xff7E7979),
+                                      Icons.keyboard_arrow_down_outlined,
+                                      color: ColorManager.lightSteelBlue1,
                                       size: 28.0,
                                     ),
                                   )
@@ -680,44 +678,46 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 8.0
+                          horizontal: AppPadding.p10,
+                          vertical: AppPadding.p8
                         ),
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.4,
                           height: 55,
                           child: DropdownButtonFormField<String>(
-                            hint: const Text(
+                            hint: Text(
                               'Introduction',
                               style: TextStyle(
-                                  color: Color(0xff7E7979),
+                                  color: ColorManager.lightSteelBlue1,
                                   fontSize: 16.0
                               ),
                             ),
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0xffD9D9D9),
+                                  borderSide: BorderSide(
+                                    color: ColorManager.lightSteelBlue2,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                prefixIcon: const Icon(Icons.person)
+                                prefixIcon: const Image(image: AssetImage(
+                                    ImageAssets.introduction
+                                ),)
                             ),
                             value: null,
-                            icon: const Icon(
-                              Icons.arrow_drop_down,
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_outlined,
                               size: 28,
-                              color: Color(0xff7E7979),
+                              color: ColorManager.lightSteelBlue1,
                             ),
                             items: items.map((String items) {
                               return DropdownMenuItem(
                                 value: items,
                                 child: Text(
                                   items,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontWeight: FontWeight.w400,
-                                      color: Color(0xff7E7979)
+                                      color: ColorManager.lightSteelBlue1
                                   ),
                                 ),
                               );
@@ -766,16 +766,16 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                               // });
                             },
                             style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
+                                backgroundColor: MaterialStateProperty.all<Color>(ColorManager.primary,
                                 ),
                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50.0)
+                                        borderRadius: BorderRadius.circular(AppSize.s50)
                                     )
                                 )
                             ),
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 30,
                               ),
                               child: Text(
@@ -783,7 +783,7 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                                 style: TextStyle(
                                     fontSize: 22.0,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(0xffFFFFFF)
+                                    color: ColorManager.white
                                 ),
                               ),
                             )
