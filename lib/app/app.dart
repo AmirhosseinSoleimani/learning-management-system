@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../presentation/resources/routes_manager.dart';
+import '../provider/quiz_app_provider.dart';
+import '../provider/student_provider.dart';
+import '../provider/teacher_provider.dart';
 
 
 class MyApp extends StatefulWidget {// default constructor
@@ -17,11 +21,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: RouteGenerator.getRoute,
-      initialRoute: Routes.homePage,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => StudentProvider(),
+        ),
+        ChangeNotifierProvider(create: (context) => QuizAppProvider(),
+        ),
+        ChangeNotifierProvider(create: (context) => TeacherProvider(),
+        ),
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: RouteGenerator.getRoute,
+        initialRoute: Routes.homePage,
 
+      ),
     );
   }
 }

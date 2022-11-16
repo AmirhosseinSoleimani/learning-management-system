@@ -1,15 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/authentication/sign_up/teacher/teacher_information.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../models/student_account.dart';
+import '../../../models/teacher_signUp_post_model.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
 import '../../../presentation/resources/string_teacherSignUp/string_teacherSignUp.dart';
 import '../../../presentation/resources/values_manager.dart';
 import '../../../provider/student_provider.dart';
+import '../../../provider/teacher_provider.dart';
 import '../../../store/drawer.dart';
 
 
@@ -27,7 +26,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
   final _userNameFocusNode = FocusNode();
   bool isSelected = false;
   final _initValues = {
-    'user_name': '',
+    'userName': '',
     'password': '',
   };
 
@@ -35,24 +34,14 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
 
   bool _passwordVisible = false;
 
-  var _signupStudent = StudentAccount(
-    firstName: 'Student',
-    lastName: 'Student',
-    password: '123456',
-    email: 'example@gmail.com',
-    phoneNumber: '+091212345678',
-    birthDay: Timestamp.fromDate(DateTime.now()).seconds,
-    bio: 'Student',
-    gender: 1,
-    introduction: 'Student',
-    country: 'Student',
-    favouriteCourse: '',
-    userName: 'Student',
+  var _teacherSignUpPost = TeacherSignUpPost(
+    password: '',
+    userName: '',
   );
 
   var _isLoading = false;
 
-  final _userNameError = false;
+  bool userNameError = false;
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState!.validate();
@@ -64,8 +53,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
       _isLoading = true;
     });
     try {
-      await Provider.of<StudentProvider>(context, listen: false)
-          .addStudentAccount(context,_signupStudent);
+      await Provider.of<TeacherProvider>(context, listen: false).teacherSignUpPost(context, _teacherSignUpPost);
     } catch (error) {
       await showDialog(
         context: context,
@@ -86,6 +74,14 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
       _isLoading = false;
     });
 
+  }
+
+  void errorView() async{
+    if(Provider.of<TeacherProvider>(context,listen: false).userNameError.contains('This User Name is Exit')){
+      setState(() {
+        userNameError = true;
+      });
+    }
   }
 
   @override
@@ -163,7 +159,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                   height: AppSize.s10,
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.25,
+                  height: (userNameError == false) ? MediaQuery.of(context).size.height * 0.25:MediaQuery.of(context).size.height * 0.3,
                   width: double.infinity,
                   child: Form(
                     key: _form,
@@ -174,7 +170,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                         shrinkWrap: true,
                         children: [
                           TextFormField(
-                            initialValue: _initValues['user_name'],
+                            initialValue: _initValues['userName'],
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius:
@@ -208,26 +204,16 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                               return null;
                             },
                             onSaved: (value) {
-                              _signupStudent = StudentAccount(
+                              _teacherSignUpPost = TeacherSignUpPost(
                                 userName: value!,
-                                firstName: _signupStudent.firstName,
-                                lastName: _signupStudent.lastName,
-                                password: _signupStudent.password,
-                                email: _signupStudent.email,
-                                country: _signupStudent.country,
-                                favouriteCourse: _signupStudent.favouriteCourse,
-                                gender: _signupStudent.gender,
-                                introduction: _signupStudent.introduction,
-                                birthDay: _signupStudent.birthDay,
-                                bio: _signupStudent.bio,
-                                phoneNumber: _signupStudent.phoneNumber,
+                                password: _teacherSignUpPost.password,
                               );
                             },
                           ),
-                          if (_userNameError) Padding(
+                          if (userNameError == true) Padding(
                             padding: const EdgeInsets.all(AppPadding.p8),
                             child: Text(
-                              Provider.of<StudentProvider>(context).userNameError,
+                              'This username is exist, try another',
                               style: TextStyle(
                                   color: ColorManager.error
                               ),
@@ -282,19 +268,9 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                                 return null;
                               },
                               onSaved: (value) {
-                                _signupStudent = StudentAccount(
-                                  firstName: _signupStudent.firstName,
-                                  lastName: _signupStudent.lastName,
+                                _teacherSignUpPost = TeacherSignUpPost(
                                   password: value!,
-                                  email: _signupStudent.email,
-                                  country: _signupStudent.country,
-                                  favouriteCourse: _signupStudent.favouriteCourse,
-                                  gender: _signupStudent.gender,
-                                  introduction: _signupStudent.introduction,
-                                  birthDay: _signupStudent.birthDay,
-                                  bio: _signupStudent.bio,
-                                  phoneNumber: _signupStudent.phoneNumber,
-                                  userName: _signupStudent.userName,
+                                  userName: _teacherSignUpPost.userName,
                                 );
                               }
                           )
@@ -308,15 +284,11 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                       horizontal: 87.0
                   ),
                   child: TextButton(
-                      onPressed: (){
-                        Navigator.pushNamed(context, InformationTeacherSignUp.routeName);
-                        // _saveForm();
-                        // _userNameError = true;
-                        // Future.delayed(const Duration(seconds: 5), () {
-                        //   setState((){
-                        //     _userNameError = false;
-                        //   });
-                        // });
+                      onPressed: () async{
+                        // Navigator.pushNamed(context, InformationTeacherSignUp.routeName);
+                        await _saveForm();
+                        errorView();
+                        print(userNameError);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
