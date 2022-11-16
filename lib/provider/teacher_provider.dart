@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/authentication/sign_up/student/second_student_information.dart';
+import 'package:learning_management_system/presentation/resources/routes_manager.dart';
 import '../models/student_account.dart';
 import 'package:http/http.dart' as http;
 import '../models/teacher_signUp_post_model.dart';
@@ -18,6 +18,10 @@ class TeacherProvider with ChangeNotifier{
   String? phoneNumberTextFormField;
 
   List<String> favouriteCourseList = [];
+
+  goNext(BuildContext context,String routes){
+    Navigator.of(context).pushReplacementNamed(routes);
+  }
 
 
   Future <void> teacherSignUpPost(BuildContext context,TeacherSignUpPost teacherSignUpPost) async{
@@ -37,9 +41,8 @@ class TeacherProvider with ChangeNotifier{
       if(response.body.contains('this username is exist, try another')){
         userNameError = 'This User Name is Exit';
         notifyListeners();
-        print(userNameError);
       }else{
-
+        goNext(context,Routes.teacherInformationRoutes);
       }
       debugPrint(response.statusCode.toString());
       debugPrint(response.body.toString());
@@ -84,7 +87,7 @@ class TeacherProvider with ChangeNotifier{
       if(response.body.contains('this username is exist, try another')){
         userNameError = 'This User Name is Exit';
       }else{
-        Navigator.pushNamed(context, SecondInformationStudent.routeName);
+        goNext(context,Routes.teacherInformationRoutes);
       }
       final newStudentAccount = StudentAccount(
         password: studentAccount.password,

@@ -8,14 +8,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher/cutomize_stepper_information.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher/second_techer_information.dart';
+import 'package:learning_management_system/presentation/resources/assets_manager.dart';
+import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
+import '../../../presentation/resources/color_manager.dart';
+import '../../../presentation/resources/routes_manager.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
-import '../student/customize_stepper_first_information.dart';
 
 class InformationTeacherSignUp extends StatefulWidget {
-  static const routeName = '/teacher_information_signup';
 
   const InformationTeacherSignUp({Key? key}) : super(key: key);
 
@@ -115,32 +117,32 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xffFFFFFF),
+        backgroundColor: ColorManager.white,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
-            size: 20.0,
+            color: ColorManager.black,
+            size: AppSize.s20,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(Routes.teacherSignUpRoutes);
           },
         ),
         title: Image.asset(
-          'assets/images/epent.png',
+          ImageAssets.epent,
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.height * 0.08,
         ),
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.black, size: 30.0),
+        iconTheme: IconThemeData(color: ColorManager.black, size: AppSize.s30),
       ),
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xffFFFFFF),
+      backgroundColor: ColorManager.white,
       body: (_isLoading) ? const Center(
         child: CircularProgressIndicator(),
       ):Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(AppPadding.p16),
         child: Card(
           elevation: 8,
           child: SingleChildScrollView(
@@ -148,14 +150,14 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
               children: [
                 if(!isKeyboard) Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 15.0,
+                      vertical: AppPadding.p16,
                       horizontal: 35.0
                   ),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: Image.asset(
-                      'assets/images/epent_only_logo.png',
+                      ImageAssets.epentLogo,
                       width: 120.0,
                       height: 120.0,
                       alignment: Alignment.topLeft,
@@ -167,11 +169,11 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                     vertical: 10.0,
                   ),
                   child: Container(
-                      decoration: const BoxDecoration(
-                          color: Color(0xff177FB0),
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(10.0),
-                              topLeft: Radius.circular(10.0)
+                      decoration: BoxDecoration(
+                          color: ColorManager.primary,
+                          borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(AppSize.s10),
+                              topLeft: Radius.circular(AppSize.s10)
                           )
                       ),
                       width: MediaQuery.of(context).size.width,
