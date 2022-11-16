@@ -1,13 +1,9 @@
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:learning_management_system/authentication/sign_up/teacher/cutomize_stepper_information.dart';
-import 'package:learning_management_system/authentication/sign_up/teacher/second_techer_information.dart';
+import 'package:learning_management_system/authentication/sign_up/teacher/customize_stepper_information.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
@@ -756,7 +752,6 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                         ),
                         child: TextButton(
                             onPressed: (){
-                              Navigator.pushNamed(context, SecondInformationTeacher.routeName);
                               // _saveForm();
                               // _emailError = true;
                               // Future.delayed(const Duration(seconds: 5), () {

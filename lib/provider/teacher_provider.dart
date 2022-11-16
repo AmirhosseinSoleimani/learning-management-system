@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:learning_management_system/presentation/resources/routes_manager.dart';
 import '../models/student_account.dart';
 import 'package:http/http.dart' as http;
-import '../models/teacher_signUp_post_model.dart';
+import '../models/teacher_signUp_model.dart';
 
 class TeacherProvider with ChangeNotifier{
   final List<TeacherSignUpPost> _teacherAccountPost = [];
