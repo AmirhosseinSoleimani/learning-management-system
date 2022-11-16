@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/authentication/sign_up/student/customize_stepper_first_information.dart';
+import 'package:learning_management_system/authentication/customize_stepper_information.dart';
 import 'package:learning_management_system/authentication/sign_up/student/phoneNumber_textFormField.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher/third_teacher_information.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
@@ -141,7 +141,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: Image.asset(
-                      'assets/images/epent_only_logo.png',
+                      ImageAssets.epentLogo,
                       width: 120.0,
                       height: 120.0,
                       alignment: Alignment.topLeft,
@@ -150,17 +150,19 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 10.0,
+                    vertical: AppPadding.p10,
                   ),
                   child: Container(
-                    decoration: const BoxDecoration(
-                        color: Color(0xff177FB0),
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10.0),
-                            topLeft: Radius.circular(10.0))),
+                    decoration: BoxDecoration(
+                        color: ColorManager.primary,
+                        borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(AppSize.s10),
+                            topLeft: Radius.circular(AppSize.s10),
+                        ),
+                    ),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.2,
-                    child: const CustomizeStepperFirstInformation(),
+                    child: const CustomizeStepperInformation(),
                   ),
                 ),
                 const SizedBox(

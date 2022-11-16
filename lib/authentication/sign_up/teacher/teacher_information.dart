@@ -3,7 +3,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:learning_management_system/authentication/sign_up/teacher/customize_stepper_information.dart';
+import 'package:learning_management_system/authentication/customize_stepper_signUp.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
@@ -168,7 +168,7 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                       ),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.2,
-                      child: const CustomizeStepperInformation()
+                      child: const CustomizeStepperSignUP()
                   ),
                 ),
                 const SizedBox(

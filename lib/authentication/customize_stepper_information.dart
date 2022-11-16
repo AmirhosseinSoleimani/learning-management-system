@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
-import '../../../presentation/resources/color_manager.dart';
+import '../presentation/resources/color_manager.dart';
 
 
 class CustomizeStepperInformation extends StatelessWidget {
@@ -26,7 +26,14 @@ class CustomizeStepperInformation extends StatelessWidget {
                         height: 35,
                         child: CircleAvatar(
                           backgroundColor: ColorManager.green,
-                          child: null,
+                          child: CircleAvatar(
+                            backgroundColor: ColorManager.green,
+                            child: Icon(
+                              Icons.done,
+                              color: ColorManager.white,
+                              size: 25.0,
+                            ),
+                          ),
                         ),
                       ),
                       Text(
@@ -46,7 +53,7 @@ class CustomizeStepperInformation extends StatelessWidget {
                         height: 1,
                         child: Divider(
                           thickness: 5,
-                          color: ColorManager.green,
+                          color: ColorManager.primary,
                         ),
                       ),
                     ],
@@ -57,7 +64,7 @@ class CustomizeStepperInformation extends StatelessWidget {
                         width: 25,
                         height: 35,
                         child: CircleAvatar(
-                          backgroundColor: ColorManager.lightSteelBlue2,
+                          backgroundColor: ColorManager.green,
                           child: null,
                         ),
                       ),
@@ -65,7 +72,7 @@ class CustomizeStepperInformation extends StatelessWidget {
                         'Information',
                         style: TextStyle(
                           fontSize: 14.0,
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.bold,
                           color: ColorManager.white,
                         ),
                         textAlign: TextAlign.left,
@@ -74,11 +81,11 @@ class CustomizeStepperInformation extends StatelessWidget {
                         height: AppSize.s8,
                       ),
                       SizedBox(
-                        width: 50,
+                        width: 75,
                         height: 1,
                         child: Divider(
                           thickness: 5,
-                          color: ColorManager.primary,
+                          color: ColorManager.green,
                         ),
                       ),
                     ],
@@ -153,15 +160,15 @@ class CustomizeStepperInformation extends StatelessWidget {
           ),
           Positioned(
             top: 43.5,
-              left: 37.5,
-              child: SizedBox(
-                  width: 55,
-                  height: 35,
-                  child: Divider(
-                    thickness: 2.0,
-                    color: ColorManager.lightSteelBlue2,
-                  ),
+            left: 37.5,
+            child: SizedBox(
+              width: 55,
+              height: 35,
+              child: Divider(
+                thickness: 2.0,
+                color: ColorManager.lightSteelBlue2,
               ),
+            ),
           ),
           Positioned(
             top: 43.5,

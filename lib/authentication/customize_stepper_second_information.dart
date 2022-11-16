@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../my_separator.dart';
+import 'sign_up/my_separator.dart';
 
 class CustomizeStepperSecondInformation extends StatelessWidget {
   const CustomizeStepperSecondInformation({Key? key}) : super(key: key);

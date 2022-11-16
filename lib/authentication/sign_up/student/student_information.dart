@@ -10,7 +10,7 @@ import '../../../models/student_signUp_put_model.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 import './second_student_information.dart';
-import 'customize_stepper_first_information.dart';
+import '../../customize_stepper_information.dart';
 
 class InformationStudentSignUp extends StatefulWidget {
   static const routeName = '/student_information_signup';
@@ -173,7 +173,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                     ),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.2,
-                    child: const CustomizeStepperFirstInformation()
+                    child: const CustomizeStepperInformation()
                   ),
                 ),
                 const SizedBox(
