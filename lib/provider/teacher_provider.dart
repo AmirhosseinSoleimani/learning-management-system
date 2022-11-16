@@ -13,7 +13,15 @@ class TeacherProvider with ChangeNotifier{
     return _teacherAccountPost;
   }
 
+  final List<TeacherSignUpPatch> _teacherAccountPatch = [];
+
+  List<TeacherSignUpPatch> get teacherAccountPatch{
+    return _teacherAccountPatch;
+  }
+
   String userNameError = '';
+
+  String id = '';
 
   String? phoneNumberTextFormField;
 
@@ -41,11 +49,17 @@ class TeacherProvider with ChangeNotifier{
       if(response.body.contains('this username is exist, try another')){
         userNameError = 'This User Name is Exit';
         notifyListeners();
-      }else{
+      }
+      else if(response.statusCode == 200){
+        String data = response.body;
+        id = data.substring(14,52);
         goNext(context,Routes.teacherInformationRoutes);
       }
       debugPrint(response.statusCode.toString());
       debugPrint(response.body.toString());
+      debugPrint(id);
+
+
       final newTeacherSignUpPost = TeacherSignUpPost(
         password: teacherSignUpPost.password,
         userName: teacherSignUpPost.userName,
@@ -58,27 +72,32 @@ class TeacherProvider with ChangeNotifier{
     }
   }
 
-  Future <void> replaceStudentAccount(BuildContext context,StudentAccount studentAccount) async{
-    final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/student/');
+  Future <void> replaceTeacherSignUp(BuildContext context,TeacherSignUpPatch teacherSignUpPatch) async{
+    final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/');
     try{
-      http.Response response = await http.put(url,
+      http.Response response = await http.patch(url,
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'accept': 'application/json'
         },
         body: json.encode(
             {
-              'user_name': studentAccount.userName,
-              'first_name': studentAccount.firstName,
-              'last_name': studentAccount.lastName,
-              'password': studentAccount.password,
-              'email': studentAccount.email,
-              'phone_number': studentAccount.phoneNumber,
-              "gender": studentAccount.gender,
-              'bio': studentAccount.bio,
-              'country': studentAccount.country,
-              'how_to_know_us': studentAccount.introduction,
-              'birthday': studentAccount.birthDay,
-              'favouriteCourse': studentAccount.favouriteCourse,
+              'first_name': teacherSignUpPatch.firstName,
+              'last_name': teacherSignUpPatch.lastName,
+              'email': teacherSignUpPatch.email,
+              "gender": teacherSignUpPatch.gender,
+              'country': teacherSignUpPatch.country,
+              'introduction': teacherSignUpPatch.introduction,
+              'birth_day': teacherSignUpPatch.birthDay,
+              'id': id,
+              "address": "home sweet home",
+              "bio": "hello this is iliya",
+              "card_number": 5047061042077269,
+              "language": "fucking persian",
+              "latitude": 12321.41214,
+              "longitude": 1221.4124,
+              "phone_number": "+989124182872",
+              "work_history": "working on fucking stack team"
             }
         ),
       );
@@ -86,25 +105,19 @@ class TeacherProvider with ChangeNotifier{
       debugPrint(response.statusCode.toString());
       if(response.body.contains('this username is exist, try another')){
         userNameError = 'This User Name is Exit';
-      }else{
-        goNext(context,Routes.teacherInformationRoutes);
+      }else if(response.statusCode == 200){
+        goNext(context,Routes.teacherInformationSecondRoutes);
       }
-      final newStudentAccount = StudentAccount(
-        password: studentAccount.password,
-        email: studentAccount.email,
-        firstName: studentAccount.firstName,
-        lastName: studentAccount.lastName,
-        phoneNumber: studentAccount.phoneNumber,
-        gender: studentAccount.gender,
-        bio: studentAccount.bio,
-        country: studentAccount.country,
-        introduction: studentAccount.introduction,
-        birthDay: studentAccount.birthDay,
-        favouriteCourse: studentAccount.favouriteCourse,
-        userName: studentAccount.userName,
+      final newTeacherSignUpPatch = TeacherSignUpPatch(
+        email: teacherSignUpPatch.email,
+        firstName: teacherSignUpPatch.firstName,
+        lastName: teacherSignUpPatch.lastName,
+        gender: teacherSignUpPatch.gender,
+        country: teacherSignUpPatch.country,
+        introduction: teacherSignUpPatch.introduction,
+        birthDay: teacherSignUpPatch.birthDay,
       );
-      // _studentAccount.removeAt(0);
-      // _studentAccount.add(newStudentAccount);
+      _teacherAccountPatch.add(newTeacherSignUpPatch);
       notifyListeners();
     }catch(error){
       debugPrint(error.toString());

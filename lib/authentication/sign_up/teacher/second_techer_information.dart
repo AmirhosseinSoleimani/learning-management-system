@@ -1,19 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/sign_up/student/customize_stepper_first_information.dart';
-import 'package:learning_management_system/authentication/sign_up/student/customize_stepper_second_information.dart';
 import 'package:learning_management_system/authentication/sign_up/student/phoneNumber_textFormField.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher/third_teacher_information.dart';
+import 'package:learning_management_system/presentation/resources/assets_manager.dart';
+import 'package:learning_management_system/presentation/resources/color_manager.dart';
+import 'package:learning_management_system/presentation/resources/routes_manager.dart';
 import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
+import '../../../presentation/resources/values_manager.dart';
 import '../../../store/drawer.dart';
 import 'package:country_picker/country_picker.dart';
 import 'google_map.dart';
 
 
 class SecondInformationTeacher extends StatefulWidget {
-  static const routeName = '/second_teacher_information_signup';
   const SecondInformationTeacher({Key? key}) : super(key: key);
 
   @override
@@ -99,35 +101,34 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
 
   @override
   Widget build(BuildContext context) {
-    final studentAccount = Provider.of<StudentProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xffFFFFFF),
+        backgroundColor: ColorManager.white,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
-            size: 20.0,
+            color: ColorManager.black,
+            size: AppSize.s20,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(Routes.teacherInformationRoutes);
           },
         ),
         title: Image.asset(
-          'assets/images/epent.png',
+          ImageAssets.epent,
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.height * 0.08,
         ),
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.black, size: 30.0),
+        iconTheme: IconThemeData(color: ColorManager.black, size: AppSize.s30),
       ),
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xffFFFFFF),
+      backgroundColor: ColorManager.white,
       body: (_isLoading) ? const Center(
         child: CircularProgressIndicator(),
       ) :Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(AppPadding.p16),
         child: Card(
           elevation: 8,
           child: SingleChildScrollView(
@@ -135,7 +136,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 35.0),
+                      vertical: AppPadding.p16, horizontal: 35.0),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.1,

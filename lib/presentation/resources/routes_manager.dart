@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_management_system/authentication/sign_up/teacher/second_techer_information.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher/teacher_sign_up.dart';
 import 'package:learning_management_system/store/homePage/screens/home_page.dart';
 import 'package:learning_management_system/store/shop_page/screens/payment_page.dart';
@@ -12,6 +13,7 @@ class Routes{
   static const String paymentPageRoute = '/paymentPage';
   static const String teacherSignUpRoutes = '/teacherSignUp';
   static const String teacherInformationRoutes = '/teacherInformation';
+  static const String teacherInformationSecondRoutes = '/teacherSecondInformation';
 }
 
 
@@ -28,6 +30,8 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => const TeacherSignUp());
       case Routes.teacherInformationRoutes:
         return MaterialPageRoute(builder: (_) => const InformationTeacherSignUp());
+      case Routes.teacherInformationSecondRoutes:
+        return MaterialPageRoute(builder: (_) => const SecondInformationTeacher());
 
       default:
         return unDefinedRoute();

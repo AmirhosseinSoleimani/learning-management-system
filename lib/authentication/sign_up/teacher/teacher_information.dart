@@ -7,10 +7,11 @@ import 'package:learning_management_system/authentication/sign_up/teacher/custom
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
-import '../../../models/student_account.dart';
+import '../../../models/teacher_signUp_model.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
 import '../../../provider/student_provider.dart';
+import '../../../provider/teacher_provider.dart';
 import '../../../store/drawer.dart';
 
 class InformationTeacherSignUp extends StatefulWidget {
@@ -43,33 +44,29 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
   final _nameFocusNode = FocusNode();
   final _lastNameFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
-  final _bioFocusNode = FocusNode();
 
   String? dropDownValue;
   var items = ['Male', 'Female','No specified'];
 
+  var itemsIntroduction = ['Friends','Social Media',];
+
   final _initValues = {
     'name': '',
     'lastName': '',
-    'bio': ''
+    'email': ''
   };
 
-  var _signupStudent = StudentAccount(
+  var _teacherSignUpPatch = TeacherSignUpPatch(
     firstName: '',
     lastName: '',
-    password: '',
     email: '',
-    phoneNumber: '',
     birthDay: Timestamp.fromDate(DateTime.now()).seconds,
-    bio: '',
     gender: 1,
     introduction: '',
     country: '',
-    favouriteCourse: '',
-    userName: '',
   );
 
-  var _emailError = false;
+  final _emailError = false;
 
   var _isLoading = false;
 
@@ -83,9 +80,7 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
       _isLoading = true;
     });
     try {
-      await Provider.of<StudentProvider>(context, listen: false)
-          .replaceStudentAccount(context,_signupStudent);
-
+      await Provider.of<TeacherProvider>(context, listen: false).replaceTeacherSignUp(context,_teacherSignUpPatch);
     } catch (error) {
       await showDialog(
         context: context,
@@ -109,7 +104,6 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final studentAccount = Provider.of<StudentProvider>(context);
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
@@ -237,19 +231,14 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                             return null;
                           },
                           onSaved: (value) {
-                            _signupStudent = StudentAccount(
+                            _teacherSignUpPatch = TeacherSignUpPatch(
                               firstName: value!,
-                              lastName: _signupStudent.lastName,
-                              password: studentAccount.studentAccount[0].password,
-                              email: _signupStudent.email,
-                              phoneNumber: _signupStudent.phoneNumber,
-                              birthDay: _signupStudent.birthDay,
-                              bio: _signupStudent.bio,
-                              gender: _signupStudent.gender,
-                              introduction: _signupStudent.introduction,
-                              country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse,
-                              userName: studentAccount.studentAccount[0].userName,
+                              lastName: _teacherSignUpPatch.lastName,
+                              email: _teacherSignUpPatch.email,
+                              birthDay: _teacherSignUpPatch.birthDay,
+                              gender: _teacherSignUpPatch.gender,
+                              introduction: _teacherSignUpPatch.introduction,
+                              country: _teacherSignUpPatch.country,
                             );
                           },
                         ),
@@ -292,19 +281,14 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                             return null;
                           },
                           onSaved: (value) {
-                            _signupStudent = StudentAccount(
-                              firstName: _signupStudent.firstName,
+                            _teacherSignUpPatch = TeacherSignUpPatch(
+                              firstName: _teacherSignUpPatch.firstName,
                               lastName: value!,
-                              password: _signupStudent.password,
-                              email: _signupStudent.email,
-                              phoneNumber: _signupStudent.phoneNumber,
-                              birthDay: _signupStudent.birthDay,
-                              bio: _signupStudent.bio,
-                              gender: _signupStudent.gender,
-                              introduction: _signupStudent.introduction,
-                              country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse,
-                              userName: _signupStudent.userName,
+                              email: _teacherSignUpPatch.email,
+                              birthDay: _teacherSignUpPatch.birthDay,
+                              gender: _teacherSignUpPatch.gender,
+                              introduction: _teacherSignUpPatch.introduction,
+                              country: _teacherSignUpPatch.country,
                             );
                           },
                         ),
@@ -340,10 +324,6 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                           focusNode: _emailFocusNode,
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
-                          onFieldSubmitted: (value) {
-                            FocusScope.of(context)
-                                .requestFocus(_bioFocusNode);
-                          },
                           validator: (String? value) {
                             if (value!.isEmpty) {
                               return 'Field is required';
@@ -353,18 +333,14 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                             return null;
                           },
                           onSaved: (value) {
-                            _signupStudent = StudentAccount(
-                              firstName: _signupStudent.firstName,
-                              lastName: _signupStudent.lastName,
-                              password: _signupStudent.password,
+                            _teacherSignUpPatch = TeacherSignUpPatch(
+                              firstName: _teacherSignUpPatch.firstName,
+                              lastName: _teacherSignUpPatch.lastName,
                               email: value!,
-                              country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse,
-                              gender: _signupStudent.gender,
-                              introduction: _signupStudent.introduction,
-                              birthDay: _signupStudent.birthDay,
-                              bio: _signupStudent.bio,
-                              phoneNumber: _signupStudent.phoneNumber, userName: '',
+                              country: _teacherSignUpPatch.country,
+                              gender: _teacherSignUpPatch.gender,
+                              introduction: _teacherSignUpPatch.introduction,
+                              birthDay: _teacherSignUpPatch.birthDay,
                             );
                           },
                         ),
@@ -433,19 +409,14 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                               if(newValue == 'Male'){
                                 setState(() {
                                   dropDownValue = newValue!;
-                                  _signupStudent = StudentAccount(
-                                    firstName: _signupStudent.firstName,
-                                    lastName: _signupStudent.lastName,
-                                    password: _signupStudent.password,
-                                    email: _signupStudent.email,
-                                    phoneNumber: _signupStudent.phoneNumber,
-                                    birthDay: _signupStudent.birthDay,
-                                    bio: _signupStudent.bio,
+                                  _teacherSignUpPatch = TeacherSignUpPatch(
+                                    firstName: _teacherSignUpPatch.firstName,
+                                    lastName: _teacherSignUpPatch.lastName,
+                                    email: _teacherSignUpPatch.email,
+                                    birthDay: _teacherSignUpPatch.birthDay,
                                     gender: 1,
-                                    introduction: _signupStudent.introduction,
-                                    country: _signupStudent.country,
-                                    favouriteCourse: _signupStudent.favouriteCourse,
-                                    userName: _signupStudent.userName,
+                                    introduction: _teacherSignUpPatch.introduction,
+                                    country: _teacherSignUpPatch.country,
                                   );
                                 });
                               }
@@ -453,19 +424,14 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                                 {
                                   setState(() {
                                     dropDownValue = newValue!;
-                                    _signupStudent = StudentAccount(
-                                      firstName: _signupStudent.firstName,
-                                      lastName: _signupStudent.lastName,
-                                      password: _signupStudent.password,
-                                      email: _signupStudent.email,
-                                      phoneNumber: _signupStudent.phoneNumber,
-                                      birthDay: _signupStudent.birthDay,
-                                      bio: _signupStudent.bio,
+                                    _teacherSignUpPatch = TeacherSignUpPatch(
+                                      firstName: _teacherSignUpPatch.firstName,
+                                      lastName: _teacherSignUpPatch.lastName,
+                                      email: _teacherSignUpPatch.email,
+                                      birthDay: _teacherSignUpPatch.birthDay,
                                       gender: 0,
-                                      introduction: _signupStudent.introduction,
-                                      country: _signupStudent.country,
-                                      favouriteCourse: _signupStudent.favouriteCourse,
-                                      userName: _signupStudent.userName,
+                                      introduction: _teacherSignUpPatch.introduction,
+                                      country: _teacherSignUpPatch.country,
                                     );
                                   });
                                 }
@@ -473,19 +439,14 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                               else{
                                 setState(() {
                                   dropDownValue = newValue!;
-                                  _signupStudent = StudentAccount(
-                                    firstName: _signupStudent.firstName,
-                                    lastName: _signupStudent.lastName,
-                                    password: _signupStudent.password,
-                                    email: _signupStudent.email,
-                                    phoneNumber: _signupStudent.phoneNumber,
-                                    birthDay: _signupStudent.birthDay,
-                                    bio: _signupStudent.bio,
+                                  _teacherSignUpPatch = TeacherSignUpPatch(
+                                    firstName: _teacherSignUpPatch.firstName,
+                                    lastName: _teacherSignUpPatch.lastName,
+                                    email: _teacherSignUpPatch.email,
+                                    birthDay: _teacherSignUpPatch.birthDay,
                                     gender: 3,
-                                    introduction: _signupStudent.introduction,
-                                    country: _signupStudent.country,
-                                    favouriteCourse: _signupStudent.favouriteCourse,
-                                    userName: _signupStudent.userName,
+                                    introduction: _teacherSignUpPatch.introduction,
+                                    country: _teacherSignUpPatch.country,
                                   );
                                 });
                               }
@@ -532,24 +493,20 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                                       initialValue: 'Birthday Date',
                                       firstDate: DateTime(1950),
                                       lastDate: DateTime.now(),
-                                      onChanged: (val) => print(val),
+                                      onChanged: (val) => debugPrint(val),
                                       validator: (val) {
-                                        print(val);
+                                        debugPrint(val);
                                         return null;
                                       },
                                       onSaved: (val){
-                                        _signupStudent = StudentAccount(
-                                          firstName: studentAccount.studentAccount[0].firstName,
-                                          lastName: studentAccount.studentAccount[0].lastName,
-                                          password: studentAccount.studentAccount[0].password,
-                                          email: studentAccount.studentAccount[0].email,
-                                          phoneNumber: studentAccount.phoneNumberTextFormField!,
+                                        _teacherSignUpPatch = TeacherSignUpPatch(
+                                          firstName: _teacherSignUpPatch.firstName,
+                                          lastName: _teacherSignUpPatch.lastName,
+                                          email: _teacherSignUpPatch.email,
                                           birthDay: Timestamp.fromDate(DateTime.parse(val!)).seconds,
-                                          bio: studentAccount.studentAccount[0].bio,
-                                          gender: studentAccount.studentAccount[0].gender,
-                                          introduction: _signupStudent.introduction,
-                                          country: _signupStudent.country,
-                                          favouriteCourse: _signupStudent.favouriteCourse, userName: '',
+                                          gender: _teacherSignUpPatch.gender,
+                                          introduction: _teacherSignUpPatch.introduction,
+                                          country: _teacherSignUpPatch.country,
                                         );
                                       },
                                     ):
@@ -586,18 +543,14 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                                 setState((){
                                   country = value.name;
                                   icon = value.flagEmoji;
-                                  _signupStudent = StudentAccount(
-                                    firstName: _signupStudent.firstName,
-                                    lastName: _signupStudent.lastName,
-                                    password: _signupStudent.password,
-                                    email: _signupStudent.email,
-                                    phoneNumber: _signupStudent.phoneNumber,
-                                    birthDay: _signupStudent.birthDay,
-                                    bio: _signupStudent.bio,
-                                    gender: _signupStudent.gender,
-                                    introduction: _signupStudent.introduction,
+                                  _teacherSignUpPatch = TeacherSignUpPatch(
+                                    firstName: _teacherSignUpPatch.firstName,
+                                    lastName: _teacherSignUpPatch.lastName,
+                                    email: _teacherSignUpPatch.email,
+                                    birthDay: _teacherSignUpPatch.birthDay,
+                                    gender: _teacherSignUpPatch.gender,
+                                    introduction: _teacherSignUpPatch.introduction,
                                     country: value.displayName,
-                                    favouriteCourse: _signupStudent.favouriteCourse, userName: '',
                                   );
                                 });
                               },
@@ -706,7 +659,7 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                               size: 28,
                               color: ColorManager.lightSteelBlue1,
                             ),
-                            items: items.map((String items) {
+                            items: itemsIntroduction.map((String items) {
                               return DropdownMenuItem(
                                 value: items,
                                 child: Text(
@@ -721,18 +674,14 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                             onChanged: (String? newValue) {
                               setState(() {
                                 dropDownValue = newValue!;
-                                _signupStudent = StudentAccount(
-                                  firstName: _signupStudent.firstName,
-                                  lastName: _signupStudent.lastName,
-                                  password: _signupStudent.password,
-                                  email: _signupStudent.email,
-                                  phoneNumber: _signupStudent.phoneNumber,
-                                  birthDay: _signupStudent.birthDay,
-                                  bio: _signupStudent.bio,
-                                  gender: _signupStudent.gender,
+                                _teacherSignUpPatch = TeacherSignUpPatch(
+                                  firstName: _teacherSignUpPatch.firstName,
+                                  lastName: _teacherSignUpPatch.lastName,
+                                  email: _teacherSignUpPatch.email,
+                                  birthDay: _teacherSignUpPatch.birthDay,
+                                  gender: _teacherSignUpPatch.gender,
                                   introduction: newValue,
-                                  country: _signupStudent.country,
-                                  favouriteCourse: _signupStudent.favouriteCourse, userName: '',
+                                  country: _teacherSignUpPatch.country,
                                 );
 
 
@@ -752,13 +701,7 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                         ),
                         child: TextButton(
                             onPressed: (){
-                              // _saveForm();
-                              // _emailError = true;
-                              // Future.delayed(const Duration(seconds: 5), () {
-                              //   setState((){
-                              //     _emailError = false;
-                              //   });
-                              // });
+                              _saveForm();
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all<Color>(ColorManager.primary,
