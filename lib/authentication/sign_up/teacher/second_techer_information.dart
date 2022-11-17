@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:learning_management_system/authentication/customize_stepper_information.dart';
 import 'package:learning_management_system/authentication/sign_up/student/phoneNumber_textFormField.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher/third_teacher_information.dart';
@@ -166,252 +167,207 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10.0,
+                  height: AppSize.s10,
                 ),
-                const Text(
+                Text(
                   'Information',
                   style: TextStyle(
                       fontSize: 30.0,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xff3F3D56)),
+                      color: ColorManager.slateGray2),
                 ),
                 const SizedBox(
-                  height: 10.0,
+                  height: AppSize.s10
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.42,
-                  width: double.infinity,
-                  child: Form(
-                    key: _form,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: [
-                          const PhoneNumberTextFormField(),
-                          const SizedBox(
-                            height: 10.0,
-                          ),
-                          const SizedBox(
-                            height: 10.0,
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(10.0),
-                                  borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Color(0xffD9D9D9)
-                                  ),
+                Form(
+                  key: _form,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                    child: ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children: [
+                        const PhoneNumberTextFormField(),
+                        const SizedBox(
+                          height: AppSize.s10,
+                        ),
+                        const SizedBox(
+                          height: AppSize.s10,
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.circular(AppSize.s10),
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: ColorManager.lightSteelBlue2
                                 ),
-                                hintText: 'Address',
-                                hintStyle: const TextStyle(
-                                    fontSize: 16.0,
-                                    color: Color(0xff7E7979)
-                                ),
-                                prefixIcon: const Icon(
-                                  Icons.directions,
-                                  size: 28.0,
-                                  color: Color(0xff7E7979),
-                                )
-                            ),
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Field is required';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                              _signupStudent = StudentAccount(
-                                userName: value!,
-                                firstName: _signupStudent.firstName,
-                                lastName: _signupStudent.lastName,
-                                password: _signupStudent.password,
-                                email: _signupStudent.email,
-                                country: _signupStudent.country,
-                                favouriteCourse: _signupStudent.favouriteCourse,
-                                gender: _signupStudent.gender,
-                                introduction: _signupStudent.introduction,
-                                birthDay: _signupStudent.birthDay,
-                                bio: _signupStudent.bio,
-                                phoneNumber: _signupStudent.phoneNumber,
-                              );
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          Container(
-                            height: 55.0,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1, 
-                                  color: const Color(0xffD9D9D9),
                               ),
-                              borderRadius: BorderRadius.circular(10.0)
-                            ),
-                            child: GestureDetector(
-                              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => GoogleMapPage())),
-                              child: Row(
-                                children: const [
-                                  Icon(Icons.location_on),
-                                  Text('Add Location')
-                                ],
+                              hintText: 'Address',
+                              hintStyle: TextStyle(
+                                  fontSize: 16.0,
+                                  color: ColorManager.lightSteelBlue1
                               ),
-                            )
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(AppPadding.p12),
+                                child: SvgPicture.asset(
+                                  IconAssets.address
+                                ),
+                              )
                           ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(10.0),
-                                  borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Color(0xffD9D9D9)
-                                  ),
-                                ),
-                                hintText: 'Add Location',
-                                hintStyle: const TextStyle(
-                                    fontSize: 16.0,
-                                    color: Color(0xff7E7979)
-                                ),
-                                prefixIcon: const Icon(
-                                  Icons.location_on,
-                                  size: 28.0,
-                                  color: Color(0xff7E7979),
-                                )
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Field is required';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _signupStudent = StudentAccount(
+                              userName: value!,
+                              firstName: _signupStudent.firstName,
+                              lastName: _signupStudent.lastName,
+                              password: _signupStudent.password,
+                              email: _signupStudent.email,
+                              country: _signupStudent.country,
+                              favouriteCourse: _signupStudent.favouriteCourse,
+                              gender: _signupStudent.gender,
+                              introduction: _signupStudent.introduction,
+                              birthDay: _signupStudent.birthDay,
+                              bio: _signupStudent.bio,
+                              phoneNumber: _signupStudent.phoneNumber,
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          height: AppSize.s20,
+                        ),
+                        Container(
+                          height: 55.0,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1,
+                                color: ColorManager.lightSteelBlue2,
                             ),
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Field is required';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                              _signupStudent = StudentAccount(
-                                userName: value!,
-                                firstName: _signupStudent.firstName,
-                                lastName: _signupStudent.lastName,
-                                password: _signupStudent.password,
-                                email: _signupStudent.email,
-                                country: _signupStudent.country,
-                                favouriteCourse: _signupStudent.favouriteCourse,
-                                gender: _signupStudent.gender,
-                                introduction: _signupStudent.introduction,
-                                birthDay: _signupStudent.birthDay,
-                                bio: _signupStudent.bio,
-                                phoneNumber: _signupStudent.phoneNumber,
-                              );
-                            },
+                            borderRadius: BorderRadius.circular(AppSize.s10)
                           ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(10.0),
-                                  borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Color(0xffD9D9D9)
-                                  ),
+                          child: GestureDetector(
+                            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => GoogleMapPage())),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(AppPadding.p12),
+                                  child: SvgPicture.asset(IconAssets.location),
                                 ),
-                                hintText: 'financial information',
-                                hintStyle: const TextStyle(
-                                    fontSize: 16.0,
-                                    color: Color(0xff7E7979)
-                                ),
-                                prefixIcon: const Icon(
-                                  Icons.money,
-                                  size: 28.0,
-                                  color: Color(0xff7E7979),
+                                const Text(
+                                    'Add Location',
                                 )
+                              ],
                             ),
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Field is required';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                              _signupStudent = StudentAccount(
-                                userName: value!,
-                                firstName: _signupStudent.firstName,
-                                lastName: _signupStudent.lastName,
-                                password: _signupStudent.password,
-                                email: _signupStudent.email,
-                                country: _signupStudent.country,
-                                favouriteCourse: _signupStudent.favouriteCourse,
-                                gender: _signupStudent.gender,
-                                introduction: _signupStudent.introduction,
-                                birthDay: _signupStudent.birthDay,
-                                bio: _signupStudent.bio,
-                                phoneNumber: _signupStudent.phoneNumber,
-                              );
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(10.0),
-                                  borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Color(0xffD9D9D9)
-                                  ),
+                          )
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    width: 1,
+                                    color: Color(0xffD9D9D9)
                                 ),
-                                hintText: 'Via Card Number',
-                                hintStyle: const TextStyle(
-                                    fontSize: 16.0,
-                                    color: Color(0xff7E7979)
+                              ),
+                              hintText: 'financial information',
+                              hintStyle: const TextStyle(
+                                  fontSize: 16.0,
+                                  color: Color(0xff7E7979)
+                              ),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(AppPadding.p12),
+                                child: SvgPicture.asset(IconAssets.financial),
+                              )
+                          ),
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Field is required';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _signupStudent = StudentAccount(
+                              userName: value!,
+                              firstName: _signupStudent.firstName,
+                              lastName: _signupStudent.lastName,
+                              password: _signupStudent.password,
+                              email: _signupStudent.email,
+                              country: _signupStudent.country,
+                              favouriteCourse: _signupStudent.favouriteCourse,
+                              gender: _signupStudent.gender,
+                              introduction: _signupStudent.introduction,
+                              birthDay: _signupStudent.birthDay,
+                              bio: _signupStudent.bio,
+                              phoneNumber: _signupStudent.phoneNumber,
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    width: 1,
+                                    color: Color(0xffD9D9D9)
                                 ),
-                                prefixIcon: const Icon(
-                                  Icons.credit_card_outlined,
-                                  size: 28.0,
-                                  color: Color(0xff7E7979),
-                                )
-                            ),
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Field is required';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                              _signupStudent = StudentAccount(
-                                userName: value!,
-                                firstName: _signupStudent.firstName,
-                                lastName: _signupStudent.lastName,
-                                password: _signupStudent.password,
-                                email: _signupStudent.email,
-                                country: _signupStudent.country,
-                                favouriteCourse: _signupStudent.favouriteCourse,
-                                gender: _signupStudent.gender,
-                                introduction: _signupStudent.introduction,
-                                birthDay: _signupStudent.birthDay,
-                                bio: _signupStudent.bio,
-                                phoneNumber: _signupStudent.phoneNumber,
-                              );
-                            },
+                              ),
+                              hintText: 'Via Card Number',
+                              hintStyle: const TextStyle(
+                                  fontSize: 16.0,
+                                  color: Color(0xff7E7979)
+                              ),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(AppPadding.p12),
+                                child: SvgPicture.asset(IconAssets.visaCard),
+                              )
                           ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                        ],
-                      ),
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Field is required';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _signupStudent = StudentAccount(
+                              userName: value!,
+                              firstName: _signupStudent.firstName,
+                              lastName: _signupStudent.lastName,
+                              password: _signupStudent.password,
+                              email: _signupStudent.email,
+                              country: _signupStudent.country,
+                              favouriteCourse: _signupStudent.favouriteCourse,
+                              gender: _signupStudent.gender,
+                              introduction: _signupStudent.introduction,
+                              birthDay: _signupStudent.birthDay,
+                              bio: _signupStudent.bio,
+                              phoneNumber: _signupStudent.phoneNumber,
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                      ],
                     ),
                   ),
                 ),

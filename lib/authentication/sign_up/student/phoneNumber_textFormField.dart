@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:learning_management_system/presentation/resources/assets_manager.dart';
+import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -361,18 +364,20 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
             initialValue: _initValues['phoneNumber'],
             decoration: InputDecoration(
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(AppSize.s10),
                   borderSide:
                       const BorderSide(width: 2, color: Color(0xffD9D9D9)),
                 ),
                 hintText: 'PhoneNumber',
                 hintStyle:
                     const TextStyle(fontSize: 16.0, color: Color(0xff7E7979)),
-                prefixIcon: const Icon(
-                  Icons.phone_android_outlined,
-                  size: 28.0,
-                  color: Color(0xff7E7979),
-                )),
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(AppPadding.p12),
+                  child: SvgPicture.asset(
+                    IconAssets.phone
+                  ),
+                )
+            ),
             focusNode: _phoneNumberFocusNode,
             keyboardType: TextInputType.number,
             textInputAction: TextInputAction.next,

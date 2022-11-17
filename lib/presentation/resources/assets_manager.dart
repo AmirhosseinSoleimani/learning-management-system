@@ -46,6 +46,11 @@ class IconAssets{
   static const String email = '$iconPath/teacherSignUp/email.svg';
   static const String gender = '$iconPath/teacherSignUp/gender.svg';
   static const String calendar = '$iconPath/teacherSignUp/calendar.svg';
+  static const String phone = '$iconPath/teacherSignUp/phone.svg';
+  static const String address = '$iconPath/teacherSignUp/address.svg';
+  static const String location = '$iconPath/teacherSignUp/location.svg';
+  static const String financial = '$iconPath/teacherSignUp/financial.svg';
+  static const String visaCard = '$iconPath/teacherSignUp/visaCard.svg';
 
 
 
