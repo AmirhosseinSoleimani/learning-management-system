@@ -13,10 +13,28 @@ class TeacherSignUpPatch{
   int? birthDay;
   String? country;
   String? introduction;
-  String phoneNumber;
+  String? phoneNumber;
+  String? address;
+  double? latitude;
+  double? longitude;
+  String? financial;
+  int? cardNumber;
 
-
-  TeacherSignUpPatch({this.firstName,this.lastName,this.email,this.gender,this.birthDay,this.country,this.introduction});
+  TeacherSignUpPatch({
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.gender,
+    this.birthDay,
+    this.country,
+    this.introduction,
+    this.phoneNumber,
+    this.address,
+    this.latitude,
+    this.longitude,
+    this.financial,
+    this.cardNumber
+  });
 }
 
 class TeacherSignUpGeneral{
