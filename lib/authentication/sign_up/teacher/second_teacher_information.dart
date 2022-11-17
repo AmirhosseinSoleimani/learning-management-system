@@ -8,6 +8,7 @@ import 'package:learning_management_system/presentation/resources/assets_manager
 import 'package:learning_management_system/presentation/resources/color_manager.dart';
 import 'package:learning_management_system/presentation/resources/routes_manager.dart';
 import 'package:learning_management_system/provider/student_provider.dart';
+import 'package:learning_management_system/provider/teacher_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
 import '../../../presentation/resources/values_manager.dart';
@@ -63,6 +64,8 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
   );
 
   var _isLoading = false;
+
+
 
 
 
@@ -249,42 +252,65 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                           decoration: BoxDecoration(
                             border: Border.all(
                                 width: 1,
-                                color: ColorManager.lightSteelBlue2,
+                                color: ColorManager.lightSteelBlue1,
                             ),
                             borderRadius: BorderRadius.circular(AppSize.s10)
                           ),
                           child: GestureDetector(
-                            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => GoogleMapPage())),
-                            child: Row(
+                            onTap: (){
+                              Navigator.of(context).pushReplacementNamed(Routes.googleMap);
+                            },
+                            child:(Provider.of<TeacherProvider>(context).isLocation) ? Row(
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(AppPadding.p12),
                                   child: SvgPicture.asset(IconAssets.location),
                                 ),
-                                const Text(
+                                Text(
+                                  Provider.of<TeacherProvider>(context).defaultLatitude.toString()
+                                ),
+                                const SizedBox(
+                                  width: 5.0,
+                                ),
+                                Text(
+                                    Provider.of<TeacherProvider>(context).defaultLongitude.toString()
+                                ),
+                              ],
+                            ): Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(AppPadding.p12),
+                                  child: SvgPicture.asset(IconAssets.location),
+                                ),
+                                Text(
                                     'Add Location',
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: ColorManager.lightSteelBlue1,
+                                    fontWeight: FontWeight.w400
+                                  ),
                                 )
                               ],
                             ),
                           )
                         ),
                         const SizedBox(
-                          height: 20.0,
+                          height: AppSize.s20,
                         ),
                         TextFormField(
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
+                                BorderRadius.circular(AppSize.s10),
+                                borderSide: BorderSide(
                                     width: 1,
-                                    color: Color(0xffD9D9D9)
+                                    color: ColorManager.lightSteelBlue2
                                 ),
                               ),
                               hintText: 'financial information',
-                              hintStyle: const TextStyle(
+                              hintStyle: TextStyle(
                                   fontSize: 16.0,
-                                  color: Color(0xff7E7979)
+                                  color: ColorManager.lightSteelBlue1
                               ),
                               prefixIcon: Padding(
                                 padding: const EdgeInsets.all(AppPadding.p12),
@@ -317,29 +343,29 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                           },
                         ),
                         const SizedBox(
-                          height: 20.0,
+                          height: AppSize.s20,
                         ),
                         TextFormField(
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
+                                BorderRadius.circular(AppSize.s10),
+                                borderSide: BorderSide(
                                     width: 1,
-                                    color: Color(0xffD9D9D9)
+                                    color: ColorManager.lightSteelBlue2
                                 ),
                               ),
                               hintText: 'Via Card Number',
-                              hintStyle: const TextStyle(
+                              hintStyle: TextStyle(
                                   fontSize: 16.0,
-                                  color: Color(0xff7E7979)
+                                  color: ColorManager.lightSteelBlue1
                               ),
                               prefixIcon: Padding(
                                 padding: const EdgeInsets.all(AppPadding.p12),
                                 child: SvgPicture.asset(IconAssets.visaCard),
                               )
                           ),
-                          keyboardType: TextInputType.text,
+                          keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
@@ -383,7 +409,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                         Navigator.pushNamed(context, ThirdInformationStudentSignUp.routeName);
                       },
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
+                          backgroundColor: MaterialStateProperty.all<Color>(ColorManager.primary,
                           ),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
@@ -391,8 +417,8 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                               )
                           )
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 30,
                         ),
                         child: Text(
@@ -400,7 +426,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                           style: TextStyle(
                               fontSize: 22.0,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xffFFFFFF)
+                              color: ColorManager.white
                           ),
                         ),
                       )

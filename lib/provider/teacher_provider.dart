@@ -4,6 +4,7 @@ import 'package:learning_management_system/presentation/resources/routes_manager
 import '../models/student_account.dart';
 import 'package:http/http.dart' as http;
 import '../models/teacher_signUp_model.dart';
+import 'package:geolocator/geolocator.dart';
 
 class TeacherProvider with ChangeNotifier{
   final List<TeacherSignUpPost> _teacherAccountPost = [];
@@ -24,6 +25,10 @@ class TeacherProvider with ChangeNotifier{
   String id = '';
 
   String? phoneNumberTextFormField;
+
+  bool isLocation = false;
+  double defaultLatitude = 35.715298;
+  double defaultLongitude = 51.404343;
 
   List<String> favouriteCourseList = [];
 
@@ -107,6 +112,7 @@ class TeacherProvider with ChangeNotifier{
         userNameError = 'This User Name is Exit';
       }else if(response.statusCode == 200){
         goNext(context,Routes.teacherInformationSecondRoutes);
+        isLocation = false;
       }
       final newTeacherSignUpPatch = TeacherSignUpPatch(
         email: teacherSignUpPatch.email,
@@ -122,6 +128,14 @@ class TeacherProvider with ChangeNotifier{
     }catch(error){
       debugPrint(error.toString());
     }
+  }
+
+  Future<void> selectedLocation(BuildContext context,Position position) async{
+
+    defaultLatitude = position.latitude;
+    defaultLongitude = position.longitude;
+    goNext(context,Routes.teacherInformationSecondRoutes);
+    isLocation = true;
   }
 
   Future<void> postData(StudentAccount studentAccount) async {

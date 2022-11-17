@@ -13,6 +13,9 @@ class TeacherSignUpPatch{
   int? birthDay;
   String? country;
   String? introduction;
+  String phoneNumber;
+
+
   TeacherSignUpPatch({this.firstName,this.lastName,this.email,this.gender,this.birthDay,this.country,this.introduction});
 }
 

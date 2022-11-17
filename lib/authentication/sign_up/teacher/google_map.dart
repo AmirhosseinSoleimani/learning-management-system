@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:learning_management_system/presentation/resources/assets_manager.dart';
+import 'package:learning_management_system/presentation/resources/values_manager.dart';
+import 'package:learning_management_system/provider/teacher_provider.dart';
+import 'package:provider/provider.dart';
 import '../../../presentation/resources/color_manager.dart';
+import '../../../presentation/resources/routes_manager.dart';
 
 
 class GoogleMapPage extends StatefulWidget {
@@ -61,28 +67,38 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xffFFFFFF),
+        backgroundColor: ColorManager.white,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
-            size: 20.0,
+            color: ColorManager.black,
+            size: AppSize.s20,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(Routes.teacherInformationSecondRoutes);
           },
         ),
         title: Image.asset(
-          'assets/images/epent.png',
+          ImageAssets.epent,
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.height * 0.08,
         ),
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.black, size: 30.0),
+        iconTheme: IconThemeData(color: ColorManager.black, size: AppSize.s30),
         actions: [
-          IconButton(
-              onPressed: (){},
-              icon: const Icon(Icons.save),
+          TextButton(
+              onPressed: () async{
+                Position position = await _determinePosition();
+                Provider.of<TeacherProvider>(context,listen: false).selectedLocation(context, position);
+              },
+              child: Text(
+                'Save',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: ColorManager.primary,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
           )
         ],
       ),
@@ -97,8 +113,10 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
             },
           ),
           Positioned(
+            bottom: 100,
+            right: -5,
             child: Container(
-              padding: const EdgeInsets.only(top: 24.0,right: 12.0),
+              padding: const EdgeInsets.only(top: 24.0,right: AppPadding.p12),
               alignment: Alignment.topRight,
               child: Column(
                 children: [
@@ -133,12 +151,12 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
 
                       },
                       icon: CircleAvatar(
-                        radius: 30.0,
+                        radius: 40.0,
                           backgroundColor: ColorManager.white,
-                          child: Icon(
-                            Icons.location_on_sharp,
-                            color: Color(0xffd10a0a),
-                          ),
+                          child: SvgPicture.asset(
+                            IconAssets.location,
+                            color: ColorManager.primary,
+                          )
                       ),
                   ),
 
