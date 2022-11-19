@@ -1,157 +1,202 @@
 import 'package:flutter/material.dart';
-import 'sign_up/my_separator.dart';
+import 'package:learning_management_system/presentation/resources/values_manager.dart';
+import '../presentation/resources/color_manager.dart';
 
-class CustomizeStepperSecondInformation extends StatelessWidget {
-  const CustomizeStepperSecondInformation({Key? key}) : super(key: key);
+
+class CustomizeSecondStepperInformation extends StatelessWidget {
+  const CustomizeSecondStepperInformation({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: [
-          Row(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              SizedBox(
-                width: 25,
-                height: 35,
-                child: CircleAvatar(
-                  backgroundColor: Color(0xff5DBF23),
-                  child: Icon(
-                    Icons.done,
-                    color: Colors.white,
-                    size: 25.0,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: 25,
+                        height: 35,
+                        child: CircleAvatar(
+                          backgroundColor: ColorManager.green,
+                          child: CircleAvatar(
+                            backgroundColor: ColorManager.green,
+                            child: Icon(
+                              Icons.done,
+                              color: ColorManager.white,
+                              size: 25.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'Sign Up',
+                        style: TextStyle(
+                            color: ColorManager.white,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      const SizedBox(
+                        height: AppSize.s8,
+                      ),
+                      SizedBox(
+                        width: 50,
+                        height: 1,
+                        child: Divider(
+                          thickness: 5,
+                          color: ColorManager.primary,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-              SizedBox(
-                width: 60,
-                height: 35,
-                child: MySeparator(
-                  color: Color(0xffD9D9D9),
-                ),
-              ),
-              SizedBox(
-                width: 25,
-                height: 35,
-                child: CircleAvatar(
-                  backgroundColor: Color(0xff5DBF23),
-                  child: Icon(
-                    Icons.done,
-                    color: Colors.white,
-                    size: 25.0,
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: 25,
+                        height: 35,
+                        child: CircleAvatar(
+                          backgroundColor: ColorManager.green,
+                          child: Icon(
+                            Icons.done,
+                            color: ColorManager.white,
+                            size: 25.0,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'Information',
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold,
+                          color: ColorManager.white,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      const SizedBox(
+                        height: AppSize.s8,
+                      ),
+                      SizedBox(
+                        width: 75,
+                        height: 1,
+                        child: Divider(
+                          thickness: 5,
+                          color: ColorManager.primary,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: 25,
+                        height: 35,
+                        child: CircleAvatar(
+                          backgroundColor: ColorManager.green,
+                          child: null,
+                        ),
+                      ),
+                      Text(
+                        'Information',
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold,
+                          color: ColorManager.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: AppSize.s8,
+                      ),
+                      SizedBox(
+                        width: 75,
+                        height: 1,
+                        child: Divider(
+                          thickness: 5,
+                          color: ColorManager.green,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: 25,
+                        height: 35,
+                        child: CircleAvatar(
+                            backgroundColor: ColorManager.lightSteelBlue2,
+                            child: null
+                        ),
+                      ),
+                      Text(
+                        'Favourite',
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w400,
+                          color: ColorManager.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: AppSize.s8,
+                      ),
+                      SizedBox(
+                        width: 50,
+                        height: 1,
+                        child: Divider(
+                          thickness: 5,
+                          color: ColorManager.primary,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
-              SizedBox(
-                width: 60,
-                height: 35,
-                child: MySeparator(
-                  color: Color(0xffD9D9D9),
-                ),
-              ),
-              SizedBox(
-                width: 25,
-                height: 35,
-                child: CircleAvatar(
-                  backgroundColor: Color(0xff5DBF23),
-                  child: null,
-                ),
-              ),
-              SizedBox(
-                width: 60,
-                height: 35,
-                child: MySeparator(
-                  color: Color(0xffD9D9D9),
-                ),
-              ),
-              SizedBox(
-                width: 25,
-                height: 35,
-                child: CircleAvatar(
-                    backgroundColor: Color(0xffD9D9D9),
-                    child: null),
-              )
             ],
           ),
-          const SizedBox(
-            height: 10.0,
+          Positioned(
+            top: 43.5,
+            left: 37.5,
+            child: SizedBox(
+              width: 55,
+              height: 35,
+              child: Divider(
+                thickness: 2.0,
+                color: ColorManager.lightSteelBlue2,
+              ),
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.0),
-                child: Text(
-                  'Sign Up',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.left,
-                ),
+          Positioned(
+            top: 43.5,
+            left: 117.5,
+            child: SizedBox(
+              width: 66.8,
+              height: 35,
+              child: Divider(
+                thickness: 2.0,
+                color: ColorManager.lightSteelBlue2,
               ),
-              SizedBox(
-                width: 20.0,
-              ),
-              Text(
-                'Information',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.left,
-              ),
-              SizedBox(
-                width: 13.0,
-              ),
-              Text(
-                'Information',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                width: 15.0,
-              ),
-              Text(
-                'Favourite',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ],
+            ),
           ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Padding(
-                padding: EdgeInsets.only(left: 90),
-                child: SizedBox(
-                  width: 75,
-                  height: 1,
-                  child: Divider(
-                    thickness: 5,
-                    color: Color(0xff5DBF23),
-                  ),
-                ),
+          Positioned(
+            top: 43.5,
+            left: 210.0,
+            child: SizedBox(
+              width: 65,
+              height: 35,
+              child: Divider(
+                thickness: 2.0,
+                color: ColorManager.lightSteelBlue2,
               ),
-            ],
+            ),
           ),
         ],
       ),

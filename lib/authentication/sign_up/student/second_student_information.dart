@@ -157,7 +157,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                             topLeft: Radius.circular(10.0))),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.2,
-                    child: const CustomizeStepperSecondInformation(),
+                    child: const CustomizeSecondStepperInformation(),
                   ),
                 ),
                 const SizedBox(

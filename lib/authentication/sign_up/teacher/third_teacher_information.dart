@@ -14,6 +14,7 @@ import '../../../presentation/resources/routes_manager.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 import '../../customize_stepper_information.dart';
+import '../../customize_stepper_second_information.dart';
 
 
 class ThirdInformationStudentSignUp extends StatefulWidget {
@@ -174,7 +175,7 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
                       ),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.2,
-                      child: const CustomizeStepperInformation()
+                      child: const CustomizeSecondStepperInformation()
                   ),
                 ),
                 const SizedBox(
