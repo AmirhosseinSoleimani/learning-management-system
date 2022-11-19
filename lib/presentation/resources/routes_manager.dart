@@ -4,6 +4,7 @@ import 'package:learning_management_system/authentication/sign_up/teacher/teache
 import 'package:learning_management_system/store/homePage/screens/home_page.dart';
 import 'package:learning_management_system/store/shop_page/screens/payment_page.dart';
 import '../../authentication/sign_up/teacher/google_map.dart';
+import '../../authentication/sign_up/teacher/teacher_favourite.dart';
 import '../../authentication/sign_up/teacher/teacher_information.dart';
 import '../../authentication/sign_up/teacher/third_teacher_information.dart';
 import '../../presentation/resources/string_manager.dart';
@@ -18,6 +19,7 @@ class Routes{
   static const String teacherInformationSecondRoutes = '/teacherSecondInformation';
   static const String googleMap = '/googleMap';
   static const String teacherInformationThirdRoutes = '/teacherThirdInformation';
+  static const String teacherFavouriteRoutes = '/teacherFavourite';
 }
 
 
@@ -41,6 +43,8 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => const GoogleMapPage());
       case Routes.teacherInformationThirdRoutes:
         return MaterialPageRoute(builder: (_) => const ThirdInformationStudentSignUp());
+      case Routes.teacherFavouriteRoutes:
+        return MaterialPageRoute(builder: (_) => const FavouriteTeacher());
       default:
         return unDefinedRoute();
     }

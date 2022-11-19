@@ -19,6 +19,9 @@ class TeacherSignUpPatch{
   double? longitude;
   String? financial;
   int? cardNumber;
+  String? language;
+  String? bio;
+  String? workHistory;
 
   TeacherSignUpPatch({
     this.firstName,
@@ -33,7 +36,10 @@ class TeacherSignUpPatch{
     this.latitude,
     this.longitude,
     this.financial,
-    this.cardNumber
+    this.cardNumber,
+    this.workHistory,
+    this.language,
+    this.bio,
   });
 }
 

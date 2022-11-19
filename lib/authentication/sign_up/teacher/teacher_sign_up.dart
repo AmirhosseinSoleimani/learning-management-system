@@ -7,7 +7,6 @@ import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
 import '../../../presentation/resources/string_teacherSignUp/string_teacherSignUp.dart';
 import '../../../presentation/resources/values_manager.dart';
-import '../../../provider/student_provider.dart';
 import '../../../provider/teacher_provider.dart';
 import '../../../store/drawer.dart';
 
@@ -116,7 +115,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
         iconTheme: IconThemeData(color: ColorManager.black, size: AppSize.s30),
       ),
       endDrawer: const DrawerAppBar(),
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: ColorManager.white,
       body: (_isLoading) ? const Center(
         child: CircularProgressIndicator(),
@@ -288,7 +287,6 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                         // Navigator.pushNamed(context, InformationTeacherSignUp.routeName);
                         await _saveForm();
                         errorView();
-                        print(userNameError);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

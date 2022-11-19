@@ -1,19 +1,18 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:learning_management_system/authentication/sign_up/teacher/teacher_resume.dart';
+import 'package:learning_management_system/models/teacher_signUp_model.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/presentation/resources/color_manager.dart';
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
+import 'package:learning_management_system/provider/teacher_provider.dart';
 import 'package:provider/provider.dart';
-import '../../../models/student_account.dart';
-import '../../../models/student_signUp_put_model.dart';
 import '../../../presentation/resources/routes_manager.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
-import '../../customize_stepper_information.dart';
 import '../../customize_stepper_second_information.dart';
 
 
@@ -30,34 +29,18 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
 
   File? _image;
   final _form = GlobalKey<FormState>();
-  final _nameFocusNode = FocusNode();
-  final _lastNameFocusNode = FocusNode();
-  final _emailFocusNode = FocusNode();
   final _bioFocusNode = FocusNode();
 
 
   final _initValues = {
-    'name': '',
-    'lastName': '',
+    'workHistory': '',
     'bio': ''
   };
 
-  var _signupStudent = StudentAccount(
-    firstName: '',
-    lastName: '',
-    password: '',
-    email: '',
-    phoneNumber: '',
-    birthDay: Timestamp.fromDate(DateTime.now()).seconds,
+  var _teacherSignUp = TeacherSignUpPatch(
     bio: '',
-    gender: 1,
-    introduction: '',
-    country: '',
-    favouriteCourse: '',
-    userName: '',
   );
 
-  var _emailError = false;
 
   var _isLoading = false;
 
@@ -71,8 +54,7 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
       _isLoading = true;
     });
     try {
-      await Provider.of<StudentProvider>(context, listen: false)
-          .replaceStudentAccount(context,_signupStudent);
+      await Provider.of<TeacherProvider>(context, listen: false).replaceTeacherThirdSignUp(context, _teacherSignUp);
 
     } catch (error) {
       await showDialog(
@@ -110,7 +92,6 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
 
   @override
   Widget build(BuildContext context) {
-    final studentProvider = Provider.of<StudentProvider>(context);
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
@@ -179,367 +160,73 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
                   ),
                 ),
                 const SizedBox(
-                  height: 10.0,
+                  height: AppSize.s10,
                 ),
-                if(!isKeyboard)  const Text(
+                if(!isKeyboard) Text(
                   'Information',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 30.0,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xff3F3D56)
+                      color: ColorManager.slateGray2
                   ),
                 ),
                 const SizedBox(
-                  height: 10.0,
+                  height: AppSize.s10,
                 ),
                 Form(
                   key: _form,
                   child: ListView(
-                    physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: TextFormField(
-                          initialValue: _initValues['name'],
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: Color(0xffD9D9D9)
-                                ),
-                              ),
-                              hintText: 'Name',
-                              hintStyle: const TextStyle(
-                                  fontSize: 16.0,
-                                  color: Color(0xff7E7979)
-                              ),
-                              prefixIcon: const Icon(
-                                Icons.person_outline,
-                                size: 28.0,
-                                color: Color(0xff7E7979),
-                              )
-                          ),
-                          focusNode: _nameFocusNode,
-                          keyboardType: TextInputType.name,
-                          textInputAction: TextInputAction.next,
-                          onFieldSubmitted: (value) {
-                            FocusScope.of(context)
-                                .requestFocus(_lastNameFocusNode);
-                          },
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Field is required';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _signupStudent = StudentAccount(
-                              firstName: value!,
-                              lastName: _signupStudent.lastName,
-                              password: studentProvider.studentAccount[0].password,
-                              email: _signupStudent.email,
-                              phoneNumber: _signupStudent.phoneNumber,
-                              birthDay: _signupStudent.birthDay,
-                              bio: _signupStudent.bio,
-                              gender: _signupStudent.gender,
-                              introduction: _signupStudent.introduction,
-                              country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse,
-                              userName: studentProvider.studentAccount[0].userName,
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: TextFormField(
-                          initialValue: _initValues['lastName'],
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: Color(0xffD9D9D9)
-                                ),
-                              ),
-                              hintText: 'Last Name',
-                              hintStyle: const TextStyle(
-                                  fontSize: 16.0,
-                                  color: Color(0xff7E7979)
-                              ),
-                              prefixIcon: const Icon(
-                                Icons.people_outline,
-                                size: 28.0,
-                                color: Color(0xff7E7979),
-                              )
-                          ),
-                          focusNode: _lastNameFocusNode,
-                          keyboardType: TextInputType.name,
-                          textInputAction: TextInputAction.next,
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Field is required';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _signupStudent = StudentAccount(
-                              firstName: _signupStudent.firstName,
-                              lastName: value!,
-                              password: _signupStudent.password,
-                              email: _signupStudent.email,
-                              phoneNumber: _signupStudent.phoneNumber,
-                              birthDay: _signupStudent.birthDay,
-                              bio: _signupStudent.bio,
-                              gender: _signupStudent.gender,
-                              introduction: _signupStudent.introduction,
-                              country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse,
-                              userName: _signupStudent.userName,
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: TextFormField(
-                          initialValue: _initValues['email'],
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: Color(0xffD9D9D9)
-                                ),
-                              ),
-                              hintText: 'Email',
-                              hintStyle: const TextStyle(
-                                  fontSize: 16.0,
-                                  color: Color(0xff7E7979)
-                              ),
-                              prefixIcon: const Icon(
-                                Icons.email_outlined,
-                                size: 28.0,
-                                color: Color(0xff7E7979),
-                              )
-                          ),
-                          focusNode: _emailFocusNode,
-                          keyboardType: TextInputType.emailAddress,
-                          textInputAction: TextInputAction.next,
-                          onFieldSubmitted: (value) {
-                            FocusScope.of(context)
-                                .requestFocus(_bioFocusNode);
-                          },
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Field is required';
-                            } else if (!value.contains('@')) {
-                              return 'Invalid email!';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _signupStudent = StudentAccount(
-                              firstName: _signupStudent.firstName,
-                              lastName: _signupStudent.lastName,
-                              password: _signupStudent.password,
-                              email: value!,
-                              country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse,
-                              gender: _signupStudent.gender,
-                              introduction: _signupStudent.introduction,
-                              birthDay: _signupStudent.birthDay,
-                              bio: _signupStudent.bio,
-                              phoneNumber: _signupStudent.phoneNumber, userName: '',
-                            );
-                          },
-                        ),
-                      ),
-                      if (_emailError) Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          Provider.of<StudentProvider>(context).userNameError,
-                          style: const TextStyle(
-                              color: Colors.red
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: MediaQuery.of(context).size.height * 0.38,
+                          child: const TeacherResume()),
                       Row(
                         children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                height: MediaQuery.of(context).size.height * 0.08,
-                                child: DropdownButtonFormField<String>(
-                                  hint: const Text(
-                                    'Gender',
-                                    style: TextStyle(
-                                        color: Color(0xff7E7979),
-                                        fontSize: 16.0
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p10,
+                            ),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.height * 0.18,
+                              child: TextFormField(
+                                maxLines: 8,
+                                initialValue: _initValues['bio'],
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide(
+                                        width: 2,
+                                        color: Color(0xffD9D9D9)
                                     ),
                                   ),
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Color(0xffD9D9D9),
-                                        width: 1.5,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                  value: null,
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: Color(0xff7E7979),
-                                  ),
-                                  items: items.map((String items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
-                                    );
-                                  }).toList(),
-                                  validator: (value) {
-                                    if(value!.isEmpty) {
-                                      return 'field is required';
-                                    }
-                                    return null;
-                                  },
-                                  onChanged: (String? newValue) {
-                                    if(newValue == 'Male'){
-                                      setState(() {
-                                        dropDownValue = newValue!;
-                                        _signupStudent = StudentAccount(
-                                          firstName: _signupStudent.firstName,
-                                          lastName: _signupStudent.lastName,
-                                          password: _signupStudent.password,
-                                          email: _signupStudent.email,
-                                          phoneNumber: _signupStudent.phoneNumber,
-                                          birthDay: _signupStudent.birthDay,
-                                          bio: _signupStudent.bio,
-                                          gender: 1,
-                                          introduction: _signupStudent.introduction,
-                                          country: _signupStudent.country,
-                                          favouriteCourse: _signupStudent.favouriteCourse,
-                                          userName: _signupStudent.userName,
-                                        );
-                                      });
-                                    }
-                                    else if(newValue == 'Female'){
-                                      {
-                                        setState(() {
-                                          dropDownValue = newValue!;
-                                          _signupStudent = StudentAccount(
-                                            firstName: _signupStudent.firstName,
-                                            lastName: _signupStudent.lastName,
-                                            password: _signupStudent.password,
-                                            email: _signupStudent.email,
-                                            phoneNumber: _signupStudent.phoneNumber,
-                                            birthDay: _signupStudent.birthDay,
-                                            bio: _signupStudent.bio,
-                                            gender: 0,
-                                            introduction: _signupStudent.introduction,
-                                            country: _signupStudent.country,
-                                            favouriteCourse: _signupStudent.favouriteCourse,
-                                            userName: _signupStudent.userName,
-                                          );
-                                        });
-                                      }
-                                    }
-                                    else{
-                                      setState(() {
-                                        dropDownValue = newValue!;
-                                        _signupStudent = StudentAccount(
-                                          firstName: _signupStudent.firstName,
-                                          lastName: _signupStudent.lastName,
-                                          password: _signupStudent.password,
-                                          email: _signupStudent.email,
-                                          phoneNumber: _signupStudent.phoneNumber,
-                                          birthDay: _signupStudent.birthDay,
-                                          bio: _signupStudent.bio,
-                                          gender: 3,
-                                          introduction: _signupStudent.introduction,
-                                          country: _signupStudent.country,
-                                          favouriteCourse: _signupStudent.favouriteCourse,
-                                          userName: _signupStudent.userName,
-                                        );
-                                      });
-                                    }
-                                  },
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10.0,
-                                ),
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.4,
-                                  height: MediaQuery.of(context).size.height * 0.18,
-                                  child: TextFormField(
-                                    maxLines: 8,
-                                    initialValue: _initValues['bio'],
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(10.0),
-                                        borderSide: const BorderSide(
-                                            width: 1,
-                                            color: Color(0xffD9D9D9)
-                                        ),
-                                      ),
-                                      hintText: 'Bio',
-                                      hintStyle: const TextStyle(
-                                          fontSize: 16.0,
-                                          color: Color(0xff7E7979)
-                                      ),
-                                    ),
-                                    focusNode: _bioFocusNode,
-                                    keyboardType: TextInputType.text,
-                                    textInputAction: TextInputAction.done,
-                                    validator: (String? value) {
-                                      if (value!.isEmpty) {
-                                        return 'Field is required';
-                                      }
-                                      return null;
-                                    },
-                                    onSaved: (value) {
-                                      _signupStudent = StudentAccount(
-                                        firstName: _signupStudent.firstName,
-                                        lastName: _signupStudent.lastName,
-                                        password: _signupStudent.password,
-                                        email: _signupStudent.email,
-                                        phoneNumber: _signupStudent.phoneNumber,
-                                        birthDay: _signupStudent.birthDay,
-                                        bio: value!,
-                                        gender: _signupStudent.gender,
-                                        introduction: _signupStudent.introduction,
-                                        country: _signupStudent.country,
-                                        favouriteCourse: _signupStudent.favouriteCourse,
-                                        userName: _signupStudent.userName,
-                                      );
-                                    },
+                                  hintText: 'Bio',
+                                  hintStyle: const TextStyle(
+                                      fontSize: 16.0,
+                                      color: Color(0xff7E7979)
                                   ),
                                 ),
+                                focusNode: _bioFocusNode,
+                                keyboardType: TextInputType.text,
+                                textInputAction: TextInputAction.done,
+                                validator: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return 'Field is required';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _teacherSignUp = TeacherSignUpPatch(
+                                    bio: value!,
+                                  );
+                                },
                               ),
-                            ],
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -669,12 +356,7 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
                         child: TextButton(
                             onPressed: (){
                               _saveForm();
-                              _emailError = true;
-                              Future.delayed(const Duration(seconds: 5), () {
-                                setState((){
-                                  _emailError = false;
-                                });
-                              });
+                              print(Provider.of<TeacherProvider>(context,listen: false).teacherAccountPatch[0].firstName);
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),

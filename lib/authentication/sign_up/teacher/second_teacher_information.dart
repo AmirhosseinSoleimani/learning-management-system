@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:learning_management_system/authentication/customize_stepper_information.dart';
 import 'package:learning_management_system/authentication/sign_up/student/phoneNumber_textFormField.dart';
-import 'package:learning_management_system/authentication/sign_up/teacher/third_teacher_information.dart';
 import 'package:learning_management_system/models/teacher_signUp_model.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/presentation/resources/color_manager.dart';
@@ -24,6 +23,11 @@ class SecondInformationTeacher extends StatefulWidget {
 
 class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
 
+  Map<String, String> _initValues = {
+    'address': '',
+    'finance': '',
+    'viaCard': ''
+  };
 
 
   bool dateSelect = false;
@@ -38,7 +42,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
   );
 
   var _isLoading = false;
-
+  var isInit = true;
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState!.validate();
@@ -76,6 +80,25 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
   }
 
   @override
+  void didChangeDependencies() {
+    if(isInit){
+      var informationTeacher = TeacherSignUpPatch(
+        address: '',
+        financial: '',
+        cardNumber: 0,
+      );
+      informationTeacher = Provider.of<TeacherProvider>(context, listen: false).teacherAccountPatch[0];
+      _initValues = {
+        'address': informationTeacher.address.toString(),
+        'financial': informationTeacher.financial.toString(),
+        'cardNumber': informationTeacher.cardNumber.toString(),
+      };
+    }
+    isInit = false;
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
@@ -100,7 +123,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
         iconTheme: IconThemeData(color: ColorManager.black, size: AppSize.s30),
       ),
       endDrawer: const DrawerAppBar(),
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: ColorManager.white,
       body: (_isLoading) ? const Center(
         child: CircularProgressIndicator(),
@@ -171,6 +194,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                           height: AppSize.s10,
                         ),
                         TextFormField(
+                          initialValue: _initValues['address'],
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius:
@@ -262,6 +286,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                           height: AppSize.s20,
                         ),
                         TextFormField(
+                          initialValue: _initValues['finance'],
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius:
@@ -301,6 +326,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                           height: AppSize.s20,
                         ),
                         TextFormField(
+                          initialValue: _initValues['viaCard'],
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius:
@@ -321,7 +347,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                               )
                           ),
                           keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.next,
+                          textInputAction: TextInputAction.done,
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
                               return 'Field is required';

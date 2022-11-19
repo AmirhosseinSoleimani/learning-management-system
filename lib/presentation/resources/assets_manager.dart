@@ -51,6 +51,9 @@ class IconAssets{
   static const String location = '$iconPath/teacherSignUp/location.svg';
   static const String financial = '$iconPath/teacherSignUp/financial.svg';
   static const String visaCard = '$iconPath/teacherSignUp/visaCard.svg';
+  static const String workHistory = '$iconPath/teacherSignUp/history.svg';
+  static const String language = '$iconPath/teacherSignUp/language.svg';
+  static const String resume = '$iconPath/teacherSignUp/resume.svg';
 
 
 

@@ -198,6 +198,66 @@ class TeacherProvider with ChangeNotifier{
     }
   }
 
+  Future <void> replaceTeacherThirdSignUp(BuildContext context,TeacherSignUpPatch teacherSignUpPatch) async{
+    final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/');
+    try{
+      http.Response response = await http.patch(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'accept': 'application/json'
+        },
+        body: json.encode(
+            {
+              'first_name': _teacherAccountPatch[0].firstName,
+              'last_name': _teacherAccountPatch[0].lastName,
+              'email': _teacherAccountPatch[0].email,
+              "gender": _teacherAccountPatch[0].gender,
+              'country': _teacherAccountPatch[0].country,
+              'introduction': _teacherAccountPatch[0].introduction,
+              'birth_day': _teacherAccountPatch[0].birthDay,
+              'id': id,
+              "address": _teacherAccountPatch[0].address,
+              "bio": teacherSignUpPatch.bio,
+              "card_number": _teacherAccountPatch[0].cardNumber,
+              "language": "fucking persian",
+              "latitude": defaultLatitude,
+              "longitude": defaultLongitude,
+              "phone_number": '+9383202865',
+              "work_history": "working on fucking stack team"
+            }
+        ),
+      );
+      debugPrint(response.body);
+      debugPrint(response.statusCode.toString());
+      if(response.body.contains('this username is exist, try another')){
+        userNameError = 'This User Name is Exit';
+      }else if(response.statusCode == 200){
+        goNext(context,Routes.teacherFavouriteRoutes);
+        isLocation = false;
+      }
+      final newTeacherSignUpPatch = TeacherSignUpPatch(
+        email: _teacherAccountPatch[0].email,
+        firstName: _teacherAccountPatch[0].firstName,
+        lastName: _teacherAccountPatch[0].lastName,
+        gender: _teacherAccountPatch[0].gender,
+        country: _teacherAccountPatch[0].country,
+        introduction: _teacherAccountPatch[0].introduction,
+        birthDay: _teacherAccountPatch[0].birthDay,
+        address: _teacherAccountPatch[0].address,
+        latitude: defaultLatitude,
+        longitude: defaultLongitude,
+        financial: _teacherAccountPatch[0].financial,
+        phoneNumber: _teacherAccountPatch[0].phoneNumber,
+        cardNumber: _teacherAccountPatch[0].cardNumber,
+        bio: teacherSignUpPatch.bio,
+      );
+      _teacherAccountPatch.removeAt(0);
+      _teacherAccountPatch.add(newTeacherSignUpPatch);
+      notifyListeners();
+    }catch(error){
+      debugPrint(error.toString());
+    }
+  }
 
 }
 
