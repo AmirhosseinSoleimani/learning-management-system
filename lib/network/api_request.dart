@@ -1,5 +1,5 @@
 // import 'dart:convert';
-// import '../models/student_signUp_post_model.dart';
+// import '../models/student_signUp_model.dart';
 // import 'package:http/http.dart' as http;
 //
 // List<StudentSignUpPost> studentSignUpPost(String responseBody){

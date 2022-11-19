@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_management_system/authentication/sign_up/student/student_sign_up.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher/second_teacher_information.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher/teacher_sign_up.dart';
 import 'package:learning_management_system/store/homePage/screens/home_page.dart';
@@ -8,6 +9,7 @@ import '../../authentication/sign_up/teacher/teacher_favourite.dart';
 import '../../authentication/sign_up/teacher/teacher_information.dart';
 import '../../authentication/sign_up/teacher/third_teacher_information.dart';
 import '../../presentation/resources/string_manager.dart';
+import '../../store/course_details/screens/course_details.dart';
 import '../../store/shop_page/screens/shop_page.dart';
 
 class Routes{
@@ -20,6 +22,8 @@ class Routes{
   static const String googleMap = '/googleMap';
   static const String teacherInformationThirdRoutes = '/teacherThirdInformation';
   static const String teacherFavouriteRoutes = '/teacherFavourite';
+  static const String courseDetails = '/courseDetails';
+  static const String studentSignUp = '/studentSignUP';
 }
 
 
@@ -45,6 +49,10 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => const ThirdInformationStudentSignUp());
       case Routes.teacherFavouriteRoutes:
         return MaterialPageRoute(builder: (_) => const FavouriteTeacher());
+      case Routes.courseDetails:
+        return MaterialPageRoute(builder: (_) => const CourseDetails());
+      case Routes.studentSignUp:
+        return MaterialPageRoute(builder: (_) => const StudentSignUp());
       default:
         return unDefinedRoute();
     }

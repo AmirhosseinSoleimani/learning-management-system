@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constant/colors.dart';
 import '../../../data.dart';
 import '../../../presentation/resources/color_manager.dart';
+import '../../../presentation/resources/routes_manager.dart';
 import '../../homePage/./widgets/feature_item.dart';
 import '../screens/course_details.dart';
 
@@ -167,11 +168,7 @@ class _DiscoverCoursesState extends State<DiscoverCourses>
         (index) => FeatureItem(
           data: (_numWidget == 1) ? features[1] : (_numWidget == 2) ? features[2] : (_numWidget == 3) ? features[3] : features[index],
           onTap: () {
-            Navigator.of(context!).push(
-              MaterialPageRoute(
-                builder: (context) => const CourseDetails(),
-              ),
-            );
+            Navigator.of(context!).pushReplacementNamed(Routes.courseDetails);
           },
         ),
       ),

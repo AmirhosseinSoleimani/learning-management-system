@@ -1,15 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/models/student_signUp_put_model.dart';
+import 'package:learning_management_system/presentation/resources/assets_manager.dart';
+import 'package:learning_management_system/presentation/resources/color_manager.dart';
+import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../models/student_account.dart';
+import '../../../presentation/resources/routes_manager.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 
 
 class StudentSignUp extends StatefulWidget {
-  static const routeName = '/student_signup';
 
   const StudentSignUp({Key? key}) : super(key: key);
 
@@ -26,7 +28,6 @@ class _StudentSignUpState extends State<StudentSignUp> {
     'password': '',
   };
 
-  // final _passwordController = TextEditingController();
 
   final _form = GlobalKey<FormState>();
 
@@ -89,7 +90,6 @@ class _StudentSignUpState extends State<StudentSignUp> {
   void dispose() {
     _userNameFocusNode.dispose();
     _passwordFocusNode.dispose();
-    // _passwordController.dispose();
     super.dispose();
   }
 
@@ -98,19 +98,19 @@ class _StudentSignUpState extends State<StudentSignUp> {
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xffFFFFFF),
+        backgroundColor: ColorManager.white,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: ColorManager.black,
             size: 20.0,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(Routes.homePage);
           },
         ),
         title: Image.asset(
-          'assets/images/epent.png',
+          ImageAssets.epent,
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.height * 0.08,
         ),
@@ -119,35 +119,35 @@ class _StudentSignUpState extends State<StudentSignUp> {
       ),
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xffFFFFFF),
+      backgroundColor: ColorManager.white,
       body: (_isLoading) ? const Center(
         child: CircularProgressIndicator(),
       ) : Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(AppPadding.p16),
         child: Card(
           elevation: 8,
           child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            physics: const NeverScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 if (!isKeyboard) Padding(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 15.0
+                    vertical: AppPadding.p16
                   ),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: Image.asset(
-                      'assets/images/epent_body.png',
+                      ImageAssets.epentBody,
                       width: 120.0,
                       height: 120.0,
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 10.0,
+                  height: AppSize.s10,
                 ),
                 const Text(
                   'Create Account',
@@ -158,7 +158,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                   ),
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: AppSize.s20,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.25,
@@ -167,31 +167,30 @@ class _StudentSignUpState extends State<StudentSignUp> {
                     key: _form,
                     child: Padding(
                       padding:
-                          const EdgeInsets.symmetric(horizontal: 10.0),
+                          const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                       child: ListView(
                         shrinkWrap: true,
                         children: [
                           TextFormField(
-                            initialValue: _initValues['user_name'],
+                            initialValue: _initValues['userName'],
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(10.0),
-                                    borderSide: const BorderSide(
+                                  borderRadius:
+                                  BorderRadius.circular(AppSize.s10),
+                                  borderSide: BorderSide(
                                       width: 1,
-                                      color: Color(0xffD9D9D9)
-                                    ),
+                                      color: ColorManager.lightSteelBlue2
+                                  ),
                                 ),
                                 hintText: 'User Name',
-                              hintStyle: const TextStyle(
-                                fontSize: 16.0,
-                                color: Color(0xff7E7979)
-                              ),
-                              prefixIcon: const Icon(
-                                Icons.person,
-                                size: 28.0,
-                                color: Color(0xff7E7979),
-                              )
+                                hintStyle: TextStyle(
+                                    fontSize: 16.0,
+                                    color: ColorManager.lightSteelBlue1
+                                ),
+                                prefixIcon: Padding(
+                                  padding: const EdgeInsets.all(AppPadding.p12),
+                                  child: SvgPicture.asset(IconAssets.personIcon),
+                                )
                             ),
                             focusNode: _userNameFocusNode,
                             keyboardType: TextInputType.text,
@@ -207,28 +206,18 @@ class _StudentSignUpState extends State<StudentSignUp> {
                               return null;
                             },
                             onSaved: (value) {
-                              _signupStudent = StudentAccount(
+                              _teacherSignUpPost = TeacherSignUpPost(
                                 userName: value!,
-                                firstName: _signupStudent.firstName,
-                                lastName: _signupStudent.lastName,
-                                password: _signupStudent.password,
-                                email: _signupStudent.email,
-                                country: _signupStudent.country,
-                                favouriteCourse: _signupStudent.favouriteCourse,
-                                gender: _signupStudent.gender,
-                                introduction: _signupStudent.introduction,
-                                birthDay: _signupStudent.birthDay,
-                                bio: _signupStudent.bio,
-                                phoneNumber: _signupStudent.phoneNumber,
+                                password: _teacherSignUpPost.password,
                               );
                             },
                           ),
-                          if (_userNameError) Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          if (userNameError == true) Padding(
+                            padding: const EdgeInsets.all(AppPadding.p8),
                             child: Text(
-                              Provider.of<StudentProvider>(context).userNameError,
-                              style: const TextStyle(
-                                color: Colors.red
+                              'This username is exist, try another',
+                              style: TextStyle(
+                                  color: ColorManager.error
                               ),
                             ),
                           ),

@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../models/student_account.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
+import '../../presentation/resources/routes_manager.dart';
 import '../sign_up/student/student_sign_up.dart';
 
 
@@ -476,7 +477,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, StudentSignUp.routeName);
+                          Navigator.of(context).pushReplacementNamed(Routes.studentSignUp);
                         },
                         child: const Text(
                           'Sign Up',

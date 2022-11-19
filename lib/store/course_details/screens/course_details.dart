@@ -2,34 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/authentication/sign_in/sign_in.dart';
 import 'package:learning_management_system/authentication/sign_up/student/student_sign_up.dart';
+import '../../../presentation/resources/assets_manager.dart';
+import '../../../presentation/resources/color_manager.dart';
+import '../../../presentation/resources/routes_manager.dart';
+import '../../../presentation/resources/values_manager.dart';
+import '../../drawer.dart';
 import '../widgets/hover_text.dart';
 import '../widgets/video_player.dart';
 
 class CourseDetails extends StatefulWidget {
   const CourseDetails({Key? key}) : super(key: key);
-  static const routeName = '/course_details_page';
 
   @override
   State<CourseDetails> createState() => _CourseDetailsState();
 }
 
 class _CourseDetailsState extends State<CourseDetails> {
-  late TabController _tabController;
-  static const List<Tab> _tabs = [
-    Tab(
-      text: ('Information about courses'),
-    ),
-    Tab(
-      text: ('Courses'),
-    ),
-    Tab(
-      text: ('About Teachers'),
-    ),
-    Tab(
-      text: ('Comments'),
-    )
-  ];
+
+
   String firstDropDownItem = 'English';
+
   final List<String> languageItems = <String>[
     'English',
     'Persian',
@@ -38,42 +30,34 @@ class _CourseDetailsState extends State<CourseDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors,
       appBar: AppBar(
-        elevation: 2,
+        backgroundColor: ColorManager.white,
         leading: IconButton(
-          icon: const Icon(
-            Icons.chevron_left,
-            size: 36,
-            color: Colors.black,
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: ColorManager.black,
+            size: AppSize.s20,
           ),
-          onPressed: (){
-            Navigator.of(context).pop();
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed(Routes.homePage);
           },
         ),
-        backgroundColor: Colors.white,
-        title: SizedBox(
-          width: 58,
-          height: 53,
-          child: Image.asset(
-            'assets/svg/logo.png',
-            fit: BoxFit.cover,
-          ),
+        title: Image.asset(
+          ImageAssets.epent,
+          width: MediaQuery.of(context).size.width * 0.3,
+          height: MediaQuery.of(context).size.height * 0.08,
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.black,
-              ))
-        ],
+        iconTheme: IconThemeData(color: ColorManager.black, size: AppSize.s30),
       ),
+      endDrawer: const DrawerAppBar(),
+      resizeToAvoidBottomInset: false,
+      backgroundColor: ColorManager.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-          child: Column(children: [
+          padding: const EdgeInsets.symmetric(vertical: AppPadding.p16, horizontal: AppPadding.p10),
+          child: Column(
+              children: [
             Row(
               children: [
                 Container(
@@ -126,7 +110,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                         padding: const EdgeInsets.symmetric(horizontal: 3.0),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, StudentSignUp.routeName);
+                            Navigator.of(context).pushReplacementNamed(Routes.studentSignUp);
                           },
                           child: const Text(
                             'Sign Up',
