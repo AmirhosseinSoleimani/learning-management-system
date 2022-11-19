@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
+import 'package:learning_management_system/presentation/resources/color_manager.dart';
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
-import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
+import '../../../provider/teacher_provider.dart';
 
 
 
@@ -35,34 +36,30 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
         ? Container(
             height: 55.0,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-                border: Border.all(width: 2, color: Colors.blue)),
+                borderRadius: BorderRadius.circular(AppSize.s10),
+                color: ColorManager.white,
+                border: Border.all(width: 2, color: ColorManager.primary)),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
               child: Row(
                 children: [
-                  const SizedBox(
-                    child: Icon(
-                      Icons.phone_android_outlined,
-                      size: 28.0,
-                      color: Color(0xff7E7979),
-                    ),
-                  ),
+                  SvgPicture.asset(
+                  IconAssets.phone
+              ),
                   const SizedBox(
                     width: 10.0,
                   ),
                   Row(
                     children: [
-                      const SizedBox(
+                      SizedBox(
                           height: 28,
                           width: 12,
                           child: Padding(
-                            padding: EdgeInsets.only(bottom: 8.0),
+                            padding: const EdgeInsets.only(bottom: AppPadding.p8),
                             child: Text(
                               '+',
                               style: TextStyle(
-                                  fontSize: 18.0, color: Colors.black),
+                                  fontSize: 18.0, color: ColorManager.black),
                             ),
                           )),
                       const SizedBox(
@@ -75,6 +72,9 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
+                              setState(() {
+                                phoneNumber = value;
+                              });
                             }
                           },
                           autofocus: true,
@@ -84,11 +84,6 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                             LengthLimitingTextInputFormatter(1),
                             FilteringTextInputFormatter.digitsOnly,
                           ],
-                          onSaved: (num1) {
-                            setState(() {
-                              phoneNumber = '$num1';
-                            });
-                          },
                         ),
                       ),
                       SizedBox(
@@ -98,6 +93,9 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
+                              setState(() {
+                                phoneNumber = '$phoneNumber$value';
+                              });
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -106,17 +104,12 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                             LengthLimitingTextInputFormatter(1),
                             FilteringTextInputFormatter.digitsOnly,
                           ],
-                          onSaved: (num2) {
-                            setState(() {
-                              phoneNumber = '$phoneNumber$num2';
-                            });
-                          },
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(
-                    width: 10.0,
+                    width: AppSize.s10,
                   ),
                   Row(
                     children: [
@@ -127,6 +120,9 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                             onChanged: (value) {
                               if (value.length == 1) {
                                 FocusScope.of(context).nextFocus();
+                                setState(() {
+                                  phoneNumber = '$phoneNumber$value';
+                                });
                               }
                             },
                             keyboardType: TextInputType.number,
@@ -135,11 +131,7 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                               LengthLimitingTextInputFormatter(1),
                               FilteringTextInputFormatter.digitsOnly,
                             ],
-                            onSaved: (num3) {
-                              setState(() {
-                                phoneNumber = '$phoneNumber$num3';
-                              });
-                            }),
+                        ),
                       ),
                       SizedBox(
                         height: 18,
@@ -148,6 +140,7 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
+
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -165,6 +158,9 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
+                              setState(() {
+                                phoneNumber = '$phoneNumber$value';
+                              });
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -174,9 +170,7 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                             FilteringTextInputFormatter.digitsOnly,
                           ],
                             onSaved: (num4) {
-                              setState(() {
-                                phoneNumber = '$phoneNumber$num4';
-                              });
+
                             }
                         ),
                       ),
@@ -194,6 +188,9 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
+                              setState(() {
+                                phoneNumber = '$phoneNumber$value';
+                              });
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -202,11 +199,6 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                             LengthLimitingTextInputFormatter(1),
                             FilteringTextInputFormatter.digitsOnly,
                           ],
-                            onSaved: (num5) {
-                              setState(() {
-                                phoneNumber = '$phoneNumber$num5';
-                              });
-                            }
                         ),
                       ),
                       SizedBox(
@@ -216,6 +208,9 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
+                              setState(() {
+                                phoneNumber = '$phoneNumber$value';
+                              });
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -224,11 +219,6 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                             LengthLimitingTextInputFormatter(1),
                             FilteringTextInputFormatter.digitsOnly,
                           ],
-                            onSaved: (num6) {
-                              setState(() {
-                                phoneNumber = '$phoneNumber$num6';
-                              });
-                            }
                         ),
                       ),
                       SizedBox(
@@ -238,6 +228,9 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
+                              setState(() {
+                                phoneNumber = '$phoneNumber$value';
+                              });
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -246,11 +239,6 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                             LengthLimitingTextInputFormatter(1),
                             FilteringTextInputFormatter.digitsOnly,
                           ],
-                            onSaved: (num7) {
-                              setState(() {
-                                phoneNumber = '$phoneNumber$num7';
-                              });
-                            }
                         ),
                       ),
                     ],
@@ -267,6 +255,9 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
+                              setState(() {
+                                phoneNumber = '$phoneNumber$value';
+                              });
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -275,11 +266,6 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                             LengthLimitingTextInputFormatter(1),
                             FilteringTextInputFormatter.digitsOnly,
                           ],
-                            onSaved: (num8) {
-                              setState(() {
-                                phoneNumber = '$phoneNumber$num8';
-                              });
-                            }
                         ),
                       ),
                       SizedBox(
@@ -289,6 +275,9 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
+                              setState(() {
+                                phoneNumber = '$phoneNumber$value';
+                              });
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -297,11 +286,6 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                             LengthLimitingTextInputFormatter(1),
                             FilteringTextInputFormatter.digitsOnly,
                           ],
-                            onSaved: (num9) {
-                              setState(() {
-                                phoneNumber = '$phoneNumber$num9';
-                              });
-                            }
                         ),
                       ),
                       SizedBox(
@@ -311,6 +295,9 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
+                              setState(() {
+                                phoneNumber = '$phoneNumber$value';
+                              });
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -319,11 +306,6 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                             LengthLimitingTextInputFormatter(1),
                             FilteringTextInputFormatter.digitsOnly,
                           ],
-                            onSaved: (num10) {
-                              setState(() {
-                                phoneNumber = '$phoneNumber$num10';
-                              });
-                            }
                         ),
                       ),
                       SizedBox(
@@ -333,6 +315,9 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
+                              setState(() {
+                                phoneNumber = '$phoneNumber$value';
+                              });
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -341,12 +326,6 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                             LengthLimitingTextInputFormatter(1),
                             FilteringTextInputFormatter.digitsOnly,
                           ],
-                            onSaved: (num11) {
-                              setState(() {
-                                phoneNumber = '$phoneNumber$num11';
-                                Provider.of<StudentProvider>(context,listen: false).phoneNumberTextFormField = phoneNumber;
-                              });
-                            }
                         ),
                       ),
                     ],

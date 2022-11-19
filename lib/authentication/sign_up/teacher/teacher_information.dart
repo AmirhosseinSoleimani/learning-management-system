@@ -48,7 +48,7 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
   String? dropDownValue;
   var items = ['Male', 'Female','No specified'];
 
-  var itemsIntroduction = ['Friends','Social Media',];
+  var itemsIntroduction = ['Friends','Social Media','Website'];
 
   final _initValues = {
     'name': '',

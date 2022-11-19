@@ -1,20 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:learning_management_system/authentication/customize_stepper_information.dart';
 import 'package:learning_management_system/authentication/sign_up/student/phoneNumber_textFormField.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher/third_teacher_information.dart';
+import 'package:learning_management_system/models/teacher_signUp_model.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/presentation/resources/color_manager.dart';
 import 'package:learning_management_system/presentation/resources/routes_manager.dart';
-import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:learning_management_system/provider/teacher_provider.dart';
 import 'package:provider/provider.dart';
-import '../../../models/student_account.dart';
 import '../../../presentation/resources/values_manager.dart';
 import '../../../store/drawer.dart';
-import 'package:country_picker/country_picker.dart';
-import 'google_map.dart';
+
 
 
 class SecondInformationTeacher extends StatefulWidget {
@@ -30,43 +27,17 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
 
 
   bool dateSelect = false;
-  String? country;
-  Country iran = Country(
-    phoneCode: '98',
-    countryCode: 'IR',
-    e164Sc: 0,
-    geographic: true,
-    level: 1,
-    name: 'Iran',
-    example: '9123456789',
-    displayName: 'Iran (IR) [+98]',
-    displayNameNoCountryCode: 'Iran (IR)',
-    e164Key: '98-IR-0',
-  );
-  String? icon;
+
   final _form = GlobalKey<FormState>();
 
-  String? dropDownValue;
-  var items = ['Friend', 'Social Media','Website'];
 
-  var _signupStudent = StudentAccount(
-    firstName: '',
-    lastName: '',
-    password: '',
-    email: '',
-    phoneNumber: '',
-    birthDay: Timestamp.fromDate(DateTime.now()).seconds,
-    bio: '',
-    gender: 0,
-    introduction: '',
-    country: '',
-    favouriteCourse: '', userName: '',
+  var _teacherSignUp = TeacherSignUpPatch(
+    address: '',
+    financial: '',
+    cardNumber: 0,
   );
 
   var _isLoading = false;
-
-
-
 
 
   Future<void> _saveForm() async {
@@ -79,8 +50,9 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
       _isLoading = true;
     });
     try {
-      await Provider.of<StudentProvider>(context, listen: false)
-          .replaceStudentAccount(context,_signupStudent);
+      await Provider.of<TeacherProvider>(context, listen: false).replaceTeacherSecondSignUp(
+        context,_teacherSignUp
+      );
 
     } catch (error) {
       await showDialog(
@@ -105,6 +77,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
 
   @override
   Widget build(BuildContext context) {
+    final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorManager.white,
@@ -138,7 +111,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
+                if(!isKeyboard) Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: AppPadding.p16, horizontal: 35.0),
                   child: SizedBox(
@@ -152,7 +125,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                     ),
                   ),
                 ),
-                Padding(
+                if(!isKeyboard) Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: AppPadding.p10,
                   ),
@@ -172,7 +145,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                 const SizedBox(
                   height: AppSize.s10,
                 ),
-                Text(
+                if(!isKeyboard) Text(
                   'Information',
                   style: TextStyle(
                       fontSize: 30.0,
@@ -228,19 +201,10 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                             return null;
                           },
                           onSaved: (value) {
-                            _signupStudent = StudentAccount(
-                              userName: value!,
-                              firstName: _signupStudent.firstName,
-                              lastName: _signupStudent.lastName,
-                              password: _signupStudent.password,
-                              email: _signupStudent.email,
-                              country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse,
-                              gender: _signupStudent.gender,
-                              introduction: _signupStudent.introduction,
-                              birthDay: _signupStudent.birthDay,
-                              bio: _signupStudent.bio,
-                              phoneNumber: _signupStudent.phoneNumber,
+                            _teacherSignUp = TeacherSignUpPatch(
+                              address: value,
+                              financial: '',
+                              cardNumber: 0,
                             );
                           },
                         ),
@@ -326,19 +290,10 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                             return null;
                           },
                           onSaved: (value) {
-                            _signupStudent = StudentAccount(
-                              userName: value!,
-                              firstName: _signupStudent.firstName,
-                              lastName: _signupStudent.lastName,
-                              password: _signupStudent.password,
-                              email: _signupStudent.email,
-                              country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse,
-                              gender: _signupStudent.gender,
-                              introduction: _signupStudent.introduction,
-                              birthDay: _signupStudent.birthDay,
-                              bio: _signupStudent.bio,
-                              phoneNumber: _signupStudent.phoneNumber,
+                            _teacherSignUp = TeacherSignUpPatch(
+                              address: '',
+                              financial: value,
+                              cardNumber: 0,
                             );
                           },
                         ),
@@ -374,24 +329,15 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                             return null;
                           },
                           onSaved: (value) {
-                            _signupStudent = StudentAccount(
-                              userName: value!,
-                              firstName: _signupStudent.firstName,
-                              lastName: _signupStudent.lastName,
-                              password: _signupStudent.password,
-                              email: _signupStudent.email,
-                              country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse,
-                              gender: _signupStudent.gender,
-                              introduction: _signupStudent.introduction,
-                              birthDay: _signupStudent.birthDay,
-                              bio: _signupStudent.bio,
-                              phoneNumber: _signupStudent.phoneNumber,
+                            _teacherSignUp = TeacherSignUpPatch(
+                              address: '',
+                              financial: '',
+                              cardNumber: int.tryParse(value!),
                             );
                           },
                         ),
                         const SizedBox(
-                          height: 20.0,
+                          height: AppSize.s20,
                         ),
                       ],
                     ),
@@ -405,8 +351,7 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                   ),
                   child: TextButton(
                       onPressed: (){
-                        // _saveForm();
-                        Navigator.pushNamed(context, ThirdInformationStudentSignUp.routeName);
+                        _saveForm();
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(ColorManager.primary,

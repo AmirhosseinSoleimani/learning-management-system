@@ -4,16 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:learning_management_system/presentation/resources/assets_manager.dart';
+import 'package:learning_management_system/presentation/resources/color_manager.dart';
+import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
 import '../../../models/student_signUp_put_model.dart';
+import '../../../presentation/resources/routes_manager.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 import '../../customize_stepper_information.dart';
 
 
 class ThirdInformationStudentSignUp extends StatefulWidget {
-  static const routeName = '/third_information_teacher_signup';
 
   const ThirdInformationStudentSignUp({Key? key}) : super(key: key);
 
@@ -31,8 +34,6 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
   final _emailFocusNode = FocusNode();
   final _bioFocusNode = FocusNode();
 
-  String? dropDownValue;
-  var items = ['Male', 'Female','No specified'];
 
   final _initValues = {
     'name': '',
@@ -112,32 +113,32 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xffFFFFFF),
+        backgroundColor: ColorManager.white,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: ColorManager.black,
             size: 20.0,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(Routes.teacherInformationSecondRoutes);
           },
         ),
         title: Image.asset(
-          'assets/images/epent.png',
+          ImageAssets.epent,
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.height * 0.08,
         ),
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.black, size: 30.0),
+        iconTheme: IconThemeData(color: ColorManager.black, size: AppSize.s30),
       ),
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xffFFFFFF),
+      backgroundColor: ColorManager.white,
       body: (_isLoading) ? const Center(
         child: CircularProgressIndicator(),
       ):Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(AppPadding.p16),
         child: Card(
           elevation: 8,
           child: SingleChildScrollView(
@@ -152,7 +153,7 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: Image.asset(
-                      'assets/images/epent_only_logo.png',
+                      ImageAssets.epentLogo,
                       width: 120.0,
                       height: 120.0,
                       alignment: Alignment.topLeft,
@@ -161,14 +162,14 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
                 ),
                 if(!isKeyboard) Padding(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 10.0,
+                    vertical: AppPadding.p10,
                   ),
                   child: Container(
-                      decoration: const BoxDecoration(
-                          color: Color(0xff177FB0),
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(10.0),
-                              topLeft: Radius.circular(10.0)
+                      decoration: BoxDecoration(
+                          color: ColorManager.primary,
+                          borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(AppSize.s10),
+                              topLeft: Radius.circular(AppSize.s10)
                           )
                       ),
                       width: MediaQuery.of(context).size.width,
