@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
@@ -50,6 +51,32 @@ class HeaderHomePage extends StatelessWidget {
             ),
           ),
           Positioned(
+            top: 8.0,
+            left: 38.0,
+            child: Container(
+              width: 20.0,
+              height: 20.0,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 1,
+                  color: ColorManager.white
+                ),
+                borderRadius: BorderRadius.circular(100.0),
+                color: ColorManager.white
+              ),
+              child: Center(
+                  child: Text(
+                      '1',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400,
+                      color: ColorManager.primary
+                    ),
+                  ),
+              ),
+            ),
+          ),
+          Positioned(
             top: 420.0,
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -70,7 +97,7 @@ class HeaderHomePage extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.1,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                 child: Text(
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit laboris nisi ut aliquip ex',
                   style: TextStyle(
@@ -99,7 +126,7 @@ class HeaderHomePage extends StatelessWidget {
                       )
                   ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 50.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
                     child:  Text(
                       'View All Courses',
                       style: TextStyle(
