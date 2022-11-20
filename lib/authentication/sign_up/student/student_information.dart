@@ -53,39 +53,38 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
 
   var _isLoading = false;
 
-  // Future<void> _saveForm() async {
-  //   final isValid = _form.currentState!.validate();
-  //   if (!isValid) {
-  //     return;
-  //   }
-  //   _form.currentState!.save();
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-  //   try {
-  //     await Provider.of<StudentProvider>(context, listen: false)
-  //         .replaceStudentAccount(context,_signupStudent);
-  //
-  //   } catch (error) {
-  //     await showDialog(
-  //       context: context,
-  //       builder: (context) => AlertDialog(
-  //         title: const Text('an error occurred!'),
-  //         content: const Text('Something went wrong'),
-  //         actions: [
-  //           TextButton(
-  //               onPressed: () {
-  //                 Navigator.of(context).pop();
-  //               },
-  //               child: const Text('Okay'))
-  //         ],
-  //       ),
-  //     );
-  //   }
-  //   setState(() {
-  //     _isLoading = false;
-  //   });
-  // }
+  Future<void> _saveForm() async {
+    final isValid = _form.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    _form.currentState!.save();
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      await Provider.of<StudentProvider>(context, listen: false).replaceStudentSignUp(context,_signupStudent);
+
+    } catch (error) {
+      await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('an error occurred!'),
+          content: const Text('Something went wrong'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Okay'))
+          ],
+        ),
+      );
+    }
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
 
 
@@ -125,7 +124,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
         iconTheme: const IconThemeData(color: Colors.black, size: 30.0),
       ),
       endDrawer: const DrawerAppBar(),
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: const Color(0xffFFFFFF),
       body: (_isLoading) ? const Center(
         child: CircularProgressIndicator(),
@@ -613,12 +612,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                         ),
                         child: TextButton(
                             onPressed: (){
-                              _emailError = true;
-                              Future.delayed(const Duration(seconds: 5), () {
-                                setState((){
-                                  _emailError = false;
-                                });
-                              });
+                              _saveForm();
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),

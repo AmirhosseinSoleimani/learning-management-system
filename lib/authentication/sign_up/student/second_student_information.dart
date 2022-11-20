@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/customize_stepper_second_information.dart';
 import 'package:learning_management_system/authentication/sign_up/student/phoneNumber_textFormField.dart';
+import 'package:learning_management_system/models/student_signUp_model.dart';
+import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
@@ -12,7 +14,6 @@ import 'favourite.dart';
 
 
 class SecondInformationStudent extends StatefulWidget {
-  static const routeName = '/second_student_information_signup';
   const SecondInformationStudent({Key? key}) : super(key: key);
 
   @override
@@ -42,18 +43,11 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
   String? dropDownValue;
   var items = ['Friend', 'Social Media','Website'];
 
-  var _signupStudent = StudentAccount(
-    firstName: '',
-    lastName: '',
-    password: '',
-    email: '',
-    phoneNumber: '',
+  var _signupStudent = StudentSignUpPatch(
+    phoneNumber: '+989383202865',
     birthDay: Timestamp.fromDate(DateTime.now()).seconds,
-    bio: '',
-    gender: 0,
     introduction: '',
     country: '',
-    favouriteCourse: '', userName: '',
   );
 
   var _isLoading = false;
@@ -69,9 +63,8 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
       _isLoading = true;
     });
     try {
-      // await Provider.of<StudentProvider>(context, listen: false)
-      //     .replaceStudentAccount(context,_signupStudent);
-
+      await Provider.of<StudentProvider>(context, listen: false)
+          .replaceSecondStudentSignUp(context,_signupStudent);
     } catch (error) {
       await showDialog(
         context: context,
@@ -91,12 +84,10 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
     setState(() {
       _isLoading = false;
     });
-    Navigator.pushNamed(context, FavouriteStudent.routeName);
   }
 
   @override
   Widget build(BuildContext context) {
-    final studentAccount = Provider.of<StudentProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffFFFFFF),
@@ -111,7 +102,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
           },
         ),
         title: Image.asset(
-          'assets/images/epent.png',
+          ImageAssets.epent,
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.height * 0.08,
         ),
@@ -137,7 +128,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: Image.asset(
-                      'assets/images/epent_only_logo.png',
+                      ImageAssets.epentLogo,
                       width: 120.0,
                       height: 120.0,
                       alignment: Alignment.topLeft,
@@ -233,6 +224,12 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                         return null;
                                       },
                                       onSaved: (val){
+                                        _signupStudent = StudentSignUpPatch(
+                                          phoneNumber: _signupStudent.phoneNumber,
+                                          birthDay: Timestamp.fromDate(DateTime.parse(val!)).seconds,
+                                          introduction: _signupStudent.introduction,
+                                          country: _signupStudent.country,
+                                        );
                                       },
                                     ):
                                     const Padding(
@@ -265,18 +262,11 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                     setState((){
                                       country = value.name;
                                       icon = value.flagEmoji;
-                                      _signupStudent = StudentAccount(
-                                        firstName: _signupStudent.firstName,
-                                        lastName: _signupStudent.lastName,
-                                        password: _signupStudent.password,
-                                        email: _signupStudent.email,
-                                        phoneNumber: _signupStudent.phoneNumber,
+                                      _signupStudent = StudentSignUpPatch(
                                         birthDay: _signupStudent.birthDay,
-                                        bio: _signupStudent.bio,
-                                        gender: _signupStudent.gender,
                                         introduction: _signupStudent.introduction,
+                                        phoneNumber: _signupStudent.phoneNumber,
                                         country: value.displayName,
-                                        favouriteCourse: _signupStudent.favouriteCourse, userName: '',
                                       );
                                     });
                                   },
@@ -395,18 +385,11 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                               onChanged: (String? newValue) {
                                 setState(() {
                                   dropDownValue = newValue!;
-                                  _signupStudent = StudentAccount(
-                                    firstName: _signupStudent.firstName,
-                                    lastName: _signupStudent.lastName,
-                                    password: _signupStudent.password,
-                                    email: _signupStudent.email,
+                                  _signupStudent = StudentSignUpPatch(
                                     phoneNumber: _signupStudent.phoneNumber,
                                     birthDay: _signupStudent.birthDay,
-                                    bio: _signupStudent.bio,
-                                    gender: _signupStudent.gender,
                                     introduction: newValue,
                                     country: _signupStudent.country,
-                                    favouriteCourse: _signupStudent.favouriteCourse, userName: '',
                                   );
 
 

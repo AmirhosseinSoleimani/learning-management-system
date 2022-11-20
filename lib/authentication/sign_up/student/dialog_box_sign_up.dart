@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/sign_up/student/feature_course_sign_up.dart';
 import 'package:learning_management_system/data.dart';
+import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
 import '../../../provider/student_provider.dart';
@@ -36,7 +37,6 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final studentAccount = Provider.of<StudentProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffFFFFFF),
@@ -51,7 +51,7 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
           },
         ),
         title: Image.asset(
-          'assets/images/epent.png',
+          ImageAssets.epent,
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.height * 0.08,
         ),

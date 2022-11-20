@@ -23,6 +23,7 @@ class StudentSignUpPatch{
   String? language;
   String? bio;
   String? workHistory;
+  String? id;
 
   StudentSignUpPatch({
     this.firstName,
@@ -41,5 +42,6 @@ class StudentSignUpPatch{
     this.workHistory,
     this.language,
     this.bio,
+    this.id
   });
 }

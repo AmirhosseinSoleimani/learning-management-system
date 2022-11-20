@@ -1,8 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:learning_management_system/presentation/resources/assets_manager.dart';
+import 'package:learning_management_system/presentation/resources/routes_manager.dart';
 import '../../../data.dart';
-import '../../../provider/student_provider.dart';
 import '../../../store/course_details/screens/course_details.dart';
 import './feature_master_sign_up.dart';
 import '../../../store/drawer.dart';
@@ -78,7 +77,7 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
           },
         ),
         title: Image.asset(
-          'assets/images/epent.png',
+          ImageAssets.epent,
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.height * 0.08,
         ),
@@ -264,7 +263,7 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
                       right: 87.0, left: 87.0, bottom: 20.0),
                   child: TextButton(
                       onPressed: () {
-                        _saveForm();
+                        Navigator.of(context).pushReplacementNamed(Routes.homePage);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

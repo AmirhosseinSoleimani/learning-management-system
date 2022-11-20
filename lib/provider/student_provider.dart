@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:learning_management_system/models/student_signUp_model.dart';
 import 'package:learning_management_system/presentation/resources/routes_manager.dart';
 import 'package:http/http.dart' as http;
-import '../authentication/sign_up/student/student_sign_up.dart';
-import '../models/teacher_signUp_model.dart';
-import 'package:geolocator/geolocator.dart';
 
 class StudentProvider with ChangeNotifier{
   final List<StudentSignUpPost> _studentAccountPost = [];
@@ -78,187 +75,117 @@ class StudentProvider with ChangeNotifier{
     }
   }
 
-  // Future <void> replaceTeacherSignUp(BuildContext context,TeacherSignUpPatch teacherSignUpPatch) async{
-  //   final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/');
-  //   try{
-  //     http.Response response = await http.patch(url,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'accept': 'application/json'
-  //       },
-  //       body: json.encode(
-  //           {
-  //             'first_name': teacherSignUpPatch.firstName,
-  //             'last_name': teacherSignUpPatch.lastName,
-  //             'email': teacherSignUpPatch.email,
-  //             "gender": teacherSignUpPatch.gender,
-  //             'country': teacherSignUpPatch.country,
-  //             'introduction': teacherSignUpPatch.introduction,
-  //             'birth_day': teacherSignUpPatch.birthDay,
-  //             'id': id,
-  //             "address": "home sweet home",
-  //             "bio": "hello this is iliya",
-  //             "card_number": 5047061042077269,
-  //             "language": "fucking persian",
-  //             "latitude": 12321.41214,
-  //             "longitude": 1221.4124,
-  //             "phone_number": "+989124182872",
-  //             "work_history": "working on fucking stack team"
-  //           }
-  //       ),
-  //     );
-  //     debugPrint(response.body);
-  //     debugPrint(response.statusCode.toString());
-  //     if(response.body.contains('this username is exist, try another')){
-  //       userNameError = 'This User Name is Exit';
-  //     }else if(response.statusCode == 200){
-  //       goNext(context,Routes.teacherInformationSecondRoutes);
-  //       isLocation = false;
-  //     }
-  //     final newTeacherSignUpPatch = TeacherSignUpPatch(
-  //       email: teacherSignUpPatch.email,
-  //       firstName: teacherSignUpPatch.firstName,
-  //       lastName: teacherSignUpPatch.lastName,
-  //       gender: teacherSignUpPatch.gender,
-  //       country: teacherSignUpPatch.country,
-  //       introduction: teacherSignUpPatch.introduction,
-  //       birthDay: teacherSignUpPatch.birthDay,
-  //     );
-  //     _teacherAccountPatch.add(newTeacherSignUpPatch);
-  //     notifyListeners();
-  //   }catch(error){
-  //     debugPrint(error.toString());
-  //   }
-  // }
-  //
-  // Future<void> selectedLocation(BuildContext context,Position position) async{
-  //
-  //   defaultLatitude = position.latitude;
-  //   defaultLongitude = position.longitude;
-  //   goNext(context,Routes.teacherInformationSecondRoutes);
-  //   isLocation = true;
-  // }
-  //
-  // Future <void> replaceTeacherSecondSignUp(BuildContext context,TeacherSignUpPatch teacherSignUpPatch) async{
-  //   final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/');
-  //   try{
-  //     http.Response response = await http.patch(url,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'accept': 'application/json'
-  //       },
-  //       body: json.encode(
-  //           {
-  //             'first_name': _teacherAccountPatch[0].firstName,
-  //             'last_name': _teacherAccountPatch[0].lastName,
-  //             'email': _teacherAccountPatch[0].email,
-  //             "gender": _teacherAccountPatch[0].gender,
-  //             'country': _teacherAccountPatch[0].country,
-  //             'introduction': _teacherAccountPatch[0].introduction,
-  //             'birth_day': _teacherAccountPatch[0].birthDay,
-  //             'id': id,
-  //             "address": teacherSignUpPatch.address,
-  //             "bio": "hello this is iliya",
-  //             "card_number": teacherSignUpPatch.cardNumber,
-  //             "language": "fucking persian",
-  //             "latitude": defaultLatitude,
-  //             "longitude": defaultLongitude,
-  //             "phone_number": '+9383202865',
-  //             "work_history": "working on fucking stack team"
-  //           }
-  //       ),
-  //     );
-  //     debugPrint(response.body);
-  //     debugPrint(response.statusCode.toString());
-  //     if(response.body.contains('this username is exist, try another')){
-  //       userNameError = 'This User Name is Exit';
-  //     }else if(response.statusCode == 200){
-  //       goNext(context,Routes.teacherInformationThirdRoutes);
-  //       isLocation = false;
-  //     }
-  //     final newTeacherSignUpPatch = TeacherSignUpPatch(
-  //       email: _teacherAccountPatch[0].email,
-  //       firstName: _teacherAccountPatch[0].firstName,
-  //       lastName: _teacherAccountPatch[0].lastName,
-  //       gender: _teacherAccountPatch[0].gender,
-  //       country: _teacherAccountPatch[0].country,
-  //       introduction: _teacherAccountPatch[0].introduction,
-  //       birthDay: _teacherAccountPatch[0].birthDay,
-  //       address: teacherSignUpPatch.address,
-  //       latitude: defaultLatitude,
-  //       longitude: defaultLongitude,
-  //       financial: teacherSignUpPatch.financial,
-  //       phoneNumber: teacherSignUpPatch.phoneNumber,
-  //       cardNumber: teacherSignUpPatch.cardNumber,
-  //     );
-  //     _teacherAccountPatch.removeAt(0);
-  //     _teacherAccountPatch.add(newTeacherSignUpPatch);
-  //     notifyListeners();
-  //   }catch(error){
-  //     debugPrint(error.toString());
-  //   }
-  // }
-  //
-  // Future <void> replaceTeacherThirdSignUp(BuildContext context,TeacherSignUpPatch teacherSignUpPatch) async{
-  //   final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/');
-  //   try{
-  //     http.Response response = await http.patch(url,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'accept': 'application/json'
-  //       },
-  //       body: json.encode(
-  //           {
-  //             'first_name': _teacherAccountPatch[0].firstName,
-  //             'last_name': _teacherAccountPatch[0].lastName,
-  //             'email': _teacherAccountPatch[0].email,
-  //             "gender": _teacherAccountPatch[0].gender,
-  //             'country': _teacherAccountPatch[0].country,
-  //             'introduction': _teacherAccountPatch[0].introduction,
-  //             'birth_day': _teacherAccountPatch[0].birthDay,
-  //             'id': id,
-  //             "address": _teacherAccountPatch[0].address,
-  //             "bio": teacherSignUpPatch.bio,
-  //             "card_number": _teacherAccountPatch[0].cardNumber,
-  //             "language": "fucking persian",
-  //             "latitude": defaultLatitude,
-  //             "longitude": defaultLongitude,
-  //             "phone_number": '+9383202865',
-  //             "work_history": "working on fucking stack team"
-  //           }
-  //       ),
-  //     );
-  //     debugPrint(response.body);
-  //     debugPrint(response.statusCode.toString());
-  //     if(response.body.contains('this username is exist, try another')){
-  //       userNameError = 'This User Name is Exit';
-  //     }else if(response.statusCode == 200){
-  //       goNext(context,Routes.teacherFavouriteRoutes);
-  //       isLocation = false;
-  //     }
-  //     final newTeacherSignUpPatch = TeacherSignUpPatch(
-  //       email: _teacherAccountPatch[0].email,
-  //       firstName: _teacherAccountPatch[0].firstName,
-  //       lastName: _teacherAccountPatch[0].lastName,
-  //       gender: _teacherAccountPatch[0].gender,
-  //       country: _teacherAccountPatch[0].country,
-  //       introduction: _teacherAccountPatch[0].introduction,
-  //       birthDay: _teacherAccountPatch[0].birthDay,
-  //       address: _teacherAccountPatch[0].address,
-  //       latitude: defaultLatitude,
-  //       longitude: defaultLongitude,
-  //       financial: _teacherAccountPatch[0].financial,
-  //       phoneNumber: _teacherAccountPatch[0].phoneNumber,
-  //       cardNumber: _teacherAccountPatch[0].cardNumber,
-  //       bio: teacherSignUpPatch.bio,
-  //     );
-  //     _teacherAccountPatch.removeAt(0);
-  //     _teacherAccountPatch.add(newTeacherSignUpPatch);
-  //     notifyListeners();
-  //   }catch(error){
-  //     debugPrint(error.toString());
-  //   }
-  // }
+  Future <void> replaceStudentSignUp(BuildContext context,StudentSignUpPatch studentSignUpPatch) async{
+    final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/');
+    try{
+      http.Response response = await http.patch(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'accept': 'application/json'
+        },
+        body: json.encode(
+            {
+              'first_name': studentSignUpPatch.firstName,
+              'last_name': studentSignUpPatch.lastName,
+              'email': studentSignUpPatch.email,
+              "gender": studentSignUpPatch.gender,
+              'country': "united states",
+              'introduction': "too hard",
+              'birth_day': 21312312,
+              'id': id,
+              "address": 'home sweet home',
+              "bio": studentSignUpPatch.bio,
+              "card_number": null,
+              "language": null,
+              "latitude": null,
+              "longitude": null,
+              "phone_number": "+989124182872",
+              "work_history": null
+            }
+        ),
+      );
+      debugPrint(response.body);
+      debugPrint(response.statusCode.toString());
+      if(response.body.contains('this username is exist, try another')){
+        userNameError = 'This User Name is Exit';
+      }else if(response.statusCode == 200){
+        goNext(context,Routes.studentSecondInformation);
+        isLocation = false;
+      }
+      final newStudentSignUpPatch = StudentSignUpPatch(
+        email: studentSignUpPatch.email,
+        firstName: studentSignUpPatch.firstName,
+        lastName: studentSignUpPatch.lastName,
+        gender: studentSignUpPatch.gender,
+        bio: studentSignUpPatch.bio,
+        id: id,
+        country: '',
+        introduction: '',
+        birthDay: 123456,
+      );
+      _studentAccountPatch.add(newStudentSignUpPatch);
+      notifyListeners();
+    }catch(error){
+      debugPrint(error.toString());
+    }
+  }
+
+  Future <void> replaceSecondStudentSignUp(BuildContext context,StudentSignUpPatch studentSignUpPatch) async{
+    final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/');
+    try{
+      http.Response response = await http.patch(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'accept': 'application/json'
+        },
+        body: json.encode(
+            {
+              'first_name': studentAccountPatch[0].firstName,
+              'last_name': studentAccountPatch[0].lastName,
+              'email': studentAccountPatch[0].email,
+              "gender": studentAccountPatch[0].gender,
+              'country': studentSignUpPatch.country,
+              'introduction': studentSignUpPatch.introduction,
+              'birth_day': studentSignUpPatch.birthDay,
+              'id': id,
+              "address": 'home sweet home',
+              "bio": studentAccountPatch[0].bio,
+              "card_number": null,
+              "language": null,
+              "latitude": null,
+              "longitude": null,
+              "phone_number": "+989124182872",
+              "work_history": null
+            }
+        ),
+      );
+      debugPrint(response.body);
+      debugPrint(response.statusCode.toString());
+      if(response.body.contains('this username is exist, try another')){
+        userNameError = 'This User Name is Exit';
+      }else if(response.statusCode == 200){
+        goNext(context,Routes.studentFavourite);
+        isLocation = false;
+      }
+      final newStudentSignUpPatch = StudentSignUpPatch(
+        email: studentAccountPatch[0].email,
+        firstName: studentAccountPatch[0].firstName,
+        lastName: studentAccountPatch[0].lastName,
+        gender: studentAccountPatch[0].gender,
+        bio: studentAccountPatch[0].bio,
+        id: id,
+        country: studentSignUpPatch.country,
+        introduction: studentSignUpPatch.introduction,
+        birthDay: studentSignUpPatch.birthDay,
+        phoneNumber: '+9383202865'
+      );
+      _studentAccountPatch.removeAt(0);
+      _studentAccountPatch.add(newStudentSignUpPatch);
+      notifyListeners();
+    }catch(error){
+      debugPrint(error.toString());
+    }
+  }
 
 }
 
