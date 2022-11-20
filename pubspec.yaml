@@ -95,6 +95,7 @@ flutter:
     - assets/images/appBar/
     - assets/images/payment/
     - assets/images/teacherSignUp/
+    - assets/images/addCourse/
     - assets/icons/
     - assets/icons/category/
     - assets/icons/homePage/

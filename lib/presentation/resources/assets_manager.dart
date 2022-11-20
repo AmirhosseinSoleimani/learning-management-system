@@ -23,6 +23,8 @@ class ImageAssets{
   static const String epentLogo = '$imagePath/teacherSignUp/epent_only_logo.png';
   static const String introduction = '$imagePath/teacherSignUp/introduction.png';
 
+  // addCourse
+  static const String addCourseLayout = '$imagePath/addCourse/layout.png';
 
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/authentication/sign_in/sign_in.dart';
+import 'package:learning_management_system/presentation/resources/routes_manager.dart';
 import 'package:learning_management_system/student/screens/home_page.dart';
 import 'package:learning_management_system/teacher/quiz_marker/screens/quiz_marker.dart';
 import '../../../student/screens/calendar_table.dart';
@@ -35,7 +36,7 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.dashboard),
             title: const Text('Dashboard'),
             onTap: (){
-              Navigator.pushNamed(context, HomePageStudent.routeName);
+              Navigator.of(context).pushReplacementNamed(Routes.teacherDashboard);
             },
           ),
           ListTile(

@@ -5,6 +5,7 @@ import 'package:learning_management_system/authentication/sign_up/teacher/second
 import 'package:learning_management_system/authentication/sign_up/teacher/teacher_sign_up.dart';
 import 'package:learning_management_system/store/homePage/screens/home_page.dart';
 import 'package:learning_management_system/store/shop_page/screens/payment_page.dart';
+import 'package:learning_management_system/teacher/add_course/screens/layout.dart';
 import '../../authentication/sign_up/student/favourite.dart';
 import '../../authentication/sign_up/student/second_student_information.dart';
 import '../../authentication/sign_up/student/student_information.dart';
@@ -15,6 +16,8 @@ import '../../authentication/sign_up/teacher/third_teacher_information.dart';
 import '../../presentation/resources/string_manager.dart';
 import '../../store/course_details/screens/course_details.dart';
 import '../../store/shop_page/screens/shop_page.dart';
+import '../../teacher/add_course/screens/title.dart';
+import '../../teacher/dashboard/screens/dashboard.dart';
 
 class Routes{
   static const String shopPageRoute = '/shop';
@@ -32,6 +35,9 @@ class Routes{
   static const String studentSecondInformation = '/studentSecondInformation';
   static const String signIn = '/signIn';
   static const String studentFavourite = '/studentFavourite';
+  static const String teacherDashboard = '/teacherDashboard';
+  static const String addCourseLayout = '/addCourseLayout';
+  static const String addCourseTitle = '/addCourseTitle';
 }
 
 
@@ -69,6 +75,12 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => const SecondInformationStudent());
       case Routes.studentFavourite:
         return MaterialPageRoute(builder: (_) => const FavouriteStudent());
+      case Routes.teacherDashboard:
+        return MaterialPageRoute(builder: (_) => const TeacherPanel());
+      case Routes.addCourseLayout:
+        return MaterialPageRoute(builder: (_) => const Layout());
+      case Routes.addCourseTitle:
+        return MaterialPageRoute(builder: (_) => const CourseTitle());
       default:
         return unDefinedRoute();
     }

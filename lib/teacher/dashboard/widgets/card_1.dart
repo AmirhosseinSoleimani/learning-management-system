@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:tetest/presentation/color_management.dart';
-import 'package:tetest/presentation/styles_manager.dart';
-import 'package:tetest/presentation/values_manager.dart';
+import '../../presentation/dashboard_styles_manager.dart';
+import '../../presentation/dashboard_color_manager.dart';
+import '../../presentation/dashboard_value_manager.dart';
 
 class ChartCart1 extends StatelessWidget {
   const ChartCart1({

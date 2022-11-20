@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import '../../models/bar_models_chart.dart';
+import '../../models/teacher_panel_progressive.dart';
 import '../../presentation/dashboard_styles_manager.dart';
 import '../../presentation/dashboard_color_manager.dart';
 import '../../presentation/dashboard_value_manager.dart';

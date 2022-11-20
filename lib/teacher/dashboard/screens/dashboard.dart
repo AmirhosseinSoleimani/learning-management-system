@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:tetest/models/teacher_panel_corse_progressiv.dart';
-import 'package:tetest/presentation/color_management.dart';
-import 'package:tetest/presentation/styles_manager.dart';
-import 'package:tetest/presentation/values_manager.dart';
-import 'package:tetest/teacherPanel/models/bar_models_chart.dart';
 
-import 'package:tetest/teacherPanel/widgets/card_1.dart';
-import 'package:tetest/teacherPanel/widgets/card_2.dart';
-import 'package:tetest/teacherPanel/widgets/course_card.dart';
-import 'package:tetest/teacherPanel/widgets/teacher_drawer.dart';
-import 'package:tetest/teacherPanel/widgets/third_card.dart';
+import '../../presentation/dashboard_styles_manager.dart';
+import '../../presentation/dashboard_color_manager.dart';
+import '../../presentation/dashboard_value_manager.dart';
+import '../../models/teacher_panel_progressive.dart';
+import '../../models/bar_models_chart.dart';
+
+import '../end_drawer.dart';
+import '../widgets/teacher_drawer.dart';
+import '../widgets/card_1.dart';
+import '../widgets/card_2.dart';
+import '../widgets/card_3.dart';
+import '../widgets/course_card.dart';
 // enum IsClicked{
 //   Actived,
 //   Deactived
@@ -107,6 +109,7 @@ class _TeacherPanelState extends State<TeacherPanel> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       drawer: TeacherDrawer(),
+      endDrawer: EndDrawer(),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 2,
@@ -114,21 +117,6 @@ class _TeacherPanelState extends State<TeacherPanel> {
           builder: (context) => Stack(
             alignment: Alignment.center,
             children: [
-              IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                icon: CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  child: SizedBox(
-                      child: ClipOval(
-                          child: Image.asset(
-                            'assets/svg/avatar/av1.jpg',
-                            width: 200,
-                            height: 200,
-                          ))),
-                ),
-              ),
               Positioned(
                   right: 10,
                   bottom: 8,
