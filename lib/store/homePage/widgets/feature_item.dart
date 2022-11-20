@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:learning_management_system/provider/store_provider.dart';
+import 'package:provider/provider.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../widgets/widgets.dart';
+import '../../../models/store_model.dart';
 
 class FeatureItem extends StatelessWidget {
-  const FeatureItem({Key? key,this.data,required this.onTap}) : super(key: key);
+  FeatureItem({Key? key,this.data,required this.onTap}) : super(key: key);
   final data;
   final GestureTapCallback onTap;
+
+  var _storePayment = StoreModel(
+      id: '',
+      name: '',
+      image: '',
+      price: '',
+      duration: '',
+      session: '',
+      review: '',
+      description: '',
+  );
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -147,7 +163,17 @@ class FeatureItem extends StatelessWidget {
                           ),
                           TextButton(
                               onPressed: (){
-
+                                _storePayment = StoreModel(
+                                  id: data["id"],
+                                  name: data["name"],
+                                  image: data["image"],
+                                  price: data["price"],
+                                  duration: data["duration"],
+                                  session: data["session"],
+                                  review: data["review"],
+                                  description: '',
+                                );
+                                Provider.of<StoreProvider>(context).addShopPayment(_storePayment);
                               },
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_management_system/provider/store_provider.dart';
 import 'package:provider/provider.dart';
 import '../presentation/resources/routes_manager.dart';
 import '../provider/quiz_app_provider.dart';
@@ -28,6 +29,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => QuizAppProvider(),
         ),
         ChangeNotifierProvider(create: (context) => TeacherProvider(),
+        ),
+        ChangeNotifierProvider(create: (context) => StoreProvider(),
         ),
       ],
       child: const MaterialApp(
