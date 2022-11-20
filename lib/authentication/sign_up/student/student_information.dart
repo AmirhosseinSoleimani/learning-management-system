@@ -1,18 +1,19 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:learning_management_system/models/student_signUp_model.dart';
+import 'package:learning_management_system/presentation/resources/color_manager.dart';
+import 'package:learning_management_system/presentation/resources/routes_manager.dart';
+import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
-import '../../../models/student_account.dart';
+import '../../../presentation/resources/assets_manager.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
-import './second_student_information.dart';
 import '../../customize_stepper_information.dart';
 
 class InformationStudentSignUp extends StatefulWidget {
-  static const routeName = '/student_information_signup';
 
   const InformationStudentSignUp({Key? key}) : super(key: key);
 
@@ -36,22 +37,16 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
   final _initValues = {
     'name': '',
     'lastName': '',
+    'email': '',
     'bio': ''
   };
 
-  var _signupStudent = StudentAccount(
+  var _signupStudent = StudentSignUpPatch(
     firstName: '',
     lastName: '',
-    password: '',
     email: '',
-    phoneNumber: '',
-    birthDay: Timestamp.fromDate(DateTime.now()).seconds,
     bio: '',
     gender: 1,
-    introduction: '',
-    country: '',
-    favouriteCourse: '',
-    userName: '',
   );
 
   var _emailError = false;
@@ -107,23 +102,22 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final studentProvider = Provider.of<StudentProvider>(context);
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xffFFFFFF),
+        backgroundColor: ColorManager.white,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: ColorManager.black,
             size: 20.0,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(Routes.studentSignUp);
           },
         ),
         title: Image.asset(
-          'assets/images/epent.png',
+          ImageAssets.epent,
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.height * 0.08,
         ),
@@ -151,7 +145,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: Image.asset(
-                      'assets/images/epent_only_logo.png',
+                      ImageAssets.epentLogo,
                       width: 120.0,
                       height: 120.0,
                       alignment: Alignment.topLeft,
@@ -193,7 +187,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                 Form(
                   key: _form,
                   child: ListView(
-                    physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     children: [
                       Padding(
@@ -214,10 +208,11 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                   fontSize: 16.0,
                                   color: Color(0xff7E7979)
                               ),
-                              prefixIcon: const Icon(
-                                Icons.person_outline,
-                                size: 28.0,
-                                color: Color(0xff7E7979),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(AppPadding.p12),
+                                child: SvgPicture.asset(
+                                  IconAssets.personIcon
+                                ),
                               )
                           ),
                           focusNode: _nameFocusNode,
@@ -234,19 +229,12 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                             return null;
                           },
                           onSaved: (value) {
-                            _signupStudent = StudentAccount(
-                              firstName: value!,
+                            _signupStudent = StudentSignUpPatch(
+                              firstName: value,
                               lastName: _signupStudent.lastName,
-                              // password: studentProvider.studentAccount[0].password,
                               email: _signupStudent.email,
-                              phoneNumber: _signupStudent.phoneNumber,
-                              birthDay: _signupStudent.birthDay,
                               bio: _signupStudent.bio,
                               gender: _signupStudent.gender,
-                              introduction: _signupStudent.introduction,
-                              country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse,
-                              // userName: studentProvider.studentAccount[0].userName,
                             );
                           },
                         ),
@@ -288,19 +276,12 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                             return null;
                           },
                           onSaved: (value) {
-                            _signupStudent = StudentAccount(
+                            _signupStudent = StudentSignUpPatch(
                               firstName: _signupStudent.firstName,
-                              lastName: value!,
-                              password: _signupStudent.password,
+                              lastName: value,
                               email: _signupStudent.email,
-                              phoneNumber: _signupStudent.phoneNumber,
-                              birthDay: _signupStudent.birthDay,
                               bio: _signupStudent.bio,
                               gender: _signupStudent.gender,
-                              introduction: _signupStudent.introduction,
-                              country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse,
-                              userName: _signupStudent.userName,
                             );
                           },
                         ),
@@ -326,10 +307,11 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                   fontSize: 16.0,
                                   color: Color(0xff7E7979)
                               ),
-                              prefixIcon: const Icon(
-                                Icons.email_outlined,
-                                size: 28.0,
-                                color: Color(0xff7E7979),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(AppPadding.p12),
+                                child: SvgPicture.asset(
+                                  IconAssets.email
+                                ),
                               )
                           ),
                           focusNode: _emailFocusNode,
@@ -348,18 +330,12 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                             return null;
                           },
                           onSaved: (value) {
-                            _signupStudent = StudentAccount(
+                            _signupStudent = StudentSignUpPatch(
                               firstName: _signupStudent.firstName,
                               lastName: _signupStudent.lastName,
-                              password: _signupStudent.password,
-                              email: value!,
-                              country: _signupStudent.country,
-                              favouriteCourse: _signupStudent.favouriteCourse,
-                              gender: _signupStudent.gender,
-                              introduction: _signupStudent.introduction,
-                              birthDay: _signupStudent.birthDay,
+                              email: value,
                               bio: _signupStudent.bio,
-                              phoneNumber: _signupStudent.phoneNumber, userName: '',
+                              gender: _signupStudent.gender,
                             );
                           },
                         ),
@@ -421,19 +397,12 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                     if(newValue == 'Male'){
                                       setState(() {
                                         dropDownValue = newValue!;
-                                        _signupStudent = StudentAccount(
+                                        _signupStudent = StudentSignUpPatch(
                                           firstName: _signupStudent.firstName,
                                           lastName: _signupStudent.lastName,
-                                          password: _signupStudent.password,
                                           email: _signupStudent.email,
-                                          phoneNumber: _signupStudent.phoneNumber,
-                                          birthDay: _signupStudent.birthDay,
                                           bio: _signupStudent.bio,
                                           gender: 1,
-                                          introduction: _signupStudent.introduction,
-                                          country: _signupStudent.country,
-                                          favouriteCourse: _signupStudent.favouriteCourse,
-                                          userName: _signupStudent.userName,
                                         );
                                       });
                                     }
@@ -441,19 +410,12 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                     {
                                       setState(() {
                                         dropDownValue = newValue!;
-                                        _signupStudent = StudentAccount(
+                                        _signupStudent = StudentSignUpPatch(
                                           firstName: _signupStudent.firstName,
                                           lastName: _signupStudent.lastName,
-                                          password: _signupStudent.password,
                                           email: _signupStudent.email,
-                                          phoneNumber: _signupStudent.phoneNumber,
-                                          birthDay: _signupStudent.birthDay,
                                           bio: _signupStudent.bio,
                                           gender: 0,
-                                          introduction: _signupStudent.introduction,
-                                          country: _signupStudent.country,
-                                          favouriteCourse: _signupStudent.favouriteCourse,
-                                          userName: _signupStudent.userName,
                                         );
                                       });
                                     }
@@ -461,19 +423,12 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                     else{
                                       setState(() {
                                         dropDownValue = newValue!;
-                                        _signupStudent = StudentAccount(
+                                        _signupStudent = StudentSignUpPatch(
                                           firstName: _signupStudent.firstName,
                                           lastName: _signupStudent.lastName,
-                                          password: _signupStudent.password,
                                           email: _signupStudent.email,
-                                          phoneNumber: _signupStudent.phoneNumber,
-                                          birthDay: _signupStudent.birthDay,
                                           bio: _signupStudent.bio,
                                           gender: 3,
-                                          introduction: _signupStudent.introduction,
-                                          country: _signupStudent.country,
-                                          favouriteCourse: _signupStudent.favouriteCourse,
-                                          userName: _signupStudent.userName,
                                         );
                                       });
                                     }
@@ -518,19 +473,12 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                       return null;
                                     },
                                     onSaved: (value) {
-                                      _signupStudent = StudentAccount(
+                                      _signupStudent = StudentSignUpPatch(
                                         firstName: _signupStudent.firstName,
                                         lastName: _signupStudent.lastName,
-                                        password: _signupStudent.password,
                                         email: _signupStudent.email,
-                                        phoneNumber: _signupStudent.phoneNumber,
-                                        birthDay: _signupStudent.birthDay,
-                                        bio: value!,
+                                        bio: value,
                                         gender: _signupStudent.gender,
-                                        introduction: _signupStudent.introduction,
-                                        country: _signupStudent.country,
-                                        favouriteCourse: _signupStudent.favouriteCourse,
-                                        userName: _signupStudent.userName,
                                       );
                                     },
                                   ),
