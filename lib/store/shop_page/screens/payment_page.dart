@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import '../../../data.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
+import '../../../provider/store_provider.dart';
 import '../../drawer.dart';
 import '../widgets/payment_item.dart';
 
@@ -98,9 +100,12 @@ class PaymentPage extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.40,
                     child: ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 3,
+                      itemCount: Provider.of<StoreProvider>(context).storePayment.length,
                       itemBuilder: (context, index) => PaymentItem(
-                        data: courses[index],
+                        name: Provider.of<StoreProvider>(context).storePayment[index].name,
+                        image: Provider.of<StoreProvider>(context).storePayment[index].image,
+                        price: Provider.of<StoreProvider>(context).storePayment[index].price,
+                        id: Provider.of<StoreProvider>(context).storePayment[index].id,
                       ),
                     ),
                   ),
@@ -124,7 +129,7 @@ class PaymentPage extends StatelessWidget {
                               color: ColorManager.slateGray2),
                         ),
                         Text(
-                          courses[1]['price'],
+                          '\$ ${Provider.of<StoreProvider>(context,listen: false).totalPrice}',
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,

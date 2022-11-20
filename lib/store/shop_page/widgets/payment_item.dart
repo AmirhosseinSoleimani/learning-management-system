@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import '../../../presentation/resources/color_manager.dart';
 
 class PaymentItem extends StatelessWidget {
-  const PaymentItem({Key? key,this.data}) : super(key: key);
-
-  final data;
+  PaymentItem({Key? key,required this.name,required this.image,required this.price,required this.id,}) : super(key: key);
+  String name;
+  String image;
+  String price;
+  String id;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,7 +42,7 @@ class PaymentItem extends StatelessWidget {
                             image: DecorationImage(
                                 image: imageProvider, fit: BoxFit.cover)),
                       ),
-                      imageUrl: data['image'],
+                      imageUrl: image,
                     ),
                   ),
                 ),
@@ -49,7 +51,7 @@ class PaymentItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        data['name'],
+                        name,
                         style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w400,
@@ -57,7 +59,7 @@ class PaymentItem extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        data['price'],
+                        price,
                         style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w400,
