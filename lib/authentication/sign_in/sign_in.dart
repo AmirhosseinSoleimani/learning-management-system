@@ -1,13 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/models/student_signUp_put_model.dart';
+import 'package:learning_management_system/presentation/resources/color_manager.dart';
+import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../models/student_account.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
+import '../../presentation/resources/assets_manager.dart';
 import '../../presentation/resources/routes_manager.dart';
-import '../sign_up/student/student_sign_up.dart';
 
 
 class SignIn extends StatefulWidget {
@@ -34,20 +33,6 @@ class _SignInState extends State<SignIn> {
 
   bool _passwordVisible = false;
 
-  var _signupStudent = StudentAccount(
-    firstName: 'Student',
-    lastName: 'Student',
-    password: '123456',
-    email: 'example@gmail.com',
-    phoneNumber: '+091212345678',
-    birthDay: Timestamp.fromDate(DateTime.now()).seconds,
-    bio: 'Student',
-    gender: 1,
-    introduction: 'Student',
-    country: 'Student',
-    favouriteCourse: '',
-    userName: 'Student',
-  );
 
   var _isLoading = false;
 
@@ -63,8 +48,6 @@ class _SignInState extends State<SignIn> {
       _isLoading = true;
     });
     try {
-      await Provider.of<StudentProvider>(context, listen: false)
-          .addStudentAccount(context,_signupStudent);
     } catch (error) {
       await showDialog(
         context: context,
@@ -100,19 +83,19 @@ class _SignInState extends State<SignIn> {
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xffFFFFFF),
+        backgroundColor: ColorManager.white,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
-            size: 20.0,
+            color: ColorManager.black,
+            size: AppSize.s20,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(Routes.homePage);
           },
         ),
         title: Image.asset(
-          'assets/images/epent.png',
+          ImageAssets.epent,
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.height * 0.08,
         ),
@@ -142,7 +125,7 @@ class _SignInState extends State<SignIn> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: Image.asset(
-                      'assets/images/epent_body.png',
+                      ImageAssets.epentBody,
                       width: 120.0,
                       height: 120.0,
                     ),
@@ -189,10 +172,11 @@ class _SignInState extends State<SignIn> {
                                     fontSize: 16.0,
                                     color: Color(0xff7E7979)
                                 ),
-                                prefixIcon: const Icon(
-                                  Icons.person,
-                                  size: 28.0,
-                                  color: Color(0xff7E7979),
+                                prefixIcon: Padding(
+                                  padding: const EdgeInsets.all(AppPadding.p12),
+                                  child: SvgPicture.asset(
+                                    IconAssets.personIcon
+                                  ),
                                 )
                             ),
                             focusNode: _userNameFocusNode,
@@ -209,33 +193,19 @@ class _SignInState extends State<SignIn> {
                               return null;
                             },
                             onSaved: (value) {
-                              _signupStudent = StudentAccount(
-                                userName: value!,
-                                firstName: _signupStudent.firstName,
-                                lastName: _signupStudent.lastName,
-                                password: _signupStudent.password,
-                                email: _signupStudent.email,
-                                country: _signupStudent.country,
-                                favouriteCourse: _signupStudent.favouriteCourse,
-                                gender: _signupStudent.gender,
-                                introduction: _signupStudent.introduction,
-                                birthDay: _signupStudent.birthDay,
-                                bio: _signupStudent.bio,
-                                phoneNumber: _signupStudent.phoneNumber,
-                              );
                             },
                           ),
                           if (_userNameError) Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(AppPadding.p8),
                             child: Text(
                               Provider.of<StudentProvider>(context).userNameError,
-                              style: const TextStyle(
-                                  color: Colors.red
+                              style: TextStyle(
+                                  color: ColorManager.error
                               ),
                             ),
                           ),
                           const SizedBox(
-                            height: 10.0,
+                            height: AppSize.s10,
                           ),
                           TextFormField(
                               initialValue: _initValues['password'],
@@ -255,10 +225,11 @@ class _SignInState extends State<SignIn> {
                                       size: 28.0,
                                     ),
                                   ),
-                                  prefixIcon: const Icon(
-                                    Icons.lock_outline,
-                                    size: 28.0,
-                                    color: Color(0xff7E7979),
+                                  prefixIcon: Padding(
+                                    padding: const EdgeInsets.all(AppPadding.p12),
+                                    child: SvgPicture.asset(
+                                      IconAssets.passwordIcon
+                                    ),
                                   ),
                                   border: OutlineInputBorder(
                                     borderRadius:
@@ -282,20 +253,6 @@ class _SignInState extends State<SignIn> {
                                 return null;
                               },
                               onSaved: (value) {
-                                _signupStudent = StudentAccount(
-                                  firstName: _signupStudent.firstName,
-                                  lastName: _signupStudent.lastName,
-                                  password: value!,
-                                  email: _signupStudent.email,
-                                  country: _signupStudent.country,
-                                  favouriteCourse: _signupStudent.favouriteCourse,
-                                  gender: _signupStudent.gender,
-                                  introduction: _signupStudent.introduction,
-                                  birthDay: _signupStudent.birthDay,
-                                  bio: _signupStudent.bio,
-                                  phoneNumber: _signupStudent.phoneNumber,
-                                  userName: _signupStudent.userName,
-                                );
                               }
                           )
                         ],
@@ -303,22 +260,12 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 87.0
                   ),
                   child: TextButton(
                       onPressed: (){
-                        _saveForm();
-                        _userNameError = true;
-                        Future.delayed(const Duration(seconds: 5), () {
-                          setState((){
-                            _userNameError = false;
-                          });
-                        });
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
@@ -410,7 +357,7 @@ class _SignInState extends State<SignIn> {
                           ),
                           child: Center(
                             child: SvgPicture.asset(
-                              'assets/images/Google.svg',
+                              IconAssets.google,
                               width: 40,
                               height: 40,
                             ),
@@ -447,7 +394,7 @@ class _SignInState extends State<SignIn> {
                           ),
                           child: Center(
                             child: SvgPicture.asset(
-                              'assets/images/LinkedIn.svg',
+                              IconAssets.linkedin,
                               width: 40,
                               height: 40,
                             ),
@@ -483,7 +430,7 @@ class _SignInState extends State<SignIn> {
                           'Sign Up',
                           style: TextStyle(
                               color: Color(0xff177FB0),
-                              fontSize: 22.0,
+                              fontSize: 18.0,
                               fontWeight: FontWeight.bold),
                         ),
                       ),

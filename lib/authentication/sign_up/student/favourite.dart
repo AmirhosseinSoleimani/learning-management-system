@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../data.dart';
-import '../../../models/student_signUp_put_model.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/course_details/screens/course_details.dart';
 import './feature_master_sign_up.dart';
@@ -38,8 +37,8 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
       _isLoading = true;
     });
     try {
-      await Provider.of<StudentProvider>(context, listen: false)
-          .postData(Provider.of<StudentProvider>(context,listen: false).studentAccount[0]);
+      // await Provider.of<StudentProvider>(context, listen: false)
+      //     .postData(Provider.of<StudentProvider>(context,listen: false).studentAccount[0]);
 
     } catch (error) {
       await showDialog(

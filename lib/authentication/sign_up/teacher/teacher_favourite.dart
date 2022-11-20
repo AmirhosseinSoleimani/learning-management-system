@@ -37,8 +37,8 @@ class _FavouriteTeacherState extends State<FavouriteTeacher> {
       _isLoading = true;
     });
     try {
-      await Provider.of<StudentProvider>(context, listen: false)
-          .postData(Provider.of<StudentProvider>(context,listen: false).studentAccount[0]);
+      // await Provider.of<StudentProvider>(context, listen: false)
+      //     .postData(Provider.of<StudentProvider>(context,listen: false).studentAccount[0]);
 
     } catch (error) {
       await showDialog(

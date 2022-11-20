@@ -1,164 +1,264 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/authentication/sign_up/student/second_student_information.dart';
-import 'package:learning_management_system/extension/extension.dart';
-import '../authentication/sign_up/student/student_information.dart';
-import '../models/student_account.dart';
-import '../models/student_signUp_put_model.dart';
+import 'package:learning_management_system/models/student_signUp_model.dart';
+import 'package:learning_management_system/presentation/resources/routes_manager.dart';
 import 'package:http/http.dart' as http;
+import '../authentication/sign_up/student/student_sign_up.dart';
+import '../models/teacher_signUp_model.dart';
+import 'package:geolocator/geolocator.dart';
 
 class StudentProvider with ChangeNotifier{
-  final List<StudentAccount> _studentAccount = [];
+  final List<StudentSignUpPost> _studentAccountPost = [];
 
 
-  List<StudentAccount> get studentAccount{
-    return _studentAccount;
+  List<StudentSignUpPost> get studentAccountPost{
+    return _studentAccountPost;
+  }
+
+  final List<StudentSignUpPatch> _studentAccountPatch = [];
+
+  List<StudentSignUpPatch> get studentAccountPatch{
+    return _studentAccountPatch;
   }
 
   String userNameError = '';
 
+  String id = '';
+
   String? phoneNumberTextFormField;
+
+  bool isLocation = false;
+  double defaultLatitude = 35.715298;
+  double defaultLongitude = 51.404343;
 
   List<String> favouriteCourseList = [];
 
-
-  Future <void> addStudentAccount(BuildContext context,StudentAccount studentAccount) async{
-    final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/student/');
-      try{
-        http.Response response = await http.post(url,
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: json.encode(
-              {
-                'user_name': studentAccount.userName,
-                'first_name': studentAccount.firstName,
-                'last_name': studentAccount.lastName,
-                'password': studentAccount.password,
-                'email': studentAccount.email,
-                'phone_number': studentAccount.phoneNumber,
-                "gender": 1,
-                'bio': studentAccount.bio,
-                'country': studentAccount.country,
-                'how_to_know_us': studentAccount.introduction,
-                'birthday': studentAccount.birthDay,
-                'favouriteCourse': studentAccount.favouriteCourse,
-              }
-          ),
-        );
-        if(response.body.contains('this username is exist, try another')){
-          userNameError = 'This User Name is Exit';
-        }else{
-          Navigator.pushNamed(context, InformationStudentSignUp.routeName);
-        }
-        debugPrint(response.statusCode.toString());
-        debugPrint(response.body.toString());
-        final newStudentAccount = StudentAccount(
-          password: studentAccount.password,
-          email: studentAccount.email,
-          firstName: studentAccount.firstName,
-          lastName: studentAccount.lastName,
-          phoneNumber: studentAccount.phoneNumber,
-          gender: studentAccount.gender,
-          bio: studentAccount.bio,
-          country: studentAccount.country,
-          introduction: studentAccount.introduction,
-          birthDay: studentAccount.birthDay,
-          favouriteCourse: studentAccount.favouriteCourse,
-          userName: studentAccount.userName,
-        );
-        _studentAccount.add(newStudentAccount);
-        notifyListeners();
-      }catch(error){
-        debugPrint(error.toString());
-      }
+  goNext(BuildContext context,String routes){
+    Navigator.of(context).pushReplacementNamed(routes);
   }
 
-  Future <void> replaceStudentAccount(BuildContext context,StudentAccount studentAccount) async{
+
+  Future <void> studentSignUpPost(BuildContext context,StudentSignUpPost studentSignUp) async{
     final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/student/');
     try{
-      http.Response response = await http.put(url,
+      http.Response response = await http.post(url,
         headers: {
           'Content-Type': 'application/json'
         },
         body: json.encode(
             {
-              'user_name': studentAccount.userName,
-              'first_name': studentAccount.firstName,
-              'last_name': studentAccount.lastName,
-              'password': studentAccount.password,
-              'email': studentAccount.email,
-              'phone_number': studentAccount.phoneNumber,
-              "gender": studentAccount.gender,
-              'bio': studentAccount.bio,
-              'country': studentAccount.country,
-              'how_to_know_us': studentAccount.introduction,
-              'birthday': studentAccount.birthDay,
-              'favouriteCourse': studentAccount.favouriteCourse,
+              'user_name': studentSignUp.userName,
+              'password': studentSignUp.password,
             }
         ),
       );
-      debugPrint(response.body);
-      debugPrint(response.statusCode.toString());
       if(response.body.contains('this username is exist, try another')){
         userNameError = 'This User Name is Exit';
-      }else{
-        Navigator.pushNamed(context, SecondInformationStudent.routeName);
+        notifyListeners();
       }
-      final newStudentAccount = StudentAccount(
-        password: studentAccount.password,
-        email: studentAccount.email,
-        firstName: studentAccount.firstName,
-        lastName: studentAccount.lastName,
-        phoneNumber: studentAccount.phoneNumber,
-        gender: studentAccount.gender,
-        bio: studentAccount.bio,
-        country: studentAccount.country,
-        introduction: studentAccount.introduction,
-        birthDay: studentAccount.birthDay,
-        favouriteCourse: studentAccount.favouriteCourse,
-        userName: studentAccount.userName,
+      else if(response.statusCode == 200){
+        String data = response.body;
+        id = data.substring(14,52);
+        goNext(context,Routes.studentInformation);
+      }
+      debugPrint(response.statusCode.toString());
+      debugPrint(response.body.toString());
+      debugPrint(id);
+
+
+      final newStudentSignUpPost = StudentSignUpPost(
+        userName: studentSignUp.userName,
+        password: studentSignUp.password,
       );
-      _studentAccount.removeAt(0);
-      _studentAccount.add(newStudentAccount);
+      studentAccountPost.add(newStudentSignUpPost);
       notifyListeners();
-    }catch(error){
+    }
+    catch(error){
       debugPrint(error.toString());
     }
   }
 
-  Future<void> postData(StudentAccount studentAccount) async {
-    final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/student/');
-    http.Response response = await http.post(url,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: json.encode(
-        {
-          "user_name":'${studentAccount.firstName}1234',
-          'first_name': studentAccount.firstName,
-          'last_name': studentAccount.lastName,
-          'password': studentAccount.password,
-          'email': studentAccount.email,
-          'phone_number': '+${studentAccount.phoneNumber}',
-          'gender': studentAccount.gender,
-          'bio': studentAccount.bio,
-          'country': studentAccount.country,
-          'how_to_know_us': studentAccount.introduction,
-          'birthday': studentAccount.birthDay,
-          'favouriteCourse': studentAccount.favouriteCourse,
-        }
-    ),
-    );
-    if(response.statusCode >= 200 && response.statusCode < 400){
-      print(response.body);
-    }else if(response.statusCode >= 400 && response.statusCode < 500){
-      print(response.statusCode);
-    }else{
-      print(response.statusCode);
-    }
-  }
-
+  // Future <void> replaceTeacherSignUp(BuildContext context,TeacherSignUpPatch teacherSignUpPatch) async{
+  //   final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/');
+  //   try{
+  //     http.Response response = await http.patch(url,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'accept': 'application/json'
+  //       },
+  //       body: json.encode(
+  //           {
+  //             'first_name': teacherSignUpPatch.firstName,
+  //             'last_name': teacherSignUpPatch.lastName,
+  //             'email': teacherSignUpPatch.email,
+  //             "gender": teacherSignUpPatch.gender,
+  //             'country': teacherSignUpPatch.country,
+  //             'introduction': teacherSignUpPatch.introduction,
+  //             'birth_day': teacherSignUpPatch.birthDay,
+  //             'id': id,
+  //             "address": "home sweet home",
+  //             "bio": "hello this is iliya",
+  //             "card_number": 5047061042077269,
+  //             "language": "fucking persian",
+  //             "latitude": 12321.41214,
+  //             "longitude": 1221.4124,
+  //             "phone_number": "+989124182872",
+  //             "work_history": "working on fucking stack team"
+  //           }
+  //       ),
+  //     );
+  //     debugPrint(response.body);
+  //     debugPrint(response.statusCode.toString());
+  //     if(response.body.contains('this username is exist, try another')){
+  //       userNameError = 'This User Name is Exit';
+  //     }else if(response.statusCode == 200){
+  //       goNext(context,Routes.teacherInformationSecondRoutes);
+  //       isLocation = false;
+  //     }
+  //     final newTeacherSignUpPatch = TeacherSignUpPatch(
+  //       email: teacherSignUpPatch.email,
+  //       firstName: teacherSignUpPatch.firstName,
+  //       lastName: teacherSignUpPatch.lastName,
+  //       gender: teacherSignUpPatch.gender,
+  //       country: teacherSignUpPatch.country,
+  //       introduction: teacherSignUpPatch.introduction,
+  //       birthDay: teacherSignUpPatch.birthDay,
+  //     );
+  //     _teacherAccountPatch.add(newTeacherSignUpPatch);
+  //     notifyListeners();
+  //   }catch(error){
+  //     debugPrint(error.toString());
+  //   }
+  // }
+  //
+  // Future<void> selectedLocation(BuildContext context,Position position) async{
+  //
+  //   defaultLatitude = position.latitude;
+  //   defaultLongitude = position.longitude;
+  //   goNext(context,Routes.teacherInformationSecondRoutes);
+  //   isLocation = true;
+  // }
+  //
+  // Future <void> replaceTeacherSecondSignUp(BuildContext context,TeacherSignUpPatch teacherSignUpPatch) async{
+  //   final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/');
+  //   try{
+  //     http.Response response = await http.patch(url,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'accept': 'application/json'
+  //       },
+  //       body: json.encode(
+  //           {
+  //             'first_name': _teacherAccountPatch[0].firstName,
+  //             'last_name': _teacherAccountPatch[0].lastName,
+  //             'email': _teacherAccountPatch[0].email,
+  //             "gender": _teacherAccountPatch[0].gender,
+  //             'country': _teacherAccountPatch[0].country,
+  //             'introduction': _teacherAccountPatch[0].introduction,
+  //             'birth_day': _teacherAccountPatch[0].birthDay,
+  //             'id': id,
+  //             "address": teacherSignUpPatch.address,
+  //             "bio": "hello this is iliya",
+  //             "card_number": teacherSignUpPatch.cardNumber,
+  //             "language": "fucking persian",
+  //             "latitude": defaultLatitude,
+  //             "longitude": defaultLongitude,
+  //             "phone_number": '+9383202865',
+  //             "work_history": "working on fucking stack team"
+  //           }
+  //       ),
+  //     );
+  //     debugPrint(response.body);
+  //     debugPrint(response.statusCode.toString());
+  //     if(response.body.contains('this username is exist, try another')){
+  //       userNameError = 'This User Name is Exit';
+  //     }else if(response.statusCode == 200){
+  //       goNext(context,Routes.teacherInformationThirdRoutes);
+  //       isLocation = false;
+  //     }
+  //     final newTeacherSignUpPatch = TeacherSignUpPatch(
+  //       email: _teacherAccountPatch[0].email,
+  //       firstName: _teacherAccountPatch[0].firstName,
+  //       lastName: _teacherAccountPatch[0].lastName,
+  //       gender: _teacherAccountPatch[0].gender,
+  //       country: _teacherAccountPatch[0].country,
+  //       introduction: _teacherAccountPatch[0].introduction,
+  //       birthDay: _teacherAccountPatch[0].birthDay,
+  //       address: teacherSignUpPatch.address,
+  //       latitude: defaultLatitude,
+  //       longitude: defaultLongitude,
+  //       financial: teacherSignUpPatch.financial,
+  //       phoneNumber: teacherSignUpPatch.phoneNumber,
+  //       cardNumber: teacherSignUpPatch.cardNumber,
+  //     );
+  //     _teacherAccountPatch.removeAt(0);
+  //     _teacherAccountPatch.add(newTeacherSignUpPatch);
+  //     notifyListeners();
+  //   }catch(error){
+  //     debugPrint(error.toString());
+  //   }
+  // }
+  //
+  // Future <void> replaceTeacherThirdSignUp(BuildContext context,TeacherSignUpPatch teacherSignUpPatch) async{
+  //   final url = Uri.parse('http://135.125.59.77:8090/api/v1/sign-up/');
+  //   try{
+  //     http.Response response = await http.patch(url,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'accept': 'application/json'
+  //       },
+  //       body: json.encode(
+  //           {
+  //             'first_name': _teacherAccountPatch[0].firstName,
+  //             'last_name': _teacherAccountPatch[0].lastName,
+  //             'email': _teacherAccountPatch[0].email,
+  //             "gender": _teacherAccountPatch[0].gender,
+  //             'country': _teacherAccountPatch[0].country,
+  //             'introduction': _teacherAccountPatch[0].introduction,
+  //             'birth_day': _teacherAccountPatch[0].birthDay,
+  //             'id': id,
+  //             "address": _teacherAccountPatch[0].address,
+  //             "bio": teacherSignUpPatch.bio,
+  //             "card_number": _teacherAccountPatch[0].cardNumber,
+  //             "language": "fucking persian",
+  //             "latitude": defaultLatitude,
+  //             "longitude": defaultLongitude,
+  //             "phone_number": '+9383202865',
+  //             "work_history": "working on fucking stack team"
+  //           }
+  //       ),
+  //     );
+  //     debugPrint(response.body);
+  //     debugPrint(response.statusCode.toString());
+  //     if(response.body.contains('this username is exist, try another')){
+  //       userNameError = 'This User Name is Exit';
+  //     }else if(response.statusCode == 200){
+  //       goNext(context,Routes.teacherFavouriteRoutes);
+  //       isLocation = false;
+  //     }
+  //     final newTeacherSignUpPatch = TeacherSignUpPatch(
+  //       email: _teacherAccountPatch[0].email,
+  //       firstName: _teacherAccountPatch[0].firstName,
+  //       lastName: _teacherAccountPatch[0].lastName,
+  //       gender: _teacherAccountPatch[0].gender,
+  //       country: _teacherAccountPatch[0].country,
+  //       introduction: _teacherAccountPatch[0].introduction,
+  //       birthDay: _teacherAccountPatch[0].birthDay,
+  //       address: _teacherAccountPatch[0].address,
+  //       latitude: defaultLatitude,
+  //       longitude: defaultLongitude,
+  //       financial: _teacherAccountPatch[0].financial,
+  //       phoneNumber: _teacherAccountPatch[0].phoneNumber,
+  //       cardNumber: _teacherAccountPatch[0].cardNumber,
+  //       bio: teacherSignUpPatch.bio,
+  //     );
+  //     _teacherAccountPatch.removeAt(0);
+  //     _teacherAccountPatch.add(newTeacherSignUpPatch);
+  //     notifyListeners();
+  //   }catch(error){
+  //     debugPrint(error.toString());
+  //   }
+  // }
 
 }
 

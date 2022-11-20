@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
-import '../../../models/student_signUp_put_model.dart';
 
 class FeatureCourseSignUp extends StatefulWidget {
   final data;

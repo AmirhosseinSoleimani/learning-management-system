@@ -1,11 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/presentation/resources/color_manager.dart';
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../models/student_account.dart';
+import '../../../models/student_signUp_model.dart';
 import '../../../presentation/resources/routes_manager.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
@@ -33,19 +32,9 @@ class _StudentSignUpState extends State<StudentSignUp> {
 
   bool _passwordVisible = false;
 
-  var _signupStudent = StudentAccount(
-    firstName: 'Student',
-    lastName: 'Student',
-    password: '123456',
-    email: 'example@gmail.com',
-    phoneNumber: '+091212345678',
-    birthDay: Timestamp.fromDate(DateTime.now()).seconds,
-    bio: 'Student',
-    gender: 1,
-    introduction: 'Student',
-    country: 'Student',
-    favouriteCourse: '',
-    userName: 'Student',
+  var _signupStudent = StudentSignUpPost(
+    password: '',
+    userName: '',
   );
 
   var _isLoading = false;
@@ -62,8 +51,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
       _isLoading = true;
     });
     try {
-      await Provider.of<StudentProvider>(context, listen: false)
-          .addStudentAccount(context,_signupStudent);
+      await Provider.of<StudentProvider>(context, listen: false).studentSignUpPost(context,_signupStudent);
     } catch (error) {
       await showDialog(
         context: context,
@@ -189,7 +177,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                                 ),
                                 prefixIcon: Padding(
                                   padding: const EdgeInsets.all(AppPadding.p12),
-                                  child: SvgPicture.asset(IconAssets.personIcon),
+                                  child:  SvgPicture.asset(IconAssets.personIcon),
                                 )
                             ),
                             focusNode: _userNameFocusNode,
@@ -206,13 +194,13 @@ class _StudentSignUpState extends State<StudentSignUp> {
                               return null;
                             },
                             onSaved: (value) {
-                              _teacherSignUpPost = TeacherSignUpPost(
-                                userName: value!,
-                                password: _teacherSignUpPost.password,
+                              _signupStudent = StudentSignUpPost(
+                                password: _signupStudent.password,
+                                userName: value,
                               );
                             },
                           ),
-                          if (userNameError == true) Padding(
+                          if (_userNameError == true) Padding(
                             padding: const EdgeInsets.all(AppPadding.p8),
                             child: Text(
                               'This username is exist, try another',
@@ -242,10 +230,11 @@ class _StudentSignUpState extends State<StudentSignUp> {
                                       size: 28.0,
                                     ),
                                   ),
-                                  prefixIcon: const Icon(
-                                    Icons.lock_outline,
-                                    size: 28.0,
-                                      color: Color(0xff7E7979),
+                                  prefixIcon: Padding(
+                                    padding: const EdgeInsets.all(AppPadding.p12),
+                                    child: SvgPicture.asset(
+                                        IconAssets.passwordIcon
+                                    ),
                                   ),
                                   border: OutlineInputBorder(
                                       borderRadius:
@@ -269,18 +258,8 @@ class _StudentSignUpState extends State<StudentSignUp> {
                                 return null;
                               },
                               onSaved: (value) {
-                                _signupStudent = StudentAccount(
-                                  firstName: _signupStudent.firstName,
-                                  lastName: _signupStudent.lastName,
-                                  password: value!,
-                                  email: _signupStudent.email,
-                                  country: _signupStudent.country,
-                                  favouriteCourse: _signupStudent.favouriteCourse,
-                                  gender: _signupStudent.gender,
-                                  introduction: _signupStudent.introduction,
-                                  birthDay: _signupStudent.birthDay,
-                                  bio: _signupStudent.bio,
-                                  phoneNumber: _signupStudent.phoneNumber,
+                                _signupStudent = StudentSignUpPost(
+                                  password: value,
                                   userName: _signupStudent.userName,
                                 );
                               }
@@ -289,9 +268,6 @@ class _StudentSignUpState extends State<StudentSignUp> {
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20.0,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -397,7 +373,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                           ),
                           child: Center(
                             child: SvgPicture.asset(
-                              'assets/images/Google.svg',
+                              IconAssets.google,
                               width: 40,
                               height: 40,
                             ),
@@ -434,7 +410,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                           ),
                           child: Center(
                             child: SvgPicture.asset(
-                              'assets/images/LinkedIn.svg',
+                              IconAssets.linkedin,
                               width: 40,
                               height: 40,
                             ),
@@ -455,21 +431,22 @@ class _StudentSignUpState extends State<StudentSignUp> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         'Do have an account?',
                         style: TextStyle(
-                          color: Color(0xff7E7979),
+                          color: ColorManager.lightSteelBlue1,
                           fontSize: 18.0,
                         ),
                       ),
                       TextButton(
                         onPressed: () {
+                          Navigator.of(context).pushReplacementNamed(Routes.signIn);
                         },
-                        child: const Text(
+                        child: Text(
                           'Sign In',
                           style: TextStyle(
-                            color: Color(0xff177FB0),
-                              fontSize: 22.0,
+                            color: ColorManager.primary,
+                              fontSize: 18.0,
                               fontWeight: FontWeight.bold),
                         ),
                       ),

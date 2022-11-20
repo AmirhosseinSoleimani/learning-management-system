@@ -5,7 +5,6 @@ import 'package:learning_management_system/authentication/sign_up/student/phoneN
 import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
-import '../../../models/student_signUp_put_model.dart';
 import '../../../store/drawer.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:country_picker/country_picker.dart';
@@ -70,8 +69,8 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
       _isLoading = true;
     });
     try {
-      await Provider.of<StudentProvider>(context, listen: false)
-          .replaceStudentAccount(context,_signupStudent);
+      // await Provider.of<StudentProvider>(context, listen: false)
+      //     .replaceStudentAccount(context,_signupStudent);
 
     } catch (error) {
       await showDialog(
@@ -234,19 +233,6 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                         return null;
                                       },
                                       onSaved: (val){
-                                        _signupStudent = StudentAccount(
-                                          firstName: studentAccount.studentAccount[0].firstName,
-                                          lastName: studentAccount.studentAccount[0].lastName,
-                                          password: studentAccount.studentAccount[0].password,
-                                          email: studentAccount.studentAccount[0].email,
-                                          phoneNumber: studentAccount.phoneNumberTextFormField!,
-                                          birthDay: Timestamp.fromDate(DateTime.parse(val!)).seconds,
-                                          bio: studentAccount.studentAccount[0].bio,
-                                          gender: studentAccount.studentAccount[0].gender,
-                                          introduction: _signupStudent.introduction,
-                                          country: _signupStudent.country,
-                                          favouriteCourse: _signupStudent.favouriteCourse, userName: '',
-                                        );
                                       },
                                     ):
                                     const Padding(

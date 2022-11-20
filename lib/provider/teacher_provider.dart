@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/presentation/resources/routes_manager.dart';
-import '../models/student_account.dart';
 import 'package:http/http.dart' as http;
 import '../models/teacher_signUp_model.dart';
 import 'package:geolocator/geolocator.dart';

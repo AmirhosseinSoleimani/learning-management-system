@@ -6,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
-import '../../../models/student_signUp_put_model.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 import './second_student_information.dart';
@@ -59,39 +58,39 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
 
   var _isLoading = false;
 
-  Future<void> _saveForm() async {
-    final isValid = _form.currentState!.validate();
-    if (!isValid) {
-      return;
-    }
-    _form.currentState!.save();
-    setState(() {
-      _isLoading = true;
-    });
-    try {
-      await Provider.of<StudentProvider>(context, listen: false)
-          .replaceStudentAccount(context,_signupStudent);
-
-    } catch (error) {
-      await showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('an error occurred!'),
-          content: const Text('Something went wrong'),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Okay'))
-          ],
-        ),
-      );
-    }
-    setState(() {
-      _isLoading = false;
-    });
-  }
+  // Future<void> _saveForm() async {
+  //   final isValid = _form.currentState!.validate();
+  //   if (!isValid) {
+  //     return;
+  //   }
+  //   _form.currentState!.save();
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
+  //   try {
+  //     await Provider.of<StudentProvider>(context, listen: false)
+  //         .replaceStudentAccount(context,_signupStudent);
+  //
+  //   } catch (error) {
+  //     await showDialog(
+  //       context: context,
+  //       builder: (context) => AlertDialog(
+  //         title: const Text('an error occurred!'),
+  //         content: const Text('Something went wrong'),
+  //         actions: [
+  //           TextButton(
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //               },
+  //               child: const Text('Okay'))
+  //         ],
+  //       ),
+  //     );
+  //   }
+  //   setState(() {
+  //     _isLoading = false;
+  //   });
+  // }
 
 
 
@@ -238,7 +237,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                             _signupStudent = StudentAccount(
                               firstName: value!,
                               lastName: _signupStudent.lastName,
-                              password: studentProvider.studentAccount[0].password,
+                              // password: studentProvider.studentAccount[0].password,
                               email: _signupStudent.email,
                               phoneNumber: _signupStudent.phoneNumber,
                               birthDay: _signupStudent.birthDay,
@@ -247,7 +246,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                               introduction: _signupStudent.introduction,
                               country: _signupStudent.country,
                               favouriteCourse: _signupStudent.favouriteCourse,
-                              userName: studentProvider.studentAccount[0].userName,
+                              // userName: studentProvider.studentAccount[0].userName,
                             );
                           },
                         ),
@@ -666,7 +665,6 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                         ),
                         child: TextButton(
                             onPressed: (){
-                              _saveForm();
                               _emailError = true;
                               Future.delayed(const Duration(seconds: 5), () {
                                 setState((){

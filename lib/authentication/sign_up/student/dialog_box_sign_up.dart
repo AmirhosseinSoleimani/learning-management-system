@@ -4,7 +4,6 @@ import 'package:learning_management_system/authentication/sign_up/student/featur
 import 'package:learning_management_system/data.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
-import '../../../models/student_signUp_put_model.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 
@@ -157,19 +156,7 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
                             right: 87.0, left: 87.0, bottom: 20.0),
                         child: TextButton(
                             onPressed: () {
-                              _signupStudent = StudentAccount(
-                                firstName: studentAccount.studentAccount[0].firstName,
-                                lastName: studentAccount.studentAccount[0].lastName,
-                                password: studentAccount.studentAccount[0].password,
-                                email: studentAccount.studentAccount[0].email,
-                                phoneNumber: studentAccount.studentAccount[0].phoneNumber,
-                                birthDay: studentAccount.studentAccount[0].birthDay,
-                                bio: studentAccount.studentAccount[0].bio,
-                                gender: studentAccount.studentAccount[0].gender,
-                                introduction: studentAccount.studentAccount[0].introduction,
-                                country: studentAccount.studentAccount[0].country,
-                                favouriteCourse: '', userName: '',
-                              );
+
                               Navigator.of(context).pop();
                             },
                             style: ButtonStyle(
