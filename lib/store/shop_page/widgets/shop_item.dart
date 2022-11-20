@@ -1,14 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:learning_management_system/provider/store_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../../presentation/resources/color_manager.dart';
 
 class ShopItem extends StatelessWidget {
-  ShopItem({Key? key,required this.name,required this.image,required this.price}) : super(key: key);
+  ShopItem({Key? key,required this.name,required this.image,required this.price,required this.id}) : super(key: key);
 
   String name;
   String image;
   String price;
+  String id;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,7 +42,9 @@ class ShopItem extends StatelessWidget {
                       borderRadius:
                       BorderRadius.circular(7.0)),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Provider.of<StoreProvider>(context,listen: false).deleteItems(id);
+                    },
                     child: Icon(
                       Icons.delete_outline_outlined,
                       color: ColorManager.darkOrange,

@@ -32,4 +32,10 @@ class StoreProvider with ChangeNotifier{
       notifyListeners();
     }
   }
+
+  Future<void> deleteItems(String id) async {
+    final existingProductIndex = _storePayment.indexWhere((element) => element.id == id) ;
+    _storePayment.removeAt(existingProductIndex);
+    notifyListeners();
+  }
 }

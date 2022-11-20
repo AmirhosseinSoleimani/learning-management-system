@@ -20,7 +20,7 @@ class _ShopPageState extends State<ShopPage> {
   @override
 
   void initState() {
-    Provider.of<StoreProvider>(context).calculatorPrice();
+    Provider.of<StoreProvider>(context,listen: false).calculatorPrice();
     super.initState();
   }
 
@@ -150,6 +150,8 @@ class _ShopPageState extends State<ShopPage> {
                             name: Provider.of<StoreProvider>(context).storePayment[index].name,
                             image: Provider.of<StoreProvider>(context).storePayment[index].image,
                             price: Provider.of<StoreProvider>(context).storePayment[index].price,
+                            id: Provider.of<StoreProvider>(context).storePayment[index].id,
+
                           ),
                         ),
                       ),
