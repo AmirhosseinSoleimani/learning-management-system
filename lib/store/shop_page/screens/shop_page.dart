@@ -1,11 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:learning_management_system/store/shop_page/widgets/shop_item.dart';
+import 'package:provider/provider.dart';
 import '../../../data.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
+import '../../../provider/store_provider.dart';
 import '../../drawer.dart';
 
 class ShopPage extends StatelessWidget {
@@ -22,10 +24,10 @@ class ShopPage extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.08,
         ),
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
-            size: 20.0,
+            color: ColorManager.black,
+            size: AppSize.s20,
           ),
           onPressed: () {
             Navigator.of(context).pushReplacementNamed(Routes.homePage);
@@ -41,19 +43,51 @@ class ShopPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Row(
+            Stack(
               children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(Routes.shopPageRoute);
-                  },
-                  icon: SvgPicture.asset(IconAssets.shop),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(Routes.shopPageRoute);
+                      },
+                      icon: SvgPicture.asset(IconAssets.shop),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: SvgPicture.asset(IconAssets.support),
+                    )
+                  ],
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset(IconAssets.support),
-                )
+                (Provider.of<StoreProvider>(context).storePayment.isEmpty) ? Container(
+                  child: null,
+                ) : Positioned(
+                  top: 3.0,
+                  left: 34.0,
+                  child: Container(
+                    width: 20.0,
+                    height: 20.0,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1,
+                            color: ColorManager.white
+                        ),
+                        borderRadius: BorderRadius.circular(100.0),
+                        color: ColorManager.white
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${Provider.of<StoreProvider>(context).storePayment.length}',
+                        style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.primary
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
             const SizedBox(

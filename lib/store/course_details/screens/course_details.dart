@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/authentication/sign_in/sign_in.dart';
-import 'package:learning_management_system/authentication/sign_up/student/student_sign_up.dart';
+import 'package:learning_management_system/data.dart';
+import 'package:learning_management_system/provider/store_provider.dart';
+import 'package:provider/provider.dart';
+import '../../../models/store_model.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
@@ -18,6 +21,17 @@ class CourseDetails extends StatefulWidget {
 }
 
 class _CourseDetailsState extends State<CourseDetails> {
+
+  var _storePayment = StoreModel(
+    id: '',
+    name: '',
+    image: '',
+    price: '',
+    duration: '',
+    session: '',
+    review: '',
+    description: '',
+  );
 
 
   String firstDropDownItem = 'English';
@@ -394,7 +408,19 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 vertical: 15, horizontal: 60),
                             backgroundColor: const Color(0Xff187EB3),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            _storePayment = StoreModel(
+                              id: features[0]["id"],
+                              name: features[0]["name"],
+                              image: features[0]["image"],
+                              price: features[0]["price"],
+                              duration: features[0]["duration"],
+                              session: features[0]["session"],
+                              review: features[0]["review"],
+                              description: features[0]["description"],
+                            );
+                            Provider.of<StoreProvider>(context,listen: false).addShopPayment(_storePayment);
+                          },
                           child: const Text(
                             'Add to cart',
                           )),
@@ -408,7 +434,20 @@ class _CourseDetailsState extends State<CourseDetails> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 15, horizontal: 70),
                               backgroundColor: const Color(0XffAED2E3)),
-                          onPressed: () {},
+                          onPressed: () {
+                            _storePayment = StoreModel(
+                              id: features[0]["id"],
+                              name: features[0]["name"],
+                              image: features[0]["image"],
+                              price: features[0]["price"],
+                              duration: features[0]["duration"],
+                              session: features[0]["session"],
+                              review: features[0]["review"],
+                              description: features[0]["description"],
+                            );
+                            Provider.of<StoreProvider>(context,listen: false).addShopPayment(_storePayment);
+                            Navigator.of(context).pushReplacementNamed(Routes.shopPageRoute);
+                          },
                           child: const Text('Buy now')),
                       const SizedBox(
                         height: 20,
