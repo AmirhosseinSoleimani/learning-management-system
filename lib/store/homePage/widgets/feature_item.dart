@@ -173,7 +173,7 @@ class FeatureItem extends StatelessWidget {
                                   review: data["review"],
                                   description: '',
                                 );
-                                Provider.of<StoreProvider>(context).addShopPayment(_storePayment);
+                                Provider.of<StoreProvider>(context,listen: false).addShopPayment(_storePayment);
                               },
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:learning_management_system/models/store_model.dart';
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
+import 'package:learning_management_system/provider/store_provider.dart';
+import 'package:provider/provider.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
@@ -50,7 +53,9 @@ class HeaderHomePage extends StatelessWidget {
               ],
             ),
           ),
-          Positioned(
+          (Provider.of<StoreProvider>(context).storePayment.isEmpty) ? Container(
+            child: null,
+          ) : Positioned(
             top: 8.0,
             left: 38.0,
             child: Container(
@@ -66,7 +71,7 @@ class HeaderHomePage extends StatelessWidget {
               ),
               child: Center(
                   child: Text(
-                      '1',
+                      '${Provider.of<StoreProvider>(context).storePayment.length}',
                     style: TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w400,

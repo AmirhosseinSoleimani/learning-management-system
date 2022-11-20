@@ -21,5 +21,6 @@ class StoreProvider with ChangeNotifier{
         description: storeModel.description,
     );
     storePayment.add(newStoreModel);
+    notifyListeners();
   }
 }
