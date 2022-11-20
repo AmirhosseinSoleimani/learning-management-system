@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:tetest/models/teacher_panel_corse_progressiv.dart';
-import 'package:tetest/presentation/color_management.dart';
-import 'package:tetest/presentation/styles_manager.dart';
-import 'package:tetest/presentation/values_manager.dart';
+import '../../models/bar_models_chart.dart';
+import '../../presentation/dashboard_styles_manager.dart';
+import '../../presentation/dashboard_color_manager.dart';
+import '../../presentation/dashboard_value_manager.dart';
 
 class SecondCard extends StatelessWidget {
   const SecondCard({
