@@ -3,17 +3,27 @@ import 'package:flutter_svg/svg.dart';
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:learning_management_system/store/shop_page/widgets/shop_item.dart';
 import 'package:provider/provider.dart';
-import '../../../data.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
 import '../../../provider/store_provider.dart';
 import '../../drawer.dart';
 
-class ShopPage extends StatelessWidget {
+class ShopPage extends StatefulWidget {
   const ShopPage({Key? key}) : super(key: key);
 
   @override
+  State<ShopPage> createState() => _ShopPageState();
+}
+
+class _ShopPageState extends State<ShopPage> {
+  @override
+
+  void initState() {
+    Provider.of<StoreProvider>(context).calculatorPrice();
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -116,16 +126,30 @@ class ShopPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        height: 10.0,
+                        height: AppSize.s10,
                       ),
-                      SizedBox(
+                      (Provider.of<StoreProvider>(context).storePayment.isEmpty)? SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.25,
+                        child: const Center(
+                          child: Text(
+                            'No Selected Any Product',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ) :SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height * 0.25,
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: 1,
                           itemBuilder: (context, index) => ShopItem(
-                            data: courses[index],
+                            name: Provider.of<StoreProvider>(context).storePayment[index].name,
+                            image: Provider.of<StoreProvider>(context).storePayment[index].image,
+                            price: Provider.of<StoreProvider>(context).storePayment[index].price,
                           ),
                         ),
                       ),
@@ -148,8 +172,17 @@ class ShopPage extends StatelessWidget {
                                 color: ColorManager.slateGray2
                               ),
                             ),
+                            (Provider.of<StoreProvider>(context,listen: false).storePayment.isEmpty) ?
                             Text(
-                                courses[1]['price'],
+                              '\$ 0',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorManager.primary
+                              ),
+                            )
+                            : Text(
+                                '\$ ${Provider.of<StoreProvider>(context,listen: false).totalPrice}',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
@@ -163,16 +196,23 @@ class ShopPage extends StatelessWidget {
                         padding: const EdgeInsets.all(15.0),
                         child: TextButton(
                             onPressed: (){
-                              Navigator.of(context).pushReplacementNamed(Routes.paymentPageRoute);
+                              if(Provider.of<StoreProvider>(context,listen: false).storePayment.isNotEmpty){
+                                Navigator.of(context).pushReplacementNamed(Routes.paymentPageRoute);
+                              }
                             },
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      side: BorderSide(color: ColorManager.green)
+                                      side: BorderSide(
+                                          color: (Provider.of<StoreProvider>(context).storePayment.isEmpty) ?
+                                           Colors.grey :
+                                          ColorManager.green)
                                   ),
                               ),
-                              backgroundColor: MaterialStateProperty.all(ColorManager.green),
+                              backgroundColor: (Provider.of<StoreProvider>(context).storePayment.isEmpty) ?
+                              MaterialStateProperty.all(Colors.grey)
+                               : MaterialStateProperty.all(ColorManager.green),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

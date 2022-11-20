@@ -142,7 +142,7 @@ List features = [
     "name": "UI/UX Design",
     "image":
     "https://images.unsplash.com/photo-1596638787647-904d822d751e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "price": "\$110.00",
+    "price": "110.00",
     "duration": "10 hours",
     "session": "6 lessons",
     "review": "4.5",
@@ -155,7 +155,7 @@ List features = [
     "name": "Programming",
     "image":
     "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "price": "\$155.00",
+    "price": "155.00",
     "duration": "20 hours",
     "session": "12 lessons",
     "review": "5",
@@ -168,7 +168,7 @@ List features = [
     "name": "English Writing",
     "image":
     "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "price": "\$65.00",
+    "price": "65.00",
     "duration": "12 hours",
     "session": "4 lessons",
     "review": "4.5",
@@ -181,7 +181,7 @@ List features = [
     "name": "Photography",
     "image":
     "https://images.unsplash.com/photo-1472393365320-db77a5abbecc?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "price": "\$80.00",
+    "price": "80.00",
     "duration": "4 hours",
     "session": "3 lessons",
     "review": "4.5",
@@ -194,7 +194,7 @@ List features = [
     "name": "Guitar Class",
     "image":
     "https://images.unsplash.com/photo-1549298240-0d8e60513026?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "price": "\$125.00",
+    "price": "125.00",
     "duration": "12 hours",
     "session": "4 lessons",
     "review": "5",

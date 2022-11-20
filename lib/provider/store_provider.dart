@@ -9,6 +9,8 @@ class StoreProvider with ChangeNotifier{
     return _storePayment;
   }
 
+  double totalPrice = 0;
+
   Future<void> addShopPayment(StoreModel storeModel) async{
     final newStoreModel = StoreModel(
         id: storeModel.id,
@@ -22,5 +24,12 @@ class StoreProvider with ChangeNotifier{
     );
     storePayment.add(newStoreModel);
     notifyListeners();
+  }
+
+  Future<void> calculatorPrice() async{
+    for(int i = 0 ; i<= _storePayment.length ; i++){
+      totalPrice = double.parse(storePayment[i].price);
+      notifyListeners();
+    }
   }
 }

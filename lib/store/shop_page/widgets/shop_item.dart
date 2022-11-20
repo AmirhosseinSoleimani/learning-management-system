@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import '../../../presentation/resources/color_manager.dart';
 
 class ShopItem extends StatelessWidget {
-  const ShopItem({Key? key,this.data}) : super(key: key);
+  ShopItem({Key? key,required this.name,required this.image,required this.price}) : super(key: key);
 
-  final data;
+  String name;
+  String image;
+  String price;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -67,7 +69,7 @@ class ShopItem extends StatelessWidget {
                               image: DecorationImage(
                                   image: imageProvider, fit: BoxFit.cover)),
                         ),
-                        imageUrl: data['image'],
+                        imageUrl: image,
                       ),
                     ),
                   ),
@@ -78,7 +80,7 @@ class ShopItem extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.5,
                         height: 40,
                         child: Text(
-                          data['name'],
+                          name,
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w400,
@@ -98,7 +100,7 @@ class ShopItem extends StatelessWidget {
                         height: 10.0,
                       ),
                       Text(
-                        data['price'],
+                        price,
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.w400,
