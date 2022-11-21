@@ -80,7 +80,7 @@ class RouteGenerator{
       case Routes.addCourseLayout:
         return MaterialPageRoute(builder: (_) => const Layout());
       case Routes.addCourseTitle:
-        return MaterialPageRoute(builder: (_) => const CourseTitle());
+        return MaterialPageRoute(builder: (_) =>  CourseTitle());
       default:
         return unDefinedRoute();
     }

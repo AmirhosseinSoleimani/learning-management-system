@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
@@ -7,7 +6,13 @@ import '../../../presentation/resources/values_manager.dart';
 import '../../../store/drawer.dart';
 
 class CourseTitle extends StatelessWidget {
-  const CourseTitle({Key? key}) : super(key: key);
+  CourseTitle({Key? key}) : super(key: key);
+
+  final  _titleFocusNode = FocusNode();
+  final  _subtitleFocusNode = FocusNode();
+  final  _descriptionFocusNode = FocusNode();
+  final  _thingsLearnFocusNode = FocusNode();
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class CourseTitle extends StatelessWidget {
             size: AppSize.s20,
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed(Routes.homePage);
+            Navigator.of(context).pushReplacementNamed(Routes.addCourseLayout);
           },
         ),
         title: Image.asset(
@@ -40,27 +45,211 @@ class CourseTitle extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.p12),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                'how to create an online course?',
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                    color: ColorManager.slateGray2
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.35,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 2.0,
+                    color: ColorManager.lightSteelBlue2
+                  ),
+                  borderRadius: BorderRadius.circular(10.0)
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          'Title:',
+                          style: TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.w500,
+                            color: ColorManager.black
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0,
+                        vertical: 10.0),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              filled: true,
+                              fillColor: ColorManager.lightBlue4,
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.circular(10.0),
+                                borderSide: BorderSide(
+                                    width: 2,
+                                    color: ColorManager.lightSteelBlue2
+                                ),
+                              ),
+                          ),
+                          focusNode: _titleFocusNode,
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                          validator: (String? value) {
+                            if (value!.isEmpty) {
+                              return 'Field is required';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          'Subtitle:',
+                          style: TextStyle(
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.w500,
+                              color: ColorManager.black
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0,
+                            vertical: 10.0),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: ColorManager.lightBlue4,
+                            border: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2
+                              ),
+                            ),
+                          ),
+                          focusNode: _subtitleFocusNode,
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.done,
+                          validator: (String? value) {
+                            if (value!.isEmpty) {
+                              return 'Field is required';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
-                height: AppSize.s20,
+                height: 20.0,
               ),
-              const Image(
-                  image: AssetImage(
-                      ImageAssets.addCourseLayout
-                  )
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.35,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 2.0,
+                        color: ColorManager.lightSteelBlue2
+                    ),
+                    borderRadius: BorderRadius.circular(10.0)
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          'Description:',
+                          style: TextStyle(
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.w500,
+                              color: ColorManager.black
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0,
+                            vertical: 10.0),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: ColorManager.lightBlue4,
+                            border: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2
+                              ),
+                            ),
+                          ),
+                          focusNode: _descriptionFocusNode,
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                          validator: (String? value) {
+                            if (value!.isEmpty) {
+                              return 'Field is required';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          'Things we learn in this course:',
+                          style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w500,
+                              color: ColorManager.black
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0,
+                            vertical: 10.0),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: ColorManager.lightBlue4,
+                            border: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2
+                              ),
+                            ),
+                          ),
+                          focusNode: _thingsLearnFocusNode,
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.done,
+                          validator: (String? value) {
+                            if (value!.isEmpty) {
+                              return 'Field is required';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              const SizedBox(
-                height: 30.0,
-              ),
+
               TextButton(
                   onPressed: () {
                   },

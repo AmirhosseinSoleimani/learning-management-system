@@ -63,6 +63,7 @@ class Layout extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
+                    Navigator.of(context).pushReplacementNamed(Routes.addCourseTitle);
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
