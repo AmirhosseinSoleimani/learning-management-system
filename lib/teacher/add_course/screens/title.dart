@@ -219,71 +219,128 @@ class CourseTitle extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0,
-                              vertical: 10.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Expanded(
-                                flex: 5,
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: ColorManager.lightBlue4,
-                                    border: OutlineInputBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(10.0),
-                                      borderSide: BorderSide(
-                                          width: 2,
-                                          color: ColorManager.lightSteelBlue2
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
+                            child: GestureDetector(
+                              onTap: (){
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return StatefulBuilder(
+                                      builder: (context,setState) => Expanded(
+                                        child: AlertDialog(
+                                          title: Text(
+                                            'Things we learn in this course:',
+                                            style: TextStyle(
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorManager.black
+                                            ),
+                                          ),
+                                          content: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 4,
+                                                    child: TextFormField(
+                                                      decoration: InputDecoration(
+                                                        filled: true,
+                                                        fillColor: ColorManager.lightBlue4,
+                                                        border: OutlineInputBorder(
+                                                          borderRadius:
+                                                          BorderRadius.circular(10.0),
+                                                          borderSide: BorderSide(
+                                                              width: 2,
+                                                              color: ColorManager.lightSteelBlue2
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      focusNode: _descriptionFocusNode,
+                                                      keyboardType: TextInputType.text,
+                                                      textInputAction: TextInputAction.next,
+                                                      validator: (String? value) {
+                                                        if (value!.isEmpty) {
+                                                          return 'Field is required';
+                                                        }
+                                                        return null;
+                                                      },
+                                                      onSaved: (value) {
+                                                      },
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: TextButton(
+                                                        onPressed: (){},
+                                                        child: Text(
+                                                          'Add',
+                                                          style: TextStyle(
+                                                            fontSize: 14.0,
+                                                            color: ColorManager.primary
+                                                          ),
+                                                        ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 20.0,
+                                              ),
+                                              Container(
+                                                width: MediaQuery.of(context).size.width,
+                                                height: MediaQuery.of(context).size.height * 0.3,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    width: 2,
+                                                    color: ColorManager.lightSteelBlue2
+                                                  ),
+                                                  borderRadius: BorderRadius.circular(10.0)
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {},
+                                              child: Text('CANCEL'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {},
+                                              child: Text('ACCEPT'),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: ColorManager.lightSteelBlue2
                                   ),
-                                  focusNode: _thingsLearnFocusNode,
-                                  keyboardType: TextInputType.text,
-                                  textInputAction: TextInputAction.done,
-                                  validator: (String? value) {
-                                    if (value!.isEmpty) {
-                                      return 'Field is required';
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (value) {
-                                  },
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: ColorManager.lightSteelBlue2
+                                ),
+                                child: Icon(
+                                  Icons.add,
+                                  size: 30.0,
+                                  color: ColorManager.lightSteelBlue1,
                                 ),
                               ),
-                              Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                                  child: GestureDetector(
-                                    onTap: (){},
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          width: 1,
-                                          color: ColorManager.lightSteelBlue2
-                                        ),
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        color: ColorManager.lightSteelBlue2
-                                      ),
-                                      child: Icon(
-                                        Icons.add,
-                                        size: 30.0,
-                                        color: ColorManager.lightSteelBlue1,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-
                 TextButton(
                     onPressed: () {
                     },
