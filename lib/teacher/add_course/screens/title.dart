@@ -298,6 +298,9 @@ class CourseTitle extends StatelessWidget {
                                                   ),
                                                   borderRadius: BorderRadius.circular(10.0)
                                                 ),
+                                                child: ListView.builder(
+                                                  
+                                                    itemBuilder: itemBuilder),
                                               )
                                             ],
                                           ),
