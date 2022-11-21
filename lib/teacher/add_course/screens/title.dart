@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:learning_management_system/provider/add_course.dart';
+import 'package:provider/provider.dart';
+import '../../../models/add_course.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
@@ -11,7 +14,13 @@ class CourseTitle extends StatelessWidget {
   final  _titleFocusNode = FocusNode();
   final  _subtitleFocusNode = FocusNode();
   final  _descriptionFocusNode = FocusNode();
-  final  _thingsLearnFocusNode = FocusNode();
+  final  _learnThingFocusNode = FocusNode();
+
+  final _learnThingController = TextEditingController();
+
+  var _learnThingsList = LearnThingModel(
+    learnThings: ''
+  );
 
 
   @override
@@ -238,71 +247,83 @@ class CourseTitle extends StatelessWidget {
                                                 color: ColorManager.black
                                             ),
                                           ),
-                                          content: Column(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    flex: 4,
-                                                    child: TextFormField(
-                                                      decoration: InputDecoration(
-                                                        filled: true,
-                                                        fillColor: ColorManager.lightBlue4,
-                                                        border: OutlineInputBorder(
-                                                          borderRadius:
-                                                          BorderRadius.circular(10.0),
-                                                          borderSide: BorderSide(
-                                                              width: 2,
-                                                              color: ColorManager.lightSteelBlue2
+                                          content: SizedBox(
+                                            width: MediaQuery.of(context).size.width,
+                                            height: MediaQuery.of(context).size.height * 0.35,
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      flex: 4,
+                                                      child: TextFormField(
+                                                        decoration: InputDecoration(
+                                                          filled: true,
+                                                          fillColor: ColorManager.lightBlue4,
+                                                          border: OutlineInputBorder(
+                                                            borderRadius:
+                                                            BorderRadius.circular(10.0),
+                                                            borderSide: BorderSide(
+                                                                width: 2,
+                                                                color: ColorManager.lightSteelBlue2
+                                                            ),
                                                           ),
                                                         ),
+                                                        controller: _learnThingController,
+                                                        autofocus: true,
+                                                        focusNode: _learnThingFocusNode,
+                                                        keyboardType: TextInputType.text,
+                                                        textInputAction: TextInputAction.done,
+                                                        validator: (String? value) {
+                                                          if (value!.isEmpty) {
+                                                            return 'Field is required';
+                                                          }
+                                                          return null;
+                                                        },
+                                                        onSaved: (value) {
+                                                          _learnThingsList = LearnThingModel(
+                                                            learnThings: value,
+                                                          );
+                                                        },
                                                       ),
-                                                      focusNode: _descriptionFocusNode,
-                                                      keyboardType: TextInputType.text,
-                                                      textInputAction: TextInputAction.next,
-                                                      validator: (String? value) {
-                                                        if (value!.isEmpty) {
-                                                          return 'Field is required';
-                                                        }
-                                                        return null;
-                                                      },
-                                                      onSaved: (value) {
-                                                      },
                                                     ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: TextButton(
-                                                        onPressed: (){},
-                                                        child: Text(
-                                                          'Add',
-                                                          style: TextStyle(
-                                                            fontSize: 14.0,
-                                                            color: ColorManager.primary
+                                                    Expanded(
+                                                      flex: 1,
+                                                      child: TextButton(
+                                                          onPressed: (){
+                                                            Provider.of<AddCourseProvider>(context,listen: false).addLearnThingsList(_learnThingsList);
+                                                            _learnThingController.clear();
+                                                          },
+                                                          child: Text(
+                                                            'Add',
+                                                            style: TextStyle(
+                                                              fontSize: 14.0,
+                                                              color: ColorManager.primary
+                                                            ),
                                                           ),
-                                                        ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 20.0,
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context).size.width,
-                                                height: MediaQuery.of(context).size.height * 0.3,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    width: 2,
-                                                    color: ColorManager.lightSteelBlue2
-                                                  ),
-                                                  borderRadius: BorderRadius.circular(10.0)
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
-                                                child: ListView.builder(
-                                                  
-                                                    itemBuilder: itemBuilder),
-                                              )
-                                            ],
+                                                const SizedBox(
+                                                  height: 20.0,
+                                                ),
+                                                Container(
+                                                  width: MediaQuery.of(context).size.width,
+                                                  height: MediaQuery.of(context).size.height * 0.24,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      width: 2,
+                                                      color: ColorManager.lightSteelBlue2
+                                                    ),
+                                                    borderRadius: BorderRadius.circular(10.0)
+                                                  ),
+                                                  // child: ListView.builder(
+                                                  //
+                                                  //     itemBuilder: itemBuilder),
+                                                )
+                                              ],
+                                            ),
                                           ),
                                           actions: [
                                             TextButton(

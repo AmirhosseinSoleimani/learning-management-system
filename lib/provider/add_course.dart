@@ -10,6 +10,7 @@ class AddCourseProvider with ChangeNotifier{
 
   void addLearnThingsList(LearnThingModel learnThingModel){
     learnThings.add(learnThingModel);
+    print(learnThings.length);
     notifyListeners();
   }
 }
