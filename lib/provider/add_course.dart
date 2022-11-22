@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
-import '../models/add_course.dart';
 
 class AddCourseProvider with ChangeNotifier{
-  final List<LearnThingModel> _learnThings = [];
+  final List<String> _learnThings = [];
 
-  List<LearnThingModel> get learnThings{
+  List<String> get learnThings{
     return _learnThings;
   }
 
-  void addLearnThingsList(LearnThingModel learnThingModel){
-    learnThings.add(learnThingModel);
-    print(learnThings.length);
+
+  Future<void> addLearnThingsList(String learnThingsText) async{
+    learnThings.add(learnThingsText);
+    notifyListeners();
+  }
+
+  void deleteLearnThingsList(String learnThingsText){
+    learnThings.remove(learnThingsText);
     notifyListeners();
   }
 }

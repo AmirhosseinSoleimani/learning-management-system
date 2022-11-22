@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/provider/add_course.dart';
 import 'package:provider/provider.dart';
-import '../../../models/add_course.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
 import '../../../presentation/resources/values_manager.dart';
+import '../../../provider/add_course.dart';
 import '../../../store/drawer.dart';
+import '../widgets/learn_things.dart';
 
-class CourseTitle extends StatelessWidget {
-  CourseTitle({Key? key}) : super(key: key);
+class CourseTitle extends StatefulWidget {
+  const CourseTitle({Key? key}) : super(key: key);
 
-  final  _titleFocusNode = FocusNode();
-  final  _subtitleFocusNode = FocusNode();
-  final  _descriptionFocusNode = FocusNode();
-  final  _learnThingFocusNode = FocusNode();
+  @override
+  State<CourseTitle> createState() => _CourseTitleState();
+}
 
-  final _learnThingController = TextEditingController();
+class _CourseTitleState extends State<CourseTitle> {
+  final _titleFocusNode = FocusNode();
 
-  var _learnThingsList = LearnThingModel(
-    learnThings: ''
-  );
+  final _subtitleFocusNode = FocusNode();
+
+  final _descriptionFocusNode = FocusNode();
+
+
+
+  final _form = GlobalKey<FormState>();
 
 
   @override
@@ -54,361 +58,213 @@ class CourseTitle extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.p12),
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 2.0,
-                      color: ColorManager.lightSteelBlue2
-                    ),
-                    borderRadius: BorderRadius.circular(10.0)
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            'Title:',
-                            style: TextStyle(
-                              fontSize: 22.0,
-                              fontWeight: FontWeight.w500,
-                              color: ColorManager.black
+            child: Form(
+              key: _form,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: MediaQuery.of(context).size.height * 0.35,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 2.0, color: ColorManager.lightSteelBlue2),
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              'Title:',
+                              style: TextStyle(
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: ColorManager.black),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0,
-                          vertical: 10.0),
-                          child: TextFormField(
-                            decoration: InputDecoration(
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 10.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
                                 filled: true,
                                 fillColor: ColorManager.lightBlue4,
                                 border: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(10.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                   borderSide: BorderSide(
                                       width: 2,
-                                      color: ColorManager.lightSteelBlue2
-                                  ),
-                                ),
-                            ),
-                            focusNode: _titleFocusNode,
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return 'Field is required';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            'Subtitle:',
-                            style: TextStyle(
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.w500,
-                                color: ColorManager.black
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0,
-                              vertical: 10.0),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: ColorManager.lightBlue4,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
-                                    width: 2,
-                                    color: ColorManager.lightSteelBlue2
+                                      color: ColorManager.lightSteelBlue2),
                                 ),
                               ),
-                            ),
-                            focusNode: _subtitleFocusNode,
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.done,
-                            validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return 'Field is required';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.55,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          width: 2.0,
-                          color: ColorManager.lightSteelBlue2
-                      ),
-                      borderRadius: BorderRadius.circular(10.0)
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            'Description:',
-                            style: TextStyle(
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.w500,
-                                color: ColorManager.black
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0,
-                              vertical: 10.0),
-                          child: TextFormField(
-                            maxLines: 10,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: ColorManager.lightBlue4,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
-                                    width: 2,
-                                    color: ColorManager.lightSteelBlue2
-                                ),
-                              ),
-                            ),
-                            focusNode: _descriptionFocusNode,
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return 'Field is required';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            'Things we learn in this course:',
-                            style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w500,
-                                color: ColorManager.black
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
-                            child: GestureDetector(
-                              onTap: (){
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return StatefulBuilder(
-                                      builder: (context,setState) => Expanded(
-                                        child: AlertDialog(
-                                          title: Text(
-                                            'Things we learn in this course:',
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w500,
-                                                color: ColorManager.black
-                                            ),
-                                          ),
-                                          content: SizedBox(
-                                            width: MediaQuery.of(context).size.width,
-                                            height: MediaQuery.of(context).size.height * 0.35,
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Expanded(
-                                                      flex: 4,
-                                                      child: TextFormField(
-                                                        decoration: InputDecoration(
-                                                          filled: true,
-                                                          fillColor: ColorManager.lightBlue4,
-                                                          border: OutlineInputBorder(
-                                                            borderRadius:
-                                                            BorderRadius.circular(10.0),
-                                                            borderSide: BorderSide(
-                                                                width: 2,
-                                                                color: ColorManager.lightSteelBlue2
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        controller: _learnThingController,
-                                                        autofocus: true,
-                                                        focusNode: _learnThingFocusNode,
-                                                        keyboardType: TextInputType.text,
-                                                        textInputAction: TextInputAction.done,
-                                                        validator: (String? value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Field is required';
-                                                          }
-                                                          return null;
-                                                        },
-                                                        onSaved: (value) {
-                                                          _learnThingsList = LearnThingModel(
-                                                            learnThings: value,
-                                                          );
-                                                        },
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: TextButton(
-                                                          onPressed: (){
-                                                            Provider.of<AddCourseProvider>(context,listen: false).addLearnThingsList(_learnThingsList);
-                                                            _learnThingController.clear();
-                                                          },
-                                                          child: Text(
-                                                            'Add',
-                                                            style: TextStyle(
-                                                              fontSize: 14.0,
-                                                              color: ColorManager.primary
-                                                            ),
-                                                          ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  height: 20.0,
-                                                ),
-                                                Container(
-                                                  width: MediaQuery.of(context).size.width,
-                                                  height: MediaQuery.of(context).size.height * 0.24,
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      width: 2,
-                                                      color: ColorManager.lightSteelBlue2
-                                                    ),
-                                                    borderRadius: BorderRadius.circular(10.0)
-                                                  ),
-                                                  // child: ListView.builder(
-                                                  //
-                                                  //     itemBuilder: itemBuilder),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {},
-                                              child: Text('CANCEL'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {},
-                                              child: Text('ACCEPT'),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
+                              focusNode: _titleFocusNode,
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
+                                  return 'Field is required';
+                                }
+                                return null;
                               },
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1,
-                                    color: ColorManager.lightSteelBlue2
-                                  ),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  color: ColorManager.lightSteelBlue2
-                                ),
-                                child: Icon(
-                                  Icons.add,
-                                  size: 30.0,
-                                  color: ColorManager.lightSteelBlue1,
-                                ),
-                              ),
+                              onSaved: (value) {},
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                TextButton(
-                    onPressed: () {
-                    },
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          ColorManager.primary,
-                        ),
-                        shape:
-                        MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(50.0)))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 30,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Get Start',
-                            style: TextStyle(
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.bold,
-                                color: ColorManager.white),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              'Subtitle:',
+                              style: TextStyle(
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: ColorManager.black),
+                            ),
                           ),
-                          const SizedBox(
-                            width: 5.0,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 10.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: ColorManager.lightBlue4,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                      width: 2,
+                                      color: ColorManager.lightSteelBlue2),
+                                ),
+                              ),
+                              focusNode: _subtitleFocusNode,
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.done,
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
+                                  return 'Field is required';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {},
+                            ),
                           ),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: ColorManager.white,
-                            size: 30,
-                          )
                         ],
                       ),
-                    )),
-              ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: (Provider.of<AddCourseProvider>(context).learnThings.isEmpty)?
+                    MediaQuery.of(context).size.height * 0.56
+                    :MediaQuery.of(context).size.height * 0.81,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 2.0, color: ColorManager.lightSteelBlue2),
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              'Description:',
+                              style: TextStyle(
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: ColorManager.black),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 10.0),
+                            child: TextFormField(
+                              maxLines: 10,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: ColorManager.lightBlue4,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                      width: 2,
+                                      color: ColorManager.lightSteelBlue2),
+                                ),
+                              ),
+                              focusNode: _descriptionFocusNode,
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
+                                  return 'Field is required';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {},
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              'Things we learn in this course:',
+                              style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: ColorManager.black),
+                            ),
+                          ),
+                          LearnThings(),
+                        ],
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Provider.of<AddCourseProvider>(context).learnThings.length;
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            ColorManager.primary,
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(50.0)))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 30,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Get Start',
+                              style: TextStyle(
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorManager.white),
+                            ),
+                            const SizedBox(
+                              width: 5.0,
+                            ),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: ColorManager.white,
+                              size: 30,
+                            )
+                          ],
+                        ),
+                      )),
+                ],
+              ),
             ),
           ),
         ),
       ),
-
-
     );
   }
 }
