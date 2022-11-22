@@ -4,6 +4,7 @@ import 'package:learning_management_system/provider/add_course.dart';
 import 'package:provider/provider.dart';
 
 import '../../../presentation/resources/color_manager.dart';
+import 'checkBox_category.dart';
 
 class Category extends StatefulWidget {
   const Category({Key? key}) : super(key: key);
@@ -13,8 +14,6 @@ class Category extends StatefulWidget {
 }
 
 class _CategoryState extends State<Category> {
-
-  bool valueCheckBox = false;
 
   final _categoryFocusNode = FocusNode();
 
@@ -82,25 +81,7 @@ class _CategoryState extends State<Category> {
                       height: MediaQuery.of(context).size.height * 0.3,
                       child: ListView.builder(
                           itemCount: courses.length,
-                          itemBuilder: (context,index) => Card(
-                            elevation: 6,
-                            child: ListTile(
-                              title: Text(
-                                '${courses[index]["name"]}'
-                              ),
-                              trailing: Checkbox(
-                                value: valueCheckBox,
-                                shape: const CircleBorder(),
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    valueCheckBox = value!;
-                                    Provider.of<AddCourseProvider>(context,listen: false).checkBoxCategory(valueCheckBox!, index);
-
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
+                          itemBuilder: (context,index) => CheckBoxCategory(data: courses[index],),
                       ),
                     ),
                   ),
