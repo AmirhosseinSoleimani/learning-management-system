@@ -10,6 +10,7 @@ import '../../../presentation/resources/routes_manager.dart';
 import '../../../presentation/resources/values_manager.dart';
 import '../../../provider/add_course.dart';
 import '../../../store/drawer.dart';
+import '../widgets/category.dart';
 import '../widgets/learn_things.dart';
 
 class CourseTitle extends StatefulWidget {
@@ -337,6 +338,18 @@ class _CourseTitleState extends State<CourseTitle> {
                         ],
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: MediaQuery.of(context).size.height * 0.55,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 2.0, color: ColorManager.lightSteelBlue2),
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: const Category(),
                   ),
                   TextButton(
                       onPressed: () {

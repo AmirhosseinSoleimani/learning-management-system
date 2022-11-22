@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../data.dart';
+
 class AddCourseProvider with ChangeNotifier{
   final List<String> _learnThings = [];
 
@@ -15,6 +17,13 @@ class AddCourseProvider with ChangeNotifier{
 
   void deleteLearnThingsList(String learnThingsText){
     learnThings.remove(learnThingsText);
+    notifyListeners();
+  }
+
+  void checkBoxCategory(bool selected,int index){
+    bool isSelected = selected;
+    courses[index]["isSelected"] = isSelected;
+    print(courses[index]["isSelected"]);
     notifyListeners();
   }
 }
