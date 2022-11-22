@@ -69,7 +69,7 @@ class _LearnThingsState extends State<LearnThings> {
                 flex: 1,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                  child: (_learnThingsText == null) ? GestureDetector(
+                  child: (_learnThingController.text.isEmpty) ? GestureDetector(
                     onTap: () {},
                     child: Icon(
                       Icons.done,

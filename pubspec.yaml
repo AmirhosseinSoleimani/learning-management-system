@@ -99,6 +99,7 @@ flutter:
     - assets/icons/
     - assets/icons/category/
     - assets/icons/homePage/
+    - assets/icons/addCourse/
     - assets/icons/footer/
     - assets/icons/teacherSignUp/
     - assets/avatar/

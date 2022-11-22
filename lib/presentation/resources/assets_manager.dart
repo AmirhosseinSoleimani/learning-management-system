@@ -58,6 +58,6 @@ class IconAssets{
   static const String resume = '$iconPath/teacherSignUp/resume.svg';
 
 
-
-
+  // addCourse
+  static const String video = '$iconPath/addCourse/video.svg';
 }

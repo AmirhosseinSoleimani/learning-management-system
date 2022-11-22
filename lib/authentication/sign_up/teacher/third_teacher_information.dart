@@ -11,7 +11,6 @@ import 'package:learning_management_system/presentation/resources/values_manager
 import 'package:learning_management_system/provider/teacher_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../presentation/resources/routes_manager.dart';
-import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 import '../../customize_stepper_second_information.dart';
 
