@@ -31,23 +31,44 @@ class Pricing extends StatelessWidget {
         centerTitle: true,
         iconTheme: IconThemeData(color: ColorManager.black, size: AppSize.s30),
       ),
-      body: Card(
-        elevation: 6,
-        child: Column(
-          children: [
-            TextFormField(),
-            TextFormField(),
-            Row(
-              children: [
-                Expanded(
+      backgroundColor: ColorManager.white,
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 2,
+              color: ColorManager.lightSteelBlue2
+            ),
+            borderRadius: BorderRadius.circular(10.0),
+            color: ColorManager.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 2,
+                offset: const Offset(0, 3),
+              )
+            ]
+          ),
+          child: Column(
+            children: [
+              TextFormField(
+
+              ),
+              TextFormField(),
+              Row(
+                children: [
+                  Expanded(
+                      child: TextFormField(),
+                  ),
+                  Expanded(
                     child: TextFormField(),
-                ),
-                Expanded(
-                  child: TextFormField(),
-                )
-              ],
-            )
-          ],
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
