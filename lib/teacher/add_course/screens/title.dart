@@ -351,9 +351,39 @@ class _CourseTitleState extends State<CourseTitle> {
                         borderRadius: BorderRadius.circular(10.0)),
                     child: const Category(),
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 2.0, color: ColorManager.lightSteelBlue2),
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text(
+                            'Tag:',
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w500,
+                                color: ColorManager.black),
+                          ),
+                        ),
+                        const LearnThings(),
+                      ],
+                    ),
+                  ),
+
+
                   TextButton(
                       onPressed: () {
-                        Provider.of<AddCourseProvider>(context).learnThings.length;
+                        // Provider.of<AddCourseProvider>(context).learnThings.length;
+                        Navigator.of(context).pushReplacementNamed(Routes.addCoursePricing);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

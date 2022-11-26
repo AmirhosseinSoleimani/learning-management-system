@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/data.dart';
-import 'package:learning_management_system/provider/add_course.dart';
-import 'package:provider/provider.dart';
-
 import '../../../presentation/resources/color_manager.dart';
 import 'checkBox_category.dart';
 
@@ -81,9 +78,11 @@ class _CategoryState extends State<Category> {
                       height: MediaQuery.of(context).size.height * 0.3,
                       child: ListView.builder(
                           itemCount: courses.length,
-                          itemBuilder: (context,index) => CheckBoxCategory(data: courses[index],),
+                          itemBuilder: (context,index) => CheckBoxCategory(
+                            data: courses[index],
                       ),
                     ),
+                  ),
                   ),
                 ],
               ),

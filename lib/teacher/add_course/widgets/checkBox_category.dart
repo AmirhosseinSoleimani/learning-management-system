@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
-import '../../../data.dart';
-
 class CheckBoxCategory extends StatefulWidget {
   const CheckBoxCategory({Key? key,this.data}) : super(key: key);
 
   final data;
-
   @override
   State<CheckBoxCategory> createState() => _CheckBoxCategoryState();
 }
 
 class _CheckBoxCategoryState extends State<CheckBoxCategory> {
+
+  List<String> dataName = [];
+
   bool valueCheckBox = false;
+
+
   @override
   Widget build(BuildContext context) {
     return Card(

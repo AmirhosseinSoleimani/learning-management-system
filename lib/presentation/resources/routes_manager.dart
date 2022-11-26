@@ -5,6 +5,7 @@ import 'package:learning_management_system/authentication/sign_up/teacher/second
 import 'package:learning_management_system/authentication/sign_up/teacher/teacher_sign_up.dart';
 import 'package:learning_management_system/store/homePage/screens/home_page.dart';
 import 'package:learning_management_system/store/shop_page/screens/payment_page.dart';
+import 'package:learning_management_system/teacher/add_course/screens/courses.dart';
 import 'package:learning_management_system/teacher/add_course/screens/layout.dart';
 import '../../authentication/sign_up/student/favourite.dart';
 import '../../authentication/sign_up/student/second_student_information.dart';
@@ -16,6 +17,7 @@ import '../../authentication/sign_up/teacher/third_teacher_information.dart';
 import '../../presentation/resources/string_manager.dart';
 import '../../store/course_details/screens/course_details.dart';
 import '../../store/shop_page/screens/shop_page.dart';
+import '../../teacher/add_course/screens/pricing.dart';
 import '../../teacher/add_course/screens/title.dart';
 import '../../teacher/dashboard/screens/dashboard.dart';
 
@@ -38,6 +40,8 @@ class Routes{
   static const String teacherDashboard = '/teacherDashboard';
   static const String addCourseLayout = '/addCourseLayout';
   static const String addCourseTitle = '/addCourseTitle';
+  static const String addCourseSection = '/addCourseSection';
+  static const String addCoursePricing = '/addCoursePricing';
 }
 
 
@@ -80,7 +84,11 @@ class RouteGenerator{
       case Routes.addCourseLayout:
         return MaterialPageRoute(builder: (_) => const Layout());
       case Routes.addCourseTitle:
-        return MaterialPageRoute(builder: (_) =>  CourseTitle());
+        return MaterialPageRoute(builder: (_) =>  const CourseTitle());
+      case Routes.addCourseSection:
+        return MaterialPageRoute(builder: (_) =>  const CoursesPage());
+      case Routes.addCoursePricing:
+        return MaterialPageRoute(builder: (_) =>  const Pricing());
       default:
         return unDefinedRoute();
     }
