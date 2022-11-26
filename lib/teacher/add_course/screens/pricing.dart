@@ -205,16 +205,72 @@ class _PricingState extends State<Pricing> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 20.0,
+                ),
                 Row(
                   children: [
                     Expanded(
-                        child: TextFormField(),
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 2,
+                              color: ColorManager.lightSteelBlue2
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: ColorManager.lightSteelBlue5,
+                        ),
+                          child: GestureDetector(
+                            onTap: (){
+                              print('ff');
+                            },
+                            child: Center(
+                                child: Text(
+                                  'Start Date: --/--/--',
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: ColorManager.slateGray2
+                                  ),
+                                ),
+                            ),
+                          ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20.0,
                     ),
                     Expanded(
-                      child: TextFormField(),
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 2,
+                              color: ColorManager.lightSteelBlue2
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: ColorManager.lightSteelBlue5,
+                        ),
+                          child: GestureDetector(
+                            onTap: (){
+                              print('ff');
+                            },
+                            child: Center(
+                              child: Text(
+                                'End Date: --/--/--',
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: ColorManager.slateGray2
+                                ),
+                              ),
+                            ),
+                          ),
+                      ),
                     )
                   ],
-                )
+                ),
               ],
             ),
           ),
