@@ -141,6 +141,9 @@ class _PricingState extends State<Pricing> {
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor:ColorManager.lightSteelBlue5,
+                                    border: const OutlineInputBorder(
+                                      borderSide: BorderSide.none
+                                    ),
                                     hintText: 'Price: ',
                                     hintStyle: TextStyle(
                                       fontSize: 18,
@@ -167,22 +170,38 @@ class _PricingState extends State<Pricing> {
                   height: 20.0,
                 ),
 
-                TextFormField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor:ColorManager.lightSteelBlue5,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                            width: 2,
-                            color: ColorManager.lightSteelBlue2
-                        )
+                Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 2,
+                        color: ColorManager.lightSteelBlue2
                     ),
-                    labelText: 'Off: ',
-                    labelStyle: TextStyle(
-                      fontSize: 22,
-                      color:ColorManager.slateGray2,
-                      fontWeight: FontWeight.w400,
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: ColorManager.lightSteelBlue5,
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor:ColorManager.lightSteelBlue5,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide.none
+                      ),
+                      hintText: 'Off:',
+                      hintStyle: TextStyle(
+                        fontSize: 18,
+                        color:ColorManager.slateGray2,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      suffix: Text(
+                          '%',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: ColorManager.slateGray2
+                        ),
+                      )
                     ),
                   ),
                 ),
