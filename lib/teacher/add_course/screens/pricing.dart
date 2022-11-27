@@ -22,6 +22,10 @@ class _PricingState extends State<Pricing> {
   DateTime? endDate;
   DateTime? startOffDate;
   DateTime? endOffDate;
+  bool selectedStartDate = false;
+  bool selectedEndDate = false;
+  bool selectedOffStartDate = false;
+  bool selectedOffEndDate = false;
 
 
 
@@ -244,12 +248,18 @@ class _PricingState extends State<Pricing> {
                                     firstDate: DateTime.now(),
                                     lastDate: DateTime(2100),
                                 );
-                                if(startDate == null) return;
+                                if(startDate == null){
+                                  setState(() {
+                                    selectedStartDate = true;
+                                  });
+                                }else{
+                                  selectedStartDate = false;
+                                }
                                 setState(() {
                                 });
                               },
                               child: Center(
-                                  child: (startDate == null) ? Text(
+                                  child: (startDate == null || selectedStartDate == true) ? Text(
                                     'Start Date: --/--/--',
                                     style: TextStyle(
                                       fontSize: 18.0,
@@ -291,7 +301,15 @@ class _PricingState extends State<Pricing> {
                                     firstDate: startDate!,
                                     lastDate: DateTime(2100),
                                   );
-                                  if(endDate == null) return;
+                                  if(endDate == null){
+                                    setState(() {
+                                      selectedEndDate = true;
+                                    });
+                                  }else{
+                                    setState(() {
+                                      selectedEndDate = false;
+                                    });
+                                  }
                                   setState(() {
                                   });
                                 }
@@ -310,7 +328,7 @@ class _PricingState extends State<Pricing> {
                                 }
                               },
                               child: Center(
-                                child: (endDate == null || startDate == null) ? Text(
+                                child: (endDate == null || startDate == null || selectedEndDate == true) ? Text(
                                   'End Date: --/--/--',
                                   style: TextStyle(
                                       fontSize: 18.0,
@@ -448,16 +466,24 @@ class _PricingState extends State<Pricing> {
                                         onTap: () async{
                                           startOffDate = await showDatePicker(
                                             context: context,
-                                            initialDate: date,
+                                            initialDate: DateTime.now(),
                                             firstDate: DateTime.now(),
                                             lastDate: DateTime(2100),
                                           );
-                                          if(startOffDate == null) return;
+                                          if(startOffDate == null){
+                                            setState(() {
+                                              selectedOffStartDate = true;
+                                            });
+                                          }else{
+                                            setState(() {
+                                              selectedOffStartDate = false;
+                                            });
+                                          }
                                           setState(() {
                                           });
                                         },
                                         child: Center(
-                                          child: (startOffDate == null) ? Text(
+                                          child: (startOffDate == null || selectedOffStartDate == true) ? Text(
                                             '--/--/--',
                                             style: TextStyle(
                                                 fontSize: 18.0,
@@ -516,7 +542,13 @@ class _PricingState extends State<Pricing> {
                                               firstDate: startOffDate!,
                                               lastDate: DateTime(2100),
                                             );
-                                            if(endOffDate == null) return;
+                                            if(endOffDate == null){
+                                              setState(() {
+                                                selectedOffEndDate = true;
+                                              });
+                                            }else{
+                                              selectedOffEndDate = false;
+                                            }
                                             setState(() {
                                             });
                                           }
@@ -535,7 +567,7 @@ class _PricingState extends State<Pricing> {
                                           }
                                         },
                                         child: Center(
-                                          child: (endOffDate == null || startOffDate == null) ? Text(
+                                          child: (endOffDate == null || startOffDate == null || selectedOffEndDate == true) ? Text(
                                             '--/--/--',
                                             style: TextStyle(
                                                 fontSize: 18.0,
