@@ -383,7 +383,7 @@ class _CourseTitleState extends State<CourseTitle> {
                   TextButton(
                       onPressed: () {
                         // Provider.of<AddCourseProvider>(context).learnThings.length;
-                        Navigator.of(context).pushReplacementNamed(Routes.addCoursePricing);
+                        Navigator.of(context).pushReplacementNamed(Routes.addCourseSection);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

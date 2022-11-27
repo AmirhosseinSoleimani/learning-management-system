@@ -44,6 +44,7 @@ class Routes{
   static const String addCourseSection = '/addCourseSection';
   static const String addCoursePricing = '/addCoursePricing';
   static const String addCourseSetting = '/addCourseSetting';
+
 }
 
 
