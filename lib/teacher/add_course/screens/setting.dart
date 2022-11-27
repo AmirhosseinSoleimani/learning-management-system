@@ -22,6 +22,10 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
     'English':true,
     'Persian':false,
   };
+  Map<String,bool> subTitle = {
+    'English':true,
+    'Persian':false,
+  };
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -337,7 +341,93 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                         ),
                     )
                   ],
-                )
+                ),
+                SizedBox(
+                  child: Divider(
+                    thickness: 1.5,
+                    height: 20,
+                    color: ColorManager.lightSteelBlue5,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        'SubTitle:',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w500,
+                          color: ColorManager.black,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Checkbox(
+                                  value: subTitle['English'],
+                                  activeColor: ColorManager.green,
+                                  onChanged: (value){
+                                    setState(() {
+                                      subTitle['English'] = true;
+                                      subTitle['Persian'] = false;
+
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  'English',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.black
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Checkbox(
+                                  value: subTitle['Persian'],
+                                  activeColor: ColorManager.green,
+                                  onChanged: (value){
+                                    setState(() {
+                                      subTitle['English'] = false;
+                                      subTitle['Persian'] = true;
+
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  'Persian',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.black
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  child: Divider(
+                    thickness: 1.5,
+                    height: 20,
+                    color: ColorManager.lightSteelBlue5,
+                  ),
+                ),
               ],
             ),
           ),
