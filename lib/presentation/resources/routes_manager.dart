@@ -7,6 +7,7 @@ import 'package:learning_management_system/store/homePage/screens/home_page.dart
 import 'package:learning_management_system/store/shop_page/screens/payment_page.dart';
 import 'package:learning_management_system/teacher/add_course/screens/courses.dart';
 import 'package:learning_management_system/teacher/add_course/screens/layout.dart';
+import 'package:learning_management_system/teacher/add_course/screens/setting.dart';
 import '../../authentication/sign_up/student/favourite.dart';
 import '../../authentication/sign_up/student/second_student_information.dart';
 import '../../authentication/sign_up/student/student_information.dart';
@@ -42,6 +43,7 @@ class Routes{
   static const String addCourseTitle = '/addCourseTitle';
   static const String addCourseSection = '/addCourseSection';
   static const String addCoursePricing = '/addCoursePricing';
+  static const String addCourseSetting = '/addCourseSetting';
 }
 
 
@@ -89,6 +91,8 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) =>  const CoursesPage());
       case Routes.addCoursePricing:
         return MaterialPageRoute(builder: (_) =>  const Pricing());
+      case Routes.addCourseSetting:
+        return MaterialPageRoute(builder: (_) =>  const SettingAddCourse());
       default:
         return unDefinedRoute();
     }
