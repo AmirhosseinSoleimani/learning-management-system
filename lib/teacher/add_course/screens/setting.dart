@@ -26,6 +26,7 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
     'English':true,
     'Persian':false,
   };
+  bool workShop = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,6 +156,17 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: Text(
+                                      'Basic',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16.0,
+                                          color: ColorManager.black
+                                      ),
+                                    ),
+                                  ),
                                   Checkbox(
                                       value: levelCourse['Basic'],
                                       activeColor: ColorManager.green,
@@ -165,17 +177,6 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                                           levelCourse['Advanced'] = false;
                                         });
                                       }),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 20.0),
-                                    child: Text(
-                                        'Basic',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16.0,
-                                        color: ColorManager.black
-                                      ),
-                                    ),
-                                  )
                                 ],
                               ),
                             ),
@@ -194,6 +195,17 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: Text(
+                                      'Elementary',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16.0,
+                                          color: ColorManager.black
+                                      ),
+                                    ),
+                                  ),
                                   Checkbox(
                                       value: levelCourse['Elementary'],
                                       activeColor: ColorManager.green,
@@ -204,17 +216,6 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                                           levelCourse['Advanced'] = false;
                                         });
                                       }),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 20.0),
-                                    child: Text(
-                                      'Elementary',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16.0,
-                                          color: ColorManager.black
-                                      ),
-                                    ),
-                                  )
                                 ],
                               ),
                             ),
@@ -233,6 +234,17 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: Text(
+                                      'Advanced',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16.0,
+                                          color: ColorManager.black
+                                      ),
+                                    ),
+                                  ),
                                   Checkbox(
                                       value: levelCourse['Advanced'],
                                       activeColor: ColorManager.green,
@@ -243,17 +255,6 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                                           levelCourse['Advanced'] = true;
                                         });
                                       }),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 20.0),
-                                    child: Text(
-                                      'Advanced',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16.0,
-                                          color: ColorManager.black
-                                      ),
-                                    ),
-                                  )
                                 ],
                               ),
                             )
@@ -290,6 +291,14 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                             Expanded(
                                 child: Row(
                                   children: [
+                                    Text(
+                                      'English',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w500,
+                                          color: ColorManager.black
+                                      ),
+                                    ),
                                     Checkbox(
                                         value: language['English'],
                                         activeColor: ColorManager.green,
@@ -301,20 +310,20 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                                           });
                                         },
                                     ),
-                                    Text(
-                                      'English',
-                                      style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w500,
-                                        color: ColorManager.black
-                                      ),
-                                    )
                                   ],
                                 ),
                             ),
                             Expanded(
                               child: Row(
                                 children: [
+                                  Text(
+                                    'Persian',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorManager.black
+                                    ),
+                                  ),
                                   Checkbox(
                                     value: language['Persian'],
                                     activeColor: ColorManager.green,
@@ -326,14 +335,6 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                                       });
                                     },
                                   ),
-                                  Text(
-                                      'Persian',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w500,
-                                        color: ColorManager.black
-                                    ),
-                                  )
                                 ],
                               ),
                             )
@@ -369,6 +370,14 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                           Expanded(
                             child: Row(
                               children: [
+                                Text(
+                                  'English',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.black
+                                  ),
+                                ),
                                 Checkbox(
                                   value: subTitle['English'],
                                   activeColor: ColorManager.green,
@@ -380,20 +389,20 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                                     });
                                   },
                                 ),
-                                Text(
-                                  'English',
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorManager.black
-                                  ),
-                                )
                               ],
                             ),
                           ),
                           Expanded(
                             child: Row(
                               children: [
+                                Text(
+                                  'Persian',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.black
+                                  ),
+                                ),
                                 Checkbox(
                                   value: subTitle['Persian'],
                                   activeColor: ColorManager.green,
@@ -405,14 +414,6 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                                     });
                                   },
                                 ),
-                                Text(
-                                  'Persian',
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorManager.black
-                                  ),
-                                )
                               ],
                             ),
                           )
@@ -427,6 +428,33 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                     height: 20,
                     color: ColorManager.lightSteelBlue5,
                   ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Text(
+                            'This course has a class or workshop',
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                                color: ColorManager.black
+                            ),
+                          ),
+                          Checkbox(
+                            value: workShop,
+                            activeColor: ColorManager.green,
+                            onChanged: (bool? value){
+                              setState(() {
+                                workShop = value!;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ],
             ),
