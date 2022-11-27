@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../presentation/resources/routes_manager.dart';
+// import '../chat/chat.dart';
+// import '../chat/model/ChatModel.dart';
+// import '../chat/screens/Homescreen.dart';
 
 class EndDrawer extends StatefulWidget {
   const EndDrawer({Key? key}) : super(key: key);
@@ -13,6 +16,43 @@ String dropDownValue = 'English';
 var items = ['English', 'فارسی'];
 
 class _EndDrawerState extends State<EndDrawer> {
+  // ChatModel? sourceChat;
+  // List<ChatModel> chatmodels = [
+  // ChatModel(
+  // name: "Dev Stack",
+  // isGroup: false,
+  // currentMessage: "Hi Everyone",
+  // time: "4:00",
+  // icon: "person.svg",
+  // id: 1,
+  // ),
+  // ChatModel(
+  // name: "Kishor",
+  // isGroup: false,
+  // currentMessage: "Hi Kishor",
+  // time: "13:00",
+  // icon: "person.svg",
+  // id: 2,
+  // ),
+  //
+  // ChatModel(
+  // name: "Collins",
+  // isGroup: false,
+  // currentMessage: "Hi Dev Stack",
+  // time: "8:00",
+  // icon: "person.svg",
+  // id: 3,
+  // ),
+  //
+  // ChatModel(
+  // name: "Balram Rathore",
+  // isGroup: false,
+  // currentMessage: "Hi Dev Stack",
+  // time: "2:00",
+  // icon: "person.svg",
+  // id: 4,
+  // )];
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -31,7 +71,11 @@ class _EndDrawerState extends State<EndDrawer> {
             ),
             ListTile(
               title: const Text('Teaching'),
-              onTap: (){},
+              onTap: (){
+                // Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen()
+                // );
+
+              },
             ),
             ListTile(
               title: const Text('Courses'),

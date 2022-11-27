@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
@@ -14,12 +13,23 @@ class Pricing extends StatefulWidget {
 
 class _PricingState extends State<Pricing> {
   final FocusNode _priceFocusNode = FocusNode();
+  final FocusNode _offFocusNode = FocusNode();
+  final FocusNode _offCodeFocusNode = FocusNode();
   String dropdownValue = '\$';
+  bool offSelected = false;
+  DateTime date = DateTime.now();
+  DateTime? startDate;
+  DateTime? endDate;
+  DateTime? startOffDate;
+  DateTime? endOffDate;
+
+
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: ColorManager.white,
         leading: IconButton(
@@ -169,7 +179,6 @@ class _PricingState extends State<Pricing> {
                 const SizedBox(
                   height: 20.0,
                 ),
-
                 Container(
                   height: 50,
                   decoration: BoxDecoration(
@@ -203,6 +212,9 @@ class _PricingState extends State<Pricing> {
                         ),
                       )
                     ),
+                    focusNode: _offFocusNode,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.done,
                   ),
                 ),
                 const SizedBox(
@@ -222,16 +234,31 @@ class _PricingState extends State<Pricing> {
                           color: ColorManager.lightSteelBlue5,
                         ),
                           child: GestureDetector(
-                            onTap: (){
-                              print('ff');
+                            onTap: () async{
+                              startDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: date,
+                                  firstDate: DateTime.now(),
+                                  lastDate: DateTime(2100),
+                              );
+                              if(startDate == null) return;
+                              setState(() {
+                              });
                             },
                             child: Center(
-                                child: Text(
+                                child: (startDate == null) ? Text(
                                   'Start Date: --/--/--',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w400,
                                     color: ColorManager.slateGray2
+                                  ),
+                                ) : Text(
+                                  '${startDate!.year}/${startDate!.month}/${startDate!.day}',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: ColorManager.slateGray2
                                   ),
                                 ),
                             ),
@@ -253,24 +280,290 @@ class _PricingState extends State<Pricing> {
                           color: ColorManager.lightSteelBlue5,
                         ),
                           child: GestureDetector(
-                            onTap: (){
-                              print('ff');
+                            onTap: () async{
+                              if(startDate != null){
+                                endDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: startDate!,
+                                  firstDate: startDate!,
+                                  lastDate: DateTime(2100),
+                                );
+                                if(endDate == null) return;
+                                setState(() {
+                                });
+                              }
+                              else{
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'Please Enter StartDate',
+                                          style: TextStyle(
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w400,
+                                            color: ColorManager.error
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        )));
+                              }
                             },
                             child: Center(
-                              child: Text(
+                              child: (endDate == null || startDate == null) ? Text(
                                 'End Date: --/--/--',
                                 style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w400,
                                     color: ColorManager.slateGray2
                                 ),
-                              ),
+                              ):Text(
+                                '${endDate!.year}/${endDate!.month}/${endDate!.day}',
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: ColorManager.slateGray2
+                                ),
                             ),
                           ),
                       ),
+                    ),
                     )
                   ],
                 ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                IntrinsicHeight(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: TextButton(
+                            onPressed: (){
+                              setState(() {
+                                offSelected = !offSelected;
+                              });
+                            },
+                            child: Text(
+                              '+ Off Code',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                                color: (offSelected == false) ? ColorManager.lightSteelBlue1:ColorManager.green
+                              ),
+                            ),
+                        ),
+                      ),
+                      if(offSelected) VerticalDivider(
+                        color: ColorManager.lightSteelBlue2,
+                        thickness: 2,
+                      ),
+                      (offSelected == true) ? Expanded(
+                        flex: 2,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    'Off:',
+                                    style: TextStyle(
+                                      color: ColorManager.lightSteelBlue1,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w400
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 3,
+                                  child: Container(
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 2,
+                                          color: ColorManager.lightSteelBlue2
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: ColorManager.lightSteelBlue5,
+                                    ),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor:ColorManager.lightSteelBlue5,
+                                        border: const OutlineInputBorder(
+                                            borderSide: BorderSide.none
+                                        ),
+                                        focusedBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                        ),
+                                        suffix: Text(
+                                            '%',
+                                          style: TextStyle(
+                                            color: ColorManager.slateGray2,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 16.0,
+                                          ),
+                                        )
+                                      ),
+                                      autofocus: true,
+                                      focusNode: _offCodeFocusNode,
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    'Start Date:',
+                                    style: TextStyle(
+                                        color: ColorManager.lightSteelBlue1,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w400
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 3,
+                                  child: Container(
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 2,
+                                          color: ColorManager.lightSteelBlue2
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: ColorManager.lightSteelBlue5,
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: () async{
+                                        startOffDate = await showDatePicker(
+                                          context: context,
+                                          initialDate: date,
+                                          firstDate: DateTime.now(),
+                                          lastDate: DateTime(2100),
+                                        );
+                                        if(startOffDate == null) return;
+                                        setState(() {
+                                        });
+                                      },
+                                      child: Center(
+                                        child: (startOffDate == null) ? Text(
+                                          '--/--/--',
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorManager.slateGray2
+                                          ),
+                                        ):Text(
+                                        '${startOffDate!.year}/${startOffDate!.month}/${startOffDate!.day}',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w400,
+                                            color: ColorManager.slateGray2
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      ),
+                                    ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    'End Data:',
+                                    style: TextStyle(
+                                        color: ColorManager.lightSteelBlue1,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w400
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 3,
+                                  child: Container(
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 2,
+                                          color: ColorManager.lightSteelBlue2
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: ColorManager.lightSteelBlue5,
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: ()async{
+                                        if(startOffDate != null){
+                                          endOffDate = await showDatePicker(
+                                            context: context,
+                                            initialDate: startOffDate!,
+                                            firstDate: startOffDate!,
+                                            lastDate: DateTime(2100),
+                                          );
+                                          if(endOffDate == null) return;
+                                          setState(() {
+                                          });
+                                        }
+                                        else{
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                  content: Text(
+                                                    'Please Enter StartDate',
+                                                    style: TextStyle(
+                                                        fontSize: 14.0,
+                                                        fontWeight: FontWeight.w400,
+                                                        color: ColorManager.error
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  )));
+                                        }
+                                      },
+                                      child: Center(
+                                        child: (endOffDate == null || startOffDate == null) ? Text(
+                                          '--/--/--',
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorManager.slateGray2
+                                          ),
+                                        ):Text(
+                                          '${endOffDate!.year}/${endOffDate!.month}/${endOffDate!.day}',
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorManager.slateGray2
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                          :Expanded(
+                            flex: 2,
+                            child: Container(),
+                      ),
+                    ],
+                  ),
+                ),
+
               ],
             ),
           ),
