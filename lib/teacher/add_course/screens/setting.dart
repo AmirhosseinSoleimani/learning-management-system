@@ -56,7 +56,58 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                     offset: const Offset(0, 3),
                   )
                 ]
-            )
+            ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 10.0),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                        'Time of Course:',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w400,
+                          color: ColorManager.slateGray2
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 2,
+                              color: ColorManager.lightSteelBlue2
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: ColorManager.lightSteelBlue5,
+                        ),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor:ColorManager.lightSteelBlue5,
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide.none
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                          keyboardType: TextInputType.name,
+                          // focusNode: _priceFocusNode,
+                          textInputAction: TextInputAction.next,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
