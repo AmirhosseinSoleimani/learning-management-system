@@ -13,6 +13,15 @@ class SettingAddCourse extends StatefulWidget {
 }
 
 class _SettingAddCourseState extends State<SettingAddCourse> {
+  Map<String,bool> levelCourse = {
+    'Basic':true,
+    'Elementary':false,
+    'Advanced':false,
+  };
+  Map<String,bool> language = {
+    'English':true,
+    'Persian':false,
+  };
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,9 +152,15 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Checkbox(
-                                      value: false,
+                                      value: levelCourse['Basic'],
                                       activeColor: ColorManager.green,
-                                      onChanged: (value){}),
+                                      onChanged: (bool? value){
+                                        setState(() {
+                                          levelCourse['Basic'] = true;
+                                          levelCourse['Elementary'] = false;
+                                          levelCourse['Advanced'] = false;
+                                        });
+                                      }),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 20.0),
                                     child: Text(
@@ -176,9 +191,15 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Checkbox(
-                                      value: false,
+                                      value: levelCourse['Elementary'],
                                       activeColor: ColorManager.green,
-                                      onChanged: (value){}),
+                                      onChanged: (value){
+                                        setState(() {
+                                          levelCourse['Basic'] = false;
+                                          levelCourse['Elementary'] = true;
+                                          levelCourse['Advanced'] = false;
+                                        });
+                                      }),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 20.0),
                                     child: Text(
@@ -209,9 +230,15 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Checkbox(
-                                      value: false,
+                                      value: levelCourse['Advanced'],
                                       activeColor: ColorManager.green,
-                                      onChanged: (value){}),
+                                      onChanged: (value){
+                                        setState(() {
+                                          levelCourse['Basic'] = false;
+                                          levelCourse['Elementary'] = false;
+                                          levelCourse['Advanced'] = true;
+                                        });
+                                      }),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 20.0),
                                     child: Text(
@@ -227,6 +254,85 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                               ),
                             )
 
+                          ],
+                        ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  child: Divider(
+                    thickness: 1.5,
+                    height: 20,
+                    color: ColorManager.lightSteelBlue5,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                        child: Text(
+                          'Language:',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
+                            color: ColorManager.black,
+                          ),
+                        ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Row(
+                                  children: [
+                                    Checkbox(
+                                        value: language['English'],
+                                        activeColor: ColorManager.green,
+                                        onChanged: (value){
+                                          setState(() {
+                                            language['English'] = true;
+                                            language['Persian'] = false;
+
+                                          });
+                                        },
+                                    ),
+                                    Text(
+                                      'English',
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorManager.black
+                                      ),
+                                    )
+                                  ],
+                                ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Checkbox(
+                                    value: language['Persian'],
+                                    activeColor: ColorManager.green,
+                                    onChanged: (value){
+                                      setState(() {
+                                        language['English'] = false;
+                                        language['Persian'] = true;
+
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                      'Persian',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorManager.black
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
                           ],
                         ),
                     )
