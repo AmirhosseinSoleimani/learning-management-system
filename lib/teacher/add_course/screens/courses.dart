@@ -4,6 +4,7 @@ import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
 import '../../../presentation/resources/values_manager.dart';
+import '../widgets/add_section.dart';
 
 class CoursesPage extends StatefulWidget {
   const CoursesPage({Key? key}) : super(key: key);
@@ -36,6 +37,41 @@ class _CoursesPageState extends State<CoursesPage> {
         ),
         centerTitle: true,
         iconTheme: IconThemeData(color: ColorManager.black, size: AppSize.s30),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          width: 200,
+          height: 50,
+          child: FloatingActionButton(
+            shape: BeveledRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
+            ),
+            backgroundColor: ColorManager.lightSteelBlue2,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                    Icons.add,
+                    color: ColorManager.lightSteelBlue1
+                ),
+                Text(
+                  'Add Section',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                    color: ColorManager.lightSteelBlue1
+                  ),
+                )
+              ],
+            ),
+            onPressed: () {
+              showModalBottomSheet(
+                  context: context, builder: (context) => AddSection());
+            },
+
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
