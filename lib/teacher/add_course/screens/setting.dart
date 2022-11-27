@@ -69,7 +69,7 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                         'Time of Course:',
                         style: TextStyle(
                           fontSize: 16.0,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w500,
                           color: ColorManager.slateGray2
                         ),
                       ),
@@ -105,6 +105,133 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                     ),
                   ],
                 ),
+                SizedBox(
+                  child: Divider(
+                    thickness: 1.5,
+                    height: 20,
+                    color: ColorManager.lightSteelBlue5,
+                  ),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                          'Level of Course:',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w500,
+                          color: ColorManager.slateGray2,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                        child: Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: ColorManager.lightSteelBlue5
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Checkbox(
+                                      value: false,
+                                      activeColor: ColorManager.green,
+                                      onChanged: (value){}),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 20.0),
+                                    child: Text(
+                                        'Basic',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16.0,
+                                        color: ColorManager.black
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 2,
+                                      color: ColorManager.lightSteelBlue2
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: ColorManager.lightSteelBlue5
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Checkbox(
+                                      value: false,
+                                      activeColor: ColorManager.green,
+                                      onChanged: (value){}),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 20.0),
+                                    child: Text(
+                                      'Elementary',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16.0,
+                                          color: ColorManager.black
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 2,
+                                      color: ColorManager.lightSteelBlue2
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: ColorManager.lightSteelBlue5
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Checkbox(
+                                      value: false,
+                                      activeColor: ColorManager.green,
+                                      onChanged: (value){}),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 20.0),
+                                    child: Text(
+                                      'Advanced',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16.0,
+                                          color: ColorManager.black
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+
+                          ],
+                        ),
+                    )
+                  ],
+                )
               ],
             ),
           ),
