@@ -8,4 +8,12 @@ class CourseSectionProvider with ChangeNotifier{
   List<CourseSection> get courseSection{
     return _courseSection;
   }
+
+  void addCourseSectionTitle(String title){
+    CourseSection courseSection = CourseSection(
+        sectionTitle: title,
+        id: DateTime.now().toString());
+    _courseSection.add(courseSection);
+    notifyListeners();
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:learning_management_system/provider/course_section.dart';
+import 'package:provider/provider.dart';
 import '../../../presentation/resources/color_manager.dart';
 
 class AddSection extends StatefulWidget {
@@ -10,7 +11,9 @@ class AddSection extends StatefulWidget {
 }
 
 class _AddSectionState extends State<AddSection> {
-  FocusNode _titleFocusNode = FocusNode();
+  final FocusNode _titleFocusNode = FocusNode();
+  String? titleSection;
+  bool selectedSection = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +52,14 @@ class _AddSectionState extends State<AddSection> {
               keyboardType: TextInputType.text,
               focusNode: _titleFocusNode,
               textInputAction: TextInputAction.done,
+              onChanged: (value){
+                setState(() {
+                  titleSection = value;
+                });
+              },
               onFieldSubmitted: (value){
-                
+                Provider.of<CourseSectionProvider>(context,listen: false).addCourseSectionTitle(titleSection!);
+                Navigator.of(context).pop();
               },
             ),
           ),
@@ -58,10 +67,20 @@ class _AddSectionState extends State<AddSection> {
             height: 10.0,
           ),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                if(titleSection != null){
+                  Provider.of<CourseSectionProvider>(context,listen: false).addCourseSectionTitle(titleSection!);
+                  Navigator.of(context).pop();
+                }
+                else{
+                  setState(() {});
+                }
+              },
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
+                  backgroundColor: (titleSection != null) ? MaterialStateProperty.all<Color>(
                     ColorManager.primary,
+                  ) : MaterialStateProperty.all<Color>(
+                    ColorManager.lightSteelBlue2,
                   ),
                   shape:
                   MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -72,7 +91,7 @@ class _AddSectionState extends State<AddSection> {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 30,
                 ),
-                child: Row(
+                child: (titleSection != null) ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
@@ -88,6 +107,26 @@ class _AddSectionState extends State<AddSection> {
                     Icon(
                       Icons.done,
                       color: ColorManager.white,
+                      size: 30,
+                    )
+                  ],
+                ):
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Add',
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: ColorManager.lightSteelBlue1),
+                    ),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                    Icon(
+                      Icons.done,
+                      color: ColorManager.lightSteelBlue1,
                       size: 30,
                     )
                   ],

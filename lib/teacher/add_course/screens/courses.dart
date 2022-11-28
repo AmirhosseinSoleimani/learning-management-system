@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../models/add_course.dart';
+import 'package:learning_management_system/provider/course_section.dart';
+import 'package:provider/provider.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
@@ -17,6 +18,7 @@ class _CoursesPageState extends State<CoursesPage> {
   
   @override
   Widget build(BuildContext context) {
+    final sectionList = Provider.of<CourseSectionProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorManager.white,
@@ -67,30 +69,70 @@ class _CoursesPageState extends State<CoursesPage> {
             ),
             onPressed: () {
               showModalBottomSheet(
-                  context: context, builder: (context) => AddSection());
+                  context: context, builder: (context) => const AddSection());
             },
 
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-            width: 2,
-            color: ColorManager.lightSteelBlue2
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+              width: 2,
+              color: ColorManager.lightSteelBlue2
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+              color: ColorManager.white,
+              boxShadow: [
+                BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 2,
+                offset: const Offset(0, 3),
+              )
+              ]
             ),
-            borderRadius: BorderRadius.circular(10.0),
-            color: ColorManager.white,
-            boxShadow: [
-              BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 2,
-              offset: const Offset(0, 3),
-            )
-            ]
+            child: Column(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  child: ListView.builder(
+                      itemCount: sectionList.courseSection.length,
+                      itemBuilder: (context,index) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: ColorManager.lightSteelBlue2
+                            ),
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: ColorManager.lightSteelBlue5
+                          ),
+                          child: ListTile(
+                            title: Center(
+                              child: Text(
+                                  sectionList.courseSection[index].sectionTitle,
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: ColorManager.slateGray2
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
