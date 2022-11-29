@@ -27,10 +27,9 @@ class StoreProvider with ChangeNotifier{
   }
 
   Future<void> calculatorPrice() async{
-    for(int i = 0 ; i<= _storePayment.length ; i++){
-      totalPrice = double.parse(storePayment[i].price);
+      totalPrice = double.parse(storePayment[1].price);
       notifyListeners();
-    }
+      print(totalPrice);
   }
 
   Future<void> deleteItems(String id) async {

@@ -24,6 +24,7 @@ class _ShopPageState extends State<ShopPage> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -108,7 +109,7 @@ class _ShopPageState extends State<ShopPage> {
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: (Provider.of<StoreProvider>(context).storePayment.length == 1) ? MediaQuery.of(context).size.height * 0.6:MediaQuery.of(context).size.height * 0.8,
                   decoration: BoxDecoration(
                       border: Border.all(
                           width: 1.5, color: ColorManager.lightSteelBlue2),
@@ -142,10 +143,10 @@ class _ShopPageState extends State<ShopPage> {
                         ),
                       ) :SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.25,
+                        height: (Provider.of<StoreProvider>(context).storePayment.length == 1) ? MediaQuery.of(context).size.height * 0.25 :
+                        (Provider.of<StoreProvider>(context).storePayment.length == 1) ? MediaQuery.of(context).size.height * 0.45: MediaQuery.of(context).size.height * 0.51,
                         child: ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 1,
+                          itemCount: Provider.of<StoreProvider>(context).storePayment.length,
                           itemBuilder: (context, index) => ShopItem(
                             name: Provider.of<StoreProvider>(context).storePayment[index].name,
                             image: Provider.of<StoreProvider>(context).storePayment[index].image,

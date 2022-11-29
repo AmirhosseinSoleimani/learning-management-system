@@ -30,7 +30,7 @@ class DetailUserCourse extends StatelessWidget {
                       width: 40,
                       child: ClipOval(
                           child: Image.asset(
-                            'assets/svg/avatar/av1.jpg',
+                            'assets/avatar/av1.jpg',
                           ))),
                 ),
               ),

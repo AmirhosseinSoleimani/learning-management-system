@@ -6,6 +6,9 @@ import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
 import '../../../presentation/resources/values_manager.dart';
 import '../widgets/add_section.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
+import '../widgets/edit_section.dart';
 
 class CoursesPage extends StatefulWidget {
   const CoursesPage({Key? key}) : super(key: key);
@@ -40,39 +43,36 @@ class _CoursesPageState extends State<CoursesPage> {
         centerTitle: true,
         iconTheme: IconThemeData(color: ColorManager.black, size: AppSize.s30),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SizedBox(
-          width: 200,
-          height: 50,
-          child: FloatingActionButton(
-            shape: BeveledRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-            ),
-            backgroundColor: ColorManager.lightSteelBlue2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                    Icons.add,
-                    color: ColorManager.lightSteelBlue1
-                ),
-                Text(
-                  'Add Section',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w500,
-                    color: ColorManager.lightSteelBlue1
-                  ),
-                )
-              ],
-            ),
-            onPressed: () {
-              showModalBottomSheet(
-                  context: context, builder: (context) => const AddSection());
-            },
-
+      floatingActionButton: SizedBox(
+        width: 200,
+        height: 50,
+        child: FloatingActionButton(
+          shape: BeveledRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
           ),
+          backgroundColor: ColorManager.lightSteelBlue2,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                  Icons.add,
+                  color: ColorManager.lightSteelBlue1
+              ),
+              Text(
+                'Add Section',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
+                  color: ColorManager.lightSteelBlue1
+                ),
+              )
+            ],
+          ),
+          onPressed: () {
+            showModalBottomSheet(
+                context: context, builder: (context) => const AddSection());
+          },
+
         ),
       ),
       body: SingleChildScrollView(
@@ -99,43 +99,127 @@ class _CoursesPageState extends State<CoursesPage> {
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.7,
+                  height: MediaQuery.of(context).size.height * 0.68,
                   child: ListView.builder(
                       itemCount: sectionList.courseSection.length,
-                      itemBuilder: (context,index) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 2,
-                              color: ColorManager.lightSteelBlue2
+                      itemBuilder: (context,index) {
+                          return Slidable(
+                            key: const ValueKey(1),
+                            startActionPane: ActionPane(
+                              motion: const ScrollMotion(),
+                              dismissible: DismissiblePane(onDismissed: () {}),
+                              children: [
+                                SlidableAction(
+                                  onPressed: (value){
+                                    delete(context, index);
+                                  },
+                                  backgroundColor: ColorManager.error,
+                                  foregroundColor: ColorManager.white,
+                                  icon: Icons.delete,
+                                  label: 'Delete',
+                                ),
+                              ],
                             ),
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: ColorManager.lightSteelBlue5
-                          ),
-                          child: ListTile(
-                            title: Center(
-                              child: Text(
-                                  sectionList.courseSection[index].sectionTitle,
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: ColorManager.slateGray2
+                            endActionPane: ActionPane(
+                                motion: const ScrollMotion(),
+                                children: [
+                                  SlidableAction(
+                                    // An action can be bigger than the others.
+                                    onPressed: (value){
+                                      edit(context,index);
+                                    },
+                                    backgroundColor: ColorManager.primary,
+                                    foregroundColor: ColorManager.white,
+                                    icon: Icons.edit,
+                                    label: 'Edit',
+                                  ),
+                                ],
+                            ),
+                            child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 2,
+                                      color: ColorManager.lightSteelBlue2
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: ColorManager.lightSteelBlue5
+                              ),
+                              child: ListTile(
+                                title: Center(
+                                  child: Text(
+                                    sectionList.courseSection[index].sectionTitle,
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorManager.slateGray2
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      }
                   ),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
+                  child: TextButton(
+                      onPressed: () {
+                        print(sectionList.courseSection.length);
+                        // Navigator.of(context).pushReplacementNamed(Routes.addCourseSetting);
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            ColorManager.primary,
+                          ),
+                          shape:
+                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(50.0)))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 30,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Next',
+                              style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorManager.white),
+                            ),
+                            const SizedBox(
+                              width: 5.0,
+                            ),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: ColorManager.white,
+                              size: 30,
+                            )
+                          ],
+                        ),
+                      )),
+                ),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+  void delete(BuildContext context,int index){
+    Provider.of<CourseSectionProvider>(context,listen: false).deleteCourseSectionTitle(index);
+  }
+  void edit(BuildContext context,int index){
+    showModalBottomSheet(
+        context: context, builder: (context) => EditSection(index: index,));
   }
 }

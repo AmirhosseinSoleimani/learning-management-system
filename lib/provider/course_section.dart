@@ -16,4 +16,16 @@ class CourseSectionProvider with ChangeNotifier{
     _courseSection.add(courseSection);
     notifyListeners();
   }
+
+  void deleteCourseSectionTitle(int index){
+    _courseSection.removeAt(index);
+    notifyListeners();
+  }
+
+  void editCourseSectionTitle(String id,String title){
+    final editCourseSection = _courseSection.indexWhere((element) => element.id == id);
+    // _courseSection.removeAt(index);
+    notifyListeners();
+  }
+
 }

@@ -68,6 +68,7 @@ dependencies:
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5
+  flutter_slidable: ^2.0.0
 
 
 
@@ -109,6 +110,7 @@ flutter:
     - assets/icons/teacherSignUp/
     - assets/avatar/
     - assets/svg/
+    - assets/svg/teacherPanel/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

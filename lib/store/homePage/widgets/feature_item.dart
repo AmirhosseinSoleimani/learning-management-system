@@ -174,6 +174,12 @@ class FeatureItem extends StatelessWidget {
                                   description: '',
                                 );
                                 Provider.of<StoreProvider>(context,listen: false).addShopPayment(_storePayment);
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text(
+                                  'Add Items To Shop',
+                                  textAlign: TextAlign.center,
+                                ),
+                                ),
+                                );
                               },
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(

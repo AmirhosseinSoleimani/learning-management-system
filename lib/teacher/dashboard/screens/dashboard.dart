@@ -14,11 +14,6 @@ import '../widgets/card_1.dart';
 import '../widgets/card_2.dart';
 import '../widgets/card_3.dart';
 import '../widgets/course_card.dart';
-// enum IsClicked{
-//   Actived,
-//   Deactived
-
-// }
 
 class TeacherPanel extends StatefulWidget {
   const TeacherPanel({Key? key}) : super(key: key);
@@ -28,7 +23,6 @@ class TeacherPanel extends StatefulWidget {
 }
 
 class _TeacherPanelState extends State<TeacherPanel> {
-  //  IsClicked _clicked =IsClicked.Deactived;
   bool isClicked = false;
   final List<Course> course = [
     Course(
@@ -108,8 +102,8 @@ class _TeacherPanelState extends State<TeacherPanel> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      drawer: TeacherDrawer(),
-      endDrawer: EndDrawer(),
+      drawer: const TeacherDrawer(),
+      endDrawer: const EndDrawer(),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 2,
@@ -142,14 +136,7 @@ class _TeacherPanelState extends State<TeacherPanel> {
             fit: BoxFit.cover,
           ),
         ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.black,
-              ))
-        ],
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -495,7 +482,7 @@ class LastCard extends StatelessWidget {
                   height: 185,
                   decoration: BoxDecoration(
                       image: const DecorationImage(
-                          image: AssetImage('assets/svg/avatar/course5.jpg'),
+                          image: AssetImage('assets/avatar/course5.jpg'),
                           fit: BoxFit.fill),
                       borderRadius: BorderRadius.circular(AppSize.s12)),
                 ),
@@ -572,7 +559,7 @@ class LastCard extends StatelessWidget {
                           width: 40,
                           child: ClipOval(
                               child: Image.asset(
-                                'assets/svg/avatar/av1.jpg',
+                                'assets/avatar/av1.jpg',
                               ))),
                     ),
                   ),
@@ -584,7 +571,7 @@ class LastCard extends StatelessWidget {
                           width: 40,
                           child: ClipOval(
                               child: Image.asset(
-                                'assets/svg/avatar/av1.jpg',
+                                'assets/avatar/av1.jpg',
                               ))),
                     ),
                   ),
@@ -596,7 +583,7 @@ class LastCard extends StatelessWidget {
                           width: 40,
                           child: ClipOval(
                               child: Image.asset(
-                                'assets/svg/avatar/av1.jpg',
+                                'assets/avatar/av1.jpg',
                               ))),
                     ),
                   ),

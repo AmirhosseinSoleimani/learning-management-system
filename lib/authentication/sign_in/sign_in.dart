@@ -7,6 +7,7 @@ import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 import '../../presentation/resources/assets_manager.dart';
 import '../../presentation/resources/routes_manager.dart';
+import '../../provider/sign_in_provider.dart';
 
 
 class SignIn extends StatefulWidget {
@@ -266,6 +267,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   child: TextButton(
                       onPressed: (){
+                        Provider.of<SignInProvider>(context,listen: false).signIn();
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),

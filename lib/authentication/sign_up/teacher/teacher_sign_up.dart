@@ -29,9 +29,16 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
     'password': '',
   };
 
+
   final _form = GlobalKey<FormState>();
 
   bool _passwordVisible = false;
+
+  bool userNameValidator = false;
+
+  bool passwordValidator = false;
+
+  bool passwordShort = false;
 
   var _teacherSignUpPost = TeacherSignUpPost(
     password: '',
@@ -158,7 +165,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                   height: AppSize.s10,
                 ),
                 SizedBox(
-                  height: (userNameError == false) ? MediaQuery.of(context).size.height * 0.25:MediaQuery.of(context).size.height * 0.3,
+                  height: (userNameError == false && userNameValidator == false && passwordValidator == false && passwordShort == false) ? MediaQuery.of(context).size.height * 0.25: MediaQuery.of(context).size.height * 0.3,
                   width: double.infinity,
                   child: Form(
                     key: _form,
@@ -171,13 +178,20 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                           TextFormField(
                             initialValue: _initValues['userName'],
                             decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                      color: ColorManager.lightSteelBlue2,
+                                  ),
+                              ),
                                 border: OutlineInputBorder(
                                   borderRadius:
                                   BorderRadius.circular(AppSize.s10),
                                   borderSide: BorderSide(
-                                      width: 1,
-                                      color: ColorManager.lightSteelBlue2
-                                  ),
+                                    width: 2,
+                                    color: ColorManager.lightSteelBlue2
+                                  )
                                 ),
                                 hintText: TeacherSignUpString.textFormField1,
                                 hintStyle: TextStyle(
@@ -198,7 +212,10 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                             },
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
-                                return TeacherSignUpString.validator;
+                                setState(() {
+                                  userNameValidator = true;
+                                });
+                                return 'Please enter user name';
                               }
                               return null;
                             },
@@ -224,6 +241,13 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                           TextFormField(
                               initialValue: _initValues['password'],
                               decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                    borderSide: BorderSide(
+                                      width: 2,
+                                      color: ColorManager.lightSteelBlue2,
+                                    ),
+                                  ),
                                   suffixIcon: IconButton(
                                     onPressed: () {
                                       setState(() {
@@ -249,8 +273,8 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                                     borderRadius:
                                     BorderRadius.circular(AppSize.s10),
                                     borderSide: BorderSide(
-                                        width: 1,
-                                        color: ColorManager.lightSteelBlue2
+                                      width: 2,
+                                      color: ColorManager.lightSteelBlue2
                                     ),
                                   ),
                                   hintText: TeacherSignUpString.textFormField2),
@@ -260,9 +284,15 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                               textInputAction: TextInputAction.done,
                               validator: (String? value) {
                                 if (value!.isEmpty) {
-                                  return 'Field is required';
-                                } else if (value.length < 6) {
-                                  return 'Password is too short!';
+                                  setState(() {
+                                    passwordValidator = true;
+                                  });
+                                  return 'Please enter your password';
+                                } else if (value.length < 8) {
+                                  setState(() {
+                                    passwordShort = true;
+                                  });
+                                  return 'This password is short';
                                 }
                                 return null;
                               },
@@ -272,7 +302,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                                   userName: _teacherSignUpPost.userName,
                                 );
                               }
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -284,7 +314,6 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                   ),
                   child: TextButton(
                       onPressed: () async{
-                        // Navigator.pushNamed(context, InformationTeacherSignUp.routeName);
                         await _saveForm();
                         errorView();
                       },
@@ -448,6 +477,7 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
                       ),
                       TextButton(
                         onPressed: () {
+                          Navigator.of(context).pushReplacementNamed(Routes.signIn);
                         },
                         child: Text(
                           TeacherSignUpString.textButtonSignIn,
