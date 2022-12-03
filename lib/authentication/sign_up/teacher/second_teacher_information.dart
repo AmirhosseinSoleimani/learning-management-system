@@ -194,7 +194,6 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                           height: AppSize.s10,
                         ),
                         TextFormField(
-                          initialValue: _initValues['address'],
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius:

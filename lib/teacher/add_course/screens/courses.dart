@@ -171,7 +171,7 @@ class _CoursesPageState extends State<CoursesPage> {
                   child: TextButton(
                       onPressed: () {
                         print(sectionList.courseSection.length);
-                        // Navigator.of(context).pushReplacementNamed(Routes.addCourseSetting);
+                        Navigator.of(context).pushReplacementNamed(Routes.addCoursePricing);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

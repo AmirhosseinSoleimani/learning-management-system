@@ -20,8 +20,12 @@ class ColorTeacherPanel {
   static Color boxColorGreen = HexColor.fromHex('#5DBF23');
   static Color boxColorDeactive = HexColor.fromHex('#E6E6E6');
   static Color boxNotifColor = HexColor.fromHex('#7E7979');
+  static Color boxCalColor = const Color(0xbf177FB0);
+  static Color cardColorMain = const Color(0x73D3E8C9);
+  static Color cardColorLeftBorde = HexColor.fromHex('#109534');
 }
 
+// 109534
 // '#737477'
 //'#9E9E9E'
 extension HexColor on Color {

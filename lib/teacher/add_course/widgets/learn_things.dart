@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../presentation/resources/color_manager.dart';
-import '../../../provider/add_course.dart';
+import '../../../provider/add_courses_provider.dart';
 
 class LearnThings extends StatefulWidget {
   const LearnThings({Key? key}) : super(key: key);
@@ -38,6 +38,13 @@ class _LearnThingsState extends State<LearnThings> {
                     key: _form,
                     child: TextFormField(
                       decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: ColorManager.lightSteelBlue2,
+                          ),
+                        ),
                         filled: true,
                         fillColor: ColorManager.lightBlue4,
                         border: OutlineInputBorder(

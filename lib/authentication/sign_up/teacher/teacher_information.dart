@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/authentication/customize_stepper_signUp.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
@@ -40,6 +40,10 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
   );
   String? icon;
   bool dateSelect = false;
+  DateTime date = DateTime.now();
+  DateTime? birthday;
+  bool selectedBirthday = false;
+
   final _form = GlobalKey<FormState>();
   final _nameFocusNode = FocusNode();
   final _lastNameFocusNode = FocusNode();
@@ -69,6 +73,17 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
   final _emailError = false;
 
   var _isLoading = false;
+
+  final cubeGrid = SpinKitCubeGrid(
+    size: 100,
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
+        ),
+      );
+    },
+  );
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState!.validate();
@@ -129,8 +144,8 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: true,
       backgroundColor: ColorManager.white,
-      body: (_isLoading) ? const Center(
-        child: CircularProgressIndicator(),
+      body: (_isLoading) ? Center(
+        child: cubeGrid,
       ):Padding(
         padding: const EdgeInsets.all(AppPadding.p16),
         child: Card(
@@ -197,6 +212,13 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                         child: TextFormField(
                           initialValue: _initValues['name'],
                           decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2,
+                                ),
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius:
                                 BorderRadius.circular(AppSize.s10),
@@ -251,6 +273,13 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                         child: TextFormField(
                           initialValue: _initValues['lastName'],
                           decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2,
+                                ),
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius:
                                 BorderRadius.circular(AppSize.s10),
@@ -301,6 +330,13 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                         child: TextFormField(
                           initialValue: _initValues['email'],
                           decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2,
+                                ),
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius:
                                 BorderRadius.circular(AppSize.s10),
@@ -360,7 +396,6 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: AppPadding.p10,
-                            vertical: AppPadding.p8
                         ),
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.4,
@@ -374,12 +409,20 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                               ),
                             ),
                             decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2,
+                                ),
+                              ),
                               prefixIcon: Padding(
                                 padding: const EdgeInsets.all(AppPadding.p12),
                                 child: SvgPicture.asset(
                                     IconAssets.gender
                                 ),
                               ),
+
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: ColorManager.lightSteelBlue2,
@@ -401,7 +444,7 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                             }).toList(),
                             validator: (value) {
                               if(value!.isEmpty) {
-                                return 'field is required';
+                                return 'Please enter gender';
                               }
                               return null;
                             },
@@ -455,14 +498,32 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppPadding.p10,
-                          vertical: AppPadding.p8
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
                         child: GestureDetector(
-                          onTap: (){
-                            setState((){
-                              dateSelect = true;
+                          onTap: () async{
+                            birthday = await showDatePicker(
+                              context: context,
+                              initialDate: date,
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime.now(),
+                            );
+                            if(birthday == null){
+                              setState(() {
+                                selectedBirthday = true;
+                              });
+                            }else{
+                              selectedBirthday = false;
+                              _teacherSignUpPatch = TeacherSignUpPatch(
+                                firstName: _teacherSignUpPatch.firstName,
+                                lastName: _teacherSignUpPatch.lastName,
+                                email: _teacherSignUpPatch.email,
+                                birthDay: Timestamp.fromDate(birthday!).seconds,
+                                gender: _teacherSignUpPatch.gender,
+                                introduction: _teacherSignUpPatch.introduction,
+                                country: _teacherSignUpPatch.country,
+                              );
+                            }
+                            setState(() {
                             });
                           },
                           child: Container(
@@ -480,48 +541,23 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                                 Padding(
                                   padding: const EdgeInsets.all(AppPadding.p12),
                                   child: SvgPicture.asset(
-                                    IconAssets.calendar
+                                      IconAssets.calendar
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: AppPadding.p10),
-                                  child: SizedBox(
-                                    width: MediaQuery.of(context).size.width * 0.3,
-                                    height: MediaQuery.of(context).size.height * 0.08,
-                                    child: (dateSelect) ?
-                                    DateTimePicker(
-                                      initialValue: 'Birthday Date',
-                                      firstDate: DateTime(1950),
-                                      lastDate: DateTime.now(),
-                                      onChanged: (val) => debugPrint(val),
-                                      validator: (val) {
-                                        debugPrint(val);
-                                        return null;
-                                      },
-                                      onSaved: (val){
-                                        _teacherSignUpPatch = TeacherSignUpPatch(
-                                          firstName: _teacherSignUpPatch.firstName,
-                                          lastName: _teacherSignUpPatch.lastName,
-                                          email: _teacherSignUpPatch.email,
-                                          birthDay: Timestamp.fromDate(DateTime.parse(val!)).seconds,
-                                          gender: _teacherSignUpPatch.gender,
-                                          introduction: _teacherSignUpPatch.introduction,
-                                          country: _teacherSignUpPatch.country,
-                                        );
-                                      },
-                                    ):
-                                    const Padding(
-                                      padding: EdgeInsets.only(
-                                        top: 8.0,
-                                      ),
-                                      child: Text(
-                                        'Birthday Date',
-                                        style: TextStyle(
-                                            color: Color(0xff7E7979),
-                                            fontSize: 17.0,
-                                            fontWeight: FontWeight.w400
-                                        ),
-                                      ),
+                                Center(
+                                  child: (birthday == null || selectedBirthday == true) ? Text(
+                                    'Birthday',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: ColorManager.lightSteelBlue1
+                                    ),
+                                  ) : Text(
+                                    '${birthday!.year}/${birthday!.month}/${birthday!.day}',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: ColorManager.slateGray2
                                     ),
                                   ),
                                 ),
@@ -642,6 +678,13 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                               ),
                             ),
                             decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                    color: ColorManager.lightSteelBlue2,
+                                  ),
+                                ),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: ColorManager.lightSteelBlue2,

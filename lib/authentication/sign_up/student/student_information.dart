@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:learning_management_system/models/student_signUp_model.dart';
@@ -29,6 +30,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
   final _nameFocusNode = FocusNode();
   final _lastNameFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
+  final _genderFocusNode = FocusNode();
   final _bioFocusNode = FocusNode();
 
   String? dropDownValue;
@@ -49,7 +51,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
     gender: 1,
   );
 
-  var _emailError = false;
+  // final _emailError = false;
 
   var _isLoading = false;
 
@@ -86,6 +88,17 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
     });
   }
 
+  final cubeGrid = SpinKitCubeGrid(
+    size: 100,
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
+        ),
+      );
+    },
+  );
+
 
 
   Future pickImage(ImageSource source) async {
@@ -121,13 +134,13 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
           height: MediaQuery.of(context).size.height * 0.08,
         ),
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.black, size: 30.0),
+        iconTheme: IconThemeData(color: ColorManager.black, size: 30.0),
       ),
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: true,
-      backgroundColor: const Color(0xffFFFFFF),
-      body: (_isLoading) ? const Center(
-        child: CircularProgressIndicator(),
+      backgroundColor: ColorManager.white,
+      body: (_isLoading) ? Center(
+        child: cubeGrid,
       ):Padding(
         padding: const EdgeInsets.all(15.0),
         child: Card(
@@ -156,9 +169,9 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                     vertical: 10.0,
                   ),
                   child: Container(
-                    decoration: const BoxDecoration(
-                        color: Color(0xff177FB0),
-                        borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                        color: ColorManager.primary,
+                        borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(10.0),
                           topLeft: Radius.circular(10.0)
                         )
@@ -171,13 +184,13 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                 const SizedBox(
                   height: 10.0,
                 ),
-                if(!isKeyboard)  const Text(
+                if(!isKeyboard) Text(
                   'Information',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xff3F3D56)
+                    color: ColorManager.slateGray2
                   ),
                 ),
                 const SizedBox(
@@ -194,12 +207,19 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                         child: TextFormField(
                           initialValue: _initValues['name'],
                           decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2,
+                                ),
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius:
                                 BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                     width: 1,
-                                    color: Color(0xffD9D9D9)
+                                    color: ColorManager.lightSteelBlue2
                                 ),
                               ),
                               hintText: 'Name',
@@ -246,6 +266,13 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                         child: TextFormField(
                           initialValue: _initValues['lastName'],
                           decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2,
+                                ),
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius:
                                 BorderRadius.circular(10.0),
@@ -293,6 +320,13 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                         child: TextFormField(
                           initialValue: _initValues['email'],
                           decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2,
+                                ),
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius:
                                 BorderRadius.circular(10.0),
@@ -318,7 +352,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                           textInputAction: TextInputAction.next,
                           onFieldSubmitted: (value) {
                             FocusScope.of(context)
-                                .requestFocus(_bioFocusNode);
+                                .requestFocus(_genderFocusNode);
                           },
                           validator: (String? value) {
                             if (value!.isEmpty) {
@@ -339,15 +373,15 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                           },
                         ),
                       ),
-                      if (_emailError) Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          Provider.of<StudentProvider>(context).userNameError,
-                          style: const TextStyle(
-                              color: Colors.red
-                          ),
-                        ),
-                      ),
+                      // if (_emailError) Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: Text(
+                      //     Provider.of<StudentProvider>(context).userNameError,
+                      //     style: const TextStyle(
+                      //         color: Colors.red
+                      //     ),
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 10.0,
                       ),
@@ -374,6 +408,13 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                      borderSide: BorderSide(
+                                        width: 2,
+                                        color: ColorManager.lightSteelBlue2,
+                                      ),
+                                    ),
                                   ),
                                   value: null,
                                   icon: const Icon(
@@ -392,6 +433,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                     }
                                     return null;
                                   },
+                                  focusNode: _genderFocusNode,
                                   onChanged: (String? newValue) {
                                     if(newValue == 'Male'){
                                       setState(() {
@@ -404,9 +446,9 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                           gender: 1,
                                         );
                                       });
+                                      FocusScope.of(context).requestFocus(_bioFocusNode);
                                     }
                                     else if(newValue == 'Female'){
-                                    {
                                       setState(() {
                                         dropDownValue = newValue!;
                                         _signupStudent = StudentSignUpPatch(
@@ -417,7 +459,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                           gender: 0,
                                         );
                                       });
-                                    }
+                                      FocusScope.of(context).requestFocus(_bioFocusNode);
                                     }
                                     else{
                                       setState(() {
@@ -430,6 +472,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                           gender: 3,
                                         );
                                       });
+                                      FocusScope.of(context).requestFocus(_bioFocusNode);
                                     }
                                   },
                                 ),
@@ -448,6 +491,13 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                     maxLines: 8,
                                     initialValue: _initValues['bio'],
                                     decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                        borderSide: BorderSide(
+                                          width: 2,
+                                          color: ColorManager.lightSteelBlue2,
+                                        ),
+                                      ),
                                       border: OutlineInputBorder(
                                         borderRadius:
                                         BorderRadius.circular(10.0),
@@ -499,7 +549,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                           'Please Add Image',
                                         ),
                                         content: SizedBox(
-                                          height: MediaQuery.of(context).size.height * 0.14,
+                                          height: MediaQuery.of(context).size.height * 0.15,
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.stretch,
                                             children: [
@@ -508,20 +558,20 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                                   pickImage(ImageSource.gallery);
                                                   Navigator.of(context).pop();
                                                 },
-                                                color: Colors.blue,
+                                                color: ColorManager.primary,
                                                 child: Row(
-                                                  children: const [
+                                                  children: [
                                                     Icon(
                                                       Icons.image_outlined,
-                                                      color: Colors.white70,
+                                                      color: ColorManager.white,
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: 5.0,
                                                     ),
                                                     Text(
                                                       'Pick Image from Gallery',
                                                       style: TextStyle(
-                                                          color: Colors.white70,
+                                                          color: ColorManager.white,
                                                           fontWeight: FontWeight.w400
                                                       ),
                                                     ),
@@ -532,20 +582,20 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                                   pickImage(ImageSource.camera);
                                                   Navigator.of(context).pop();
                                                 },
-                                                color: Colors.blue,
+                                                color: ColorManager.primary,
                                                 child: Row(
-                                                  children: const [
+                                                  children: [
                                                     Icon(
                                                       Icons.camera_alt_outlined,
-                                                      color: Colors.white70,
+                                                      color: ColorManager.white,
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: 5.0,
                                                     ),
                                                     Text(
                                                       'Pick Image from Camera',
                                                       style: TextStyle(
-                                                          color: Colors.white70,
+                                                          color: ColorManager.white,
                                                           fontWeight: FontWeight.w400
                                                       ),
                                                     ),
@@ -562,7 +612,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                     width: 90.0,
                                     height: 90.0,
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFFffffff),
+                                      color: ColorManager.white,
                                       border: Border.all(
                                         width: 2, color: const Color(0xff7E7979),
                                       ),
@@ -615,7 +665,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                               _saveForm();
                             },
                             style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
+                                backgroundColor: MaterialStateProperty.all<Color>(ColorManager.primary,
                                 ),
                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
@@ -623,8 +673,8 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                     )
                                 )
                             ),
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 30,
                               ),
                               child: Text(
@@ -632,7 +682,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                 style: TextStyle(
                                     fontSize: 22.0,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(0xffFFFFFF)
+                                    color: ColorManager.white
                                 ),
                               ),
                             )

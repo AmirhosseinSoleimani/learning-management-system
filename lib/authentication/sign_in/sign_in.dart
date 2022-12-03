@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:learning_management_system/presentation/resources/color_manager.dart';
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
+import '../../models/signIn_model.dart';
 import '../../presentation/resources/assets_manager.dart';
 import '../../presentation/resources/routes_manager.dart';
 import '../../provider/sign_in_provider.dart';
-
 
 class SignIn extends StatefulWidget {
   static const routeName = '/sign-in';
@@ -28,7 +29,6 @@ class _SignInState extends State<SignIn> {
     'password': '',
   };
 
-  // final _passwordController = TextEditingController();
 
   final _form = GlobalKey<FormState>();
 
@@ -37,7 +37,11 @@ class _SignInState extends State<SignIn> {
 
   var _isLoading = false;
 
-  var _userNameError = false;
+  final _userNameError = false;
+
+  var signIn = SignInModel(
+      userName: '',
+      password: '');
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState!.validate();
@@ -49,6 +53,7 @@ class _SignInState extends State<SignIn> {
       _isLoading = true;
     });
     try {
+      await Provider.of<SignInProvider>(context,listen: false).signIn(signIn);
     } catch (error) {
       await showDialog(
         context: context,
@@ -68,8 +73,18 @@ class _SignInState extends State<SignIn> {
     setState(() {
       _isLoading = false;
     });
-
   }
+
+  final cubeGrid = SpinKitCubeGrid(
+    size: 100,
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
+        ),
+      );
+    },
+  );
 
   @override
   void dispose() {
@@ -106,8 +121,8 @@ class _SignInState extends State<SignIn> {
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xffFFFFFF),
-      body: (_isLoading) ? const Center(
-        child: CircularProgressIndicator(),
+      body: (_isLoading) ? Center(
+        child: cubeGrid,
       ) : Padding(
         padding: const EdgeInsets.all(15.0),
         child: Card(
@@ -194,6 +209,9 @@ class _SignInState extends State<SignIn> {
                               return null;
                             },
                             onSaved: (value) {
+                              signIn = SignInModel(
+                                  userName: value!,
+                                  password: signIn.password);
                             },
                           ),
                           if (_userNameError) Padding(
@@ -254,6 +272,9 @@ class _SignInState extends State<SignIn> {
                                 return null;
                               },
                               onSaved: (value) {
+                                signIn = SignInModel(
+                                    userName: signIn.userName,
+                                    password: value!);
                               }
                           )
                         ],
@@ -267,7 +288,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   child: TextButton(
                       onPressed: (){
-                        Provider.of<SignInProvider>(context,listen: false).signIn();
+                        _saveForm();
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),

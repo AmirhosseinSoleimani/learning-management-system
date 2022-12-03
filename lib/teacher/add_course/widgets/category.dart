@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/data.dart';
+import 'package:learning_management_system/presentation/resources/routes_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
-import 'checkBox_category.dart';
+import 'search_category.dart';
 
 class Category extends StatefulWidget {
   const Category({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class _CategoryState extends State<Category> {
           ),
           Container(
             width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.height * 0.46,
+            height: MediaQuery.of(context).size.height * 0.15,
             decoration: BoxDecoration(
                 border: Border.all(
                     width: 2.0, color: ColorManager.lightSteelBlue2),
@@ -50,39 +51,41 @@ class _CategoryState extends State<Category> {
                         horizontal: 10.0, vertical: 10.0),
                     child: TextFormField(
                       decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: ColorManager.lightSteelBlue2,
+                          ),
+                        ),
                         filled: true,
+                        hintText: 'Search Category',
+                        hintStyle: const TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400
+                        ),
+                        prefixIcon: const Icon(
+                          Icons.search,
+                          size: 20.0,
+                        ),
                         fillColor: ColorManager.lightBlue4,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                              width: 2,
-                              color: ColorManager.lightSteelBlue2),
                         ),
                       ),
                       focusNode: _categoryFocusNode,
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.none,
+                      textInputAction: TextInputAction.done,
                       validator: (String? value) {
                         if (value!.isEmpty) {
                           return 'Field is required';
                         }
                         return null;
                       },
-                      onSaved: (value) {},
+                      onTap: (){
+                        Navigator.of(context).pushReplacementNamed(Routes.searchCategory);
+                      },
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0,left: 8.0,right: 8.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      child: ListView.builder(
-                          itemCount: courses.length,
-                          itemBuilder: (context,index) => CheckBoxCategory(
-                            data: courses[index],
-                      ),
-                    ),
-                  ),
                   ),
                 ],
               ),

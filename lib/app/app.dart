@@ -4,10 +4,11 @@ import 'package:learning_management_system/provider/sign_in_provider.dart';
 import 'package:learning_management_system/provider/store_provider.dart';
 import 'package:provider/provider.dart';
 import '../presentation/resources/routes_manager.dart';
-import '../provider/add_course.dart';
+import '../provider/add_courses_provider.dart';
 import '../provider/quiz_app_provider.dart';
 import '../provider/student_provider.dart';
 import '../provider/teacher_provider.dart';
+import '../teacher/calendar/models/task_list.dart';
 
 
 class MyApp extends StatefulWidget {// default constructor
@@ -40,6 +41,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => CourseSectionProvider(),
         ),
         ChangeNotifierProvider(create: (context) => SignInProvider(),
+        ),
+        ChangeNotifierProvider(create: (context) => Tasks(),
         ),
       ],
       child: const MaterialApp(

@@ -67,7 +67,9 @@ class _EndDrawerState extends State<EndDrawer> {
             ),
             ListTile(
               title: const Text('Find Master'),
-              onTap: (){},
+              onTap: (){
+                Navigator.of(context).pushReplacementNamed(Routes.calendar);
+              },
             ),
             ListTile(
               title: const Text('Teaching'),

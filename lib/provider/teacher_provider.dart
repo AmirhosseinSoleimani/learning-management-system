@@ -55,8 +55,9 @@ class TeacherProvider with ChangeNotifier{
         notifyListeners();
       }
       else if(response.statusCode == 200){
-        String data = response.body;
-        id = data.substring(14,52);
+        final data = jsonDecode(response.body);
+        var dataId = data["data"]["id"];
+        id = dataId;
         goNext(context,Routes.teacherInformationRoutes);
       }
       debugPrint(response.statusCode.toString());

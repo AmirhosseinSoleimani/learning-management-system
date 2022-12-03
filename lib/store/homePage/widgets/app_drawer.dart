@@ -22,7 +22,7 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.person),
             title: const Text('Sign in/Sign up'),
             onTap: (){
-              Navigator.pushNamed(context, SignIn.routeName);
+              Navigator.of(context).pushReplacementNamed(Routes.studentSignUp);
             },
           ),
           ListTile(

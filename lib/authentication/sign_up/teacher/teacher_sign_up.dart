@@ -9,6 +9,7 @@ import '../../../presentation/resources/string_teacherSignUp/string_teacherSignU
 import '../../../presentation/resources/values_manager.dart';
 import '../../../provider/teacher_provider.dart';
 import '../../../store/drawer.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 
 class TeacherSignUp extends StatefulWidget {
@@ -43,6 +44,17 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
   var _teacherSignUpPost = TeacherSignUpPost(
     password: '',
     userName: '',
+  );
+
+  final cubeGrid = SpinKitCubeGrid(
+    size: 100,
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
+        ),
+      );
+    },
   );
 
   var _isLoading = false;
@@ -124,8 +136,8 @@ class _TeacherSignUpState extends State<TeacherSignUp> {
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: true,
       backgroundColor: ColorManager.white,
-      body: (_isLoading) ? const Center(
-        child: CircularProgressIndicator(),
+      body: (_isLoading) ? Center(
+        child: cubeGrid,
       ) : Padding(
         padding: const EdgeInsets.all(AppPadding.p16),
         child: Card(

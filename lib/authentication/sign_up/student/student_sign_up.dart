@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/presentation/resources/color_manager.dart';
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
@@ -39,7 +40,24 @@ class _StudentSignUpState extends State<StudentSignUp> {
 
   var _isLoading = false;
 
-  var _userNameError = false;
+  var userNameError = false;
+
+  bool userNameValidator = false;
+
+  bool passwordValidator = false;
+
+  bool passwordShort = false;
+
+  final cubeGrid = SpinKitCubeGrid(
+    size: 100,
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
+        ),
+      );
+    },
+  );
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState!.validate();
@@ -71,7 +89,14 @@ class _StudentSignUpState extends State<StudentSignUp> {
     setState(() {
       _isLoading = false;
     });
+  }
 
+  void errorView() async{
+    if(Provider.of<StudentProvider>(context,listen: false).userNameError.contains('This User Name is Exit')){
+      setState(() {
+        userNameError = true;
+      });
+    }
   }
 
   @override
@@ -103,13 +128,13 @@ class _StudentSignUpState extends State<StudentSignUp> {
           height: MediaQuery.of(context).size.height * 0.08,
         ),
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.black, size: 30.0),
+        iconTheme: IconThemeData(color: ColorManager.black, size: 30.0),
       ),
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorManager.white,
-      body: (_isLoading) ? const Center(
-        child: CircularProgressIndicator(),
+      body: (_isLoading) ? Center(
+        child: cubeGrid,
       ) : Padding(
         padding: const EdgeInsets.all(AppPadding.p16),
         child: Card(
@@ -149,7 +174,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                   height: AppSize.s20,
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.25,
+                  height: (userNameError == false && userNameValidator == false && passwordValidator == false && passwordShort == false) ? MediaQuery.of(context).size.height * 0.20:(userNameError == true && userNameValidator == true) ?  MediaQuery.of(context).size.height * 0.28 : MediaQuery.of(context).size.height * 0.25,
                   width: double.infinity,
                   child: Form(
                     key: _form,
@@ -162,6 +187,13 @@ class _StudentSignUpState extends State<StudentSignUp> {
                           TextFormField(
                             initialValue: _initValues['userName'],
                             decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                    color: ColorManager.lightSteelBlue2,
+                                  ),
+                                ),
                                 border: OutlineInputBorder(
                                   borderRadius:
                                   BorderRadius.circular(AppSize.s10),
@@ -189,7 +221,10 @@ class _StudentSignUpState extends State<StudentSignUp> {
                             },
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
-                                return 'Field is required';
+                                setState(() {
+                                  userNameValidator = true;
+                                });
+                                return 'Please enter a User name';
                               }
                               return null;
                             },
@@ -200,7 +235,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                               );
                             },
                           ),
-                          if (_userNameError == true) Padding(
+                          if (userNameError == true) Padding(
                             padding: const EdgeInsets.all(AppPadding.p8),
                             child: Text(
                               'This username is exist, try another',
@@ -215,6 +250,13 @@ class _StudentSignUpState extends State<StudentSignUp> {
                           TextFormField(
                               initialValue: _initValues['password'],
                               decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                    borderSide: BorderSide(
+                                      width: 2,
+                                      color: ColorManager.lightSteelBlue2,
+                                    ),
+                                  ),
                                   suffixIcon: IconButton(
                                     onPressed: () {
                                       setState(() {
@@ -226,7 +268,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
                                       _passwordVisible
                                           ? Icons.visibility
                                           : Icons.visibility_off,
-                                      color: const Color(0xff7E7979),
+                                      color: ColorManager.lightSteelBlue1,
                                       size: 28.0,
                                     ),
                                   ),
@@ -239,9 +281,9 @@ class _StudentSignUpState extends State<StudentSignUp> {
                                   border: OutlineInputBorder(
                                       borderRadius:
                                           BorderRadius.circular(10.0),
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         width: 1,
-                                        color: Color(0xffD9D9D9)
+                                        color: ColorManager.lightSteelBlue2
                                   ),
                               ),
                                   hintText: 'Password'),
@@ -251,8 +293,14 @@ class _StudentSignUpState extends State<StudentSignUp> {
                               textInputAction: TextInputAction.done,
                               validator: (String? value) {
                                 if (value!.isEmpty) {
-                                  return 'Field is required';
-                                } else if (value.length < 6) {
+                                  setState(() {
+                                    passwordValidator = true;
+                                  });
+                                  return 'Please enter a Password';
+                                } else if (value.length < 8) {
+                                  setState(() {
+                                    passwordShort = true;
+                                  });
                                   return 'Password is too short!';
                                 }
                                 return null;
@@ -274,17 +322,12 @@ class _StudentSignUpState extends State<StudentSignUp> {
                     horizontal: 87.0
                   ),
                   child: TextButton(
-                      onPressed: (){
-                        _saveForm();
-                        _userNameError = true;
-                        Future.delayed(const Duration(seconds: 5), () {
-                          setState((){
-                            _userNameError = false;
-                          });
-                        });
+                      onPressed: () async{
+                        await _saveForm();
+                        errorView();
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),
+                        backgroundColor: MaterialStateProperty.all<Color>(ColorManager.primary,
                         ),
                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
@@ -292,12 +335,12 @@ class _StudentSignUpState extends State<StudentSignUp> {
                           )
                         )
                       ),
-                      child: const Text(
+                      child: Text(
                         'Sign Up',
                         style: TextStyle(
                           fontSize: 22.0,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xffFFFFFF)
+                          color: ColorManager.white
                         ),
                       )
                   ),
@@ -311,25 +354,25 @@ class _StudentSignUpState extends State<StudentSignUp> {
                       child: Container(
                         margin: const EdgeInsets.only(
                             left: 10.0, right: 20.0),
-                        child: const Divider(
-                          color: Color(0xffD9D9D9),
+                        child: Divider(
+                          color: ColorManager.lightSteelBlue2,
                           thickness: 1,
                           height: 10,
                         ),
                       ),
                     ),
-                    const Text(
+                    Text(
                       'Or Sign Up With',
                       style: TextStyle(
-                        color: Color(0xff7E7979)
+                        color: ColorManager.lightSteelBlue1
                       ),
                     ),
                     Expanded(
                       child: Container(
                           margin: const EdgeInsets.only(
                               left: 10.0, right: 20.0),
-                          child: const Divider(
-                            color: Color(0xffD9D9D9),
+                          child: Divider(
+                            color: ColorManager.lightSteelBlue2,
                             thickness: 1,
                             height: 10,
                           )),
@@ -353,15 +396,15 @@ class _StudentSignUpState extends State<StudentSignUp> {
                           width: 60.0,
                           height: 60.0,
                           decoration: BoxDecoration(
-                              color: const Color(0xFFffffff),
+                              color: ColorManager.white,
                               border: Border.all(
-                                  width: 1, color: const Color(0xffD9D9D9)),
+                                  width: 1, color: ColorManager.lightSteelBlue2),
                               borderRadius: const BorderRadius.all(
                                   Radius.circular(30),
                               ),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.8),
+                                color: Colors.blueAccent.withOpacity(0.5),
                                 blurRadius: 12.0, // soften the shadow
                                 spreadRadius: 6.0, //extend the shadow
                                 offset: const Offset(
@@ -389,15 +432,15 @@ class _StudentSignUpState extends State<StudentSignUp> {
                           width: 60.0,
                           height: 60.0,
                           decoration: BoxDecoration(
-                            color: const Color(0xFFffffff),
+                            color: ColorManager.white,
                               border: Border.all(
-                                  width: 1, color: const Color(0xffD9D9D9)),
+                                  width: 1, color: ColorManager.lightSteelBlue2),
                               borderRadius: const BorderRadius.all(
                                   Radius.circular(30),
                               ),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.8),
+                                color: Colors.blueAccent.withOpacity(0.5),
                                 blurRadius: 12.0, // soften the shadow
                                 spreadRadius: 6.0, //extend the shadow
                                 offset: const Offset(

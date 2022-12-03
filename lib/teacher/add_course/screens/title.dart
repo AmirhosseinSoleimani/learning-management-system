@@ -8,7 +8,7 @@ import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
 import '../../../presentation/resources/values_manager.dart';
-import '../../../provider/add_course.dart';
+import '../../../provider/add_courses_provider.dart';
 import '../../../store/drawer.dart';
 import '../widgets/category.dart';
 import '../widgets/learn_things.dart';
@@ -21,7 +21,7 @@ class CourseTitle extends StatefulWidget {
 }
 
 class _CourseTitleState extends State<CourseTitle> {
-  final _titleFocusNode = FocusNode();
+
 
   final _subtitleFocusNode = FocusNode();
 
@@ -81,7 +81,7 @@ class _CourseTitleState extends State<CourseTitle> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.35,
+                    height: MediaQuery.of(context).size.height * 0.2,
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 2.0, color: ColorManager.lightSteelBlue2),
@@ -91,42 +91,6 @@ class _CourseTitleState extends State<CourseTitle> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Text(
-                              'Title:',
-                              style: TextStyle(
-                                  fontSize: 22.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: ColorManager.black),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 10.0),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: ColorManager.lightBlue4,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: BorderSide(
-                                      width: 2,
-                                      color: ColorManager.lightSteelBlue2),
-                                ),
-                              ),
-                              focusNode: _titleFocusNode,
-                              keyboardType: TextInputType.text,
-                              textInputAction: TextInputAction.next,
-                              validator: (String? value) {
-                                if (value!.isEmpty) {
-                                  return 'Field is required';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {},
-                            ),
-                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10.0),
                             child: Text(
@@ -142,6 +106,13 @@ class _CourseTitleState extends State<CourseTitle> {
                                 horizontal: 10.0, vertical: 10.0),
                             child: TextFormField(
                               decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                    color: ColorManager.lightSteelBlue2,
+                                  ),
+                                ),
                                 filled: true,
                                 fillColor: ColorManager.lightBlue4,
                                 border: OutlineInputBorder(
@@ -200,6 +171,13 @@ class _CourseTitleState extends State<CourseTitle> {
                             child: TextFormField(
                               maxLines: 10,
                               decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                    color: ColorManager.lightSteelBlue2,
+                                  ),
+                                ),
                                 filled: true,
                                 fillColor: ColorManager.lightBlue4,
                                 border: OutlineInputBorder(
@@ -344,11 +322,12 @@ class _CourseTitleState extends State<CourseTitle> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.55,
+                    height: MediaQuery.of(context).size.height * 0.25,
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 2.0, color: ColorManager.lightSteelBlue2),
-                        borderRadius: BorderRadius.circular(10.0)),
+                        borderRadius: BorderRadius.circular(10.0),
+                    ),
                     child: const Category(),
                   ),
                   const SizedBox(
@@ -383,8 +362,8 @@ class _CourseTitleState extends State<CourseTitle> {
                   TextButton(
                       onPressed: () {
                         // Provider.of<AddCourseProvider>(context).learnThings.length;
-                        // Navigator.of(context).pushReplacementNamed(Routes.addCourseSection);
-                        Provider.of<AddCourseProvider>(context,listen: false).addCourseName();
+                        Navigator.of(context).pushReplacementNamed(Routes.addCourseSection);
+                        // Provider.of<AddCourseProvider>(context,listen: false).addCourseName();
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
