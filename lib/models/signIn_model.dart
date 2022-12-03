@@ -9,14 +9,14 @@ SignInModel({
 }
 
 class UserInformation {
-  String userName = '';
-  String firstName = '';
-  String lastName = '';
-  String birthday = '';
-  String country = '';
-  int longitude = 0;
-  int latitude = 0;
-  String token = '';
+  String userName;
+  String firstName;
+  String lastName;
+  String birthday;
+  String country;
+  String longitude;
+  String latitude;
+  String token;
   int roleNumber;
   UserInformation({
     required this.userName,
@@ -28,6 +28,5 @@ class UserInformation {
     required this.latitude,
     required this.token,
     required this.roleNumber,
-
   });
 }

@@ -25,6 +25,8 @@ class TeacherProvider with ChangeNotifier{
 
   String? phoneNumberTextFormField;
 
+  String? address;
+
   bool isLocation = false;
   double defaultLatitude = 35.715298;
   double defaultLongitude = 51.404343;
@@ -216,13 +218,13 @@ class TeacherProvider with ChangeNotifier{
               'introduction': _teacherAccountPatch[0].introduction,
               'birth_day': _teacherAccountPatch[0].birthDay,
               'id': id,
-              "address": _teacherAccountPatch[0].address,
+              "address": address,
               "bio": teacherSignUpPatch.bio,
               "card_number": _teacherAccountPatch[0].cardNumber,
               "language": "fucking persian",
               "latitude": defaultLatitude,
               "longitude": defaultLongitude,
-              "phone_number": '+9383202865',
+              "phone_number": '+$phoneNumberTextFormField',
               "work_history": "working on fucking stack team"
             }
         ),

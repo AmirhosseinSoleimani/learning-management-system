@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../models/search_category.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 
@@ -14,6 +15,8 @@ class _SearchCategoryState extends State<SearchCategory> {
   final _searchCategoryFocusNode = FocusNode();
 
   final TextEditingController _controller = TextEditingController();
+
+  // List<Category> category = [];
 
 
   @override

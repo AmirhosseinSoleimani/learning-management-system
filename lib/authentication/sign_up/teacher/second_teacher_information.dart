@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:learning_management_system/authentication/customize_stepper_information.dart';
 import 'package:learning_management_system/authentication/sign_up/student/phoneNumber_textFormField.dart';
@@ -43,6 +44,8 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
 
   var _isLoading = false;
   var isInit = true;
+
+  String address = '';
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState!.validate();
@@ -97,6 +100,16 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
     isInit = false;
     super.didChangeDependencies();
   }
+  final cubeGrid = SpinKitCubeGrid(
+    size: 100,
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
+        ),
+      );
+    },
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -125,8 +138,8 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: true,
       backgroundColor: ColorManager.white,
-      body: (_isLoading) ? const Center(
-        child: CircularProgressIndicator(),
+      body: (_isLoading) ? Center(
+        child: cubeGrid,
       ) :Padding(
         padding: const EdgeInsets.all(AppPadding.p16),
         child: Card(
@@ -194,7 +207,15 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                           height: AppSize.s10,
                         ),
                         TextFormField(
+                          initialValue: (Provider.of<TeacherProvider>(context,listen: false).isLocation)? '${Provider.of<TeacherProvider>(context,listen: false).address}': '',
                           decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2,
+                                ),
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius:
                                 BorderRadius.circular(AppSize.s10),
@@ -216,12 +237,20 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                               )
                           ),
                           keyboardType: TextInputType.text,
-                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (value){
+                            Provider.of<TeacherProvider>(context,listen: false).address = address;
+                          },
+                          textInputAction: TextInputAction.done,
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
                               return 'Field is required';
                             }
                             return null;
+                          },
+                          onChanged: (value){
+                            setState(() {
+                              address = value;
+                            });
                           },
                           onSaved: (value) {
                             _teacherSignUp = TeacherSignUpPatch(
@@ -238,8 +267,8 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                           height: 55.0,
                           decoration: BoxDecoration(
                             border: Border.all(
-                                width: 1,
-                                color: ColorManager.lightSteelBlue1,
+                                width: 2,
+                                color: ColorManager.lightSteelBlue2,
                             ),
                             borderRadius: BorderRadius.circular(AppSize.s10)
                           ),
@@ -287,6 +316,13 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                         TextFormField(
                           initialValue: _initValues['finance'],
                           decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2,
+                                ),
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius:
                                 BorderRadius.circular(AppSize.s10),
@@ -327,6 +363,13 @@ class _SecondInformationTeacherState extends State<SecondInformationTeacher> {
                         TextFormField(
                           initialValue: _initValues['viaCard'],
                           decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: ColorManager.lightSteelBlue2,
+                                ),
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius:
                                 BorderRadius.circular(AppSize.s10),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/provider/course_section.dart';
+
 import 'package:provider/provider.dart';
 import '../../../presentation/resources/color_manager.dart';
 
@@ -33,7 +33,7 @@ class _EditSectionState extends State<EditSection> {
               color: ColorManager.lightSteelBlue5,
             ),
             child: TextFormField(
-              initialValue: Provider.of<CourseSectionProvider>(context).courseSection[widget.index].sectionTitle,
+              initialValue: '',
               decoration: InputDecoration(
                 filled: true,
                 fillColor:ColorManager.lightSteelBlue5,
@@ -59,7 +59,7 @@ class _EditSectionState extends State<EditSection> {
                 });
               },
               onFieldSubmitted: (value){
-                Provider.of<CourseSectionProvider>(context,listen: false).addCourseSectionTitle(titleSection!);
+                // Provider.of<CourseSectionProvider>(context,listen: false).addCourseSectionTitle(titleSection!);
                 Navigator.of(context).pop();
               },
             ),
@@ -70,7 +70,7 @@ class _EditSectionState extends State<EditSection> {
           TextButton(
               onPressed: () {
                 if(titleSection != null){
-                  Provider.of<CourseSectionProvider>(context,listen: false).addCourseSectionTitle(titleSection!);
+                  // Provider.of<CourseSectionProvider>(context,listen: false).addCourseSectionTitle(titleSection!);
                   Navigator.of(context).pop();
                 }
                 else{

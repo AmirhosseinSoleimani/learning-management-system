@@ -22,6 +22,12 @@ class AddCourseProvider with ChangeNotifier{
     return _learnThings;
   }
 
+  final List<String> _tag = [];
+
+  List<String> get tag{
+    return _tag;
+  }
+
   final List<CategoryModel> _categoryModel = [
   ];
 
@@ -71,8 +77,18 @@ class AddCourseProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  void deleteLearnThingsList(String learnThingsText){
+  Future<void> deleteLearnThingsList(String learnThingsText) async{
     learnThings.remove(learnThingsText);
+    notifyListeners();
+  }
+
+  Future<void> addTagList(String tag) async{
+    _tag.add(tag);
+    notifyListeners();
+  }
+
+  Future<void> deleteTagList(String tag) async{
+    learnThings.remove(tag);
     notifyListeners();
   }
 

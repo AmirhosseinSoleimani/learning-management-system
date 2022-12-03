@@ -41,8 +41,8 @@ class SignInProvider with ChangeNotifier{
           lastName: data["last_name"],
           birthday: data["birthday"],
           country: data["country"],
-          longitude: data["location"]["longitude"],
-          latitude: data["location"]["latitude"],
+          longitude: data["location"]["longitude"].toString(),
+          latitude: data["location"]["latitude"].toString(),
           token: data["auth"]["access_token"],
           roleNumber: data["role"]["role_number"][0],
       );

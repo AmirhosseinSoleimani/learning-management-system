@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/provider/course_section.dart';
+import 'package:learning_management_system/provider/category_provider.dart';
+import 'package:learning_management_system/provider/section_provider.dart';
 import 'package:learning_management_system/provider/sign_in_provider.dart';
 import 'package:learning_management_system/provider/store_provider.dart';
 import 'package:provider/provider.dart';
@@ -38,11 +39,13 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(create: (context) => AddCourseProvider(),
         ),
-        ChangeNotifierProvider(create: (context) => CourseSectionProvider(),
+        ChangeNotifierProvider(create: (context) => SectionProvider(),
         ),
         ChangeNotifierProvider(create: (context) => SignInProvider(),
         ),
         ChangeNotifierProvider(create: (context) => Tasks(),
+        ),
+        ChangeNotifierProvider(create: (context) => CategoryProvider(),
         ),
       ],
       child: const MaterialApp(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/provider/course_section.dart';
+import 'package:learning_management_system/provider/section_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
@@ -21,7 +21,7 @@ class _CoursesPageState extends State<CoursesPage> {
   
   @override
   Widget build(BuildContext context) {
-    final sectionList = Provider.of<CourseSectionProvider>(context);
+    final sectionList = Provider.of<SectionProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorManager.white,
@@ -42,38 +42,13 @@ class _CoursesPageState extends State<CoursesPage> {
         ),
         centerTitle: true,
         iconTheme: IconThemeData(color: ColorManager.black, size: AppSize.s30),
-      ),
-      floatingActionButton: SizedBox(
-        width: 200,
-        height: 50,
-        child: FloatingActionButton(
-          shape: BeveledRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
-          ),
-          backgroundColor: ColorManager.lightSteelBlue2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                  Icons.add,
-                  color: ColorManager.lightSteelBlue1
-              ),
-              Text(
-                'Add Section',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                  color: ColorManager.lightSteelBlue1
-                ),
-              )
-            ],
-          ),
-          onPressed: () {
+        actions: [
+          IconButton(onPressed: (){
             showModalBottomSheet(
                 context: context, builder: (context) => const AddSection());
-          },
-
-        ),
+            }, icon: const Icon(Icons.add,size: 25.0,),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -99,7 +74,7 @@ class _CoursesPageState extends State<CoursesPage> {
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.68,
+                  height: MediaQuery.of(context).size.height * 0.75,
                   child: ListView.builder(
                       itemCount: sectionList.courseSection.length,
                       itemBuilder: (context,index) {
@@ -151,7 +126,7 @@ class _CoursesPageState extends State<CoursesPage> {
                               child: ListTile(
                                 title: Center(
                                   child: Text(
-                                    sectionList.courseSection[index].sectionTitle,
+                                    sectionList.courseSection[index].sectionName,
                                     style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w500,
@@ -170,7 +145,6 @@ class _CoursesPageState extends State<CoursesPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
                   child: TextButton(
                       onPressed: () {
-                        print(sectionList.courseSection.length);
                         Navigator.of(context).pushReplacementNamed(Routes.addCoursePricing);
                       },
                       style: ButtonStyle(
@@ -216,7 +190,7 @@ class _CoursesPageState extends State<CoursesPage> {
     );
   }
   void delete(BuildContext context,int index){
-    Provider.of<CourseSectionProvider>(context,listen: false).deleteCourseSectionTitle(index);
+    // Provider.of<CourseSectionProvider>(context,listen: false).deleteCourseSectionTitle(index);
   }
   void edit(BuildContext context,int index){
     showModalBottomSheet(

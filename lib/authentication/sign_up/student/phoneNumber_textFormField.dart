@@ -314,11 +314,13 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                         child: TextFormField(
                           onChanged: (value) {
                             if (value.length == 1) {
-                              FocusScope.of(context).nextFocus();
                               setState(() {
                                 phoneNumber = '$phoneNumber$value';
                               });
                             }
+                          },
+                          onFieldSubmitted: (value){
+                             Provider.of<TeacherProvider>(context,listen: false).phoneNumberTextFormField = phoneNumber;
                           },
                           keyboardType: TextInputType.number,
                           textAlign: TextAlign.center,
@@ -340,8 +342,15 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                 isSelected = true;
               });
             },
-            initialValue: _initValues['phoneNumber'],
+            initialValue: (Provider.of<TeacherProvider>(context,listen: false).isLocation)? '${Provider.of<TeacherProvider>(context,listen: false).phoneNumberTextFormField}': '',
             decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                  borderSide: BorderSide(
+                    width: 2,
+                    color: ColorManager.lightSteelBlue2,
+                  ),
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppSize.s10),
                   borderSide:

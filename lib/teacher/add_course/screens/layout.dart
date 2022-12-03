@@ -186,8 +186,7 @@ class _LayoutState extends State<Layout> {
               ),
               TextButton(
                   onPressed: (){
-                    // _saveForm();
-                    Navigator.of(context).pushReplacementNamed(Routes.addCourseTitle);
+                    _saveForm();
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(

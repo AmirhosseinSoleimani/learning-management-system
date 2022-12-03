@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/data.dart';
 import 'package:learning_management_system/presentation/resources/routes_manager.dart';
+import 'package:learning_management_system/provider/category_provider.dart';
+import 'package:provider/provider.dart';
 import '../../../presentation/resources/color_manager.dart';
 import 'search_category.dart';
 
@@ -35,7 +37,7 @@ class _CategoryState extends State<Category> {
           ),
           Container(
             width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.height * 0.15,
+            height: MediaQuery.of(context).size.height * 0.25,
             decoration: BoxDecoration(
                 border: Border.all(
                     width: 2.0, color: ColorManager.lightSteelBlue2),
@@ -87,6 +89,10 @@ class _CategoryState extends State<Category> {
                       },
                     ),
                   ),
+                  TextButton(onPressed: ()async{
+                    await Provider.of<CategoryProvider>(context,listen: false).fetchCategoryList();
+                  },
+                      child: Text('category'))
                 ],
               ),
             ),

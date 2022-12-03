@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/provider/course_section.dart';
+import 'package:learning_management_system/provider/section_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../presentation/resources/color_manager.dart';
 
@@ -58,7 +58,7 @@ class _AddSectionState extends State<AddSection> {
                 });
               },
               onFieldSubmitted: (value){
-                Provider.of<CourseSectionProvider>(context,listen: false).addCourseSectionTitle(titleSection!);
+                Provider.of<SectionProvider>(context,listen: false).addCourseTitle(context,titleSection!);
                 Navigator.of(context).pop();
               },
             ),
@@ -69,7 +69,7 @@ class _AddSectionState extends State<AddSection> {
           TextButton(
               onPressed: () {
                 if(titleSection != null){
-                  Provider.of<CourseSectionProvider>(context,listen: false).addCourseSectionTitle(titleSection!);
+                  Provider.of<SectionProvider>(context,listen: false).addCourseTitle(context,titleSection!);
                   Navigator.of(context).pop();
                 }
                 else{

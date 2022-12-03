@@ -12,6 +12,7 @@ import '../../../provider/add_courses_provider.dart';
 import '../../../store/drawer.dart';
 import '../widgets/category.dart';
 import '../widgets/learn_things.dart';
+import '../widgets/tag.dart';
 
 class CourseTitle extends StatefulWidget {
   const CourseTitle({Key? key}) : super(key: key);
@@ -209,7 +210,8 @@ class _CourseTitleState extends State<CourseTitle> {
                                   color: ColorManager.black),
                             ),
                           ),
-                          const LearnThings(),
+                          Builder(
+                              builder: (BuildContext context) => const LearnThings()),
                         ],
                       ),
                     ),
@@ -322,7 +324,7 @@ class _CourseTitleState extends State<CourseTitle> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.25,
+                    height: MediaQuery.of(context).size.height * 0.35,
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 2.0, color: ColorManager.lightSteelBlue2),
@@ -335,7 +337,7 @@ class _CourseTitleState extends State<CourseTitle> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.2,
+                    height: (Provider.of<AddCourseProvider>(context).tag.isEmpty) ?MediaQuery.of(context).size.height * 0.2 : MediaQuery.of(context).size.height * 0.45,
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 2.0, color: ColorManager.lightSteelBlue2),
@@ -344,7 +346,7 @@ class _CourseTitleState extends State<CourseTitle> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10),
                           child: Text(
                             'Tag:',
                             style: TextStyle(
@@ -353,52 +355,54 @@ class _CourseTitleState extends State<CourseTitle> {
                                 color: ColorManager.black),
                           ),
                         ),
-                        const LearnThings(),
+                        Builder(
+                            builder: (BuildContext context) => const Tag()),
                       ],
                     ),
                   ),
-
-
-                  TextButton(
-                      onPressed: () {
-                        // Provider.of<AddCourseProvider>(context).learnThings.length;
-                        Navigator.of(context).pushReplacementNamed(Routes.addCourseSection);
-                        // Provider.of<AddCourseProvider>(context,listen: false).addCourseName();
-                      },
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            ColorManager.primary,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(
+                        onPressed: () {
+                          // Provider.of<AddCourseProvider>(context).learnThings.length;
+                          Navigator.of(context).pushReplacementNamed(Routes.addCourseSection);
+                          // Provider.of<AddCourseProvider>(context,listen: false).addCourseName();
+                        },
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              ColorManager.primary,
+                            ),
+                            shape:
+                                MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0)))),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 30,
                           ),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(50.0)))),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 30,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Get Start',
-                              style: TextStyle(
-                                  fontSize: 22.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: ColorManager.white),
-                            ),
-                            const SizedBox(
-                              width: 5.0,
-                            ),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: ColorManager.white,
-                              size: 30,
-                            )
-                          ],
-                        ),
-                      )),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Next',
+                                style: TextStyle(
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: ColorManager.white),
+                              ),
+                              const SizedBox(
+                                width: 5.0,
+                              ),
+                              Icon(
+                                Icons.arrow_forward,
+                                color: ColorManager.white,
+                                size: 30,
+                              )
+                            ],
+                          ),
+                        )),
+                  ),
                 ],
               ),
             ),
