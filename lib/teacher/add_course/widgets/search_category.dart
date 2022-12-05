@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../models/search_category.dart';
+import 'package:learning_management_system/provider/category_provider.dart';
+import 'package:provider/provider.dart';
+import '../../../models/category_model.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
+import '../../../presentation/resources/routes_manager.dart';
+import '../../../presentation/resources/values_manager.dart';
 
 class SearchCategory extends StatefulWidget {
   const SearchCategory({Key? key}) : super(key: key);
@@ -16,7 +20,16 @@ class _SearchCategoryState extends State<SearchCategory> {
 
   final TextEditingController _controller = TextEditingController();
 
-  // List<Category> category = [];
+  List<CategoryList> categoryList = [];
+
+
+
+
+  @override
+  void initState() {
+    categoryList = Provider.of<CategoryProvider>(context,listen: false).category;
+    super.initState();
+  }
 
 
   @override
@@ -31,46 +44,77 @@ class _SearchCategoryState extends State<SearchCategory> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 10.0, vertical: 10.0),
-        child: TextFormField(
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-              borderSide: BorderSide(
-                width: 2,
-                color: ColorManager.lightSteelBlue2,
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 10.0, vertical: 10.0),
+            child: TextFormField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                  borderSide: BorderSide(
+                    width: 2,
+                    color: ColorManager.lightSteelBlue2,
+                  ),
+                ),
+                filled: true,
+                hintText: 'Search Category',
+                hintStyle: const TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w400
+                ),
+                prefixIcon: const Icon(
+                  Icons.search,
+                  size: 20.0,
+                ),
+                fillColor: ColorManager.lightBlue4,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
               ),
-            ),
-            filled: true,
-            hintText: 'Search Category',
-            hintStyle: const TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.w400
-            ),
-            prefixIcon: const Icon(
-              Icons.search,
-              size: 20.0,
-            ),
-            fillColor: ColorManager.lightBlue4,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
+              focusNode: _searchCategoryFocusNode,
+              controller: _controller,
+              autofocus: true,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.done,
+              onChanged: updateList,
             ),
           ),
-          focusNode: _searchCategoryFocusNode,
-          controller: _controller,
-          autofocus: true,
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.done,
-          validator: (String? value) {
-            if (value!.isEmpty) {
-              return 'Field is required';
-            }
-            return null;
-          },
-        ),
+          SizedBox(
+            height: 500,
+            width: double.infinity,
+            child: ListView.builder(
+              itemCount: categoryList.length,
+                itemBuilder: (context,index) => GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      Provider.of<CategoryProvider>(context,listen: false).categorySelected = categoryList[index].name!;
+                      Provider.of<CategoryProvider>(context,listen: false).categoryEnd = true;
+                      Provider.of<CategoryProvider>(context,listen: false).findIdCategory(categoryList[index].name!);
+                      Navigator.of(context).pushReplacementNamed(Routes.addCourseTitle);
+                    });
+                  },
+                  child: ListTile(
+                    title: Text(
+                        categoryList[index].name!
+                    ),
+                  ),
+                )),
+          )
+        ],
       ),
     );
+  }
+  void updateList(String value){
+        final suggestionList = categoryList.where((element){
+        final categoryTitle = element.name!.toLowerCase();
+        final input = value.toLowerCase();
+        return categoryTitle.contains(input);
+      }).toList();
+        setState(() {
+          categoryList = suggestionList;
+        });
   }
 }

@@ -53,7 +53,7 @@ class _SignInState extends State<SignIn> {
       _isLoading = true;
     });
     try {
-      await Provider.of<SignInProvider>(context,listen: false).signIn(signIn);
+      await Provider.of<SignInProvider>(context,listen: false).signIn(context,signIn);
     } catch (error) {
       await showDialog(
         context: context,

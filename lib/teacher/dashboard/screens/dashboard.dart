@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 
-import '../../presentation/dashboard_styles_manager.dart';
 import '../../presentation/dashboard_color_manager.dart';
+import '../../presentation/dashboard_styles_manager.dart';
+import '../../../presentation/resources/color_manager.dart';
 import '../../presentation/dashboard_value_manager.dart';
 import '../../models/teacher_panel_progressive.dart';
 import '../../models/bar_models_chart.dart';
 
 import '../end_drawer.dart';
+import '../widgets/my_course.dart';
 import '../widgets/teacher_drawer.dart';
-import '../widgets/card_1.dart';
 import '../widgets/card_2.dart';
 import '../widgets/card_3.dart';
 import '../widgets/course_card.dart';
@@ -27,27 +28,22 @@ class _TeacherPanelState extends State<TeacherPanel> {
   final List<Course> course = [
     Course(
       coursePercent: 30,
-      courseTitle: 'Chemistry',
-      duration: 2,
+      courseTitle: 'Courses Sold',
+      duration: 13,
     ),
     Course(
       coursePercent: 25,
-      courseTitle: 'Chemistry',
-      duration: 2,
+      courseTitle: 'Your Meetings',
+      duration: 5,
     ),
     Course(
       coursePercent: 50,
-      courseTitle: 'Chemistry',
-      duration: 2,
+      courseTitle: 'Uploaded Courses',
+      duration: 25,
     ),
     Course(
       coursePercent: 80,
-      courseTitle: 'Chemistry',
-      duration: 2,
-    ),
-    Course(
-      coursePercent: 10,
-      courseTitle: 'Chemistry',
+      courseTitle: 'Draft Courses',
       duration: 2,
     ),
   ];
@@ -66,38 +62,6 @@ class _TeacherPanelState extends State<TeacherPanel> {
     Color(0xff177FB0),
   ];
 
-  final List colorItems = const [
-    Color(0xffD2D0F5),
-    Color(0x59177FB0),
-    Color(0x59D774F0),
-    Color(0xffD9D9D9),
-  ];
-  static List<BardData> bardData = [
-    BardData(
-      color: const Color(0xffD2D0F5),
-      name: 'Course X',
-      id: 0,
-      y: 80,
-    ),
-    BardData(
-      color: const Color(0x59177FB0),
-      name: 'Course X',
-      id: 1,
-      y: 50,
-    ),
-    BardData(
-      color: const Color(0x59D774F0),
-      name: 'Course X',
-      id: 2,
-      y: 75,
-    ),
-    BardData(
-      color: const Color(0xffD2D0F5),
-      name: 'Course X',
-      id: 3,
-      y: 20,
-    ),
-  ];
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -151,12 +115,12 @@ class _TeacherPanelState extends State<TeacherPanel> {
                     children: [
                       Text('welcome back michal! ',
                           style: getBoldStyle(
-                              color: ColorManagement.darkGrey,
+                              color: ColorManager.slateGray2,
                               fontSize: AppSize.s18)),
                       Text(
                         'AnywhereWorks - dashboard',
                         style: getRegularStyle(
-                            color: ColorTeacherPanel.text_2, fontSize: 14),
+                            color: ColorManager.lightSteelBlue1, fontSize: 16),
                       )
                     ],
                   ),
@@ -182,57 +146,8 @@ class _TeacherPanelState extends State<TeacherPanel> {
               const SizedBox(
                 height: AppSize.s18,
               ),
-              Row(
-                children: [
-                  SizedBox(
-                    height: 40,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (_, i) => Container(
-                        margin:
-                        const EdgeInsets.symmetric(horizontal: AppSize.s4),
-                        decoration: BoxDecoration(
-                            color: colorItems[i],
-                            borderRadius: BorderRadius.circular(AppSize.s12)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(AppSize.s12),
-                          child: Center(child: Text(items[i])),
-                        ),
-                      ),
-                      itemCount: items.length,
-                    ),
-                  ),
-                  const Spacer(),
-                  InkWell(
-                    radius: 12,
-                    customBorder: const CircleBorder(),
-                    onTap: () {
-                      print('tapped');
-                    },
-                    child: const Icon(
-                      Icons.add,
-                      color: Color(0xff7E7979),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-              ChartCart1(size: size),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
               SecondCard(
                   course: course, size: size, progressColor: progressColor),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-              ThirdCard(size: size, bardData: bardData),
               SizedBox(
                 height: size.height * 0.02,
               ),
@@ -243,169 +158,43 @@ class _TeacherPanelState extends State<TeacherPanel> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: AppSize.s18),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Your courses",
-                        style: getBoldStyle(
-                            color: ColorTeacherPanel.darkGrey,
-                            fontSize: AppSize.s18),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 8.0),
+                        child: Text(
+                          "Your courses",
+                          style: getBoldStyle(
+                              color: ColorTeacherPanel.darkGrey,
+                              fontSize: AppSize.s18),
+                        ),
                       ),
                       Padding(
                         padding:
                         const EdgeInsets.symmetric(horizontal: AppSize.s12),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(AppSize.s16)),
-                          elevation: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: AppSize.s40, horizontal: AppSize.s18),
-                            child: Column(children: [
-                              DetailUserCourse(
-                                  colore: isClicked
-                                      ? ColorTeacherPanel.darkGrey
-                                      : ColorTeacherPanel.boxColorGreen,
-                                  size: size),
-                              SizedBox(
-                                height: size.height * 0.017,
-                              ),
-                              Row(
-                                children: [
-                                  Stack(
-                                    children: [
-                                      Container(
-                                        width: 110,
-                                        height: 90,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(12),
-                                        ),
-                                        child: Image.asset(
-                                            'assets/svg/teacherPanel/background.jpg'),
-                                      ),
-                                      Positioned(
-                                        top: 14,
-                                        left: 5,
-                                        child: Container(
-                                          width: 38,
-                                          height: 13,
-                                          decoration: BoxDecoration(
-                                              color: const Color(0xD93F3D56),
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  AppSize.s4)),
-                                          child: Center(
-                                            child: Text("Manage",
-                                                style: getRegularStyle(
-                                                    color: Colors.white,
-                                                    fontSize: AppSize.s8)),
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        bottom: 16,
-                                        left: 8,
-                                        child: Container(
-                                          width: 40,
-                                          height: 15,
-                                          decoration: BoxDecoration(
-                                              color: Colors.white38,
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  AppSize.s4)),
-                                          child: Center(
-                                            child: Text("15 min",
-                                                style: getRegularStyle(
-                                                    color: Colors.white,
-                                                    fontSize: AppSize.s12)),
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        bottom: 14,
-                                        right: 4,
-                                        child: Container(
-                                          width: 20,
-                                          height: 20,
-                                          decoration: BoxDecoration(
-                                              color: ColorTeacherPanel
-                                                  .boxColorGreen,
-                                              borderRadius:
-                                              BorderRadius.circular(100)),
-                                          child: const Center(
-                                              child: Icon(
-                                                Icons.play_arrow,
-                                                color: Colors.white,
-                                                size: 16,
-                                              )),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: size.width * 0.02,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                          width: 150,
-                                          child: Text(
-                                            "How To Turn Manage Into Success",
-                                            style: getBoldStyle(
-                                                color:
-                                                ColorTeacherPanel.darkGrey),
-                                          )),
-                                      SizedBox(
-                                        height: size.height * 0.015,
-                                      ),
-                                      Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                            'assets/svg/acctime.svg',
-                                            color: const Color(0xff7E7979),
-                                            width: 13,
-                                            height: 10,
-                                          ),
-                                          SizedBox(
-                                            width: size.width * 0.01,
-                                          ),
-                                          Text(
-                                            '8h 12m',
-                                            style: getRegularStyle(
-                                                color:
-                                                ColorTeacherPanel.darkGrey,
-                                                fontSize: AppSize.s8),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  )
-                                ],
-                              )
-                            ]),
-                          ),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 360,
+                          child: ListView(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              children: const [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 5.0),
+                                  child: MyCourse(),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 5.0),
+                                  child: MyCourse(),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 5.0),
+                                  child: MyCourse(),
+                                ),
+                              ]),
                         ),
                       ),
-                      SizedBox(
-                        height: size.height * 0.01,
-                      ),
-                      SizedBox(
-                        height: 300,
-                        child: ListView.builder(
-                          itemBuilder: (_, i) => Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: AppSize.s4, horizontal: AppSize.s20),
-                            child: DetailUserCourse(
-                                colore: isClicked
-                                    ? ColorTeacherPanel.boxColorGreen
-                                    : ColorTeacherPanel.darkGrey,
-                                size: size),
-                          ),
-                          itemCount: 4,
-                        ),
-                      )
+
                     ],
                   ),
                 ),

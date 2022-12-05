@@ -5,23 +5,23 @@ import 'package:provider/provider.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../provider/add_courses_provider.dart';
 
-class LearnThings extends StatefulWidget {
-  const LearnThings({Key? key}) : super(key: key);
+class Tag extends StatefulWidget {
+  const Tag({Key? key}) : super(key: key);
 
   @override
-  State<LearnThings> createState() => _LearnThingsState();
+  State<Tag> createState() => _TagState();
 }
 
-class _LearnThingsState extends State<LearnThings> {
+class _TagState extends State<Tag> {
 
-  final _learnThingFocusNode = FocusNode();
+  final _tagFocusNode = FocusNode();
 
 
-  final _learnThingController = TextEditingController();
+  final _tagController = TextEditingController();
 
   final _form = GlobalKey<FormState>();
 
-  String? _learnThingsText;
+  String? _tagText;
 
   bool isLoading = false;
 
@@ -50,7 +50,7 @@ class _LearnThingsState extends State<LearnThings> {
 
   @override
   Widget build(BuildContext context) {
-    final learnThingProvider = Provider.of<AddCourseProvider>(context, listen: false);
+    final tagProvider = Provider.of<AddCourseProvider>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       child: Column(
@@ -81,8 +81,8 @@ class _LearnThingsState extends State<LearnThings> {
                               color: ColorManager.lightSteelBlue2),
                         ),
                       ),
-                      controller: _learnThingController,
-                      focusNode: _learnThingFocusNode,
+                      controller: _tagController,
+                      focusNode: _tagFocusNode,
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.done,
                       validator: (String? value) {
@@ -93,7 +93,7 @@ class _LearnThingsState extends State<LearnThings> {
                       },
                       onChanged: (value) {
                         setState((){
-                          _learnThingsText = value;
+                          _tagText = value;
                         });
                       },
                     ),
@@ -102,35 +102,35 @@ class _LearnThingsState extends State<LearnThings> {
                 flex: 1,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                  child: (_learnThingController.text.isEmpty) ? GestureDetector(
+                  child: (_tagController.text.isEmpty) ? GestureDetector(
                     onTap: () {},
                     child: Icon(
                       Icons.done,
                       size: 30.0,
                       color: ColorManager.lightSteelBlue1,),
                   )
-                 :GestureDetector(
-                    onTap: () {
-                      Provider.of<AddCourseProvider>(context, listen: false).addLearnThingsList(_learnThingsText!);
-                      _learnThingController.clear();
-                      updateUi();
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1,
-                              color: ColorManager.lightSteelBlue2),
-                          borderRadius:
-                          BorderRadius.circular(5.0),
-                          color: ColorManager.primary),
-                      child: Icon(
-                        Icons.done,
-                        size: 30.0,
-                        color: ColorManager.white,
-                      ),
-                    ),
+                      :GestureDetector(
+                        onTap: () {
+                          Provider.of<AddCourseProvider>(context, listen: false).addTagList(_tagText!);
+                          _tagController.clear();
+                          updateUi();
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 1,
+                                    color: ColorManager.lightSteelBlue2),
+                                borderRadius:
+                                BorderRadius.circular(5.0),
+                                color: ColorManager.primary),
+                            child: Icon(
+                              Icons.done,
+                              size: 30.0,
+                              color: ColorManager.white,
+                            ),
+                          ),
                   ),
                 ),
               )
@@ -139,43 +139,44 @@ class _LearnThingsState extends State<LearnThings> {
           const SizedBox(
             height: 10.0,
           ),
-          (learnThingProvider.learnThings.isEmpty) ? const SizedBox(height: 1.0,) : Builder(builder: (context) => Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.25,
-              decoration: BoxDecoration(
-                border: Border.all(
-                    width: 2,
-                    color: ColorManager.lightSteelBlue2),
-                borderRadius: BorderRadius.circular(10.0),
-                color: ColorManager.lightBlue4,
-              ),
-              child: (isLoading == true)? Center(child: cubeGrid,) :ListView.builder(
-                itemCount: learnThingProvider.learnThings.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
-                  child: Card(
-                    elevation: 6,
-                    child: ListTile(
-                      title: Text(learnThingProvider.learnThings[index],),
-                      trailing: IconButton(
-                        onPressed: () async {
-                          await updateUi();
-                          learnThingProvider.deleteLearnThingsList(learnThingProvider.learnThings[index]);
-
-                        },
-                        icon: const Icon(
-                          Icons.close,
+          (tagProvider.tag.isEmpty) ? const SizedBox(height: 1.0,) : Builder(
+            builder: (context) {
+              return Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.25,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 2,
+                        color: ColorManager.lightSteelBlue2),
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: ColorManager.lightBlue4,
+                  ),
+                  child: (isLoading == true)? Center(child: cubeGrid): ListView.builder(
+                    itemCount: tagProvider.tag.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
+                      child: Card(
+                        elevation: 6,
+                        child: ListTile(
+                          title: Text(tagProvider.tag[index],),
+                          trailing: IconButton(
+                            onPressed: () async{
+                              await tagProvider.deleteTagList(tagProvider.tag[index]);
+                              updateUi();
+                            },
+                            icon: const Icon(
+                              Icons.close,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              )
-          ))
-          ,
+                  )
+              );
+            }
+          ),
         ],
       ),
     );
   }
 }
-

@@ -145,7 +145,7 @@ class _CoursesPageState extends State<CoursesPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
                   child: TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed(Routes.addCoursePricing);
+                        Navigator.of(context).pushReplacementNamed(Routes.addCourseSetting);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:learning_management_system/data.dart';
 import 'package:learning_management_system/presentation/resources/routes_manager.dart';
 import 'package:learning_management_system/provider/category_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../presentation/resources/color_manager.dart';
-import 'search_category.dart';
+
+
 
 class Category extends StatefulWidget {
   const Category({Key? key}) : super(key: key);
@@ -37,7 +37,7 @@ class _CategoryState extends State<Category> {
           ),
           Container(
             width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.height * 0.25,
+            height: MediaQuery.of(context).size.height * 0.15,
             decoration: BoxDecoration(
                 border: Border.all(
                     width: 2.0, color: ColorManager.lightSteelBlue2),
@@ -52,6 +52,7 @@ class _CategoryState extends State<Category> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10.0, vertical: 10.0),
                     child: TextFormField(
+                      initialValue: (Provider.of<CategoryProvider>(context,listen: false).categoryEnd == true)? Provider.of<CategoryProvider>(context,listen: false).categorySelected:'',
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderRadius: const BorderRadius.all(Radius.circular(10.0)),
@@ -84,15 +85,12 @@ class _CategoryState extends State<Category> {
                         }
                         return null;
                       },
-                      onTap: (){
+                      onTap: () async{
+                        await Provider.of<CategoryProvider>(context,listen: false).fetchCategoryList();
                         Navigator.of(context).pushReplacementNamed(Routes.searchCategory);
                       },
                     ),
                   ),
-                  TextButton(onPressed: ()async{
-                    await Provider.of<CategoryProvider>(context,listen: false).fetchCategoryList();
-                  },
-                      child: Text('category'))
                 ],
               ),
             ),

@@ -5,6 +5,7 @@ import 'package:learning_management_system/data.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:provider/provider.dart';
 import '../../../models/student_account.dart';
+import '../../../provider/category_provider.dart';
 import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 
@@ -155,9 +156,9 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
                         padding: const EdgeInsets.only(
                             right: 87.0, left: 87.0, bottom: 20.0),
                         child: TextButton(
-                            onPressed: () {
-
-                              Navigator.of(context).pop();
+                            onPressed: () async{
+                              await Provider.of<CategoryProvider>(context,listen: false).fetchCategoryList();
+                              // print(Provider.of<CategoryProvider>(context,listen: false).category[0].title);
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all<Color>(

@@ -13,10 +13,7 @@ class SelectedMenu extends StatelessWidget {
           .of(context)
           .size
           .width,
-      height: MediaQuery
-          .of(context)
-          .size
-          .height * 0.85,
+      height: 615,
       decoration: BoxDecoration(
         border: Border.all(
           width: 1,
@@ -80,10 +77,7 @@ class SelectedMenu extends StatelessWidget {
                   .of(context)
                   .size
                   .width,
-              height: MediaQuery
-                  .of(context)
-                  .size
-                  .height * 0.71,
+              height: 525,
               child: const DiscoverCourses(),
             ),
           ],

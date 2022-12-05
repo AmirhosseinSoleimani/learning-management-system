@@ -27,6 +27,10 @@ class TeacherProvider with ChangeNotifier{
 
   String? address;
 
+  String gender = 'Male';
+
+  String language = '';
+
   bool isLocation = false;
   double defaultLatitude = 35.715298;
   double defaultLongitude = 51.404343;
@@ -158,13 +162,13 @@ class TeacherProvider with ChangeNotifier{
               'introduction': _teacherAccountPatch[0].introduction,
               'birth_day': _teacherAccountPatch[0].birthDay,
               'id': id,
-              "address": teacherSignUpPatch.address,
+              "address": address,
               "bio": "hello this is iliya",
               "card_number": teacherSignUpPatch.cardNumber,
               "language": "fucking persian",
               "latitude": defaultLatitude,
               "longitude": defaultLongitude,
-              "phone_number": '+9383202865',
+              "phone_number": '+$phoneNumberTextFormField',
               "work_history": "working on fucking stack team"
             }
         ),
@@ -185,11 +189,11 @@ class TeacherProvider with ChangeNotifier{
         country: _teacherAccountPatch[0].country,
         introduction: _teacherAccountPatch[0].introduction,
         birthDay: _teacherAccountPatch[0].birthDay,
-        address: teacherSignUpPatch.address,
+        address: address,
         latitude: defaultLatitude,
         longitude: defaultLongitude,
         financial: teacherSignUpPatch.financial,
-        phoneNumber: teacherSignUpPatch.phoneNumber,
+        phoneNumber: '+$phoneNumberTextFormField',
         cardNumber: teacherSignUpPatch.cardNumber,
       );
       _teacherAccountPatch.removeAt(0);
@@ -218,13 +222,13 @@ class TeacherProvider with ChangeNotifier{
               'introduction': _teacherAccountPatch[0].introduction,
               'birth_day': _teacherAccountPatch[0].birthDay,
               'id': id,
-              "address": address,
+              "address": _teacherAccountPatch[0].address,
               "bio": teacherSignUpPatch.bio,
               "card_number": _teacherAccountPatch[0].cardNumber,
-              "language": "fucking persian",
+              "language": language,
               "latitude": defaultLatitude,
               "longitude": defaultLongitude,
-              "phone_number": '+$phoneNumberTextFormField',
+              "phone_number": _teacherAccountPatch[0].phoneNumber,
               "work_history": "working on fucking stack team"
             }
         ),
@@ -248,6 +252,7 @@ class TeacherProvider with ChangeNotifier{
         address: _teacherAccountPatch[0].address,
         latitude: defaultLatitude,
         longitude: defaultLongitude,
+        language: language,
         financial: _teacherAccountPatch[0].financial,
         phoneNumber: _teacherAccountPatch[0].phoneNumber,
         cardNumber: _teacherAccountPatch[0].cardNumber,

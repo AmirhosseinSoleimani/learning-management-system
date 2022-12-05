@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
+import 'package:learning_management_system/provider/teacher_provider.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../../presentation/resources/color_manager.dart';
 
@@ -128,6 +130,7 @@ class _TeacherResumeState extends State<TeacherResume> {
                                 onPressed: () {
                                   setState(() {
                                     _isSelected = true;
+                                    Provider.of<TeacherProvider>(context,listen: false).language = firstDropDownItem;
                                   });
                                   showCupertinoModalPopup(
                                       context: context,

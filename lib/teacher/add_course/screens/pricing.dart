@@ -603,7 +603,7 @@ class _PricingState extends State<Pricing> {
                   ),
                   TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed(Routes.addCourseSetting);
+                        Navigator.of(context).pushReplacementNamed(Routes.addCourseSection);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

@@ -11,14 +11,14 @@ class TeacherSection extends StatelessWidget {
     return Container(
       color: ColorManager.lightBlue2,
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.95,
+      height: 680,
       child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.42,
+              height: 310,
               decoration: BoxDecoration(
                 border: Border.all(
                   width: 1,
@@ -107,7 +107,7 @@ class TeacherSection extends StatelessWidget {
             child: Container(
 
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.42,
+              height: 295,
               decoration: BoxDecoration(
                 border: Border.all(
                   width: 1,

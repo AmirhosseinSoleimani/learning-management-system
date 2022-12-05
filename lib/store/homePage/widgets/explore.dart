@@ -9,11 +9,11 @@ class Explore extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: 505,
       color: ColorManager.lightBlue1,
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.7,
+        height: 505,
         decoration: BoxDecoration(
           border: Border.all(
             width: 1,

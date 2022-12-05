@@ -82,7 +82,7 @@ class HeaderHomePage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 420.0,
+            bottom: 250.0,
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.05,
@@ -97,7 +97,7 @@ class HeaderHomePage extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 200.0,
+            bottom: 180.0,
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.1,

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:learning_management_system/authentication/sign_up/teacher/teacher_resume.dart';
@@ -33,7 +34,7 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
 
   final _initValues = {
     'workHistory': '',
-    'bio': ''
+    'bio': '',
   };
 
   var _teacherSignUp = TeacherSignUpPatch(
@@ -76,6 +77,16 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
     });
   }
 
+  final cubeGrid = SpinKitCubeGrid(
+    size: 100,
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
+        ),
+      );
+    },
+  );
 
 
   Future pickImage(ImageSource source) async {
@@ -116,8 +127,8 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorManager.white,
-      body: (_isLoading) ? const Center(
-        child: CircularProgressIndicator(),
+      body: (_isLoading) ? Center(
+        child: cubeGrid,
       ):Padding(
         padding: const EdgeInsets.all(AppPadding.p16),
         child: Card(
@@ -355,7 +366,6 @@ class _ThirdInformationStudentSignUpState extends State<ThirdInformationStudentS
                         child: TextButton(
                             onPressed: (){
                               _saveForm();
-                              print(Provider.of<TeacherProvider>(context,listen: false).teacherAccountPatch[0].firstName);
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff177FB0),

@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:learning_management_system/models/add_course.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../presentation/resources/assets_manager.dart';
@@ -38,10 +40,67 @@ class _CourseTitleState extends State<CourseTitle> {
     return File(file.path!).copy(newFile.path);
   }
 
+  UpdateCourse updateCourse = UpdateCourse(
+      category: '',
+      courseObjectives: [],
+      description: '',
+      price: 0,
+      tags: []);
+
+  bool _isLoading = false;
+
+  Future<void> _saveForm() async {
+    final isValid = _form.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    _form.currentState!.save();
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      await Provider.of<AddCourseProvider>(context, listen: false).updateCourseFunction(context,updateCourse);
+    } catch (error) {
+      await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('an error occurred!'),
+          content: const Text('Something went wrong'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Okay'))
+          ],
+        ),
+      );
+    }
+    setState(() {
+      _isLoading = false;
+    });
+
+  }
 
 
   final _form = GlobalKey<FormState>();
 
+  final cubeGrid = SpinKitCubeGrid(
+    size: 100,
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
+        ),
+      );
+    },
+  );
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +128,9 @@ class _CourseTitleState extends State<CourseTitle> {
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: true,
       backgroundColor: ColorManager.white,
-      body: Card(
+      body: (_isLoading == true)? Center(
+       child: cubeGrid,
+      ) : Card(
         elevation: 8,
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.p12),
@@ -82,7 +143,7 @@ class _CourseTitleState extends State<CourseTitle> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.2,
+                    height: 150,
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 2.0, color: ColorManager.lightSteelBlue2),
@@ -145,8 +206,8 @@ class _CourseTitleState extends State<CourseTitle> {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     height: (Provider.of<AddCourseProvider>(context).learnThings.isEmpty)?
-                    MediaQuery.of(context).size.height * 0.56
-                    :MediaQuery.of(context).size.height * 0.81,
+                    430
+                    :612,
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 2.0, color: ColorManager.lightSteelBlue2),
@@ -197,7 +258,14 @@ class _CourseTitleState extends State<CourseTitle> {
                                 }
                                 return null;
                               },
-                              onSaved: (value) {},
+                              onSaved: (value) {
+                                updateCourse = UpdateCourse(
+                                    category: '',
+                                    courseObjectives: [],
+                                    description: value!,
+                                    price: 0,
+                                    tags: []);
+                              },
                             ),
                           ),
                           Padding(
@@ -324,7 +392,7 @@ class _CourseTitleState extends State<CourseTitle> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.35,
+                    height: MediaQuery.of(context).size.height * 0.25,
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 2.0, color: ColorManager.lightSteelBlue2),
@@ -337,7 +405,7 @@ class _CourseTitleState extends State<CourseTitle> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
-                    height: (Provider.of<AddCourseProvider>(context).tag.isEmpty) ?MediaQuery.of(context).size.height * 0.2 : MediaQuery.of(context).size.height * 0.45,
+                    height: (Provider.of<AddCourseProvider>(context).tag.isEmpty) ? 140 : 320,
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 2.0, color: ColorManager.lightSteelBlue2),
@@ -364,9 +432,7 @@ class _CourseTitleState extends State<CourseTitle> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
                         onPressed: () {
-                          // Provider.of<AddCourseProvider>(context).learnThings.length;
-                          Navigator.of(context).pushReplacementNamed(Routes.addCourseSection);
-                          // Provider.of<AddCourseProvider>(context,listen: false).addCourseName();
+                          _saveForm();
                         },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(

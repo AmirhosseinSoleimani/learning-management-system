@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:learning_management_system/provider/category_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../presentation/resources/assets_manager.dart';
@@ -187,6 +188,7 @@ class _LayoutState extends State<Layout> {
               TextButton(
                   onPressed: (){
                     _saveForm();
+                    Provider.of<CategoryProvider>(context,listen: false).categoryEnd == false;
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(

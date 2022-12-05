@@ -23,21 +23,17 @@ class CategoryModel{
 
 }
 
-class User{
-  static const String passionCooking = 'cooking';
-  static const String passionHiking = 'hiking';
-  static const String passionTraveling = 'traveling';
-
-  String firstName = '';
-  String lastName = '';
-  Map<String, bool> passions = {
-    passionCooking: false,
-    passionHiking: false,
-    passionTraveling: false
-  };
-  bool newsLetter = false;
-
-  save(){
-    print('saving user using a web service');
-  }
+class UpdateCourse{
+  String category;
+  List<String> courseObjectives;
+  String description;
+  int price;
+  List<String> tags;
+  UpdateCourse({
+    required this.category,
+    required this.courseObjectives,
+    required this.description,
+    required this.price,
+    required this.tags,
+});
 }

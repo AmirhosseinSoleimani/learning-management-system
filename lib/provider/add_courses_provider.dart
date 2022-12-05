@@ -3,10 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:learning_management_system/models/add_course.dart';
 import 'package:http/http.dart' as http;
 import 'package:learning_management_system/presentation/resources/routes_manager.dart';
+import 'package:learning_management_system/provider/category_provider.dart';
 import 'package:learning_management_system/provider/sign_in_provider.dart';
 import 'package:provider/provider.dart';
 import '../data.dart';
 import '../models/signIn_model.dart';
+
+String category(BuildContext context){
+  String category = Provider.of<CategoryProvider>(context,listen: false).categorySelected;
+  return category;
+}
 
 UserInformation userInformation(BuildContext context){
   UserInformation userInformation = Provider.of<SignInProvider>(context,listen: false).userInformation[0];
@@ -35,11 +41,19 @@ class AddCourseProvider with ChangeNotifier{
     return _categoryModel;
   }
 
+  final List<UpdateCourse> _updateCourse = [
+  ];
+
+  List<UpdateCourse> get updateCourse{
+    return _updateCourse;
+  }
+
   goNext(BuildContext context,String routes){
     Navigator.of(context).pushReplacementNamed(routes);
   }
 
   String id = '';
+  
 
   Future<void> addCourseTitle(BuildContext context,String title) async{
     final url = Uri.parse('http://135.125.59.77:8090/api/v1/courses/add-course/');
@@ -90,6 +104,46 @@ class AddCourseProvider with ChangeNotifier{
   Future<void> deleteTagList(String tag) async{
     learnThings.remove(tag);
     notifyListeners();
+  }
+
+  Future<void> updateCourseFunction(BuildContext context,UpdateCourse updateCourse) async{
+    final url = Uri.parse('http://135.125.59.77:8090/api/v1/courses/update-course/');
+    var bytes = uuid.v5(Uuid.NAMESPACE_URL, 'www.google.com');
+    String token = userInformation(context).token;
+    try {
+      http.Response response = await http.patch(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+          'accept': 'application/json',
+        },
+        body: json.encode(
+            {
+              "category": Uuid,
+              "courseObjectives": learnThings,
+              "description": updateCourse.description,
+              "id": id,
+              "name": "string",
+              "owner": "string",
+              "price": 0,
+              "private": 0,
+              "publisher": "string",
+              "tags": tag,
+            }
+        ),
+      );
+      if(response.statusCode == 200){
+        final data = jsonDecode(response.body);
+        _updateCourse.add(data);
+        goNext(context,Routes.addCoursePricing);
+        notifyListeners();
+      }
+      debugPrint(response.statusCode.toString());
+      debugPrint(response.body);
+      debugPrint(id);
+    }catch(error){
+      debugPrint(error.toString());
+    }
   }
 
   void checkBoxCategory(bool selected,int index){

@@ -28,11 +28,11 @@ class OurTeachers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.68,
+      height: 485,
       color: ColorManager.lightBlue2,
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.68,
+        height: 480,
         decoration: BoxDecoration(
           border: Border.all(
             width: 1,
@@ -109,7 +109,7 @@ class OurTeachers extends StatelessWidget {
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.85,
-                    height: MediaQuery.of(context).size.height * 0.42,
+                    height: 325,
                     child: ListView.builder(
                       controller: _controller,
                       scrollDirection: Axis.horizontal,

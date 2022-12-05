@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../models/signIn_model.dart';
+import '../presentation/resources/routes_manager.dart';
 
 class SignInProvider with ChangeNotifier{
 
@@ -14,7 +14,11 @@ class SignInProvider with ChangeNotifier{
 
   String passwordError = '';
 
-  Future<void> signIn(SignInModel signInModel) async{
+  goNext(BuildContext context,String routes){
+    Navigator.of(context).pushReplacementNamed(routes);
+  }
+
+  Future<void> signIn(BuildContext context,SignInModel signInModel) async{
     final url = Uri.parse('http://135.125.59.77:8090/api/v1/auth/');
     http.Response response = await http.post(
       url,
@@ -47,6 +51,7 @@ class SignInProvider with ChangeNotifier{
           roleNumber: data["role"]["role_number"][0],
       );
       _userInformation.add(userInformation);
+      goNext(context,Routes.teacherDashboard);
       notifyListeners();
 
     }

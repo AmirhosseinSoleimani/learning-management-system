@@ -74,6 +74,8 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
 
   var _isLoading = false;
 
+  String gender = '';
+
   final cubeGrid = SpinKitCubeGrid(
     size: 100,
     itemBuilder: (BuildContext context, int index) {
@@ -442,57 +444,20 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                                 child: Text(items),
                               );
                             }).toList(),
-                            validator: (value) {
-                              if(value!.isEmpty) {
-                                return 'Please enter gender';
-                              }
-                              return null;
-                            },
-                            onChanged: (String? newValue) {
-                              if(newValue == 'Male'){
-                                setState(() {
-                                  dropDownValue = newValue!;
-                                  _teacherSignUpPatch = TeacherSignUpPatch(
-                                    firstName: _teacherSignUpPatch.firstName,
-                                    lastName: _teacherSignUpPatch.lastName,
-                                    email: _teacherSignUpPatch.email,
-                                    birthDay: _teacherSignUpPatch.birthDay,
-                                    gender: 1,
-                                    introduction: _teacherSignUpPatch.introduction,
-                                    country: _teacherSignUpPatch.country,
-                                  );
-                                });
-                              }
-                              else if(newValue == 'Female'){
-                                {
-                                  setState(() {
-                                    dropDownValue = newValue!;
-                                    _teacherSignUpPatch = TeacherSignUpPatch(
-                                      firstName: _teacherSignUpPatch.firstName,
-                                      lastName: _teacherSignUpPatch.lastName,
-                                      email: _teacherSignUpPatch.email,
-                                      birthDay: _teacherSignUpPatch.birthDay,
-                                      gender: 0,
-                                      introduction: _teacherSignUpPatch.introduction,
-                                      country: _teacherSignUpPatch.country,
-                                    );
-                                  });
-                                }
-                              }
-                              else{
-                                setState(() {
-                                  dropDownValue = newValue!;
-                                  _teacherSignUpPatch = TeacherSignUpPatch(
-                                    firstName: _teacherSignUpPatch.firstName,
-                                    lastName: _teacherSignUpPatch.lastName,
-                                    email: _teacherSignUpPatch.email,
-                                    birthDay: _teacherSignUpPatch.birthDay,
-                                    gender: 3,
-                                    introduction: _teacherSignUpPatch.introduction,
-                                    country: _teacherSignUpPatch.country,
-                                  );
-                                });
-                              }
+                            onChanged: (value){
+                              setState(() {
+                                gender = value!;
+                                _teacherSignUpPatch = TeacherSignUpPatch(
+                                  firstName: _teacherSignUpPatch.firstName,
+                                  lastName: _teacherSignUpPatch.lastName,
+                                  email: _teacherSignUpPatch.email,
+                                  birthDay: _teacherSignUpPatch.birthDay,
+                                  gender: (gender == "Male")? 1:(gender == "Female")? 0:2,
+                                  introduction: _teacherSignUpPatch.introduction,
+                                  country: _teacherSignUpPatch.country,
+                                );
+
+                              });
                             },
                           ),
                         ),

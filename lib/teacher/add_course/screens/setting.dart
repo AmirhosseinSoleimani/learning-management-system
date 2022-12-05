@@ -643,7 +643,7 @@ class _SettingAddCourseState extends State<SettingAddCourse> {
                   ),
                   TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed(Routes.addCourseSetting);
+                        Navigator.of(context).pushReplacementNamed(Routes.teacherDashboard);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

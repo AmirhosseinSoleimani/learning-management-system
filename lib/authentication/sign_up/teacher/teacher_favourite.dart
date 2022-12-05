@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
-import 'package:provider/provider.dart';
 import '../../../data.dart';
 import '../../../presentation/resources/routes_manager.dart';
-import '../../../provider/student_provider.dart';
 import '../../../store/course_details/screens/course_details.dart';
 import '../../../store/drawer.dart';
 import '../../customize_stepper_second_information.dart';
+import '../customize_stepper_favourite.dart';
 import '../student/feature_master_sign_up.dart';
 import '../student/dialog_box_sign_up.dart';
 
@@ -117,7 +116,7 @@ class _FavouriteTeacherState extends State<FavouriteTeacher> {
                             ),
                             width: MediaQuery.of(context).size.width * 0.9,
                             height: MediaQuery.of(context).size.height * 0.2,
-                            child: const CustomizeSecondStepperInformation(),
+                            child: const CustomizeStepperFavourite(),
                           ),
                         ),
                         Positioned(
