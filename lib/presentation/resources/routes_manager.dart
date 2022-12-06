@@ -21,7 +21,6 @@ import '../../store/shop_page/screens/shop_page.dart';
 import '../../teacher/add_course/screens/pricing.dart';
 import '../../teacher/add_course/screens/title.dart';
 import '../../teacher/add_course/widgets/search_category.dart';
-import '../../teacher/calendar/calendar.dart';
 import '../../teacher/dashboard/screens/dashboard.dart';
 
 class Routes{
@@ -98,8 +97,6 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) =>  const Pricing());
       case Routes.addCourseSetting:
         return MaterialPageRoute(builder: (_) =>  const SettingAddCourse());
-      case Routes.calendar:
-        return MaterialPageRoute(builder: (_) =>  MyCalendar());
       case Routes.searchCategory:
         return MaterialPageRoute(builder: (_) =>  const SearchCategory());
       default:

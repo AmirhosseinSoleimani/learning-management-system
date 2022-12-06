@@ -59,7 +59,8 @@ class _CourseTitleState extends State<CourseTitle> {
       _isLoading = true;
     });
     try {
-      await Provider.of<AddCourseProvider>(context, listen: false).updateCourseFunction(context,updateCourse);
+      // await Provider.of<AddCourseProvider>(context, listen: false).updateCourseFunction(context,updateCourse);
+      Navigator.of(context).pushReplacementNamed(Routes.addCoursePricing);
     } catch (error) {
       await showDialog(
         context: context,
@@ -98,7 +99,6 @@ class _CourseTitleState extends State<CourseTitle> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -167,6 +167,7 @@ class _CourseTitleState extends State<CourseTitle> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10.0, vertical: 10.0),
                             child: TextFormField(
+                              initialValue: (Provider.of<AddCourseProvider>(context,listen: false).backTitle == true)?Provider.of<AddCourseProvider>(context,listen: false).subTitle:'',
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: const BorderRadius.all(Radius.circular(10.0)),
@@ -192,6 +193,9 @@ class _CourseTitleState extends State<CourseTitle> {
                                   return 'Field is required';
                                 }
                                 return null;
+                              },
+                              onChanged: (value){
+                                Provider.of<AddCourseProvider>(context,listen: false).subTitle = value;
                               },
                               onSaved: (value) {},
                             ),
@@ -231,6 +235,7 @@ class _CourseTitleState extends State<CourseTitle> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10.0, vertical: 10.0),
                             child: TextFormField(
+                              initialValue: (Provider.of<AddCourseProvider>(context,listen: false).backTitle == true)?Provider.of<AddCourseProvider>(context,listen: false).description:'',
                               maxLines: 10,
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
@@ -257,6 +262,9 @@ class _CourseTitleState extends State<CourseTitle> {
                                   return 'Field is required';
                                 }
                                 return null;
+                              },
+                              onChanged: (value){
+                                Provider.of<AddCourseProvider>(context,listen: false).description = value;
                               },
                               onSaved: (value) {
                                 updateCourse = UpdateCourse(

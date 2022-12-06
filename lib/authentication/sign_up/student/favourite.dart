@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/presentation/resources/routes_manager.dart';
+import 'package:provider/provider.dart';
 import '../../../data.dart';
+import '../../../presentation/resources/color_manager.dart';
+import '../../../provider/category_provider.dart';
 import '../../../store/course_details/screens/course_details.dart';
 import './feature_master_sign_up.dart';
 import '../../../store/drawer.dart';
@@ -36,9 +40,10 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
       _isLoading = true;
     });
     try {
-      // await Provider.of<StudentProvider>(context, listen: false)
-      //     .postData(Provider.of<StudentProvider>(context,listen: false).studentAccount[0]);
-
+      await Provider.of<CategoryProvider>(context,listen: false).fetchCategoryList();
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DialogBoxSignUp(),
+      ),
+      );
     } catch (error) {
       await showDialog(
         context: context,
@@ -58,8 +63,18 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
     setState(() {
       _isLoading = false;
     });
-    // Navigator.pushNamed(context, HomePage.routeName);
+
   }
+  final cubeGrid = SpinKitCubeGrid(
+    size: 100,
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
+        ),
+      );
+    },
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +88,7 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
             size: 20.0,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(Routes.studentSecondInformation);
           },
         ),
         title: Image.asset(
@@ -86,7 +101,7 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
       ),
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
-      body: Padding(
+      body: (_initValues==true)? Center(child: cubeGrid,):Padding(
         padding: const EdgeInsets.all(15.0),
         child: Card(
           elevation: 8,
@@ -158,10 +173,8 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: TextFormField(
-                            onTap: (){
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DialogBoxSignUp(),
-                              ),
-                              );
+                            onTap: () {
+                              _saveForm();
                             },
                             readOnly: true,
                             initialValue: _initValues['favouriteCourse'],
@@ -263,7 +276,7 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
                       right: 87.0, left: 87.0, bottom: 20.0),
                   child: TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed(Routes.homePage);
+                        Navigator.of(context).pushReplacementNamed(Routes.signIn);
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
@@ -279,7 +292,7 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
                           horizontal: 30,
                         ),
                         child: Text(
-                          'Next',
+                          'Done',
                           style: TextStyle(
                               fontSize: 22.0,
                               fontWeight: FontWeight.bold,

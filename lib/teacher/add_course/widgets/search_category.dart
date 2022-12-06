@@ -6,6 +6,7 @@ import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
 import '../../../presentation/resources/values_manager.dart';
+import '../../../provider/add_courses_provider.dart';
 
 class SearchCategory extends StatefulWidget {
   const SearchCategory({Key? key}) : super(key: key);
@@ -92,6 +93,7 @@ class _SearchCategoryState extends State<SearchCategory> {
                     setState(() {
                       Provider.of<CategoryProvider>(context,listen: false).categorySelected = categoryList[index].name!;
                       Provider.of<CategoryProvider>(context,listen: false).categoryEnd = true;
+                      Provider.of<AddCourseProvider>(context,listen: false).backTitle = true;
                       Provider.of<CategoryProvider>(context,listen: false).findIdCategory(categoryList[index].name!);
                       Navigator.of(context).pushReplacementNamed(Routes.addCourseTitle);
                     });

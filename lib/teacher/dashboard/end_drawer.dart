@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:learning_management_system/presentation/resources/assets_manager.dart';
+import 'package:learning_management_system/presentation/resources/color_manager.dart';
 
 import '../../presentation/resources/routes_manager.dart';
 // import '../chat/chat.dart';
@@ -16,63 +19,49 @@ String dropDownValue = 'English';
 var items = ['English', 'فارسی'];
 
 class _EndDrawerState extends State<EndDrawer> {
-  // ChatModel? sourceChat;
-  // List<ChatModel> chatmodels = [
-  // ChatModel(
-  // name: "Dev Stack",
-  // isGroup: false,
-  // currentMessage: "Hi Everyone",
-  // time: "4:00",
-  // icon: "person.svg",
-  // id: 1,
-  // ),
-  // ChatModel(
-  // name: "Kishor",
-  // isGroup: false,
-  // currentMessage: "Hi Kishor",
-  // time: "13:00",
-  // icon: "person.svg",
-  // id: 2,
-  // ),
-  //
-  // ChatModel(
-  // name: "Collins",
-  // isGroup: false,
-  // currentMessage: "Hi Dev Stack",
-  // time: "8:00",
-  // icon: "person.svg",
-  // id: 3,
-  // ),
-  //
-  // ChatModel(
-  // name: "Balram Rathore",
-  // isGroup: false,
-  // currentMessage: "Hi Dev Stack",
-  // time: "2:00",
-  // icon: "person.svg",
-  // id: 4,
-  // )];
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: SafeArea(
-        child: Column(
+        child: ListView(
+          shrinkWrap: true,
           children: [
             ListTile(
-              title: const Text('Home'),
+              title: Text('Dashboard',style: TextStyle(color: ColorManager.primary),),
+              leading: SvgPicture.asset(
+                IconAssets.dashboard
+              ),
               onTap: (){
-                Navigator.of(context).pushReplacementNamed(Routes.addCourseLayout);
+                Navigator.of(context).pushReplacementNamed(Routes.teacherDashboard);
               },
             ),
-            ListTile(
-              title: const Text('Find Master'),
-              onTap: (){
-                Navigator.of(context).pushReplacementNamed(Routes.calendar);
-              },
+            ExpansionTile(
+              title: const Text('Courses'),
+              leading: SvgPicture.asset(
+                  IconAssets.course
+              ),
+              children: [
+                ListTile(
+                  title: const Text('Create Course'),
+                  onTap: (){
+                    Navigator.of(context).pushReplacementNamed(Routes.addCourseLayout);
+                  },
+                ),
+                ListTile(
+                  title: const Text('Courses'),
+                  onTap: (){
+                    // Navigator.of(context).pushReplacementNamed(Routes.a);
+                  },
+                ),
+              ],
             ),
+
             ListTile(
-              title: const Text('Teaching'),
+              title: const Text('Certificate'),
+              leading: SvgPicture.asset(
+                  IconAssets.certificate
+              ),
               onTap: (){
                 // Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen()
                 // );
@@ -80,34 +69,89 @@ class _EndDrawerState extends State<EndDrawer> {
               },
             ),
             ListTile(
-              title: const Text('Courses'),
+              title: const Text('Calendar'),
+              leading: SvgPicture.asset(
+                  IconAssets.calendarDashboard
+              ),
               onTap: (){},
             ),
-            const Spacer(),
+            ListTile(
+              title: const Text('Certificate'),
+              leading: SvgPicture.asset(
+                  IconAssets.certificate
+              ),
+              onTap: (){
+                // Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen()
+                // );
+
+              },
+            ),
+            ListTile(
+              title: const Text('Calendar'),
+              leading: SvgPicture.asset(
+                  IconAssets.calendarDashboard
+              ),
+              onTap: (){},
+            ),
+            ListTile(
+              title: const Text('Feeds'),
+              leading: SvgPicture.asset(
+                  IconAssets.feeds
+              ),
+              onTap: (){
+                // Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen()
+                // );
+
+              },
+            ),
+            ListTile(
+              title: const Text('Helps'),
+              leading: SvgPicture.asset(
+                  IconAssets.helps
+              ),
+              onTap: (){},
+            ),
+            ListTile(
+              title: const Text('Tickets'),
+              leading: SvgPicture.asset(
+                  IconAssets.tickets
+              ),
+              onTap: (){},
+            ),
+            ListTile(
+              title: const Text('Setting'),
+              leading: SvgPicture.asset(
+                  IconAssets.setting
+              ),
+              onTap: (){},
+            ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.3,
-              height: MediaQuery.of(context).size.height * 0.08,
-              child: DropdownButtonFormField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.blue,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(10.0))),
-                value: dropDownValue,
-                icon: const Icon(Icons.keyboard_arrow_down),
-                items: items.map((String items) {
-                  return DropdownMenuItem(
-                    value: items,
-                    child: Text(items),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropDownValue = newValue!;
-                  });
-                },
+              height: 60,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Colors.blue,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0))),
+                  value: dropDownValue,
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  items: items.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropDownValue = newValue!;
+                    });
+                  },
+                ),
               ),
             ),
           ],

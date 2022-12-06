@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-
+import 'package:provider/provider.dart';
+import '../../../presentation/footer/footer.dart';
+import '../../../provider/sign_in_provider.dart';
 import '../../presentation/dashboard_color_manager.dart';
 import '../../presentation/dashboard_styles_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../presentation/dashboard_value_manager.dart';
 import '../../models/teacher_panel_progressive.dart';
-import '../../models/bar_models_chart.dart';
-
 import '../end_drawer.dart';
 import '../widgets/my_course.dart';
 import '../widgets/teacher_drawer.dart';
 import '../widgets/card_2.dart';
-import '../widgets/card_3.dart';
-import '../widgets/course_card.dart';
 
 class TeacherPanel extends StatefulWidget {
   const TeacherPanel({Key? key}) : super(key: key);
@@ -24,6 +20,9 @@ class TeacherPanel extends StatefulWidget {
 }
 
 class _TeacherPanelState extends State<TeacherPanel> {
+
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
   bool isClicked = false;
   final List<Course> course = [
     Course(
@@ -71,24 +70,32 @@ class _TeacherPanelState extends State<TeacherPanel> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 2,
-        leading: Builder(
-          builder: (context) => Stack(
-            alignment: Alignment.center,
-            children: [
-              Positioned(
-                  right: 10,
-                  bottom: 8,
-                  child: Container(
-                      width: 10,
-                      height: 10,
-                      padding: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        color: ColorTeacherPanel.statusPerson,
-                        border: Border.all(
-                            width: AppSize.s1_5, color: Colors.white),
-                        borderRadius: BorderRadius.circular(20),
-                      ))),
-            ],
+        leading: TextButton(
+          onPressed: () => () => scaffoldKey.currentState?.openDrawer(),
+          child: Builder(
+            builder: (context) => Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.asset(
+                    'assets/avatar/av1.jpg',
+                  width: 60,
+                  height: 60,
+                ),
+                Positioned(
+                    left: 25,
+                    bottom: 0,
+                    child: Container(
+                        width: 10,
+                        height: 10,
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: ColorTeacherPanel.statusPerson,
+                          border: Border.all(
+                              width: AppSize.s1_5, color: Colors.white),
+                          borderRadius: BorderRadius.circular(20),
+                        ))),
+              ],
+            ),
           ),
         ),
         backgroundColor: Colors.white,
@@ -102,18 +109,20 @@ class _TeacherPanelState extends State<TeacherPanel> {
         ),
         centerTitle: true,
       ),
+      backgroundColor: ColorManager.white,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(AppPadding.p20),
-          child: Column(
-            children: [
-              Row(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 12.0),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('welcome back michal! ',
+                      Text(
+                          '${Provider.of<SignInProvider>(context,listen: false).userInformation[0].firstName}' + ' ' +Provider.of<SignInProvider>(context,listen: false).userInformation[0].lastName,
                           style: getBoldStyle(
                               color: ColorManager.slateGray2,
                               fontSize: AppSize.s18)),
@@ -143,15 +152,21 @@ class _TeacherPanelState extends State<TeacherPanel> {
                   )
                 ],
               ),
-              const SizedBox(
-                height: AppSize.s18,
-              ),
-              SecondCard(
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 8.0),
+              child: SecondCard(
                   course: course, size: size, progressColor: progressColor),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-              Card(
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 8.0),
+              child: Card(
                 elevation: AppSize.s4,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
@@ -176,6 +191,7 @@ class _TeacherPanelState extends State<TeacherPanel> {
                           width: double.infinity,
                           height: 360,
                           child: ListView(
+                            physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               children: const [
@@ -199,11 +215,14 @@ class _TeacherPanelState extends State<TeacherPanel> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-              Card(
-                elevation: AppSize.s1_5,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8.0),
+              child: Card(
+                elevation: 8,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 child: Padding(
@@ -212,15 +231,15 @@ class _TeacherPanelState extends State<TeacherPanel> {
                   child: Column(
                     children: [
                       Text(
-                        'Last videos that published',
+                        'Recommendation for you',
                         style: getBoldStyle(
                             color: ColorTeacherPanel.darkGrey,
                             fontSize: AppSize.s18),
                       ),
-                      SizedBox(height: size.height * 0.02),
+                      const SizedBox(height: 10),
                       SizedBox(
                         width: double.infinity,
-                        height: 390,
+                        height: 350,
                         child: ListView(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
@@ -233,9 +252,10 @@ class _TeacherPanelState extends State<TeacherPanel> {
                     ],
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+            const Footer(),
+          ],
         ),
       ),
     );
@@ -379,13 +399,6 @@ class LastCard extends StatelessWidget {
                 ],
               ),
             ),
-            TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Youtube Video',
-                  style: getBoldStyle(
-                      color: ColorTeacherPanel.darkGrey, fontSize: AppSize.s12),
-                ))
           ],
         ),
       ),

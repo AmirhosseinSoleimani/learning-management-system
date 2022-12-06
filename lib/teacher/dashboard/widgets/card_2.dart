@@ -72,6 +72,7 @@ class SecondCard extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (_, i) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),

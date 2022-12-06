@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../presentation/footer/footer.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/assets_manager.dart';
+import '../../../presentation/resources/routes_manager.dart';
 import '../widgets/explore.dart';
 import '../widgets/header_homePage.dart';
 import '../../drawer.dart';
@@ -29,6 +30,12 @@ class _HomePageState extends State<HomePage>{
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: ColorManager.white,
+          leading: IconButton(
+            icon: const Icon(Icons.person),
+            onPressed: (){
+              Navigator.of(context).pushReplacementNamed(Routes.signIn);
+            },
+          ),
           title: Image.asset(
             ImageAssets.epent,
             width: MediaQuery.of(context).size.width * 0.3,
@@ -41,7 +48,7 @@ class _HomePageState extends State<HomePage>{
           ),
         ),
         endDrawer: const DrawerAppBar(),
-        drawer: const AppDrawer(),
+        // drawer: const AppDrawer(),
         resizeToAvoidBottomInset: false,
         backgroundColor: ColorManager.white,
         body: SingleChildScrollView(

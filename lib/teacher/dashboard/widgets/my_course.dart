@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management_system/presentation/resources/color_manager.dart';
-
-import '../../../presentation/resources/values_manager.dart';
-import '../../presentation/dashboard_color_manager.dart';
 import '../../presentation/dashboard_styles_manager.dart';
 class MyCourse extends StatelessWidget {
   const MyCourse({

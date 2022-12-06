@@ -60,4 +60,14 @@ class IconAssets{
 
   // addCourse
   static const String video = '$iconPath/addCourse/video.svg';
+
+  //teacherDashboard
+  static const String dashboard = 'assets/svg/teacherPanel/dashboard.svg';
+  static const String course = 'assets/svg/teacherPanel/course.svg';
+  static const String calendarDashboard = 'assets/svg/teacherPanel/calendar.svg';
+  static const String certificate = 'assets/svg/teacherPanel/certificate.svg';
+  static const String feeds = 'assets/svg/teacherPanel/feeds.svg';
+  static const String tickets = 'assets/svg/teacherPanel/tickets.svg';
+  static const String helps = 'assets/svg/teacherPanel/helps.svg';
+  static const String setting = 'assets/svg/teacherPanel/setting.svg';
 }

@@ -4,9 +4,9 @@ import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
 
 class FeatureCourseSignUp extends StatefulWidget {
-  final data;
+  final String categoryTitle;
 
-  const FeatureCourseSignUp({Key? key, this.data}) : super(key: key);
+  const FeatureCourseSignUp({Key? key, required this.categoryTitle}) : super(key: key);
 
   @override
   State<FeatureCourseSignUp> createState() => _FeatureCourseSignUpState();
@@ -18,9 +18,9 @@ class _FeatureCourseSignUpState extends State<FeatureCourseSignUp> {
 
   void courseFavourite() {
     if (isSelected) {
-      Provider.of<StudentProvider>(context,listen: false).favouriteCourseList.add(widget.data['name']);
+      Provider.of<StudentProvider>(context,listen: false).favouriteCourseList.add(widget.categoryTitle);
     } else if (isSelected == false) {
-      Provider.of<StudentProvider>(context,listen: false).favouriteCourseList.remove(widget.data['name']);
+      Provider.of<StudentProvider>(context,listen: false).favouriteCourseList.remove(widget.categoryTitle);
     }
   }
 
@@ -56,7 +56,7 @@ class _FeatureCourseSignUpState extends State<FeatureCourseSignUp> {
             ),
             child: Center(
               child: Text(
-                widget.data['name'],
+                widget.categoryTitle,
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.black, fontSize: 14.0),
               ),

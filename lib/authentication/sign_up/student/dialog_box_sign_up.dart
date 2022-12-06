@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:learning_management_system/authentication/sign_up/student/feature_course_sign_up.dart';
 import 'package:learning_management_system/data.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
@@ -34,7 +35,6 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
     country: '',
     favouriteCourse: '', userName: '',
   );
-
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +146,7 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
                             child: ListView.builder(
                               itemCount: features.length,
                                 itemBuilder: (context,index) => FeatureCourseSignUp(
-                                  data: features[index],
+                                  categoryTitle: Provider.of<CategoryProvider>(context,listen: false).category[index].name!,
                                 ),
                             )
                           ),
@@ -156,9 +156,8 @@ class _DialogBoxSignUpState extends State<DialogBoxSignUp> {
                         padding: const EdgeInsets.only(
                             right: 87.0, left: 87.0, bottom: 20.0),
                         child: TextButton(
-                            onPressed: () async{
-                              await Provider.of<CategoryProvider>(context,listen: false).fetchCategoryList();
-                              // print(Provider.of<CategoryProvider>(context,listen: false).category[0].title);
+                            onPressed: () {
+                              Navigator.of(context).pop();
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all<Color>(

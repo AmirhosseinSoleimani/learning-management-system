@@ -10,8 +10,8 @@ import '../data.dart';
 import '../models/signIn_model.dart';
 
 String category(BuildContext context){
-  String category = Provider.of<CategoryProvider>(context,listen: false).categorySelected;
-  return category;
+  String categoryId = Provider.of<CategoryProvider>(context,listen: false).categoryIdSelected;
+  return categoryId;
 }
 
 UserInformation userInformation(BuildContext context){
@@ -48,6 +48,10 @@ class AddCourseProvider with ChangeNotifier{
     return _updateCourse;
   }
 
+  String description = '';
+  String subTitle = '';
+  bool backTitle = false;
+
   goNext(BuildContext context,String routes){
     Navigator.of(context).pushReplacementNamed(routes);
   }
@@ -58,6 +62,7 @@ class AddCourseProvider with ChangeNotifier{
   Future<void> addCourseTitle(BuildContext context,String title) async{
     final url = Uri.parse('http://135.125.59.77:8090/api/v1/courses/add-course/');
     String token = userInformation(context).token;
+
     try {
       http.Response response = await http.post(url,
         headers: {
@@ -108,7 +113,6 @@ class AddCourseProvider with ChangeNotifier{
 
   Future<void> updateCourseFunction(BuildContext context,UpdateCourse updateCourse) async{
     final url = Uri.parse('http://135.125.59.77:8090/api/v1/courses/update-course/');
-    var bytes = uuid.v5(Uuid.NAMESPACE_URL, 'www.google.com');
     String token = userInformation(context).token;
     try {
       http.Response response = await http.patch(url,
@@ -119,16 +123,16 @@ class AddCourseProvider with ChangeNotifier{
         },
         body: json.encode(
             {
-              "category": Uuid,
-              "courseObjectives": learnThings,
-              "description": updateCourse.description,
+              "category": category(context),
+              "courseObjectives": [],
+              "description": description,
               "id": id,
               "name": "string",
-              "owner": "string",
+              "owner": "",
               "price": 0,
               "private": 0,
               "publisher": "string",
-              "tags": tag,
+              "tags": [],
             }
         ),
       );
@@ -138,6 +142,7 @@ class AddCourseProvider with ChangeNotifier{
         goNext(context,Routes.addCoursePricing);
         notifyListeners();
       }
+      debugPrint(category(context));
       debugPrint(response.statusCode.toString());
       debugPrint(response.body);
       debugPrint(id);

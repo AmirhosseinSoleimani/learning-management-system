@@ -234,7 +234,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Techers:',
+                      'Teachers:',
                       style: TextStyle(fontSize: 24),
                     ),
                     Row(
