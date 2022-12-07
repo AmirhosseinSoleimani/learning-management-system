@@ -184,7 +184,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                               onTap: () async{
                                 birthday = await showDatePicker(
                                   context: context,
-                                  initialDate: date,
+                                  initialDate: DateTime(2000),
                                   firstDate: DateTime(1900),
                                   lastDate: DateTime.now(),
                                 );
@@ -194,13 +194,19 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                   });
                                 }else{
                                   selectedBirthday = false;
+                                  _signupStudent = StudentSignUpPatch(
+                                    phoneNumber: _signupStudent.phoneNumber,
+                                    birthDay: Timestamp.fromDate(birthday!).seconds,
+                                    introduction: _signupStudent.introduction,
+                                    country: _signupStudent.country,
+                                  );
                                 }
                                 setState(() {
                                 });
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.3,
-                                height: MediaQuery.of(context).size.height * 0.08,
+                                height: 55,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(AppSize.s10),
                                   color: ColorManager.white,

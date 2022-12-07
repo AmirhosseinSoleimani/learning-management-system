@@ -46,7 +46,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   image_picker: ^0.8.6
   cloud_firestore: ^3.4.9
-  firebase_core: ^1.24.0
+  intl_phone_number_input: ^0.7.1
  # flutter packages pub run build_runner build
   country_picker: ^2.0.16
   syncfusion_flutter_calendar: ^20.3.52
