@@ -11,6 +11,8 @@ import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/values_manager.dart';
 import '../../../store/drawer.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+
 
 
 class SecondInformationStudent extends StatefulWidget {
@@ -37,6 +39,9 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
       displayNameNoCountryCode: 'Iran (IR)',
       e164Key: '98-IR-0',
   );
+
+
+
   String? icon;
   final _form = GlobalKey<FormState>();
 
@@ -49,6 +54,9 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
     introduction: '',
     country: '',
   );
+
+  final TextEditingController controller = TextEditingController();
+  String initialCountry = 'NG';
 
   var _isLoading = false;
   DateTime date = DateTime.now();
@@ -87,6 +95,12 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  @override
+  void dispose() {
+
+    super.dispose();
   }
 
   @override
@@ -178,6 +192,19 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                         shrinkWrap: true,
                         children: [
                           const PhoneNumberTextFormField(),
+                          InternationalPhoneNumberInput(
+                            textFieldController: controller,
+                            initialValue: PhoneNumber(isoCode: 'IR'),
+                              onInputChanged: (PhoneNumber number){
+                                print(number.phoneNumber);
+                              },
+                            formatInput: false,
+                            selectorConfig: const SelectorConfig(
+                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                              setSelectorButtonAsPrefixIcon: true,
+                              useEmoji: false,
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 20.0),
                             child: GestureDetector(
