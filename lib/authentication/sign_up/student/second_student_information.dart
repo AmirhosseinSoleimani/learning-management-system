@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:learning_management_system/authentication/customize_stepper_second_information.dart';
-import 'package:learning_management_system/authentication/sign_up/student/phoneNumber_textFormField.dart';
 import 'package:learning_management_system/models/student_signUp_model.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../presentation/resources/color_manager.dart';
+import '../../../presentation/resources/routes_manager.dart';
 import '../../../presentation/resources/values_manager.dart';
 import '../../../store/drawer.dart';
 import 'package:country_picker/country_picker.dart';
@@ -26,7 +27,9 @@ class SecondInformationStudent extends StatefulWidget {
 class _SecondInformationStudentState extends State<SecondInformationStudent> {
 
   bool dateSelect = false;
+
   String? country;
+
   Country iran = Country(
       phoneCode: '98',
       countryCode: 'IR',
@@ -39,29 +42,35 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
       displayNameNoCountryCode: 'Iran (IR)',
       e164Key: '98-IR-0',
   );
-
-
-
   String? icon;
+
   final _form = GlobalKey<FormState>();
 
   String? dropDownValue;
   var items = ['Friend', 'Social Media','Website'];
 
   var _signupStudent = StudentSignUpPatch(
-    phoneNumber: '+989383202865',
+    phoneNumber: '',
     birthDay: Timestamp.fromDate(DateTime.now()).seconds,
     introduction: '',
     country: '',
   );
 
   final TextEditingController controller = TextEditingController();
-  String initialCountry = 'NG';
+
+  String initialCountry = 'IR';
 
   var _isLoading = false;
+
+  bool isSelected = false;
+
   DateTime date = DateTime.now();
+
   DateTime? birthday;
+
   bool selectedBirthday = false;
+
+  final FocusNode _phoneNumber = FocusNode();
 
 
   Future<void> _saveForm() async {
@@ -97,11 +106,24 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
     });
   }
 
+
+  String phoneNumber = '';
   @override
   void dispose() {
-
+    controller.dispose();
     super.dispose();
   }
+
+  final cubeGrid = SpinKitCubeGrid(
+    size: 100,
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
+        ),
+      );
+    },
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +137,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
             size: 20.0,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(Routes.studentInformation);
           },
         ),
         title: Image.asset(
@@ -129,8 +151,8 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xffFFFFFF),
-      body: (_isLoading) ? const Center(
-        child: CircularProgressIndicator(),
+      body: (_isLoading) ? Center(
+        child: cubeGrid,
       ) :Padding(
         padding: const EdgeInsets.all(15.0),
         child: Card(
@@ -181,7 +203,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                   height: 10.0,
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.42,
+                  height: 300,
                   width: double.infinity,
                   child: Form(
                     key: _form,
@@ -191,19 +213,89 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         children: [
-                          const PhoneNumberTextFormField(),
-                          InternationalPhoneNumberInput(
-                            textFieldController: controller,
-                            initialValue: PhoneNumber(isoCode: 'IR'),
-                              onInputChanged: (PhoneNumber number){
-                                print(number.phoneNumber);
-                              },
-                            formatInput: false,
-                            selectorConfig: const SelectorConfig(
-                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                              setSelectorButtonAsPrefixIcon: true,
-                              useEmoji: false,
+                          (isSelected) ? Container(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            height: 55.0,
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 2,
+                                color: const Color(0xffD9D9D9),
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
+                            child: InternationalPhoneNumberInput(
+                              autoFocus: true,
+                              inputDecoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: '9121234567'
+                              ),
+                              textFieldController: controller,
+                              maxLength: 10,
+                              focusNode: _phoneNumber,
+                              keyboardType: TextInputType.number,
+                              keyboardAction: TextInputAction.done,
+                              initialValue: PhoneNumber(isoCode: 'IR'),
+                                onInputChanged: (PhoneNumber number){
+                                 phoneNumber = number.phoneNumber.toString();
+                                  _signupStudent = StudentSignUpPatch(
+                                    phoneNumber: phoneNumber,
+                                    birthDay: _signupStudent.birthDay,
+                                    introduction: _signupStudent.introduction,
+                                    country: _signupStudent.country,
+                                  );
+                                },
+                              formatInput: false,
+                              validator: (value){
+                                if(value!.isEmpty){
+                                  return 'Field is required';
+                                }
+                                return null;
+                              },
+                              selectorConfig: const SelectorConfig(
+                                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                                setSelectorButtonAsPrefixIcon: true,
+                                showFlags: true,
+                                useEmoji: false,
+                              ),
+                            ),
+                          ) : TextFormField(
+                            onTap: () {
+                              setState(() {
+                                isSelected = true;
+                              });
+                            },
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                    color: ColorManager.lightSteelBlue2,
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(AppSize.s10),
+                                  borderSide:
+                                  const BorderSide(width: 2, color: Color(0xffD9D9D9)),
+                                ),
+                                hintText: 'PhoneNumber',
+                                hintStyle:
+                                const TextStyle(fontSize: 16.0, color: Color(0xff7E7979)),
+                                prefixIcon: Padding(
+                                  padding: const EdgeInsets.all(AppPadding.p12),
+                                  child: SvgPicture.asset(
+                                      IconAssets.phone
+                                  ),
+                                )
+                            ),
+                            keyboardType: TextInputType.number,
+                            textInputAction: TextInputAction.next,
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return 'Field is required';
+                              }
+                              return null;
+                            },
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -347,7 +439,7 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                         right: 15.0
                                       ),
                                       child: Icon(
-                                        Icons.arrow_drop_down_outlined,
+                                        Icons.keyboard_arrow_down_outlined,
                                         color: Color(0xff7E7979),
                                         size: 28.0,
                                       ),
@@ -364,54 +456,58 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                             width: MediaQuery.of(context).size.width * 0.4,
                             height: 55,
                             child: DropdownButtonFormField<String>(
-                              hint: const Text(
+                              hint: Text(
                                 'Introduction',
                                 style: TextStyle(
-                                    color: Color(0xff7E7979),
+                                    color: ColorManager.lightSteelBlue1,
                                     fontSize: 16.0
                                 ),
                               ),
                               decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    width: 2,
-                                    color: Color(0xffD9D9D9),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                    borderSide: BorderSide(
+                                      width: 2,
+                                      color: ColorManager.lightSteelBlue2,
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0)
-                                ),
-                                prefixIcon: Image.asset(
-                                  ImageAssets.introduction
-                                )
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: ColorManager.lightSteelBlue2,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  prefixIcon: const Image(image: AssetImage(
+                                      ImageAssets.introduction
+                                  ),)
                               ),
                               value: null,
-                              icon: const Icon(
-                                Icons.arrow_drop_down,
+                              icon: Icon(
+                                Icons.keyboard_arrow_down_outlined,
                                 size: 28,
-                                color: Color(0xff7E7979),
+                                color: ColorManager.lightSteelBlue1,
                               ),
                               items: items.map((String items) {
                                 return DropdownMenuItem(
                                   value: items,
                                   child: Text(
                                     items,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff7E7979)
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color: ColorManager.lightSteelBlue1
                                     ),
                                   ),
                                 );
                               }).toList(),
                               onChanged: (String? newValue) {
                                 setState(() {
-                                  dropDownValue = newValue!;
                                   _signupStudent = StudentSignUpPatch(
                                     phoneNumber: _signupStudent.phoneNumber,
                                     birthDay: _signupStudent.birthDay,
                                     introduction: newValue,
                                     country: _signupStudent.country,
                                   );
-
-
                                 });
                               },
                             ),

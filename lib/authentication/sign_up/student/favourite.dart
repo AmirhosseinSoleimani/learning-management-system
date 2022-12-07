@@ -101,7 +101,7 @@ class _FavouriteStudentState extends State<FavouriteStudent> {
       ),
       endDrawer: const DrawerAppBar(),
       resizeToAvoidBottomInset: false,
-      body: (_initValues==true)? Center(child: cubeGrid,):Padding(
+      body: (_isLoading)? Center(child: cubeGrid,):Padding(
         padding: const EdgeInsets.all(15.0),
         child: Card(
           elevation: 8,
