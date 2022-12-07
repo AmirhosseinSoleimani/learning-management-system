@@ -166,7 +166,7 @@ class CustomizeSecondStepperInformation extends StatelessWidget {
             top: 43.5,
             left: 37.5,
             child: SizedBox(
-              width: 55,
+              width: 55.5,
               height: 35,
               child: Divider(
                 thickness: 2.0,
@@ -178,7 +178,7 @@ class CustomizeSecondStepperInformation extends StatelessWidget {
             top: 43.5,
             left: 117.5,
             child: SizedBox(
-              width: 66.8,
+              width: 68.5,
               height: 35,
               child: Divider(
                 thickness: 2.0,
@@ -188,9 +188,9 @@ class CustomizeSecondStepperInformation extends StatelessWidget {
           ),
           Positioned(
             top: 43.5,
-            left: 210.0,
+            left: 211.0,
             child: SizedBox(
-              width: 65,
+              width: 64,
               height: 35,
               child: Divider(
                 thickness: 2.0,

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:learning_management_system/student/screens/user_info_model.dart';
 
 class Dashboard extends StatefulWidget {
@@ -77,9 +75,6 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   child: ElevatedButton(
                       onPressed: (){
-                        if(_formKey.currentState!.validate()){
-                          _saveData();
-                        }
                       },
                       child: const Text(
                         'Save Data'
@@ -92,7 +87,6 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   child: ElevatedButton(
                     onPressed: (){
-                        _loadData();
                     },
                     child: const Text(
                         'Load from cache'
@@ -105,30 +99,4 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   } // end build
-  void _saveData() async{
-    debugPrint('save data');
-    String fullName = _fullNameController.text;
-    String age = _ageController.text;
-    String city = _cityController.text;
-    var user = UserInfo(
-      fullName: fullName,
-      age: age,
-      city: city
-    );
-    var box = await Hive.openBox<UserInfo>(userInfoHiveBox);
-    box.put('user', user);
-    box.close();
-
-  }
-
-  void _loadData() async{
-    debugPrint('Load data');
-    var box = await Hive.openBox(userInfoHiveBox);
-    UserInfo user = box.get('user');
-    _fullNameController.text = user.fullName;
-    _ageController.text = user.age.toString();
-    _cityController.text = user.city;
-    box.close();
-    setState((){});
-  }
 }

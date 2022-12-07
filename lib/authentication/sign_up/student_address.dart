@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import './my_separator.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 
 
 
@@ -244,18 +243,18 @@ class _StudentAddressState extends State<StudentAddress> {
                           ),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: DateTimePicker(
-                              initialValue: DateTime.now().toString(),
-                              firstDate: DateTime(1995),
-                              lastDate: DateTime.now(),
-                              dateLabelText: 'Date',
-                              onChanged: (val) => print(val),
-                              validator: (val) {
-                                print(val);
-                                return null;
-                                },
-                              onSaved: (val) => print(val),
-                            ),
+                            // child: DateTimePicker(
+                            //   initialValue: DateTime.now().toString(),
+                            //   firstDate: DateTime(1995),
+                            //   lastDate: DateTime.now(),
+                            //   dateLabelText: 'Date',
+                            //   onChanged: (val) => print(val),
+                            //   validator: (val) {
+                            //     print(val);
+                            //     return null;
+                            //     },
+                            //   onSaved: (val) => print(val),
+                            // ),
                           ),
                         ),
                         const SizedBox(

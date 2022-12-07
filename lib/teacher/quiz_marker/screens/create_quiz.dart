@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -463,28 +462,6 @@ class _CreateQuizState extends State<CreateQuiz> with TickerProviderStateMixin{
                                 color: Colors.white12
                             ),
                             borderRadius: BorderRadius.circular(8.0)
-                        ),
-                        child: DateTimePicker(
-                          initialValue: DateTime.now().toString(),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(2100),
-                          dateLabelText: 'Date',
-                          onChanged: (val) => debugPrint(val),
-                          validator: (val) {
-                            debugPrint(val);
-                            return null;
-                          },
-                          onSaved: (value){
-                            _quizGeneralInformation = QuizAppModel(
-                                id: _quizGeneralInformation.id,
-                                quizTitle: _quizGeneralInformation.quizTitle,
-                                quizDescription: _quizGeneralInformation.quizDescription,
-                                quizImageUrl: _quizGeneralInformation.quizImageUrl,
-                                questionList: [],
-                                quizStartCalendar: Timestamp.fromDate(DateTime.parse(value!)).seconds,
-                                duration: _quizGeneralInformation.duration
-                            );
-                          },
                         ),
                       ),
                     ),

@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:learning_management_system/authentication/customize_stepper_second_information.dart';
 import 'package:learning_management_system/authentication/sign_up/student/phoneNumber_textFormField.dart';
 import 'package:learning_management_system/models/student_signUp_model.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/provider/student_provider.dart';
 import 'package:provider/provider.dart';
-import '../../../models/student_account.dart';
+import '../../../presentation/resources/color_manager.dart';
+import '../../../presentation/resources/values_manager.dart';
 import '../../../store/drawer.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:country_picker/country_picker.dart';
-import 'favourite.dart';
 
 
 class SecondInformationStudent extends StatefulWidget {
@@ -51,6 +51,9 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
   );
 
   var _isLoading = false;
+  DateTime date = DateTime.now();
+  DateTime? birthday;
+  bool selectedBirthday = false;
 
 
   Future<void> _saveForm() async {
@@ -140,13 +143,13 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                     vertical: 10.0,
                   ),
                   child: Container(
-                    decoration: const BoxDecoration(
-                        color: Color(0xff177FB0),
-                        borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                        color: ColorManager.primary,
+                        borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(10.0),
                             topLeft: Radius.circular(10.0))),
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.2,
+                    height: 147,
                     child: const CustomizeSecondStepperInformation(),
                   ),
                 ),
@@ -171,88 +174,69 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: ListView(
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         children: [
                           const PhoneNumberTextFormField(),
-                          const SizedBox(
-                            height: 10.0,
-                          ),
-                          const SizedBox(
-                            height: 10.0,
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                              setState((){
-                                dateSelect = true;
-                              });
-                            },
-                            child: Container(
-                            height: 55.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Colors.white,
-                              border: Border.all(width: 2, color: const Color(0xffD9D9D9),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 30,
-                                    height: 30,
-                                    child: Icon(
-                                      Icons.event_outlined,
-                                      size: 28.0,
-                                      color: Color(0xff7E7979),
-                                    ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            child: GestureDetector(
+                              onTap: () async{
+                                birthday = await showDatePicker(
+                                  context: context,
+                                  initialDate: date,
+                                  firstDate: DateTime(1900),
+                                  lastDate: DateTime.now(),
+                                );
+                                if(birthday == null){
+                                  setState(() {
+                                    selectedBirthday = true;
+                                  });
+                                }else{
+                                  selectedBirthday = false;
+                                }
+                                setState(() {
+                                });
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                height: MediaQuery.of(context).size.height * 0.08,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(AppSize.s10),
+                                  color: ColorManager.white,
+                                  border: Border.all(width: 2, color: ColorManager.lightSteelBlue2,
                                   ),
-                                  const SizedBox(
-                                    width: 10.0,
-                                  ),
-                                  SizedBox(
-                                    width: 200,
-                                    height: 40,
-                                    child: (dateSelect) ?
-                                    DateTimePicker(
-                                      initialValue: 'Birthday Date',
-                                      firstDate: DateTime(1950),
-                                      lastDate: DateTime.now(),
-                                      onChanged: (val) => print(val),
-                                      validator: (val) {
-                                        print(val);
-                                        return null;
-                                      },
-                                      onSaved: (val){
-                                        _signupStudent = StudentSignUpPatch(
-                                          phoneNumber: _signupStudent.phoneNumber,
-                                          birthDay: Timestamp.fromDate(DateTime.parse(val!)).seconds,
-                                          introduction: _signupStudent.introduction,
-                                          country: _signupStudent.country,
-                                        );
-                                      },
-                                    ):
-                                    const Padding(
-                                      padding: EdgeInsets.only(
-                                        top: 8.0,
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(AppPadding.p12),
+                                      child: SvgPicture.asset(
+                                          IconAssets.calendar
                                       ),
-                                      child: Text(
-                                        'Birthday Date',
+                                    ),
+                                    Center(
+                                      child: (birthday == null || selectedBirthday == true) ? Text(
+                                        'Birthday',
                                         style: TextStyle(
-                                            color: Color(0xff7E7979),
-                                            fontSize: 17.0,
-                                            fontWeight: FontWeight.w400
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w400,
+                                            color: ColorManager.lightSteelBlue1
+                                        ),
+                                      ) : Text(
+                                        '${birthday!.year}/${birthday!.month}/${birthday!.day}',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w400,
+                                            color: ColorManager.slateGray2
                                         ),
                                       ),
-                                    )
-                                  ),
-                                ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          ),
-                          const SizedBox(
-                            height: 20.0,
                           ),
                           GestureDetector(
                             onTap: (){
@@ -355,14 +339,16 @@ class _SecondInformationStudentState extends State<SecondInformationStudent> {
                                 ),
                               ),
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
+                                enabledBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
-                                    color: Color(0xffD9D9D9),
                                     width: 2,
+                                    color: Color(0xffD9D9D9),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderRadius: BorderRadius.circular(10.0)
                                 ),
-                                prefixIcon: const Icon(Icons.person)
+                                prefixIcon: Image.asset(
+                                  ImageAssets.introduction
+                                )
                               ),
                               value: null,
                               icon: const Icon(
