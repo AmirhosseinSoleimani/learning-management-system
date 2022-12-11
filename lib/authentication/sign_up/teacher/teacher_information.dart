@@ -468,7 +468,7 @@ class _InformationTeacherSignUpState extends State<InformationTeacherSignUp> {
                           onTap: () async{
                             birthday = await showDatePicker(
                               context: context,
-                              initialDate: date,
+                              initialDate: DateTime(2000),
                               firstDate: DateTime(1900),
                               lastDate: DateTime.now(),
                             );

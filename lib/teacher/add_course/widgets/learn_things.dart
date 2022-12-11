@@ -37,15 +37,9 @@ class _LearnThingsState extends State<LearnThings> {
 
   }
 
-  final cubeGrid = SpinKitWanderingCubes(
-    size: 100,
-    itemBuilder: (BuildContext context, int index) {
-      return DecoratedBox(
-        decoration: BoxDecoration(
-          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
-        ),
-      );
-    },
+  final circle = SpinKitCircle(
+    size: 50,
+    // controller: AnimationController(vsync: , duration: const Duration(milliseconds: 1200)),
   );
 
   @override
@@ -149,7 +143,7 @@ class _LearnThingsState extends State<LearnThings> {
                 borderRadius: BorderRadius.circular(10.0),
                 color: ColorManager.lightBlue4,
               ),
-              child: (isLoading == true)? Center(child: cubeGrid,) :ListView.builder(
+              child: (isLoading == true)? Center(child: circle,) :ListView.builder(
                 itemCount: learnThingProvider.learnThings.length,
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),

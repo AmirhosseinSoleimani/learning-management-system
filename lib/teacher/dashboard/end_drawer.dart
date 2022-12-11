@@ -43,9 +43,25 @@ class _EndDrawerState extends State<EndDrawer> {
               ),
               children: [
                 ListTile(
-                  title: const Text('Create Course'),
+                  title: Row(
+                    children: [
+                      Icon(Icons.add,color: ColorManager.primary,),
+                      const Text('Create Course'),
+                    ],
+                  ),
                   onTap: (){
                     Navigator.of(context).pushReplacementNamed(Routes.addCourseLayout);
+                  },
+                ),
+                ListTile(
+                  title: Row(
+                    children: [
+                      Icon(Icons.add,color: ColorManager.primary,),
+                      const Text('Add Blog'),
+                    ],
+                  ),
+                  onTap: (){
+                    Navigator.of(context).pushReplacementNamed(Routes.addBlogLayout);
                   },
                 ),
                 ListTile(

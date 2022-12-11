@@ -167,7 +167,7 @@ class _CourseTitleState extends State<CourseTitle> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10.0, vertical: 10.0),
                             child: TextFormField(
-                              initialValue: (Provider.of<AddCourseProvider>(context,listen: false).backTitle == true)?Provider.of<AddCourseProvider>(context,listen: false).subTitle:'',
+                              initialValue: Provider.of<AddCourseProvider>(context,listen: false).subTitle,
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: const BorderRadius.all(Radius.circular(10.0)),
@@ -190,7 +190,7 @@ class _CourseTitleState extends State<CourseTitle> {
                               textInputAction: TextInputAction.done,
                               validator: (String? value) {
                                 if (value!.isEmpty) {
-                                  return 'Field is required';
+                                  return 'Subtitle is required';
                                 }
                                 return null;
                               },
@@ -235,7 +235,7 @@ class _CourseTitleState extends State<CourseTitle> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10.0, vertical: 10.0),
                             child: TextFormField(
-                              initialValue: (Provider.of<AddCourseProvider>(context,listen: false).backTitle == true)?Provider.of<AddCourseProvider>(context,listen: false).description:'',
+                              initialValue: Provider.of<AddCourseProvider>(context,listen: false).description,
                               maxLines: 10,
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
@@ -256,24 +256,17 @@ class _CourseTitleState extends State<CourseTitle> {
                               ),
                               focusNode: _descriptionFocusNode,
                               keyboardType: TextInputType.text,
-                              textInputAction: TextInputAction.next,
+                              textInputAction: TextInputAction.done,
                               validator: (String? value) {
                                 if (value!.isEmpty) {
-                                  return 'Field is required';
+                                  return 'Description is required';
                                 }
                                 return null;
                               },
                               onChanged: (value){
                                 Provider.of<AddCourseProvider>(context,listen: false).description = value;
                               },
-                              onSaved: (value) {
-                                updateCourse = UpdateCourse(
-                                    category: '',
-                                    courseObjectives: [],
-                                    description: value!,
-                                    price: 0,
-                                    tags: []);
-                              },
+                              onSaved: (value) {},
                             ),
                           ),
                           Padding(
@@ -440,8 +433,10 @@ class _CourseTitleState extends State<CourseTitle> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
                         onPressed: () {
-                          _saveForm();
-                        },
+                          // _saveForm();
+                          // Provider.of<AddCourseProvider>(context,listen: false).updateCourseFunction(context, updateCourse);
+                          Provider.of<AddCourseProvider>(context,listen: false).updateCourseFunction(context);
+;                        },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                               ColorManager.primary,

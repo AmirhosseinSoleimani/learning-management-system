@@ -2,13 +2,13 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management_system/presentation/resources/assets_manager.dart';
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:learning_management_system/provider/teacher_provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-
 import '../../../presentation/resources/color_manager.dart';
 
 class TeacherResume extends StatefulWidget {
@@ -31,12 +31,27 @@ class _TeacherResumeState extends State<TeacherResume> {
   ];
   bool _isSelected = false;
   int lanIndex = 0;
+  bool _isLoadingResume = false;
+  bool _isLoadingVideo = false;
+
   Future<File> saveFile(PlatformFile file) async {
     final appStorage = await getApplicationSupportDirectory();
     final newFile = File('${appStorage.path}/${file.name}');
 
     return File(file.path!).copy(newFile.path);
   }
+
+  final cubeGrid = SpinKitWave(
+    size: 20.0,
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
+        ),
+      );
+    },
+  );
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -92,9 +107,13 @@ class _TeacherResumeState extends State<TeacherResume> {
                                   final file = result.files.first;
                                   setState(() {
                                     fileNameResume = file.name;
+                                    _isLoadingResume = true;
                                   });
-                                  // final newFile = await saveFile(file);
-                                  // openFile(result.files);
+
+                                  await Provider.of<TeacherProvider>(context,listen: false).uploadResumeFile(file.path!,context);
+                                  setState(() {
+                                    _isLoadingResume = false;
+                                  });
                                 },
                                 style: TextButton.styleFrom(
                                     padding: const EdgeInsets.all(15),
@@ -104,7 +123,7 @@ class _TeacherResumeState extends State<TeacherResume> {
                                             width: 2, color: ColorManager.lightSteelBlue2),
                                     ),
                                 ),
-                                child: Row(
+                                child: (_isLoadingResume)? Center(child: cubeGrid,) :Row(
                                   children: [
                                     Expanded(
                                       flex: 1,
@@ -223,11 +242,14 @@ class _TeacherResumeState extends State<TeacherResume> {
                                     final file = result.files.first;
                                     setState(() {
                                       fileNameVideo = file.name;
+                                      _isLoadingVideo = true;
                                     });
-                                    // final newFile = await saveFile(file);
-                                    // openFile(result.files);
+                                    await Provider.of<TeacherProvider>(context,listen: false).uploadVideoFile(file.path!,context);
+                                    setState(() {
+                                      _isLoadingVideo = false;
+                                    });
                                   },
-                                  child: Row(
+                                  child: (_isLoadingVideo)? Center(child: cubeGrid,):Row(
                                     children: const [
                                       Icon(
                                         Icons.ondemand_video,

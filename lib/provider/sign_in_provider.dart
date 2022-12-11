@@ -12,7 +12,9 @@ class SignInProvider with ChangeNotifier{
     return _userInformation;
   }
 
-  String passwordError = '';
+  String? passwordError;
+
+  String? haveNotUserName;
 
   goNext(BuildContext context,String routes){
     Navigator.of(context).pushReplacementNamed(routes);
@@ -33,13 +35,19 @@ class SignInProvider with ChangeNotifier{
           }
       ),
     );
-    if(response.body.contains('passwords doesn\'t match')){
-      passwordError = 'your Password is incorrect';
-      notifyListeners();
-    }
-    else if(response.statusCode == 200){
-      final data = jsonDecode(response.body);
-      var userInformation = UserInformation(
+    if(response.statusCode == 200){
+      if(response.body.contains('passwords doesn\'t match')){
+        passwordError = 'your Password is incorrect';
+        haveNotUserName = null;
+        notifyListeners();
+      }
+      else if(response.body.contains("user name doesn't exist")){
+        haveNotUserName = 'This user name does\'t exit,Please Signup';
+        passwordError = null;
+        notifyListeners();
+      }else{
+        final data = jsonDecode(response.body);
+        var userInformation = UserInformation(
           userName: data["user_name"],
           firstName: data["first_name"],
           lastName: data["last_name"],
@@ -49,11 +57,11 @@ class SignInProvider with ChangeNotifier{
           latitude: data["location"]["latitude"].toString(),
           token: data["auth"]["access_token"],
           roleNumber: data["role"]["role_number"][0],
-      );
-      _userInformation.add(userInformation);
-      goNext(context,Routes.teacherDashboard);
-      notifyListeners();
-
+        );
+        _userInformation.add(userInformation);
+        goNext(context,Routes.teacherDashboard);
+        notifyListeners();
+      }
     }
     debugPrint(response.statusCode.toString());
     debugPrint(response.body.toString());

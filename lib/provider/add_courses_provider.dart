@@ -111,9 +111,10 @@ class AddCourseProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> updateCourseFunction(BuildContext context,UpdateCourse updateCourse) async{
+  Future<void> updateCourseFunction(BuildContext context) async{
     final url = Uri.parse('http://135.125.59.77:8090/api/v1/courses/update-course/');
     String token = userInformation(context).token;
+    String categoryId = category(context);
     try {
       http.Response response = await http.patch(url,
         headers: {
@@ -123,28 +124,20 @@ class AddCourseProvider with ChangeNotifier{
         },
         body: json.encode(
             {
-              "category": category(context),
-              "courseObjectives": [],
+              "category": categoryId,
               "description": description,
               "id": id,
-              "name": "string",
               "owner": "",
-              "price": 0,
-              "private": 0,
-              "publisher": "string",
-              "tags": [],
             }
         ),
       );
       if(response.statusCode == 200){
         final data = jsonDecode(response.body);
-        _updateCourse.add(data);
+        debugPrint(data);
         goNext(context,Routes.addCoursePricing);
         notifyListeners();
       }
-      debugPrint(category(context));
       debugPrint(response.statusCode.toString());
-      debugPrint(response.body);
       debugPrint(id);
     }catch(error){
       debugPrint(error.toString());

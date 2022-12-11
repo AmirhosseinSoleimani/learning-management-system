@@ -101,16 +101,37 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
 
 
 
+  bool _isLoadingImage = false;
+
+
   Future pickImage(ImageSource source) async {
     try{
       final XFile? image = await ImagePicker().pickImage(source: source);
       if(image == null) return;
       final  imageTemporary = File(image.path);
-      setState(() => _image = imageTemporary);
+      setState(() {
+        _image = imageTemporary;
+        _isLoadingImage = true;
+      }) ;
+      await Provider.of<StudentProvider>(context,listen: false).uploadImageFile(image.path,context);
+      setState(() {
+        _isLoadingImage = false;
+      });
     } on PlatformException catch(e) {
       debugPrint('Failed to pick image: $e');
     }
   }
+
+  final wave = SpinKitWave(
+    size: 20.0,
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
+        ),
+      );
+    },
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -620,7 +641,7 @@ class _InformationStudentSignUpState extends State<InformationStudentSignUp> {
                                         Radius.circular(50),
                                       ),
                                     ),
-                                    child: Center(
+                                    child: (_isLoadingImage)? Center(child: wave,):Center(
                                       child: (_image != null) ? CircleAvatar(
                                         radius: 50,
                                         backgroundImage: FileImage(

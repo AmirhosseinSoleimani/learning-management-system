@@ -4,7 +4,6 @@ import 'package:learning_management_system/presentation/resources/color_manager.
 import 'package:learning_management_system/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../provider/student_provider.dart';
 import '../../../store/drawer.dart';
 import '../../models/signIn_model.dart';
 import '../../presentation/resources/assets_manager.dart';
@@ -37,7 +36,6 @@ class _SignInState extends State<SignIn> {
 
   var _isLoading = false;
 
-  final _userNameError = false;
 
   var signIn = SignInModel(
       userName: '',
@@ -90,7 +88,6 @@ class _SignInState extends State<SignIn> {
   void dispose() {
     _userNameFocusNode.dispose();
     _passwordFocusNode.dispose();
-    // _passwordController.dispose();
     super.dispose();
   }
 
@@ -214,10 +211,10 @@ class _SignInState extends State<SignIn> {
                                   password: signIn.password);
                             },
                           ),
-                          if (_userNameError) Padding(
+                          if (Provider.of<SignInProvider>(context).haveNotUserName != null) Padding(
                             padding: const EdgeInsets.all(AppPadding.p8),
                             child: Text(
-                              Provider.of<StudentProvider>(context).userNameError,
+                              Provider.of<SignInProvider>(context).haveNotUserName!,
                               style: TextStyle(
                                   color: ColorManager.error
                               ),
@@ -276,7 +273,16 @@ class _SignInState extends State<SignIn> {
                                     userName: signIn.userName,
                                     password: value!);
                               }
-                          )
+                          ),
+                          if (Provider.of<SignInProvider>(context).passwordError != null) Padding(
+                            padding: const EdgeInsets.all(AppPadding.p8),
+                            child: Text(
+                              Provider.of<SignInProvider>(context).passwordError!,
+                              style: TextStyle(
+                                  color: ColorManager.error
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

@@ -31,6 +31,8 @@ class TeacherProvider with ChangeNotifier{
 
   String language = '';
 
+  bool isResumeUpload = false;
+
   bool isLocation = false;
   double defaultLatitude = 35.715298;
   double defaultLongitude = 51.404343;
@@ -265,6 +267,76 @@ class TeacherProvider with ChangeNotifier{
       debugPrint(error.toString());
     }
   }
+
+  Future uploadResumeFile(String fileName,BuildContext context) async {
+    var headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json'
+    };
+    var url = Uri.parse(
+        'http://135.125.59.77:8090/api/v1/sign-up/teacher/$id/upload-resume/');
+    var request = http.MultipartRequest('POST', url);
+    request.files.add(await http.MultipartFile.fromPath('file', fileName));
+    request.headers.addAll(headers);
+    var res = await request.send();
+    if (res.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Resume is Uploaded')));
+      print(res.statusCode);
+      print(res.stream.bytesToString());
+    } else {
+      print(res.reasonPhrase);
+      print(res.statusCode);
+    }
+
+    return res.reasonPhrase;
+  }
+
+  Future uploadImageFile(String fileName,BuildContext context) async {
+    var headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json'
+    };
+    var url = Uri.parse(
+        'http://135.125.59.77:8090/api/v1/sign-up/teacher/$id/upload-picture/');
+    var request = http.MultipartRequest('POST', url);
+    request.files.add(await http.MultipartFile.fromPath('file', fileName));
+    request.headers.addAll(headers);
+    var res = await request.send();
+    if (res.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Resume is Uploaded')));
+      print(res.statusCode);
+      print(res.stream.bytesToString());
+    } else {
+      print(res.reasonPhrase);
+      print(res.statusCode);
+    }
+
+    return res.reasonPhrase;
+  }
+
+  Future uploadVideoFile(String fileName,BuildContext context) async {
+    var headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json'
+    };
+    var url = Uri.parse(
+        'http://135.125.59.77:8090/api/v1/sign-up/teacher/$id/upload-video/');
+    var request = http.MultipartRequest('POST', url);
+    request.files.add(await http.MultipartFile.fromPath('file', fileName));
+    request.headers.addAll(headers);
+    var res = await request.send();
+    if (res.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Resume is Uploaded')));
+      print(res.statusCode);
+      print(res.stream.bytesToString());
+    } else {
+      print(res.reasonPhrase);
+      print(res.statusCode);
+    }
+
+    return res.reasonPhrase;
+  }
+
 
 }
 
