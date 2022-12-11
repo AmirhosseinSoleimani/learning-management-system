@@ -18,7 +18,8 @@ import '../../authentication/sign_up/teacher/third_teacher_information.dart';
 import '../../presentation/resources/string_manager.dart';
 import '../../store/course_details/screens/course_details.dart';
 import '../../store/shop_page/screens/shop_page.dart';
-import '../../teacher/add_blog/screens/add_blog.dart';
+import '../../teacher/add_blog/screens/add_blog_content.dart';
+import '../../teacher/add_blog/screens/add_blog_layout.dart';
 import '../../teacher/add_course/screens/pricing.dart';
 import '../../teacher/add_course/screens/title.dart';
 import '../../teacher/add_course/widgets/search_category.dart';
@@ -49,6 +50,7 @@ class Routes{
   static const String calendar = '/calendar';
   static const String searchCategory = '/searchCategory';
   static const String addBlogLayout = '/addBlogLayout';
+  static const String addBlogContent = '/addBlogContent';
 
 }
 
@@ -103,6 +105,8 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) =>  const SearchCategory());
       case Routes.addBlogLayout:
         return MaterialPageRoute(builder: (_) =>  const AddBlog());
+      case Routes.addBlogContent:
+        return MaterialPageRoute(builder: (_) =>  const AddBlogContent());
       default:
         return unDefinedRoute();
     }
