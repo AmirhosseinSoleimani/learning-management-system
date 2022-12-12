@@ -102,6 +102,39 @@ class AddBlogContent extends StatelessWidget {
                     ],
                   )),
               const SizedBox(
+                height: 10.0,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(
+                      width: 2,
+                      color: ColorManager.lightSteelBlue2,
+                    ),
+                  ),
+                  filled: true,
+                  fillColor: ColorManager.lightSteelBlue3,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                        width: 2,
+                        color: ColorManager.lightSteelBlue2),
+                  ),
+                ),
+                maxLines: 10,
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Text(
+                'Short description of the course',
+                style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w500,
+                    color: ColorManager.slateGray2),
+              ),
+              const SizedBox(
                 height: 5.0,
               ),
               TextFormField(
@@ -122,9 +155,21 @@ class AddBlogContent extends StatelessWidget {
                         color: ColorManager.lightSteelBlue2),
                   ),
                 ),
-              )
-
-
+                maxLines: 3,
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Text(
+                'Add Voice',
+                style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w500,
+                    color: ColorManager.slateGray2),
+              ),
+              const SizedBox(
+                height: 5.0,
+              ),
             ],
           ),
         ),
