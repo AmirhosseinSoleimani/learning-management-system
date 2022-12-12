@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
@@ -29,6 +30,104 @@ class AddBlogContent extends StatelessWidget {
         ),
         centerTitle: true,
         iconTheme: IconThemeData(color: ColorManager.black, size: AppSize.s30),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                  'Course Title',
+                style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w500,
+                    color: ColorManager.slateGray2),
+              ),
+              const SizedBox(
+                height: 5.0,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(
+                      width: 2,
+                      color: ColorManager.lightSteelBlue2,
+                    ),
+                  ),
+                  filled: true,
+                  fillColor: ColorManager.lightSteelBlue3,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                        width: 2,
+                        color: ColorManager.lightSteelBlue2),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              Text(
+                'The Text Of The Article',
+                style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w500,
+                    color: ColorManager.slateGray2),
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              TextButton(
+                  onPressed: (){},
+                  style: TextButton.styleFrom(
+                    primary: ColorManager.slateGray2,
+                    backgroundColor: ColorManager.lightSteelBlue3,
+                    side: BorderSide(color: ColorManager.lightSteelBlue2,width: 2.0)
+                  ),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SvgPicture.asset(IconAssets.camera),
+                      ),
+                      Text(
+                          'Add Photo',
+                        style: TextStyle(
+                          color: ColorManager.lightSteelBlue1,
+                          fontSize: 16,
+                        ),
+                      )
+                    ],
+                  )),
+              const SizedBox(
+                height: 5.0,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(
+                      width: 2,
+                      color: ColorManager.lightSteelBlue2,
+                    ),
+                  ),
+                  filled: true,
+                  fillColor: ColorManager.lightSteelBlue3,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                        width: 2,
+                        color: ColorManager.lightSteelBlue2),
+                  ),
+                ),
+              )
+
+
+            ],
+          ),
+        ),
       ),
     );
   }

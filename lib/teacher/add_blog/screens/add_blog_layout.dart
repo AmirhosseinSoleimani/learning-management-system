@@ -59,7 +59,9 @@ class AddBlog extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.of(context).pushReplacementNamed(Routes.addBlogContent);
+                  },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
                         ColorManager.primary,
