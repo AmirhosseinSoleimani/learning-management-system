@@ -160,16 +160,98 @@ class AddBlogContent extends StatelessWidget {
               const SizedBox(
                 height: 10.0,
               ),
-              Text(
-                'Add Voice',
-                style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w500,
-                    color: ColorManager.slateGray2),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    'Add Voice',
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
+                        color: ColorManager.slateGray2),
+                  ),
+                  Text(
+                    'Add Photo',
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
+                        color: ColorManager.slateGray2),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 5.0,
               ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Container(
+                        height: 100.0,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 2.0,
+                            color: ColorManager.lightSteelBlue2,
+                          )
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: SvgPicture.asset(
+                                IconAssets.volume
+                              ),
+                            ),
+                            Text(
+                              'add audio',
+                              style: TextStyle(
+                                color: ColorManager.lightSteelBlue1,
+                                fontSize: 16.0,
+                                decoration: TextDecoration.underline
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Container(
+                        height: 100.0,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2.0,
+                              color: ColorManager.lightSteelBlue2,
+                            )
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: SvgPicture.asset(
+                                  IconAssets.photo
+                              ),
+                            ),
+                            Text(
+                              'add Photo',
+                              style: TextStyle(
+                                  color: ColorManager.lightSteelBlue1,
+                                  fontSize: 16.0,
+                                  decoration: TextDecoration.underline
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
