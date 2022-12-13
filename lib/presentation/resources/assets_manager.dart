@@ -78,4 +78,5 @@ class IconAssets{
 
   // help
   static const String search = '$iconPath/help/search.svg';
+  static const String fire = '$iconPath/help/fire.svg';
 }

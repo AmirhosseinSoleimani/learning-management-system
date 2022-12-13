@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../presentation/resources/assets_manager.dart';
 import '../../presentation/resources/color_manager.dart';
 import '../../presentation/resources/routes_manager.dart';
 import '../../presentation/resources/values_manager.dart';
 import '../../provider/sign_in_provider.dart';
 import '../presentation/dashboard_color_manager.dart';
-import '../presentation/dashboard_styles_manager.dart';
-
-class Help extends StatelessWidget {
+class Help extends StatefulWidget {
   const Help({Key? key}) : super(key: key);
 
+  @override
+  State<Help> createState() => _HelpState();
+}
+
+class _HelpState extends State<Help> {
+  bool isReadMore = false;
+  String text = 'It is a long established fact that a reader will be distracted by the readable content er the years, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -212,6 +216,83 @@ class Help extends StatelessWidget {
                                 color: ColorManager.slateGray2,
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: Container(
+                              height: isReadMore ? 275:155,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1,
+                                  color: ColorManager.white,
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: ColorManager.white,
+                              ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'trending',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18.0,
+                                          color: ColorManager.slateGray2
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 3.0,
+                                      ),
+                                      SvgPicture.asset(
+                                          IconAssets.fire,
+                                      )
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Wrap(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Text(
+                                            text,
+                                            style: TextStyle(
+                                              color: ColorManager.black,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                            maxLines: isReadMore ? 10:4,
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.justify,
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                            onTap: (){
+                                              setState(() {
+                                                isReadMore =! isReadMore;
+                                              });
+                                            },
+                                            child: Text(
+                                              isReadMore ? 'Show less...':
+                                              'Show more...',
+                                              style: TextStyle(
+                                                fontSize: 16.0,
+                                                color: ColorManager.primary,
+                                                fontWeight: FontWeight.bold
+                                              ),
+                                            ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           )
