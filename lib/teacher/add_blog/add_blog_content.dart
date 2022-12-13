@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import '../../../provider/add_courses_provider.dart';
-import '../../add_course/widgets/category.dart';
-import '../../../presentation/resources/assets_manager.dart';
-import '../../../presentation/resources/color_manager.dart';
-import '../../../presentation/resources/routes_manager.dart';
-import '../../../presentation/resources/values_manager.dart';
-import '../../add_course/widgets/tag.dart';
+import '../../provider/add_courses_provider.dart';
+import '../add_course/widgets/category.dart';
+import '../../presentation/resources/assets_manager.dart';
+import '../../presentation/resources/color_manager.dart';
+import '../../presentation/resources/routes_manager.dart';
+import '../../presentation/resources/values_manager.dart';
+import '../add_course/widgets/tag.dart';
 
 class AddBlogContent extends StatefulWidget {
   const AddBlogContent({Key? key}) : super(key: key);

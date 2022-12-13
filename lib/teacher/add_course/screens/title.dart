@@ -190,7 +190,7 @@ class _CourseTitleState extends State<CourseTitle> {
                               textInputAction: TextInputAction.done,
                               validator: (String? value) {
                                 if (value!.isEmpty) {
-                                  return 'Subtitle is required';
+                                  return 'Field is required';
                                 }
                                 return null;
                               },
@@ -256,7 +256,7 @@ class _CourseTitleState extends State<CourseTitle> {
                               ),
                               focusNode: _descriptionFocusNode,
                               keyboardType: TextInputType.text,
-                              textInputAction: TextInputAction.done,
+                              textInputAction: TextInputAction.next,
                               validator: (String? value) {
                                 if (value!.isEmpty) {
                                   return 'Description is required';
@@ -266,7 +266,8 @@ class _CourseTitleState extends State<CourseTitle> {
                               onChanged: (value){
                                 Provider.of<AddCourseProvider>(context,listen: false).description = value;
                               },
-                              onSaved: (value) {},
+                              onSaved: (value) {
+                              },
                             ),
                           ),
                           Padding(
@@ -435,6 +436,7 @@ class _CourseTitleState extends State<CourseTitle> {
                         onPressed: () {
                           // _saveForm();
                           // Provider.of<AddCourseProvider>(context,listen: false).updateCourseFunction(context, updateCourse);
+                          _form.currentState!.validate();
                           Provider.of<AddCourseProvider>(context,listen: false).updateCourseFunction(context);
 ;                        },
                         style: ButtonStyle(

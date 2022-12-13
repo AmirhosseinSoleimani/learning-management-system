@@ -94,7 +94,7 @@ class Help extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: Container(
                 width: double.infinity,
-                height: 500.0,
+                height: 800.0,
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1,
@@ -154,6 +154,70 @@ class Help extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 8.0),
+                      child: TextButton(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                ColorManager.primary,
+                              ),
+                              shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(10.0)))),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 30,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Search',
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: ColorManager.white),
+                                ),
+                              ],
+                            ),
+                          )),
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 500,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1,
+                          color: ColorManager.lightSteelBlue3,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(10.0),
+                          bottomRight: Radius.circular(10.0),
+                        ),
+                        color: ColorManager.lightSteelBlue3,
+                      ),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Text(
+                              'Learn How To...',
+                              style: TextStyle(
+                                color: ColorManager.slateGray2,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
                   ],
                 ),
                 ),

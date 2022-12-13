@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../presentation/resources/assets_manager.dart';
-import '../../../presentation/resources/color_manager.dart';
-import '../../../presentation/resources/routes_manager.dart';
-import '../../../presentation/resources/values_manager.dart';
+import '../../presentation/resources/assets_manager.dart';
+import '../../presentation/resources/color_manager.dart';
+import '../../presentation/resources/routes_manager.dart';
+import '../../presentation/resources/values_manager.dart';
 
 class AddBlog extends StatelessWidget {
   const AddBlog({Key? key}) : super(key: key);

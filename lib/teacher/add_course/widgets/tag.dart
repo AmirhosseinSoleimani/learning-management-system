@@ -37,22 +37,22 @@ class _TagState extends State<Tag> {
 
   }
 
-  final cubeGrid = SpinKitWanderingCubes(
-    size: 100,
-    itemBuilder: (BuildContext context, int index) {
-      return DecoratedBox(
-        decoration: BoxDecoration(
-          color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
-        ),
-      );
-    },
-  );
+  // final cubeGrid = SpinKitWanderingCubes(
+  //   size: 100,
+  //   itemBuilder: (BuildContext context, int index) {
+  //     return DecoratedBox(
+  //       decoration: BoxDecoration(
+  //         color: index.isEven ? ColorManager.slateGray2 : ColorManager.lightSteelBlue2,
+  //       ),
+  //     );
+  //   },
+  // );
 
   @override
   Widget build(BuildContext context) {
     final tagProvider = Provider.of<AddCourseProvider>(context, listen: false);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
         children: [
           Row(
@@ -151,7 +151,7 @@ class _TagState extends State<Tag> {
                     borderRadius: BorderRadius.circular(10.0),
                     color: ColorManager.lightBlue4,
                   ),
-                  child: (isLoading == true)? Center(child: cubeGrid): ListView.builder(
+                  child: (isLoading == true)? const Center(child: CircularProgressIndicator()): ListView.builder(
                     itemCount: tagProvider.tag.length,
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),

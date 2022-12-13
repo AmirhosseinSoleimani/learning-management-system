@@ -132,8 +132,6 @@ class AddCourseProvider with ChangeNotifier{
         ),
       );
       if(response.statusCode == 200){
-        final data = jsonDecode(response.body);
-        debugPrint(data);
         goNext(context,Routes.addCoursePricing);
         notifyListeners();
       }

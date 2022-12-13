@@ -18,12 +18,14 @@ import '../../authentication/sign_up/teacher/third_teacher_information.dart';
 import '../../presentation/resources/string_manager.dart';
 import '../../store/course_details/screens/course_details.dart';
 import '../../store/shop_page/screens/shop_page.dart';
-import '../../teacher/add_blog/screens/add_blog_content.dart';
-import '../../teacher/add_blog/screens/add_blog_layout.dart';
+import '../../teacher/add_blog/add_blog_content.dart';
+import '../../teacher/add_blog/add_blog_layout.dart';
 import '../../teacher/add_course/screens/pricing.dart';
 import '../../teacher/add_course/screens/title.dart';
+import '../../teacher/add_course/widgets/lessons.dart';
 import '../../teacher/add_course/widgets/search_category.dart';
 import '../../teacher/dashboard/screens/dashboard.dart';
+import '../../teacher/help/help.dart';
 
 class Routes{
   static const String shopPageRoute = '/shop';
@@ -44,6 +46,7 @@ class Routes{
   static const String teacherDashboard = '/teacherDashboard';
   static const String addCourseLayout = '/addCourseLayout';
   static const String addCourseTitle = '/addCourseTitle';
+  static const String addCourseLesson = '/addCourseLesson';
   static const String addCourseSection = '/addCourseSection';
   static const String addCoursePricing = '/addCoursePricing';
   static const String addCourseSetting = '/addCourseSetting';
@@ -51,6 +54,7 @@ class Routes{
   static const String searchCategory = '/searchCategory';
   static const String addBlogLayout = '/addBlogLayout';
   static const String addBlogContent = '/addBlogContent';
+  static const String help = '/help';
 
 }
 
@@ -107,6 +111,10 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) =>  const AddBlog());
       case Routes.addBlogContent:
         return MaterialPageRoute(builder: (_) =>  const AddBlogContent());
+      case Routes.addCourseLesson:
+        return MaterialPageRoute(builder: (_) =>  const Lessons());
+      case Routes.help:
+        return MaterialPageRoute(builder: (_) =>  const Help());
       default:
         return unDefinedRoute();
     }

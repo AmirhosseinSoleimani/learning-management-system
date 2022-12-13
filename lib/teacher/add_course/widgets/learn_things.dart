@@ -37,10 +37,10 @@ class _LearnThingsState extends State<LearnThings> {
 
   }
 
-  final circle = SpinKitCircle(
-    size: 50,
-    // controller: AnimationController(vsync: , duration: const Duration(milliseconds: 1200)),
-  );
+  // final circle = SpinKitCircle(
+  //   size: 50,
+  //   // controller: AnimationController(vsync: , duration: const Duration(milliseconds: 1200)),
+  // );
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +143,7 @@ class _LearnThingsState extends State<LearnThings> {
                 borderRadius: BorderRadius.circular(10.0),
                 color: ColorManager.lightBlue4,
               ),
-              child: (isLoading == true)? Center(child: circle,) :ListView.builder(
+              child: (isLoading == true)? const Center(child: CircularProgressIndicator(),) :ListView.builder(
                 itemCount: learnThingProvider.learnThings.length,
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),

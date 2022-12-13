@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:learning_management_system/provider/section_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../presentation/resources/color_manager.dart';
+import '../../../provider/lesson_provider.dart';
 
 class AddLesson extends StatefulWidget {
   const AddLesson({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ class _AddLessonState extends State<AddLesson> {
                 border: const OutlineInputBorder(
                     borderSide: BorderSide.none
                 ),
-                hintText: 'Title Section : ',
+                hintText: 'Title Lesson : ',
                 hintStyle: TextStyle(
                   fontSize: 18,
                   color:ColorManager.slateGray2,
@@ -58,7 +59,7 @@ class _AddLessonState extends State<AddLesson> {
                 });
               },
               onFieldSubmitted: (value){
-                Provider.of<SectionProvider>(context,listen: false).addCourseTitle(context,titleSection!);
+                Provider.of<LessonProvider>(context,listen: false).addLessonTitle(context,titleSection!);
                 Navigator.of(context).pop();
               },
             ),
@@ -69,7 +70,7 @@ class _AddLessonState extends State<AddLesson> {
           TextButton(
               onPressed: () {
                 if(titleSection != null){
-                  Provider.of<SectionProvider>(context,listen: false).addCourseTitle(context,titleSection!);
+                  Provider.of<LessonProvider>(context,listen: false).addLessonTitle(context,titleSection!);
                   Navigator.of(context).pop();
                 }
                 else{

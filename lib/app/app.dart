@@ -6,6 +6,7 @@ import 'package:learning_management_system/provider/store_provider.dart';
 import 'package:provider/provider.dart';
 import '../presentation/resources/routes_manager.dart';
 import '../provider/add_courses_provider.dart';
+import '../provider/lesson_provider.dart';
 import '../provider/quiz_app_provider.dart';
 import '../provider/student_provider.dart';
 import '../provider/teacher_provider.dart';
@@ -46,6 +47,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => Tasks(),
         ),
         ChangeNotifierProvider(create: (context) => CategoryProvider(),
+        ),
+        ChangeNotifierProvider(create: (context) => LessonProvider(),
         ),
       ],
       child: const MaterialApp(

@@ -125,7 +125,9 @@ class _EndDrawerState extends State<EndDrawer> {
               leading: SvgPicture.asset(
                   IconAssets.helps
               ),
-              onTap: (){},
+              onTap: (){
+                Navigator.of(context).pushReplacementNamed(Routes.help);
+              },
             ),
             ListTile(
               title: const Text('Tickets'),
