@@ -24,6 +24,7 @@ import '../../teacher/add_course/screens/pricing.dart';
 import '../../teacher/add_course/screens/title.dart';
 import '../../teacher/add_course/widgets/lessons.dart';
 import '../../teacher/add_course/widgets/search_category.dart';
+import '../../teacher/course/course_teacher.dart';
 import '../../teacher/dashboard/screens/dashboard.dart';
 import '../../teacher/help/help.dart';
 
@@ -55,6 +56,7 @@ class Routes{
   static const String addBlogLayout = '/addBlogLayout';
   static const String addBlogContent = '/addBlogContent';
   static const String help = '/help';
+  static const String teacherCourse = '/teacherCourse';
 
 }
 
@@ -115,6 +117,8 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) =>  const Lessons());
       case Routes.help:
         return MaterialPageRoute(builder: (_) =>  const Help());
+      case Routes.teacherCourse:
+        return MaterialPageRoute(builder: (_) =>  const TeacherCourse());
       default:
         return unDefinedRoute();
     }

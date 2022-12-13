@@ -67,7 +67,7 @@ class _EndDrawerState extends State<EndDrawer> {
                 ListTile(
                   title: const Text('Courses'),
                   onTap: (){
-                    // Navigator.of(context).pushReplacementNamed(Routes.a);
+                    Navigator.of(context).pushReplacementNamed(Routes.teacherCourse);
                   },
                 ),
               ],
