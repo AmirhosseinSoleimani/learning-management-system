@@ -70,4 +70,12 @@ class IconAssets{
   static const String tickets = 'assets/svg/teacherPanel/tickets.svg';
   static const String helps = 'assets/svg/teacherPanel/helps.svg';
   static const String setting = 'assets/svg/teacherPanel/setting.svg';
+
+  // addBlog
+  static const String camera = '$iconPath/addBlog/camera.svg';
+  static const String volume = '$iconPath/addBlog/volume.svg';
+  static const String photo = '$iconPath/addBlog/photo.svg';
+
+  // help
+  static const String search = '$iconPath/help/search.svg';
 }
