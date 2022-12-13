@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import '../../models/help_model.dart';
 import '../../presentation/resources/assets_manager.dart';
 import '../../presentation/resources/color_manager.dart';
 import '../../presentation/resources/routes_manager.dart';
@@ -15,8 +16,52 @@ class Help extends StatefulWidget {
 }
 
 class _HelpState extends State<Help> {
-  bool isReadMore = false;
   String text = 'It is a long established fact that a reader will be distracted by the readable content er the years, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.';
+  bool isReadMore = false;
+  final List<HelpModel> _help = [
+    HelpModel(
+        title: 'Start',
+        icon: IconAssets.start,
+        text: 'It is a long established fact that a reader will be distracted by the readable content er the years, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.'
+    ),
+    HelpModel(
+        title: 'Build Site',
+        icon: IconAssets.buildSite,
+        text: 'It is a long established fact that a reader will be distracted by the readable content er the years, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.'
+    ),
+    HelpModel(
+        title: 'Build Mobile App',
+        icon: IconAssets.mobileApp,
+        text: 'It is a long established fact that a reader will be distracted by the readable content er the years, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.'
+    ),
+    HelpModel(
+        title: 'Sell',
+        icon: IconAssets.sell,
+        text: 'It is a long established fact that a reader will be distracted by the readable content er the years, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.'
+    ),
+    HelpModel(
+        title: 'Report',
+        icon: IconAssets.report,
+        text: 'It is a long established fact that a reader will be distracted by the readable content er the years, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.'
+    ),HelpModel(
+        title: 'Manage',
+        icon: IconAssets.manage,
+        text: 'It is a long established fact that a reader will be distracted by the readable content er the years, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.'
+    ),
+    HelpModel(
+        title: 'Integrate',
+        icon: IconAssets.integrate,
+        text: 'It is a long established fact that a reader will be distracted by the readable content er the years, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.'
+    ),
+    HelpModel(
+        title: 'manage account',
+        icon: IconAssets.manageAccount,
+        text: 'It is a long established fact that a reader will be distracted by the readable content er the years, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.'
+    ),
+
+
+
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +143,7 @@ class _HelpState extends State<Help> {
               padding: const EdgeInsets.all(10.0),
               child: Container(
                 width: double.infinity,
-                height: 800.0,
+                height: 1065.0,
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1,
@@ -194,7 +239,7 @@ class _HelpState extends State<Help> {
                     ),
                     Container(
                       width: double.infinity,
-                      height: 500,
+                      height: 800,
                       decoration: BoxDecoration(
                         border: Border.all(
                           width: 1,
@@ -294,6 +339,58 @@ class _HelpState extends State<Help> {
                                   ),
                                 ],
                               ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          SizedBox(
+                            height: 560,
+                            width: double.infinity,
+                            child: ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: _help.length,
+                              itemBuilder: (context,index){
+                                return Card(
+                                  child: ExpansionTile(
+                                    leading: Container(
+                                      width: 45.0,
+                                      height: 45.0,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                            width: 1,
+                                            color: const Color(0xffD9EEFF),
+                                          ),
+                                          color: const Color(0xffD9EEFF),
+                                          borderRadius: BorderRadius.circular(50.0)
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: SvgPicture.asset(_help[index].icon),
+                                      ),
+                                    ),
+                                    title: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        _help[index].title,
+                                        style: TextStyle(
+                                            color: ColorManager.slateGray2,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18.0
+                                        ),
+                                      ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.keyboard_arrow_down_outlined,
+                                      color: ColorManager.lightSteelBlue1,
+                                      size: 30.0,
+                                    ),
+                                    children: [
+
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
                           )
                         ],

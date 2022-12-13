@@ -79,4 +79,14 @@ class IconAssets{
   // help
   static const String search = '$iconPath/help/search.svg';
   static const String fire = '$iconPath/help/fire.svg';
+  static const String start = '$iconPath/help/start.svg';
+  static const String buildSite = '$iconPath/help/buildSite.svg';
+  static const String mobileApp = '$iconPath/help/mobileApp.svg';
+  static const String sell = '$iconPath/help/sell.svg';
+  static const String report = '$iconPath/help/report.svg';
+  static const String integrate = '$iconPath/help/integrate.svg';
+  static const String manage = '$iconPath/help/manage.svg';
+  static const String manageAccount = '$iconPath/help/manageAccount.svg';
+
+
 }
