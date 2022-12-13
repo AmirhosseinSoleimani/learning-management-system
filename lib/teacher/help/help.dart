@@ -18,6 +18,7 @@ class Help extends StatefulWidget {
 class _HelpState extends State<Help> {
   String text = 'It is a long established fact that a reader will be distracted by the readable content er the years, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.';
   bool isReadMore = false;
+  bool isExtract = false;
   final List<HelpModel> _help = [
     HelpModel(
         title: 'Start',
@@ -143,7 +144,7 @@ class _HelpState extends State<Help> {
               padding: const EdgeInsets.all(10.0),
               child: Container(
                 width: double.infinity,
-                height: 1065.0,
+                height: (isExtract == true && isReadMore == false) ? 1250.0: (isReadMore == true && isExtract == false) ? 1160 : (isReadMore && isExtract) ? 1350 : 1050,
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1,
@@ -239,7 +240,7 @@ class _HelpState extends State<Help> {
                     ),
                     Container(
                       width: double.infinity,
-                      height: 800,
+                      height: (isExtract == true && isReadMore == false)? 1000: (isReadMore == true && isExtract == false) ? 900 : (isReadMore && isExtract) ? 1110 : 800,
                       decoration: BoxDecoration(
                         border: Border.all(
                           width: 1,
@@ -345,7 +346,7 @@ class _HelpState extends State<Help> {
                             height: 20.0,
                           ),
                           SizedBox(
-                            height: 560,
+                            height: isExtract? 760 : 550,
                             width: double.infinity,
                             child: ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
@@ -353,6 +354,12 @@ class _HelpState extends State<Help> {
                               itemBuilder: (context,index){
                                 return Card(
                                   child: ExpansionTile(
+                                    onExpansionChanged: (value){
+                                      setState(() {
+                                        isExtract =! isExtract;
+                                      });
+                                      print(isExtract);
+                                    },
                                     leading: Container(
                                       width: 45.0,
                                       height: 45.0,
@@ -386,7 +393,30 @@ class _HelpState extends State<Help> {
                                       size: 30.0,
                                     ),
                                     children: [
-
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          height: 200,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 1
+                                            ),
+                                            borderRadius: BorderRadius.circular(10.0),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              text,
+                                              style: TextStyle(
+                                                fontSize: 16.0,
+                                                color: ColorManager.slateGray2,
+                                              ),
+                                              textAlign: TextAlign.justify,
+                                            ),
+                                          ),
+                                        ),
+                                      )
                                     ],
                                   ),
                                 );
