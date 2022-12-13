@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import '../../../provider/add_courses_provider.dart';
+import '../../add_course/widgets/category.dart';
 import '../../../presentation/resources/assets_manager.dart';
 import '../../../presentation/resources/color_manager.dart';
 import '../../../presentation/resources/routes_manager.dart';
 import '../../../presentation/resources/values_manager.dart';
+import '../../add_course/widgets/tag.dart';
 
-class AddBlogContent extends StatelessWidget {
+class AddBlogContent extends StatefulWidget {
   const AddBlogContent({Key? key}) : super(key: key);
 
+  @override
+  State<AddBlogContent> createState() => _AddBlogContentState();
+}
+
+class _AddBlogContentState extends State<AddBlogContent> {
+  Map<String,bool> subTitle = {
+    'Publish':true,
+    'Draft':false,
+  };
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,12 +46,12 @@ class AddBlogContent extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                  'Course Title',
+                'Course Title',
                 style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.w500,
@@ -61,8 +74,7 @@ class AddBlogContent extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                     borderSide: BorderSide(
-                        width: 2,
-                        color: ColorManager.lightSteelBlue2),
+                        width: 2, color: ColorManager.lightSteelBlue2),
                   ),
                 ),
               ),
@@ -80,12 +92,11 @@ class AddBlogContent extends StatelessWidget {
                 height: 10.0,
               ),
               TextButton(
-                  onPressed: (){},
+                  onPressed: () {},
                   style: TextButton.styleFrom(
-                    primary: ColorManager.slateGray2,
-                    backgroundColor: ColorManager.lightSteelBlue3,
-                    side: BorderSide(color: ColorManager.lightSteelBlue2,width: 2.0)
-                  ),
+                      foregroundColor: ColorManager.slateGray2, backgroundColor: ColorManager.lightSteelBlue3,
+                      side: BorderSide(
+                          color: ColorManager.lightSteelBlue2, width: 2.0)),
                   child: Row(
                     children: [
                       Padding(
@@ -93,7 +104,7 @@ class AddBlogContent extends StatelessWidget {
                         child: SvgPicture.asset(IconAssets.camera),
                       ),
                       Text(
-                          'Add Photo',
+                        'Add Photo',
                         style: TextStyle(
                           color: ColorManager.lightSteelBlue1,
                           fontSize: 16,
@@ -118,8 +129,7 @@ class AddBlogContent extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                     borderSide: BorderSide(
-                        width: 2,
-                        color: ColorManager.lightSteelBlue2),
+                        width: 2, color: ColorManager.lightSteelBlue2),
                   ),
                 ),
                 maxLines: 10,
@@ -151,8 +161,7 @@ class AddBlogContent extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                     borderSide: BorderSide(
-                        width: 2,
-                        color: ColorManager.lightSteelBlue2),
+                        width: 2, color: ColorManager.lightSteelBlue2),
                   ),
                 ),
                 maxLines: 3,
@@ -190,27 +199,25 @@ class AddBlogContent extends StatelessWidget {
                       child: Container(
                         height: 100.0,
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 2.0,
-                            color: ColorManager.lightSteelBlue2,
-                          )
-                        ),
+                            border: Border.all(
+                              width: 2.0,
+                              color: ColorManager.lightSteelBlue2,
+                            ),
+                            borderRadius: BorderRadius.circular(10.0)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(12.0),
-                              child: SvgPicture.asset(
-                                IconAssets.volume
-                              ),
+                              child: SvgPicture.asset(IconAssets.volume),
                             ),
                             Text(
                               'add audio',
                               style: TextStyle(
-                                color: ColorManager.lightSteelBlue1,
-                                fontSize: 16.0,
-                                decoration: TextDecoration.underline
-                              ),
+                                  color: ColorManager.lightSteelBlue1,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.underline),
                             )
                           ],
                         ),
@@ -226,24 +233,22 @@ class AddBlogContent extends StatelessWidget {
                             border: Border.all(
                               width: 2.0,
                               color: ColorManager.lightSteelBlue2,
-                            )
-                        ),
+                            ),
+                            borderRadius: BorderRadius.circular(10.0)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(12.0),
-                              child: SvgPicture.asset(
-                                  IconAssets.photo
-                              ),
+                              child: SvgPicture.asset(IconAssets.photo),
                             ),
                             Text(
                               'add Photo',
                               style: TextStyle(
                                   color: ColorManager.lightSteelBlue1,
                                   fontSize: 16.0,
-                                  decoration: TextDecoration.underline
-                              ),
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.underline),
                             )
                           ],
                         ),
@@ -251,7 +256,154 @@ class AddBlogContent extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Container(
+                height: 155,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      width: 2.0, color: ColorManager.lightSteelBlue2),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: const Category(),
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Container(
+                height: (Provider.of<AddCourseProvider>(context).tag.isEmpty)
+                    ? 140
+                    : 320,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 2.0, color: ColorManager.lightSteelBlue2),
+                    borderRadius: BorderRadius.circular(10.0)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 10),
+                      child: Text(
+                        'Tag:',
+                        style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w500,
+                            color: ColorManager.slateGray2),
+                      ),
+                    ),
+                    Builder(builder: (BuildContext context) => const Tag()),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Container(
+                width: double.infinity,
+                height: 60,
+                decoration: BoxDecoration(
+                  border:
+                      Border.all(width: 2, color: ColorManager.lightSteelBlue2),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Publish',
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                                color: ColorManager.black),
+                          ),
+                          Checkbox(
+                            value: subTitle['Publish'],
+                            activeColor: ColorManager.green,
+                            onChanged: (value) {
+                              setState(() {
+                                subTitle['Publish'] = true;
+                                subTitle['Draft'] = false;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Draft',
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                                color: ColorManager.black),
+                          ),
+                          Checkbox(
+                            value: subTitle['Draft'],
+                            activeColor: ColorManager.green,
+                            onChanged: (value) {
+                              setState(() {
+                                subTitle['Publish'] = false;
+                                subTitle['Draft'] = true;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed(Routes.teacherDashboard);
+                  },
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        ColorManager.primary,
+                      ),
+                      shape:
+                      MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.circular(50.0)))),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Done',
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: ColorManager.white),
+                        ),
+                        const SizedBox(
+                          width: 5.0,
+                        ),
+                        Icon(
+                          Icons.done,
+                          color: ColorManager.white,
+                          size: 30,
+                        )
+                      ],
+                    ),
+                  )),
             ],
           ),
         ),
